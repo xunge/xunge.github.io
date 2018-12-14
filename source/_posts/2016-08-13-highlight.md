@@ -105,15 +105,15 @@ https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js
 yandex:
 
 ```
-http://yandex.st/highlightjs/8.2/styles/default.min.css
-http://yandex.st/highlightjs/8.2/highlight.min.js
+https://yandex.st/highlightjs/8.2/styles/default.min.css
+https://yandex.st/highlightjs/8.2/highlight.min.js
 ```
 
 Bootstrap
 
 ```
-http://cdn.bootcss.com/highlight.js/9.6.0/styles/default.min.css
-http://cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js
+https://cdn.bootcss.com/highlight.js/9.6.0/styles/default.min.css
+https://cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js
 ```
 
 注意 `cdnjs` 不提供 CSS，而 `yandex` 貌似没有 8.2 以后的版本，根据自己的情况选择 CDN 吧。如果你想自定义代码高亮，不妨从 CDN 加载 JS，从本地加载 CSS，这里不啰嗦了。
@@ -132,4 +132,4 @@ http://cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js
 
 [highlight.js](https://highlightjs.org/)
 [highlight.js](https://github.com/isagalaev/highlight.js)
-[如何正确引用 JavaScript 和 CSS 文件](http://blog.wpjam.com/article/how-to-include-js-and-css-in-wordpress/)
+[如何正确引用 JavaScript 和 CSS 文件](https://blog.wpjam.com/article/how-to-include-js-and-css-in-wordpress/)

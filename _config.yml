@@ -161,7 +161,6 @@ deploy:
   type: git
   repo:
     github: git@github.com:xunge/xunge.github.io.git
-    branch: master
 
 # Sitemap
 sitemap:

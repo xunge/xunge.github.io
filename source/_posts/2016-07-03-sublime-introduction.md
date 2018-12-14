@@ -25,7 +25,7 @@ date: 2016-07-03 09:01:42
 
 ## Sublime 的下载
 
-[Sublime Text 3 官网下载](http://www.sublimetext.com/3)
+[Sublime Text 3 官网下载](https://www.sublimetext.com/3)
 
 下载完成后字体可能太小， `Ctrl` + `=` 可以将字体调大。同理 `Ctrl` + `-` 可以调小字体。
 
@@ -40,7 +40,7 @@ date: 2016-07-03 09:01:42
 `Ctrl` + `~` 或者 `View` -> `Show Console` 调出 `Console` ，并将下面代码粘贴执行。
 
 ```
-import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
+import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'https://sublime.wbond.net/' + pf.replace(' ','%20')).read())
 ```
 
 如果安装成功，就可以在 Preferences 菜单下看到 `Package Settings` 和 `Package Control` 两个菜单。
@@ -99,7 +99,7 @@ ul#jiang>li.item$*4>a{Item $}
 
 {% qnimg 16-7-3/005.gif %}
 
-详情参考 [前端开发必备！Emmet使用手册](http://www.w3cplus.com/tools/emmet-cheat-sheet.html)，[Emmet 官方文档](http://docs.emmet.io/abbreviations/syntax/)。
+详情参考 [前端开发必备！Emmet使用手册](https://www.w3cplus.com/tools/emmet-cheat-sheet.html)，[Emmet 官方文档](https://docs.emmet.io/abbreviations/syntax/)。
 
 ### [JsFormat]()
 
@@ -229,7 +229,7 @@ Markdown Preview 可以实时将 markdown 文件在浏览器上显示。
 
 Sublime自带的英文字体是 `Consola` ，非常好看，但是中文默认是宋体，不太协调，所以这里可以改成 `YaHeiConsola` 字体，英文是 `Consola`，中文是 `微软雅黑`。
 
-下载字体 [YaHeiConsola](http://pan.baidu.com/s/1pKgTFsv)，右键安装。
+下载字体 [YaHeiConsola](https://pan.baidu.com/s/1pKgTFsv)，右键安装。
 
 在Menu 中点击 **Preference** -> **Setting-User**, 添加
 
@@ -244,4 +244,4 @@ Sublime自带的英文字体是 `Consola` ，非常好看，但是中文默认�
 
 ## 总结
 
-Sublime 还有很多功能，例如可以编译很多编程语言。这是博主写的 [Sublime Text 3 设置C/C++编译环境](http://xungejiang.com/2016/07/07/sublime-C/) 可以参考。
+Sublime 还有很多功能，例如可以编译很多编程语言。这是博主写的 [Sublime Text 3 设置C/C++编译环境](https://xungejiang.com/2016/07/07/sublime-C/) 可以参考。

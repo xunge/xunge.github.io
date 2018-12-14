@@ -21,7 +21,7 @@ git介绍以及github的基本配置
 
 - [GIT 官网](https://git-scm.com/download)下载
 - [Cmder](http://cmder.net/)，选择 `Download full`，不仅自带 `GIT` ，而且是替代 `Windows` 自带很丑的 `cmd` 的很好选择。
-- [GitHub 离线版](http://pan.baidu.com/s/1slD88nN)，GitHub 出品。
+- [GitHub 离线版](https://pan.baidu.com/s/1slD88nN)，GitHub 出品。
 
 建议大家使用命令行操作，方便快捷容易理解。
 
