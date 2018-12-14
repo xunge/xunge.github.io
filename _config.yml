@@ -1,0 +1,203 @@
+# Hexo Configuration
+## Docs: https://hexo.io/docs/configuration.html
+## Source: https://github.com/hexojs/hexo/
+
+# Site
+title: XUNGE
+subtitle: 一切都是最好的安排
+description: 哈工大 计算机科学博士在读
+author: 训哥
+language: zh-Hans
+timezone:
+
+# URL
+## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+url: https://blog.xungejiang.com
+root: /
+permalink: :title/
+permalink_defaults:
+
+# Directory
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir:
+  - 'downloads/code'
+i18n_dir: :lang
+skip_render:
+  - README.md
+  - 404.html
+
+# Writing
+new_post_name: :year-:month-:day.md # File name of new posts
+default_layout: post
+titlecase: false # Transform title into titlecase
+external_link: true # Open external links in new tab
+filename_case: 1
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true
+highlight:
+  enable: false
+#   line_number: true
+#   auto_detect: false
+#   tab_replace: true
+
+prism_plugin:
+  mode: 'preprocess'
+  theme: 'default'
+  line_number: false
+
+# Category & Tag
+default_category: 文章
+category_map: categories
+tag_map: tags
+
+# Date / Time format
+## Hexo uses Moment.js to parse and display date
+## You can customize the date format as defined in
+## http://momentjs.com/docs/#/displaying/format/
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+
+# Pagination
+## Set per_page to 0 to disable pagination
+per_page: 10
+pagination_dir: page
+
+# Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+theme: spectre
+
+# plugins:
+# - hexo-renderer-mathjax
+
+# Feed
+feed:
+  type: rss2
+  path: rss.xml
+  limit: 0
+  hub:
+  content: true
+
+# Search
+algolia:
+  applicationID: 'P7AW0XU2U9'
+  apiKey: 'f8c0b1b00e71ad9276f28a477a789759'
+  indexName: 'Hexo'
+
+# Number of index
+category_generator:
+  per_page: 15
+
+archive_generator:
+  per_page: 300
+  yearly: true
+  monthly: true
+  daily: false
+
+tag_generator:
+  per_page: 15
+
+# Minify the generated file
+hfc_useref:
+  enable: true
+  concat: true
+  exclude: 
+
+hfc_html:
+  enable: true
+
+hfc_css:
+  enable: true
+  exclude: 
+    - '*.min.css'
+
+hfc_js:
+  enable: true
+  mangle: true
+  output:
+  compress:
+  exclude: 
+    - '*.min.js'
+
+hfc_img:
+  enable: true
+  interlaced: false
+  multipass: false
+  optimizationLevel: 2
+  pngquant: false
+  progressive: false
+  webp: true
+  webpQuality: 75
+  gifslice: true
+  jpegtran: true
+  jpegrecompress: false
+  jpegrecompressQuality: 'medium'
+  optipng: true
+  svgo: true
+
+hfc_favicons:
+  enable: false
+
+# No SEO Link
+nofollow:
+  enable: true
+#  exclude:
+#    - exclude1.com
+
+aplayer:
+  meting: false
+  cdn: https://cat.yufan.me/asserts/spectre/scripts/APlayer.min.js
+  style_cdn: https://cat.yufan.me/asserts/spectre/styles/APlayer.min.css
+
+# Deployment
+## Docs: https://hexo.io/docs/deployment.html
+deploy:
+  type: git
+  repo:
+    github: git@github.com:xunge/xunge.github.io.git
+    branch: master
+
+# Sitemap
+sitemap:
+  path: sitemap.xml
+  tag: false
+  category: false
+
+# Qiniu
+qiniu:
+  offline: false
+  sync: true
+  bucket: xunge
+  secret_file: /Users/jiangxunzhi/Pictures/blog/qiniu.json
+  dirPrefix: static
+  urlPrefix: https://img.xungejiang.com/static
+  up_host: http://upload.qiniu.com
+  local_dir: /Users/jiangxunzhi/Pictures/blog/static
+  update_exist: true
+  image: 
+    folder: images
+    extend: 
+  js:
+    folder: scripts
+  css:
+    folder: styles
+
+
+# math:
+#   engine: 'mathjax' # or 'katex'
+#   mathjax:
+#     src: custom_mathjax_source
+#     config:
+#       # MathJax config
+#   katex:
+#     css: #custom_css_source
+#     js: #custom_js_source # not used
+#     config:
+#       # KaTeX config
+
