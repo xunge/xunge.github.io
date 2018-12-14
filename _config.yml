@@ -174,7 +174,7 @@ qiniu:
   offline: false
   sync: true
   bucket: xunge
-  secret_file: /Users/jiangxunzhi/Pictures/blog/qiniu.json
+  secret_file: qiniu.json
   dirPrefix: static
   urlPrefix: https://img.xungejiang.com/static
   up_host: http://upload.qiniu.com
