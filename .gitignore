@@ -7,3 +7,5 @@ public/
 .deploy*/
 package-lock.json
 yarn.lock
+qiniu.json
+static/images/

@@ -34,7 +34,7 @@ SSD 主要是根据广大网友的前车之鉴，目前比较推荐的有三星 
 
 ### 制作 macOS 系统盘
 
-因为在 macOS 10.13 High Sierra 版本后系统支持了 NVME 硬盘协议，所以我们安装的 macOS 版本必须是10.13之后的系统。本文选择的是 macOS 10.14 Mojave 版本，具体制作 macOS系统盘的教程可以参考 [本人博客](https://blog.xungejiang.com/2016/07/03/install-macOS)
+因为在 macOS 10.13 High Sierra 版本后系统支持了 NVME 硬盘协议，所以我们安装的 macOS 版本必须是10.13之后的系统。本文选择的是 macOS 10.14 Mojave 版本，具体制作 macOS系统盘的教程可以参考 [本人博客](https://xungejiang.com/2016/07/03/install-macOS)
 
 ### TimeMachine 备份系统
 
