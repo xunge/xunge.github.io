@@ -6,7 +6,7 @@
     var contentCacheName = "content" + cacheVersion;
     var vendorCacheName = "vendor" + cacheVersion;
     var maxEntries = 100;
-    self.importScripts("https://img.xungejiang.com/static/scripts/sw-t.js");
+    self.importScripts("https://img.xungejiang.com/sw-t.js");
     self.toolbox.options.debug = false;
     self.toolbox.options.networkTimeoutSeconds = 5;
 
