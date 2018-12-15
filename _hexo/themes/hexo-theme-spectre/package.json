@@ -25,6 +25,8 @@
     "sass-lint": "^1.10.2"
   },
   "dependencies": {
-    "hexo-prism-plugin": "^2.2.0"
+    "hexo-prism-plugin": "^2.2.0",
+    "json-stringify-safe": "^5.0.1",
+    "node-pre-gyp": "^0.12.0"
   }
 }
