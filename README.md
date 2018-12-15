@@ -1,7 +1,10 @@
-## xungejiang.com source code
+<p align="center">
+  <a href="https://docsify.js.org">
+    <img alt="XUNGE's Blog" src="https://img.xungejiang.com/static/images/favicon.png">
+  </a>
+</p>
+<p align="center">
+  <strong>The source of <a href="https://xungejiang.com">XUNGE's Blog</a></strong>
+</p>
 
-This is the source code of [my weblog](https://xungejiang.com) based on [hexo](https://hexo.io).
-
-You can make your own static weblog like me.
-
-The theme was [spectre](https://github.com/syhily/yufan.me/tree/master/themes/spectre), a self maintained theme.
+- [RSS](https://xungejiang.com/rss.xml)
