@@ -108,6 +108,7 @@ deploy:
   type: git
   repo:
     github: git@github.com:xunge/xunge.github.io.git
+    coding: git@git.coding.net:xunge/xunge.github.io.git
 
 prism_plugin:
   mode: 'preprocess'    # realtime/preprocess
