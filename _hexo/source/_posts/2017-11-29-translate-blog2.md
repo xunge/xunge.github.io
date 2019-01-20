@@ -16,7 +16,9 @@ date: 2017-11-29 09:01:42
 原文写作日期：2017年3月15日
 译文写作日期：2017年11月29日
 
-本文为[cleverhans-blog](http://www.cleverhans.io/)的第二篇博客，作者为 Ian Goodfellow 和 Nicolas Papernot，主要讲解 **对抗性训练** 和 **防御性蒸馏** 两种防御方法之间的优势与不足。译者水平有限，存在错误，还望指出。
+本文为[cleverhans-blog](http://www.cleverhans.io/)的第二篇博客，作者为 Ian Goodfellow 和 Nicolas Papernot，主要讲解 **对抗性训练** 和 **防御性蒸馏** 两种防御方法之间的优势与不足。
+
+xunge 是一名初学者，论文翻译中用到了 Google，并自己逐句检查过，但还是会有显得晦涩的地方，如有语法/专业名词翻译错误，还请见谅，并欢迎及时指出。
 
 转载请注明出处！
 
