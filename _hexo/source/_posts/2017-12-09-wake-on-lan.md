@@ -3,6 +3,7 @@ title: 远程开机_网络唤醒设置方法 (WOL, Wake on Lan)
 tags:
   - WOL
 categories: 瞎折腾
+thumbnail: https://img.xungejiang.com/static/images/17-12-9/009.jpg
 updated: '2017-12-09 09:01:42'
 date: 2017-12-09 09:01:42
 ---
@@ -13,14 +14,13 @@ date: 2017-12-09 09:01:42
 
 
 
-
 ## 设置主板 BIOS
 
 需要在 BIOS 中进行更改。我的是微星 BIOS，操作如下
 
 `高级` -> `换型事件设置` -> 将 `PCIE设备唤醒` 和 `网络唤醒` 设置为 `允许` (Enable)
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-12-09-007.jpg)
+![](https://img.xungejiang.com/static/images/17-12-9/007.jpg)
 
 其他 BIOS 也类似，因为网卡也属于 PCIE 设备，所以 PCIE设备唤醒 也需要打开。
 
@@ -29,15 +29,15 @@ date: 2017-12-09 09:01:42
 
 在设备驱动管理器中，找到 `网络适配器` ，在第一个驱动 `右键` -> `属性`
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-12-09-001.png)
+![](https://img.xungejiang.com/static/images/17-12-9/001.png)
 
 在 `高级` 菜单中的属性找到 `唤醒魔包` (Wake on Magic Packet) 设置为 `启用`
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-12-09-002.png)
+![](https://img.xungejiang.com/static/images/17-12-9/002.png)
 
 在 `电源管理` 中 `勾选` `允许此设备唤醒计算机`
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-12-09-003.png)
+![](https://img.xungejiang.com/static/images/17-12-9/003.png)
 
 ## 配置路由器 DDNS (动态 DNS) 服务
 
@@ -49,15 +49,15 @@ date: 2017-12-09 09:01:42
 
 找到 `DDNS`  或者 `动态 DNS` ，注册 DDNS 服务商。网件提供三个 DDNS 服务商，我选择的是 `www.No-IP.com`。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-12-09-004.png)
+![](https://img.xungejiang.com/static/images/17-12-9/004.png)
 
 找到 `端口映射/端口触发`，在 `端口映射` 中 `添加自定义服务`。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-12-09-005.png)
+![](https://img.xungejiang.com/static/images/17-12-9/005.png)
 
 服务名随便填，协议：TCP/UDP，`外部端口组` 和 `内部端口组` 一致即可，`内部 IP 地址`映射到家里电脑的 IP。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-12-09-010.png)
+![](https://img.xungejiang.com/static/images/17-12-9/008.png)
 
 这样，你就可以使用 WOL 软件发送一个数据包唤醒家里的电脑了。
 
@@ -65,7 +65,7 @@ date: 2017-12-09 09:01:42
 
 该网站还提供了 windows, mac OS, Android, iOS 等不同平台的应用，有需要的可以自行下载。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-12-09-006.png)
+![](https://img.xungejiang.com/static/images/17-12-9/006.png)
 
 mac 地址可以在控制台输入 `ipconfig /all` 获取；
 

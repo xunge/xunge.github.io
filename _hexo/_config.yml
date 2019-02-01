@@ -115,3 +115,9 @@ prism_plugin:
   mode: 'preprocess'    # realtime/preprocess
   theme: 'solarizedlight'
   line_number: true    # default false
+
+math:
+  engine: 'mathjax'
+  mathjax:
+    src: //cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML
+    config:

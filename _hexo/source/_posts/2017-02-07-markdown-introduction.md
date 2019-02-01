@@ -279,17 +279,17 @@ E=mc<sup>2</sup>
 
 ## LaTeX 公式
 
-### `$` 表示行内公式：
+### `\\(` 和 `\\)` 表示行内公式：
 
 代码：
 
 ```
-质能守恒方程可以用一个很简洁的方程式 $E=mc^2$ 来表达。
+质能守恒方程可以用一个很简洁的方程式 \\(E=mc^2\\) 来表达。
 ```
 
 显示效果：
 
-质能守恒方程可以用一个很简洁的方程式 $E=mc^2$ 来表达。
+质能守恒方程可以用一个很简洁的方程式 \\(E=mc^2\\) 来表达。
 
 ### `$$` 表示整行公式：
 
@@ -320,10 +320,10 @@ f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2
 $$
 
 $$
-\sum^{j-1}_{k=0}{\widehat{\gamma}_{kj} z_k}
+\sum_{k=0}^{j-1} {\widehat{\gamma}_{kj} z_k}
 $$
 
-查看 Sublime 如何配置 LaTex 可参考 [我写的这篇文章](http://xungejiang.com/2017/03/03/markdown-mathjax/)
+查看 Sublime 如何配置 LaTex 可参考 [我写的这篇文章](https://xungejiang.com/2017/03/03/markdown-mathjax/)
 
 
 
