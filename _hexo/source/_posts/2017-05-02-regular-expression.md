@@ -3,6 +3,7 @@ title: 正则表达式简介
 tags:
   - 正则
 categories: 知识点
+thumbnail: https://img.xungejiang.com/static/images/17-5-2/regex.jpg
 updated: '2017-05-02 09:01:42'
 date: 2017-05-02 09:01:42
 ---

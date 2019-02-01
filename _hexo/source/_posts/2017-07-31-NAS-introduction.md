@@ -3,6 +3,7 @@ title: 群晖 NAS 简单体验
 tags:
   - NAS
 categories: 瞎折腾
+thumbnail: https://img.xungejiang.com/static/images/17-7-31/216play.jpg
 updated: '2017-07-31 09:01:42'
 date: 2017-07-31 09:01:42
 ---
@@ -13,9 +14,6 @@ date: 2017-07-31 09:01:42
 买的是带 **两块** 希捷 **4T** 硬盘的套装，一共 `3799` 元。单买是 (2250 + 1299 * 2) = 4848 元，相当于赠了一块硬盘，还算挺合适的，当然比 618 贵 100+ 。
 
 <!--more-->
-
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-08-04-001.jpg?imageView2/2/w/400)
-
 
 
 NAS (Network Attached Storage) 网络附属存储，也叫网络存储器，是专门用来存储数据的服务器，家用的主要功能其实就是私有云、照片电影的存储等。在各大网盘都被封掉的时代，买一个 NAS 存放一些私有文件还是一个比较好的选择。
@@ -46,30 +44,30 @@ NAS (Network Attached Storage) 网络附属存储，也叫网络存储器，是�
 
 `控制面板` -> `更新和还原` -> `重置` -> `删除所有数据`。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-08-01-002.png?imageView2/2/w/600)
+![](https://img.xungejiang.com/static/images/17-7-31/002.png)
 
 如果你已经安装过插件，不建议你选择 `删除存储空间` 进行重置，因为插件容易卸载不干净，影响后续使用。所以最好的方法还是恢复出厂设置。
 
 变为新系统后，在 `存储空间管理员` -> `存储空间` -> `删除` -> `删除` 将系统默认的 shr 删掉。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-08-01-001.png?imageView2/2/w/600)
+![](https://img.xungejiang.com/static/images/17-7-31/001.png)
 
 之后点 `新增` -> `自定义` -> `使用所有硬盘容量的存储空间` -> `勾选第一个硬盘` -> `确定` -> `Basic` -> `否` -> `下一步` -> `应用`
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-08-01-003.png?imageView2/2/w/600)
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-08-01-004.png?imageView2/2/w/600)
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-08-01-005.png?imageView2/2/w/600)
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-08-01-006.png?imageView2/2/w/600)
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-08-01-007.png?imageView2/2/w/600)
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-08-01-008.png?imageView2/2/w/600)
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-08-01-009.png?imageView2/2/w/600)
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-08-01-010.png?imageView2/2/w/600)
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-08-01-011.png?imageView2/2/w/600)
+![](https://img.xungejiang.com/static/images/17-7-31/003.png)
+![](https://img.xungejiang.com/static/images/17-7-31/004.png)
+![](https://img.xungejiang.com/static/images/17-7-31/005.png)
+![](https://img.xungejiang.com/static/images/17-7-31/006.png)
+![](https://img.xungejiang.com/static/images/17-7-31/007.png)
+![](https://img.xungejiang.com/static/images/17-7-31/008.png)
+![](https://img.xungejiang.com/static/images/17-7-31/009.png)
+![](https://img.xungejiang.com/static/images/17-7-31/010.png)
+![](https://img.xungejiang.com/static/images/17-7-31/011.png)
 
 
 同理，第二块硬盘重复上述操作，只是在第四步勾选第二块硬盘。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-08-01-012.png?imageView2/2/w/600)
+![](https://img.xungejiang.com/static/images/17-7-31/012.png)
 
 ## 套件中心 初体验
 

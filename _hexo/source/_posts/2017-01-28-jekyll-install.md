@@ -3,6 +3,7 @@ title: 本地配置 Jekyll
 tags:
   - Jekyll
 categories: 瞎折腾
+thumbnail: https://img.xungejiang.com/static/images/17-1-28/001.jpg
 updated: '2017-01-28 09:01:42'
 date: 2017-01-28 09:01:42
 ---

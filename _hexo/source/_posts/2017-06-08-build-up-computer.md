@@ -3,6 +3,7 @@ title: i7-7700k 装机实录
 tags:
   - 装机
 categories: 瞎折腾
+thumbnail: https://img.xungejiang.com/static/images/17-6-8/001.jpg
 updated: '2017-06-08 09:01:42'
 date: 2017-06-08 09:01:42
 ---
@@ -12,10 +13,6 @@ date: 2017-06-08 09:01:42
 最近感觉家里的 iMac 配置有些低，于是准备自己组装一台电脑。本文主要介绍一下自己的选购配件的过程以及装机时候的注意事项。
 
 <!--more-->
-
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-06-19-001.jpg?imageView2/2/w/400)
-
-
 
 
 ## 选购
@@ -72,9 +69,7 @@ PM 961|680￥|TLC|2800/1100
 装机前看了几个装机视频，感觉还不错，推荐给大家 。
 
 1. [装机视频教程](http://www.bilibili.com/video/av5780671)本文并没有介绍如何走背线，这篇视频介绍背线走法还是很详细的。
-
 2. [手把手带你从零开始台式电脑的组装](http://www.bilibili.com/video/av11246090/)同样是先马黑洞的机箱。
-
 3. [PcPartPicker装机教程](http://www.bilibili.com/video/av10093818)外国大神装机教程
 
 **并且要仔细看主板的说明书！！！（x3）**
@@ -85,9 +80,9 @@ PM 961|680￥|TLC|2800/1100
 
 这一步算是最容易的啦。将压杆侧压掀起保护盖，将 CPU 放入。注意 Intel 的 CPU 有两个小凹槽的防呆设计，与卡槽对齐后即可将压杆归位，同时保护盖跳起。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-06-19-002.jpg?imageView2/2/w/400)
+![](https://img.xungejiang.com/static/images/17-6-8/002.jpg)
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-06-19-003.jpg?imageView2/2/w/400)
+![](https://img.xungejiang.com/static/images/17-6-8/003.jpg)
 
 ### 2. 装内存条
 
@@ -97,7 +92,7 @@ PM 961|680￥|TLC|2800/1100
 
 不过在按内存条的时候真的是需要很大力气的。这里建议在主板底下垫一个软垫，可以更好地发力。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-06-19-004.jpg?imageView2/2/w/400)
+![](https://img.xungejiang.com/static/images/17-6-8/004.jpg)
 
 ### 3. 安装 M.2 固态硬盘
 
@@ -105,7 +100,7 @@ PM 961|680￥|TLC|2800/1100
 
 先将中间的平齐螺丝放在外侧，再将固态硬盘装好并用固定螺丝固定即可。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-06-19-005.jpg?imageView2/2/w/400)
+![](https://img.xungejiang.com/static/images/17-6-8/005.jpg)
 
 ### 4. 装 CPU 散热
 
@@ -116,37 +111,37 @@ PM 961|680￥|TLC|2800/1100
 
 1.将四个固定钉插入中间孔，并套上保护胶套进行固定。（不要加矩形胶垫）
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-06-19-006.jpg?imageView2/2/w/400)
+![](https://img.xungejiang.com/static/images/17-6-8/006.jpg)
 
 
 2.将 4 个固定钉从主板底下穿出。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-06-19-007.jpg?imageView2/2/w/400)
+![](https://img.xungejiang.com/static/images/17-6-8/007.jpg)
 
 
 3.套上四个胶垫。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-06-19-008.jpg?imageView2/2/w/400)
+![](https://img.xungejiang.com/static/images/17-6-8/008.jpg)
 
 
 4.固定支架，注意螺丝少量多次拧紧，对向螺丝一起拧。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-06-19-009.jpg?imageView2/2/w/400)
+![](https://img.xungejiang.com/static/images/17-6-8/009.jpg)
 
 
 5.将中间的风扇去掉，记住风扇是怎么摘的，一会还要装回去。
 
 6.涂硅脂。往 CPU 上挤出黄豆粒大小的硅脂，用牙签涂匀。注意只需要薄薄一层，太厚了反倒不适合散热。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-06-19-010.jpg?imageView2/2/w/400)
+![](https://img.xungejiang.com/static/images/17-6-8/010.jpg)
 
 7.固定散热器本体。注意风扇方向是朝着内存吹的。如果挡内存可以把风扇往上移一些，或者把外侧的风扇放到相反一侧。拧螺丝时一定不要太用力，否则会压坏 CPU 或 主板。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-06-19-011.jpg?imageView2/2/w/400)
+![](https://img.xungejiang.com/static/images/17-6-8/011.jpg)
 
 8.将中间的风扇装好。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-06-19-012.jpg?imageView2/2/w/400)
+![](https://img.xungejiang.com/static/images/17-6-8/012.jpg)
 
 9.接风扇电源线。中间的风扇(4pin)接到 `CPU_FAN1` 接口上，旁边的风扇(3pin)接到任意 `SYS_FAN` 接口即可。(3pin插到4pin接口就行)
 
@@ -154,7 +149,7 @@ PM 961|680￥|TLC|2800/1100
 
 我买的是 `海韵 G-550` 模组电源。首先把电源后面的模组都插好，再把电源用螺丝拧紧在机箱后面底部，注意风扇向下。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-06-19-016.jpg?imageView2/2/w/400)
+![](https://img.xungejiang.com/static/images/17-6-8/016.jpg)
 
 ### 6. 装 机械硬盘/固态硬盘/光驱（SATA 接口）
 
@@ -164,19 +159,19 @@ PM 961|680￥|TLC|2800/1100
 
 将主板的 IO 挡板固定在机箱上。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-06-19-013.jpg?imageView2/2/w/400)
+![](https://img.xungejiang.com/static/images/17-6-8/013.jpg)
 
 ### 8. 固定主板到机箱
 
 机箱在买回来的时候就有六个铜柱，在如图位置。因为我的主板是大板，所以需要把外面三个红圈的铜柱也拧上，并拧掉绿圈的铜柱（很紧，可能需要扳子）。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-06-19-014.jpg?imageView2/2/w/400)
+![](https://img.xungejiang.com/static/images/17-6-8/014.jpg)
 
 > 注意没用的铜柱一定要拧下来，否则可能导致主板短路。
 
 固定螺丝如图所示。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-06-19-017.jpg?imageView2/2/w/400)
+![](https://img.xungejiang.com/static/images/17-6-8/017.jpg)
 
 这里说明一下，如果你用的也是大霜塔等大型散热器，最好提前插上 CPU 供电线，再固定主板。
 
@@ -190,7 +185,7 @@ PM 961|680￥|TLC|2800/1100
 
 下图为主板用到的几个接口。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-06-19-018.jpg?imageView2/2/w/500)
+![](https://img.xungejiang.com/static/images/17-6-8/018.jpg)
 
 接口|名称|功能
 -|-|-
@@ -206,7 +201,7 @@ PM 961|680￥|TLC|2800/1100
 
 其中 ② `JFP1` 接口需要连接多根跳线，下图为具体连接方式。
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-06-19-019.jpg?imageView2/2/w/400)
+![](https://img.xungejiang.com/static/images/17-6-8/019.jpg)
 
 ### 10. 安装显卡
 

@@ -3,6 +3,7 @@ title: 计算机网络面试常考点--参照 谢希仁(第6版)
 tags:
   - 计算机网络
 categories: 知识点
+thumbnail: https://img.xungejiang.com/static/images/17-4-1/net.jpg
 updated: '2017-04-01 09:01:42'
 date: 2017-04-01 09:01:42
 ---

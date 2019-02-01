@@ -4,6 +4,7 @@ tags:
   - Markdown
   - MathJax
 categories: 瞎折腾
+thumbnail: https://img.xungejiang.com/static/images/17-3-3/001.jpg
 updated: '2017-03-03 09:01:42'
 date: 2017-03-03 09:01:42
 ---

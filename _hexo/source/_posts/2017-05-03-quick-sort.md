@@ -3,6 +3,7 @@ title: 快速排序 C++
 tags:
   - 快速排序
 categories: 知识点
+thumbnail: https://img.xungejiang.com/static/images/16-7-7/026.jpg
 updated: '2017-05-03 09:01:42'
 date: 2017-05-03 09:01:42
 ---

@@ -3,6 +3,7 @@ title: MyBatis 的简单案例
 tags:
   - MyBatis
 categories: 知识点
+thumbnail: https://img.xungejiang.com/static/images/17-2-14/mybatis.jpg
 updated: '2017-02-14 09:01:42'
 date: 2017-02-14 09:01:42
 ---

@@ -4,6 +4,7 @@ tags:
   - SSM
   - jcaptcha
 categories: 经验值
+thumbnail: https://img.xungejiang.com/static/images/17-7-11/jcapcha.jpg
 updated: '2017-07-11 09:01:42'
 date: 2017-07-11 09:01:42
 ---
@@ -15,8 +16,7 @@ date: 2017-07-11 09:01:42
 
 <!--more-->
 
-![](http://7xvx4s.com2.z0.glb.qiniucdn.com/17-07-11-001.png?imageView2/2/w/400)
-
+![](https://img.xungejiang.com/static/images/17-7-11/luntan.png)
 
 
 
@@ -39,7 +39,6 @@ date: 2017-07-11 09:01:42
 ## 项目介绍
 
 1. 注册页面使用 `jcaptcha` 实现了验证码功能，并使用AJAX技术实时验证。
-
 2. 注册页面的邮箱输入完成，光标移开输入框后，使用AJAX技术到后台数据库进行查找，如果已经注册过则提示该邮箱已被注册。
 
 ## maven 依赖

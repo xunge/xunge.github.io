@@ -114,7 +114,7 @@ deploy:
 prism_plugin:
   mode: 'preprocess'    # realtime/preprocess
   theme: 'solarizedlight'
-  line_number: true    # default false
+  line_number: false    # default false
 
 math:
   engine: 'mathjax'

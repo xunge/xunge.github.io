@@ -3,6 +3,7 @@ title: Markdown 简明语法手册
 tags:
   - Markdown
 categories: 知识点
+thumbnail: https://img.xungejiang.com/static/images/17-2-7/md.jpg
 updated: '2017-02-07 09:01:42'
 date: 2017-02-07 09:01:42
 ---

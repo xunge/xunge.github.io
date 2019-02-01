@@ -3,6 +3,7 @@ title: MI5 刷 MIUI 国际版
 tags:
   - MIUI
 categories: 瞎折腾
+thumbnail: https://img.xungejiang.com/static/images/17-4-9/MIUI.jpg
 updated: '2017-04-09 09:01:42'
 date: 2017-04-09 09:01:42
 ---
