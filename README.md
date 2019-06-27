@@ -8,3 +8,4 @@
 </p>
 
 - [RSS](https://xungejiang.com/rss.xml)
+- [如何在 hexo 中支持 Mathjax？](https://www.jianshu.com/p/e8d433a2c5b7)

@@ -33,7 +33,7 @@ JRE: Java运行环境,包含Java虚拟机和Java程序所需的核心类库。
 
 当父类的方法被private修饰时，表明该方法为父类私有，对其他任何类都是不可见的，因此如果子类定了一个与父类一样的方法，这对于子类来说相当于是一个新的私有方法，且如果要进行向上转型，然后去调用该“覆盖方法”，会产生编译错误。
 
-```java
+```
 class Parent {
     private fun() {
         ...
@@ -62,7 +62,7 @@ Java支持的基本数据类型有以下9种: **byte**, **shot**, **int**, **lon
 
 所谓自动装箱就是将原始类型自动的转换为对应的对象，而拆箱就是将对象类型转换为基本类型。Java中的自动拆装箱通常发生在变量赋值的过程中，如：
 
-```java
+```
 Integer object = 3; //自动装箱
 int o = object; //拆箱
 ```
@@ -81,7 +81,7 @@ int o = object; //拆箱
 
 Java 中实现多继承有两种方式,一是接口，二是内部类。
 
-```java
+```
 //实现多个接口 如果两个接口的变量相同 那么在调用该变量的时候 编译出错
 interface interface1 {
     static String field = "dd"; 
@@ -135,7 +135,7 @@ class Child {
 
 下面这个例子来说明Java中是值传递.
 
-```java
+```
 public class Test {
     public static void main(String[] args) {
         StringBuffer sb = new StringBuffer("hello ");
@@ -186,14 +186,14 @@ StringBuilder 是从 JDK 5 开始，为StringBuffer该类补充了一个单个�
 使用字符串的时候要特别小心，如果对一个字符串要经常改变的话，就一定不要用String,否则会创建许多无用的对象出来.
 来看一下比较
 
-```java
+```
 String s = "hello"+"world"+"i love you";
 StringBuffer Sb = new StringBuilder("hello").append("world").append("i love you");
 ```
 
 这个时候s有多个字符串进行拼接，按理来说会有多个对象产生，但是jvm会对此进行一个优化，也就是说只创建了一个对象，此时它的执行速度要比 StringBuffer 拼接快。再看下面这个:
 
-```java
+```
 String s2 = "hello";  
 String s3 = "world";  
 String s4 = "i love you";  
@@ -321,7 +321,7 @@ java类加载需要经历以下 7 个过程：
 
 准备阶段是为类的静态变量分配内存并将其初始化为默认值，这些内存都将在方法区中进行分配。准备阶段不分配类中的实例变量的内存，实例变量将会在对象实例化时随着对象一起分配在Java堆中。
 
-```java
+```
  public static int value=123;//在准备阶段value初始值为0 。在初始化阶段才会变为123 。
  ```
 
@@ -388,7 +388,7 @@ HashMap 之所以在每个数组元素存储的是一个链表，是为了解决
 
 ## 25.遍历一个List有哪些不同的方式？
 
-```java
+```
 List<String> strList = new ArrayList<>();
 //for-each
 for(String str:strList) {
@@ -469,7 +469,7 @@ java中以synchronize的形式, 为防止资源冲突提供了内置支持。当
 
 synchronized代码块
 
-```java
+```
 synchronized(synObject) {
 
 }
@@ -491,7 +491,7 @@ ThreadLocal 提供了 set 和 get 方法。
 
 set 方法会先获取当前线程,然后用当前线程作为句柄,获取 ThreadLocaMap 对象,并判断该对象是否为空,如果为空则创建一个,并设置值,不为空则直接设置值。
 
-```java
+```
  public void set(T value) {
     Thread t = Thread.currentThread();
     ThreadLocalMap map = getMap(t);

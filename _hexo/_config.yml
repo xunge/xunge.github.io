@@ -117,8 +117,4 @@ prism_plugin:
   theme: 'solarizedlight'
   line_number: false    # default false
 
-math:
-  engine: 'mathjax'
-  mathjax:
-    src: //cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML
-    config:
+  

@@ -87,7 +87,7 @@ ul#jiang>li.item$*4>a{Item $}
 
 便可自动生成
 
-```html
+```
 <ul id="jiang">
 	<li class="item1"><a href="">Item 1</a></li>
 	<li class="item2"><a href="">Item 2</a></li>

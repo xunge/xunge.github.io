@@ -23,7 +23,7 @@ date: 2016-07-19 09:01:42
 
 表单经常是由输入框组成。这里介绍几个常用的输入框。
 
-```html
+```
 <input type="text" />     文本框   <br />
 <input type="password" /> 密码框   <br />
 <input type="submit" />   提交按扭  <br />
@@ -46,7 +46,7 @@ date: 2016-07-19 09:01:42
 
 这里以注册用户名为例，要求 **6-30位字母、数字或“_”,字母开头**
 
-```html
+```
 用户名：<input type="text" onblur="checkName()" id="username" />&nbsp;<span id="yes"></span><font color="#FF9900">6-30位字母、数字或“_”,字母开头</font>
 <br /><span id="info1"></span>
 ```
@@ -65,7 +65,7 @@ date: 2016-07-19 09:01:42
 
 ## JavaScript 实现
 
-```javascript
+```
 function checkName()
 {
 	var u = document.getElementById("username");
@@ -122,7 +122,7 @@ placeholder 是 html5 `<input>` 里的属性，提供可描述输入字段预期
 
 具体代码如下，以下代码基于 [12306 网上购票用户注册](https://kyfw.12306.cn/otn/regist/init)
 
-```html
+```
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>

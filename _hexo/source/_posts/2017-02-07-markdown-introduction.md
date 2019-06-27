@@ -72,7 +72,7 @@ Markdown 的标记语法有极好的可读性。
 
 需要注意的是，使用 Markdown 方法，默认是在本网页打开新网页，如果想在新的标签页上打开链接，只能使用 `HTML` 语言实现，代码如下：
 
-```html
+```
 <a href="http://xungejiang.com" target="_blank">本人博客</a>
 ```
 
@@ -147,7 +147,7 @@ Markdown 的标记语法有极好的可读性。
 
 代码如下：
 
-	```sql
+	```
 	CREATE TABLE stu (
 	    stu_no INT(20),
 	    stu_name VARCHAR(20) NOT NULL,
@@ -159,7 +159,7 @@ Markdown 的标记语法有极好的可读性。
 
 显示效果：
 
-```sql
+```
 CREATE TABLE stu (
     stu_no INT(20),
     stu_name VARCHAR(20) NOT NULL,

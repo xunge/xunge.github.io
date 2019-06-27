@@ -38,7 +38,7 @@ date: 2017-02-14 09:01:42
 
 建表的 sql 语句如下(为了方便没有外键)
 
-```sql
+```
 create table class(
 	classno int primary key,
     classname varchar(20)
@@ -63,7 +63,7 @@ create table score(
 
 插入数据的 sql 语句如下
 
-```sql
+```
 INSERT INTO `class` (`classno`, `classname`) VALUES ('1', '一班');
 INSERT INTO `class` (`classno`, `classname`) VALUES ('2', '二班');
 INSERT INTO `class` (`classno`, `classname`) VALUES ('3', '三班');
@@ -106,7 +106,7 @@ jdbc.password=root
 
 在 `src` 下新建一个 `SqlMapConfig.xml` 文件，内容为：
 
-```xml
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
@@ -139,7 +139,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 ### Class.java
 
-```java
+```
 package pojo;
 public class Class {
 	private int classno;
@@ -161,7 +161,7 @@ public class Class {
 
 ### Student.java
 
-```java
+```
 package pojo;
 public class Student {
 	private int studentno;
@@ -197,7 +197,7 @@ public class Student {
 
 ### Score.java
 
-```java
+```
 package pojo;
 public class Score {
 	private int scoreid;
@@ -235,7 +235,7 @@ public class Score {
 
 ### StudentMapper.java
 
-```java
+```
 package mapper;
 
 public interface StudentMapper {
@@ -245,7 +245,7 @@ public interface StudentMapper {
 
 ### 新建 SQL 语句映射文件 StudentMapper.xml
 
-```xml
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="mapper.StudentMapper">
@@ -267,7 +267,7 @@ public interface StudentMapper {
 
 ### FirstParameter.java
 
-```java
+```
 package pojo;
 
 public class FirstParameter {
@@ -290,7 +290,7 @@ public class FirstParameter {
 
 ### FirstResult.java
 
-```java
+```
 package pojo;
 
 public class FirstResult {
@@ -319,7 +319,7 @@ public class FirstResult {
 ```
 ## 测试类
 
-```java
+```
 package test;
 
 import java.io.IOException;

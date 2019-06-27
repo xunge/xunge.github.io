@@ -31,7 +31,7 @@ date: 2017-03-03 09:01:42
 
 如果博客不支持 MathJax 可以在模板中添加如下脚本
 
-```html
+```
 <!-- mathjax config similar to math.stackexchange -->
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({

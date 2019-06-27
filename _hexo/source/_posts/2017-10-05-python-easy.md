@@ -17,7 +17,7 @@ date: 2017-10-05 09:01:42
 
 ## 数和数的运算
 
-```python
+```
 id()   # 查看每个对象的内存地址
 help() # 查看其它函数文档
 type() # 查看对象类型
@@ -26,13 +26,13 @@ dir()  # 查看模块中函数名称
 - python 自动解决大整数问题
 
 ### 加法
-```python
+```
 >>> 4.0 + 2
 6.0
 ```
 
 ### 乘法
-```python
+```
 # 9^2
 >>> 9 ** 2
 81
@@ -44,7 +44,7 @@ dir()  # 查看模块中函数名称
 
 ### 除法
 
-```python
+```
 >>> 5 / 2
 2.5
 
@@ -55,14 +55,14 @@ dir()  # 查看模块中函数名称
 ### 异常计算
 
 浮点数十进制转化为二进制造成误差
-```python
+```
 >>> 10.0 / 3
 3.3333333333333335
 ```
 
 解决方法1：使用 decimal 模块(小数)
 
-```python
+```
 >>> import decimal
 >>> a = decimal.Decimal("10.0")
 >>> b = decimal.Decimal("3")
@@ -72,7 +72,7 @@ Decimal('3.333333333333333333333333333')
 
 解决方法1：使用 fractions 模块(分数)
 
-```python
+```
 >>> from fractions import Fraction  
 # fractions 是一个大模块(库)，
 # 只想用其中的子模块 Fraction
@@ -84,7 +84,7 @@ Fraction(5, 4)
 
 ### 余数
 
-```python
+```
 >>> 5 % 2
 1
 
@@ -98,14 +98,14 @@ Fraction(5, 4)
 
 ### 四舍五入
 
-```python
+```
 >>> round(1.23456, 2)
 1.23
 ```
 
 浮点数十进制转化为二进制造成误差
 
-```python
+```
 >>> round(1.2345, 3)
 1.234  # 应该是 1.235
 
@@ -114,7 +114,7 @@ Fraction(5, 4)
 ```
 ### math 模块
 
-```python
+```
 >>> import math
 >>> math.pi
 3.141592653589793
@@ -151,7 +151,7 @@ Fraction(5, 4)
 
 ### 键盘输入
 
-```python
+```
 # input() 函数进行输入赋值
 >>> age = input("how old are you?")
 how old are you?10  # 提示输入内容，通过键盘输入10
@@ -163,7 +163,7 @@ how old are you?10  # 提示输入内容，通过键盘输入10
 
 ### 原始字符串
 
-```python
+```
 >>> dos = "c:\news"
 >>> print(dos)
 c:
@@ -177,7 +177,7 @@ c:\news
 
 ### 字符串切片
 
-```python
+```
 >>> lang = 'study python'
 >>> b = lang[1:]
 >>> b
@@ -198,7 +198,7 @@ c:\news
 
 ### 连接字符串
 
-```python
+```
 >>> "py" + "thon"
 'python'
 
@@ -231,7 +231,7 @@ xunge
 
 ### 判断元素是否在字符串中
 
-```python
+```
 >>> str = "python"
 >>> "th" in str
 True
@@ -239,7 +239,7 @@ True
 
 ### 最值和比较
 
-```python
+```
 >>> max(str)
 'y'
 >>> min(str)
@@ -252,14 +252,14 @@ True
 
 ### 测量长度
 
-```python
+```
 >>> len(str)
 6
 ```
 
 ### 字符串格式化输出
 
-```python
+```
 >>> "I love %s" % "gong yu xin"
 'I love gong yu xin'
 >>> "I love {0}.{1}.{2}".format("gong", "yu", "xin")
@@ -285,7 +285,7 @@ True
 
 ### 常用字符串方法
 
-```python
+```
 # 判断是否全是字母
 >>> "python".isalpha()
 True
@@ -342,7 +342,7 @@ True
 
 ### 列表切片
 
-```python
+```
 >>> a = ['gong', 831, 'xungejiang.com']
 >>> a[1:]
 [831, 'xungejiang.com']
@@ -375,7 +375,7 @@ True
 ```
 ### 列表基本操作
 
-```python
+```
 >>> lst = ['jiang', 'xun', 'zhi']
 # len() 列表长度
 >>> len(lst)

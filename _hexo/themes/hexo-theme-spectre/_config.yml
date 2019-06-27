@@ -68,7 +68,7 @@ footer:
   # Specify the date when the site was setup.
   #    For example, if you set it as 2015, then footer will show '© 2015 - 2017'
   copyright_since: 2016
-  footer_text: '<div><a href="http://www.miitbeian.gov.cn" rel="nofollow">黑ICP备18006891号</a></div>'
+  footer_text: '<div><a href="http://beian.miit.gov.cn" rel="nofollow">黑ICP备18006891号</a></div>'
 
   # FooterSNS Icon
   sns:
