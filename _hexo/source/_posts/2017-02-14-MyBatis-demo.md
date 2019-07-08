@@ -38,21 +38,21 @@ date: 2017-02-14 09:01:42
 
 建表的 sql 语句如下(为了方便没有外键)
 
-```
+```sql
 create table class(
-	classno int primary key,
+    classno int primary key,
     classname varchar(20)
 );
 
 create table student(
-	studentno int primary key,
+    studentno int primary key,
     studentname varchar(20),
     sex varchar(10),
     classno int
 );
 
 create table score(
-	scoreid int primary key,
+    scoreid int primary key,
     studentno int,
     object varchar(20),
     score float
@@ -63,7 +63,7 @@ create table score(
 
 插入数据的 sql 语句如下
 
-```
+```sql
 INSERT INTO `class` (`classno`, `classname`) VALUES ('1', '一班');
 INSERT INTO `class` (`classno`, `classname`) VALUES ('2', '二班');
 INSERT INTO `class` (`classno`, `classname`) VALUES ('3', '三班');
@@ -96,40 +96,40 @@ INSERT INTO `score` (`scoreid`, `studentno`, `object`, `score`) VALUES ('12', '6
 首先配置连结数据库文件，在 `src` 下新建文件，名称为 `db.properties` ，内容如下，其中 `20170214` 为数据库名称，需要改成你自己的数据库名字。
 
 ```
-jdbc.driver=com.mysql.jdbc.Driver
-jdbc.url=jdbc:mysql://localhost:3306/20170214?useUnicode=true&amp;characterEncoding=utf-8
-jdbc.username=root
-jdbc.password=root
+jdbc.driver = com.mysql.jdbc.Driver
+jdbc.url = jdbc:mysql://localhost:3306/20170214?useUnicode=true&amp;characterEncoding=utf-8
+jdbc.username = root
+jdbc.password = root
 ```
 
 ### SqlMapConfig.xml
 
 在 `src` 下新建一个 `SqlMapConfig.xml` 文件，内容为：
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<!-- 加载属性文件 -->
-	<properties resource="db.properties"/>
-	<environments default="development">
-		<environment id="development">
-			<!-- 事务管理类型，JDBC表示直接使用JDBC的提交和回滚设置，依赖于数据源得到的连接来管理事务 -->
-			<transactionManager type="JDBC"/>
-			<!-- 数据库连接池POOLED表示使用数据库连接池 -->
-			<dataSource type="POOLED">
-				<property name="driver" value="${jdbc.driver}"/>
-				<property name="url" value="${jdbc.url}"/>
-				<property name="username" value="${jdbc.username}"/>
-				<property name="password" value="${jdbc.password}"/>
-			</dataSource>
-		</environment>
-	</environments>
-	<mappers>
-		<package name="mapper"/>
-	</mappers>
+    <!-- 加载属性文件 -->
+    <properties resource="db.properties"/>
+    <environments default="development">
+        <environment id="development">
+            <!-- 事务管理类型，JDBC表示直接使用JDBC的提交和回滚设置，依赖于数据源得到的连接来管理事务 -->
+            <transactionManager type="JDBC"/>
+            <!-- 数据库连接池POOLED表示使用数据库连接池 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <package name="mapper"/>
+    </mappers>
 </configuration>
 ```
 
@@ -139,95 +139,95 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 ### Class.java
 
-```
+```java
 package pojo;
 public class Class {
-	private int classno;
-	private String classname;
-	public int getClassno() {
-		return classno;
-	}
-	public void setClassno(int classno) {
-		this.classno = classno;
-	}
-	public String getClassname() {
-		return classname;
-	}
-	public void setClassname(String classname) {
-		this.classname = classname;
-	}
+    private int classno;
+    private String classname;
+    public int getClassno() {
+        return classno;
+    }
+    public void setClassno(int classno) {
+        this.classno = classno;
+    }
+    public String getClassname() {
+        return classname;
+    }
+    public void setClassname(String classname) {
+        this.classname = classname;
+    }
 }
 ```
 
 ### Student.java
 
-```
+```java
 package pojo;
 public class Student {
-	private int studentno;
-	private String studentname;
-	private String sex;
-	private int classno;
-	public int getStudentno() {
-		return studentno;
-	}
-	public void setStudentno(int studentno) {
-		this.studentno = studentno;
-	}
-	public String getStudentname() {
-		return studentname;
-	}
-	public void setStudentname(String studentname) {
-		this.studentname = studentname;
-	}
-	public String getSex() {
-		return sex;
-	}
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
-	public int getClassno() {
-		return classno;
-	}
-	public void setClassno(int classno) {
-		this.classno = classno;
-	}
+    private int studentno;
+    private String studentname;
+    private String sex;
+    private int classno;
+    public int getStudentno() {
+        return studentno;
+    }
+    public void setStudentno(int studentno) {
+        this.studentno = studentno;
+    }
+    public String getStudentname() {
+        return studentname;
+    }
+    public void setStudentname(String studentname) {
+        this.studentname = studentname;
+    }
+    public String getSex() {
+        return sex;
+    }
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+    public int getClassno() {
+        return classno;
+    }
+    public void setClassno(int classno) {
+        this.classno = classno;
+    }
 }
 ```
 
 ### Score.java
 
-```
+```java
 package pojo;
 public class Score {
-	private int scoreid;
-	private String studentname;
-	private String object;
-	private float score;
-	public int getScoreid() {
-		return scoreid;
-	}
-	public void setScoreid(int scoreid) {
-		this.scoreid = scoreid;
-	}
-	public String getStudentname() {
-		return studentname;
-	}
-	public void setStudentname(String studentname) {
-		this.studentname = studentname;
-	}
-	public String getObject() {
-		return object;
-	}
-	public void setObject(String object) {
-		this.object = object;
-	}
-	public float getScore() {
-		return score;
-	}
-	public void setScore(float score) {
-		this.score = score;
-	}
+    private int scoreid;
+    private String studentname;
+    private String object;
+    private float score;
+    public int getScoreid() {
+        return scoreid;
+    }
+    public void setScoreid(int scoreid) {
+        this.scoreid = scoreid;
+    }
+    public String getStudentname() {
+        return studentname;
+    }
+    public void setStudentname(String studentname) {
+        this.studentname = studentname;
+    }
+    public String getObject() {
+        return object;
+    }
+    public void setObject(String object) {
+        this.object = object;
+    }
+    public float getScore() {
+        return score;
+    }
+    public void setScore(float score) {
+        this.score = score;
+    }
 }
 ```
 
@@ -235,27 +235,27 @@ public class Score {
 
 ### StudentMapper.java
 
-```
+```java
 package mapper;
 
 public interface StudentMapper {
-	public int queryScoreByNameAndObject(String name, String object) throws Exception;
+    public int queryScoreByNameAndObject(String name, String object) throws Exception;
 }
 ```
 
 ### 新建 SQL 语句映射文件 StudentMapper.xml
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="mapper.StudentMapper">
-	<select id="queryScoreByNameAndObject" parameterType="pojo.FirstParameter"  resultType="pojo.FirstResult">
-		select a.studentname, b.score, b.object
-		  from student a, score b
-		 where a.studentno = b.studentno
-		   and a.studentname =#{studentname}
-		   and b.object = #{object}
-	</select>
+    <select id="queryScoreByNameAndObject" parameterType="pojo.FirstParameter"  resultType="pojo.FirstResult">
+        select a.studentname, b.score, b.object
+          from student a, score b
+         where a.studentno = b.studentno
+           and a.studentname =#{studentname}
+           and b.object = #{object}
+    </select>
 </mapper>
 ```
 
@@ -267,59 +267,59 @@ public interface StudentMapper {
 
 ### FirstParameter.java
 
-```
+```java
 package pojo;
 
 public class FirstParameter {
-	private String studentname;
-	private String object;
-	private String getStudentname() {
-		return studentname;
-	}
-	public void setStudentname(String studentname) {
-		this.studentname = studentname;
-	}
-	public String getObject() {
-		return object;
-	}
-	public void setObject(String object) {
-		this.object = object;
-	}
+    private String studentname;
+    private String object;
+    private String getStudentname() {
+        return studentname;
+    }
+    public void setStudentname(String studentname) {
+        this.studentname = studentname;
+    }
+    public String getObject() {
+        return object;
+    }
+    public void setObject(String object) {
+        this.object = object;
+    }
 }
 ```
 
 ### FirstResult.java
 
-```
+```java
 package pojo;
 
 public class FirstResult {
-	private String studentname;
-	private float score;
-	private String object;
-	public String getStudentname() {
-		return studentname;
-	}
-	public void setStudentname(String studentname) {
-		this.studentname = studentname;
-	}
-	public float getScore() {
-		return score;
-	}
-	public void setScore(float score) {
-		this.score = score;
-	}
-	public String getObject() {
-		return object;
-	}
-	public void setObject(String object) {
-		this.object = object;
-	}
+    private String studentname;
+    private float score;
+    private String object;
+    public String getStudentname() {
+        return studentname;
+    }
+    public void setStudentname(String studentname) {
+        this.studentname = studentname;
+    }
+    public float getScore() {
+        return score;
+    }
+    public void setScore(float score) {
+        this.score = score;
+    }
+    public String getObject() {
+        return object;
+    }
+    public void setObject(String object) {
+        this.object = object;
+    }
 }
 ```
 ## 测试类
 
-```
+```java
 package test;
 
 import java.io.IOException;
@@ -339,19 +339,19 @@ import pojo.FirstParameter;
 
 
 public class Test {
-	public static void main(String[] args) throws IOException {
-		InputStream is = Resources.getResourceAsStream("SqlMapConfig.xml");
-		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(is);
-		SqlSession session=sqlSessionFactory.openSession();
-		// 查询张三的语文成绩
-		FirstParameter d=new FirstParameter();
-		d.setStudentname("张三");
-		d.setObject("语文");
-		FirstResult q=session.selectOne("queryScoreByNameAndObject", d);
-		if(q!=null){
-			System.out.println(q.getStudentname()+":"+q.getScore());
-		}
-	}
+    public static void main(String[] args) throws IOException {
+        InputStream is = Resources.getResourceAsStream("SqlMapConfig.xml");
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(is);
+        SqlSession session=sqlSessionFactory.openSession();
+        // 查询张三的语文成绩
+        FirstParameter d=new FirstParameter();
+        d.setStudentname("张三");
+        d.setObject("语文");
+        FirstResult q=session.selectOne("queryScoreByNameAndObject", d);
+        if(q!=null){
+            System.out.println(q.getStudentname()+":"+q.getScore());
+        }
+    }
 }
 ```
 

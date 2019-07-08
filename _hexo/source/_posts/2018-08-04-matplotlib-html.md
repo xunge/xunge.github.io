@@ -51,7 +51,7 @@ date: 2018-08-04 15:08:00
 
 后端代码如下所示
 
-```
+```python
 from io import BytesIO
 import base64
 import matplotlib.pyplot as plt

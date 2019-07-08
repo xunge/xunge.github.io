@@ -87,12 +87,12 @@ ul#jiang>li.item$*4>a{Item $}
 
 便可自动生成
 
-```
+```html
 <ul id="jiang">
-	<li class="item1"><a href="">Item 1</a></li>
-	<li class="item2"><a href="">Item 2</a></li>
-	<li class="item3"><a href="">Item 3</a></li>
-	<li class="item4"><a href="">Item 4</a></li>
+    <li class="item1"><a href="">Item 1</a></li>
+    <li class="item2"><a href="">Item 2</a></li>
+    <li class="item3"><a href="">Item 3</a></li>
+    <li class="item4"><a href="">Item 4</a></li>
 </ul>
 ```
 
@@ -157,7 +157,9 @@ ul#jiang>li.item$*4>a{Item $}
 ### [DocBlockr](https://packagecontrol.io/packages/DocBlockr)
 
 生成优美的注释，更多配置请点击标题。
+
 ![](https://img.xungejiang.com/static/images/16-7-3/012.gif)
+
 ![](https://img.xungejiang.com/static/images/16-7-3/013.gif)
 
 ### [Color​Picker](https://packagecontrol.io/packages/ColorPicker)
@@ -232,10 +234,10 @@ Sublime自带的英文字体是 `Consola` ，非常好看，但是中文默认�
 
 在Menu 中点击 **Preference** -> **Setting-User**, 添加
 
-```
+```yaml
 {
-	"font_face": "YaHeiConsola",
-	"font_size": 12
+    "font_face": "YaHeiConsola",
+    "font_size": 12
 }
 ```
 

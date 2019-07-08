@@ -23,7 +23,7 @@ date: 2017-03-03 09:01:42
 
 使用 Sublime + Markdown Preview 插件来写博客时。需要开启 Markdown Preview 对 MathJax 的支持，这样在预览界面才能正确地显示数学公式。方法是打开在 Markdown Preview 的用户配置文件 (Package Settings -> Markdown Preview -> Setting - User) 里添加如下内容：
 
-```
+```yaml
 "enable_mathjax": true
 ```
 
@@ -31,7 +31,7 @@ date: 2017-03-03 09:01:42
 
 如果博客不支持 MathJax 可以在模板中添加如下脚本
 
-```
+```javascript
 <!-- mathjax config similar to math.stackexchange -->
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -56,10 +56,10 @@ MathJax.Hub.Config({
 关于在 Markdown 书写 LaTex 数学公式有几个规则常用规则需要记住：
 
 **行内公式**
-行内公式使用 `\\(` 和 `\\)` 作为公式的左右边界，如 \\(h(x) = \theta_0 + \theta_1 x\\) 公式的 LaTex 内容如下
+行内公式使用 `$` 和 `$` 作为公式的左右边界，如 $h(x) = \theta_0 + \theta_1 x$ 公式的 LaTex 内容如下
 
 ```
-\\(h(x) = \theta_0 + \theta_1 x\\)
+$h(x) = \theta_0 + \theta_1 x$
 ```
 
 **行间公式**

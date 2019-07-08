@@ -1112,6 +1112,48 @@ footer a:hover {
     }
 }
 
+/* Post_Toc */
+/***************/
+
+.post-toc {
+    width: auto;
+    word-wrap: normal;
+    white-space: nowrap;
+    padding: 0;
+    list-style: none;
+    padding: 0 16px;
+}
+.post-toc-child {
+    list-style: none;
+}
+.post-toc a {
+    color: #727272;
+    text-decoration: none;
+}
+.post-toc .post-toc-item {
+    /*
+  display: block;
+    border: 0;
+    color: rgba(0,0,0,.87);
+    margin: 0;
+    padding: 0 16px;
+    outline-color: #bdbdbd;
+    position: relative;
+    overflow: hidden;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-decoration: none;
+    cursor: pointer;
+    height: 48px;
+    line-height: 48px;
+    white-space: nowrap;
+    -webkit-transition: opacity .2s cubic-bezier(.4,0,.2,1);
+    transition: opacity .2s cubic-bezier(.4,0,.2,1);
+    user-select: none;
+*/
+}
+
 
 /*============* * Material Icons */
 

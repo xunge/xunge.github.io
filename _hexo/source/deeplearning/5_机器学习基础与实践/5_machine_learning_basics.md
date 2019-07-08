@@ -1,0 +1,17 @@
+---
+title: 机器学习基础与实践
+permalink: /2019/06/26/deep-learning-note/5_machine_learning_basics.html
+notags: true
+description: 机器学习基础与实践
+date: 2019-06-19 14:53:27
+updated: 2019-06-19 14:53:27
+---
+
+近年来，包括[TensorFlow](https://www.tensorflow.org/)在内的各种深度学习自动化工具极大的降低了构建深度神经网络的难度，推动了神经网络的研究进程。但从另一方面来看，这种便捷的方式也在一定程度上让许多人将神经网络和传统的机器学习方法割裂开来。
+
+事实上，从目前来看，深度学习仍然还是机器学习的一个子领域，机器学习中的许多概念和原理也仍然是深度学习的基础。作为研究者和工程实践者来说，对传统机器学习领域的的学习和研究也仍然是相当重要的。因此，本章中将首先对机器学习中的一些基本概念和方法进行回顾，然后介绍TensorFlow的基本原理和使用方法，同时利用TensorFlow对一些基本算法进行实践。
+
+## 目录
+
+1. [机器学习基础](5_1_machine_learning_basics.html)
+1. [TensorFlow实战](5_2_tensorflow.html)

@@ -28,7 +28,7 @@ TypeError: __init__() missing 1 required positional argument: 'on_delete'
 
 修改之前
 
-```
+```py
 class BlogArticles(models.Model):
     title = models.CharField(max_length=300)
     author = models.ForeignKey(
@@ -39,7 +39,7 @@ class BlogArticles(models.Model):
 
 修改之后
 
-```
+```py
 class BlogArticles(models.Model):
     title = models.CharField(max_length=300)
     author = models.ForeignKey(

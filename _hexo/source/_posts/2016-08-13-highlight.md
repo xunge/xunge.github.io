@@ -42,7 +42,7 @@ wordpress 有强大的 [Crayon Syntax Highlighter](https://cn.wordpress.org/plug
 
 最简单粗暴的方法如下，在 `header.php` 中加入如下代码：
 
-```
+```javascript
 <link rel="stylesheet" href="/path/to/styles/default.css">
 <script src="/path/to/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
@@ -51,7 +51,7 @@ wordpress 有强大的 [Crayon Syntax Highlighter](https://cn.wordpress.org/plug
 注意修改路径！
 当然，这个办法非常不可取，JS 应当放在 `<body>` 中而非 `<head>` 中，所以改进后的办法是将
 
-```
+```javascript
 <script src="/path/to/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 ```
@@ -59,7 +59,7 @@ wordpress 有强大的 [Crayon Syntax Highlighter](https://cn.wordpress.org/plug
 移至 `footer.php` 中 `</body>` 标签之前。
 为了插件化我更推荐你这样做：在 `function.php` 中添加如下代码
 
-```script
+```javascript
 function add_highlight_js(){
     wp_enqueue_style('highlightcss','/path/to/styles/default.css');
     wp_register_script('highlightjs','/path/to/highlight.pack.js'); //注册 handle
@@ -70,7 +70,7 @@ add_action('wp_enqueue_scripts', 'add_highlight_js');
 
 然后在 `footer.php` 中添加
 
-```
+```javascript
 <script>hljs.initHighlightingOnLoad();</script>
 ```
 
@@ -88,7 +88,7 @@ add_action('wp_enqueue_scripts', 'add_highlight_js');
 
 修改为
 
-```
+```php
 <?php echo get_site_url() . '/wp-content/plugins/highlight/default.css';?>
 <?php echo get_site_url() . '/wp-content/plugins/highlight/highlight.min.js';?>
 ```
@@ -121,7 +121,7 @@ https://cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js
 
 `hljs.initHighlightingOnLoad()` 会寻找 `<pre><code>` 标签，所以使用 highlight.js 时应当这样写代码：
 
-```
+```html
 <pre><code class="html">...</code></pre>
 ```
 

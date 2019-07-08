@@ -23,7 +23,7 @@ date: 2016-07-19 09:01:42
 
 表单经常是由输入框组成。这里介绍几个常用的输入框。
 
-```
+```html
 <input type="text" />     文本框   <br />
 <input type="password" /> 密码框   <br />
 <input type="submit" />   提交按扭  <br />
@@ -35,7 +35,7 @@ date: 2016-07-19 09:01:42
 <input type="button" />   按扭     <br />
 <input type="file" />     浏览文件  <br />
 <select>
-	<option></option>
+    <option></option>
 </select> <br />
 <textarea></textarea> <br />
 ```
@@ -46,7 +46,7 @@ date: 2016-07-19 09:01:42
 
 这里以注册用户名为例，要求 **6-30位字母、数字或“_”,字母开头**
 
-```
+```html
 用户名：<input type="text" onblur="checkName()" id="username" />&nbsp;<span id="yes"></span><font color="#FF9900">6-30位字母、数字或“_”,字母开头</font>
 <br /><span id="info1"></span>
 ```
@@ -65,30 +65,30 @@ date: 2016-07-19 09:01:42
 
 ## JavaScript 实现
 
-```
+```javascript
 function checkName()
 {
-	var u = document.getElementById("username");
-	var info1 = document.getElementById("info1");
-	var yes = document.getElementById("yes");
-	if (u.value == "")
-	{
-		info1.innerHTML = "<font color = 'red'>✘请输入用户名！</font>";
-		return false;
-	}
-	if(u.value.length < 6)
-	{
-		info1.innerHTML = "<font color = 'red'>✘用户名长度不能少于6个字符！</font>";
-		return false;
-	}
-	var r = /^[a-zA-Z][a-zA-Z0-9_]{5,29}$/;
-	if (!r.test(u.value))
-	{
-		info1.innerHTML = "<font color = 'red'>✘用户名只能由字母，数字，下划线组成，须以字母开头</font>";
-		return false;
-	}
-	yes.innerHTML = "<font color='green'>✔</font>";
-	info1.innerHTML = "";
+    var u = document.getElementById("username");
+    var info1 = document.getElementById("info1");
+    var yes = document.getElementById("yes");
+    if (u.value == "")
+    {
+        info1.innerHTML = "<font color = 'red'>✘请输入用户名！</font>";
+        return false;
+    }
+    if(u.value.length < 6)
+    {
+        info1.innerHTML = "<font color = 'red'>✘用户名长度不能少于6个字符！</font>";
+        return false;
+    }
+    var r = /^[a-zA-Z][a-zA-Z0-9_]{5,29}$/;
+    if (!r.test(u.value))
+    {
+        info1.innerHTML = "<font color = 'red'>✘用户名只能由字母，数字，下划线组成，须以字母开头</font>";
+        return false;
+    }
+    yes.innerHTML = "<font color='green'>✔</font>";
+    info1.innerHTML = "";
 }
 ```
 
@@ -122,7 +122,7 @@ placeholder 是 html5 `<input>` 里的属性，提供可描述输入字段预期
 
 具体代码如下，以下代码基于 [12306 网上购票用户注册](https://kyfw.12306.cn/otn/regist/init)
 
-```
+```html
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -133,30 +133,30 @@ placeholder 是 html5 `<input>` 里的属性，提供可描述输入字段预期
 <body>
 <form>
 <table align="center">
-	<tr>
-    	<td align="right">用户名:</td>
+    <tr>
+        <td align="right">用户名:</td>
         <td><input type="text" style="width:210px" placeholder="用户名设置成功后不可修改" onblur="checkName()" id="username" />&nbsp;<span id="yes"></span><font color="#FF9900">6-30位字母、数字或“_”,字母开头</font>
         <br /><span id="info1"></span>
         </td> <!--失去焦点-->
 
     </tr>
     <tr>
-    	<td align="right">登陆密码:</td>
+        <td align="right">登陆密码:</td>
         <td><input type="password" style="width:210px" placeholder="6-20位字母、数字或符号" onblur="checkPassword()" id="password"/>&nbsp;<span id="yes1"></span>
-     	<br /><span id="info2"></span>
+         <br /><span id="info2"></span>
         </td>
     </tr>
     <tr>
-    	<td align="right">确认密码:</td>
+        <td align="right">确认密码:</td>
         <td><input type="password" style="width:210px" placeholder="再次输入您的登录密码" onblur="checkPasswordtwice()" id="passwordconfirm"/>&nbsp;<span id="yes2"></span>
-     	<br /><span id="info3"></span>
+         <br /><span id="info3"></span>
         </td>
     </tr>
      <tr>
-    	<td align="right">姓名:</td>
+        <td align="right">姓名:</td>
         <td><input type="text" style="width:210px" placeholder="再次输入您的登录密码" /></td>
     </tr>
-	<tr>
+    <tr>
         <td align="right">证件类型:</td>
         <td><select style="width:210px">
                 <option>二代身份证</option> <!-- 选项 -->
@@ -164,17 +164,17 @@ placeholder 是 html5 `<input>` 里的属性，提供可描述输入字段预期
                 <option>台湾通行证</option> <!-- 选项 -->
                 <option>护照</option> <!-- 选项 -->
             </select></td>
-	</tr>
-	<tr>
-		<td>证件号码:</td>
+    </tr>
+    <tr>
+        <td>证件号码:</td>
         <td><input type="text" style="width:210px" placeholder="请输入您的证件号码" onblur="checkID()" id="IDNO" />&nbsp;<span id="yes3"></span>
         <br /><span id="info4"></span>
         </td>
-	</tr>
-	<tr>
-    	<td>手机号码:</td>
+    </tr>
+    <tr>
+        <td>手机号码:</td>
         <td><input type="text" style="width:210px" placeholder="请输入您的手机号码" /></td>
-	</tr>
+    </tr>
     <tr>
         <td align="right">旅客类型:</td>
         <td><select>
@@ -183,111 +183,111 @@ placeholder 是 html5 `<input>` 里的属性，提供可描述输入字段预期
                 <option>学生</option> <!-- 选项 -->
                 <option>残疾军人、伤残人民警察</option> <!-- 选项 -->
             </select></td>
-	</tr>
+    </tr>
 </table>
 </form>
 </body>
 <script>
 function checkName()
 {
-	var u = document.getElementById("username");
-	var info1 = document.getElementById("info1");
-	var yes = document.getElementById("yes");
-	if (u.value == "")
-	{
-		info1.innerHTML = "<img src='https://kyfw.12306.cn/otn/resources/images/ots/icon_wrong.png'><font color = 'red'>请输入用户名！</font>";
-		return false;
-	}
+    var u = document.getElementById("username");
+    var info1 = document.getElementById("info1");
+    var yes = document.getElementById("yes");
+    if (u.value == "")
+    {
+        info1.innerHTML = "<img src='https://kyfw.12306.cn/otn/resources/images/ots/icon_wrong.png'><font color = 'red'>请输入用户名！</font>";
+        return false;
+    }
 
-	if(u.value.length < 6)
-	{
-		info1.innerHTML = "<img src='https://kyfw.12306.cn/otn/resources/images/ots/icon_wrong.png'><font color = 'red'>用户名长度不能少于6个字符！</font>";
-		return false;
-	}
+    if(u.value.length < 6)
+    {
+        info1.innerHTML = "<img src='https://kyfw.12306.cn/otn/resources/images/ots/icon_wrong.png'><font color = 'red'>用户名长度不能少于6个字符！</font>";
+        return false;
+    }
 
-	var firstChar = u.value.charAt(0);
+    var firstChar = u.value.charAt(0);
 
 
-	/*if (!((firstChar >= 'a' && firstChar <= 'z') || (firstChar >= 'A' && firstChar <= 'Z')))
-	{
-		info.innerHTML = "<font color = 'red'>✘用户名必须以字母开头！</font>";
-		return false;
-	}*/
-	// 定义一个正则表达式，校验用户名的规则
-	var r = /^[a-zA-Z][a-zA-Z0-9_]{5,29}$/;
-	if (!r.test(u.value))
-	{
-		info1.innerHTML="<img src='https://kyfw.12306.cn/otn/resources/images/ots/icon_wrong.png'><font color = 'red'>用户名只能由字母，数字，下划线组成，须以字母开头</font>";
-		return false;
-	}
+    /*if (!((firstChar >= 'a' && firstChar <= 'z') || (firstChar >= 'A' && firstChar <= 'Z')))
+    {
+        info.innerHTML = "<font color = 'red'>✘用户名必须以字母开头！</font>";
+        return false;
+    }*/
+    // 定义一个正则表达式，校验用户名的规则
+    var r = /^[a-zA-Z][a-zA-Z0-9_]{5,29}$/;
+    if (!r.test(u.value))
+    {
+        info1.innerHTML="<img src='https://kyfw.12306.cn/otn/resources/images/ots/icon_wrong.png'><font color = 'red'>用户名只能由字母，数字，下划线组成，须以字母开头</font>";
+        return false;
+    }
 
-	yes.innerHTML="<font color='green'>✔</font>";
-	info1.innerHTML="";
+    yes.innerHTML="<font color='green'>✔</font>";
+    info1.innerHTML="";
 }
 
 /***************************checkPassword*************************/
 var pass = "";
 function checkPassword()
 {
-	var p = document.getElementById("password");
-	var info2 = document.getElementById("info2");
-	pass = p.value;
-	if (p.value == "")
-	{
-		info2.innerHTML = "<img src='https://kyfw.12306.cn/otn/resources/images/ots/icon_wrong.png'><font color = 'red'>请输入密码！</font>";
-		return false;
-	}
+    var p = document.getElementById("password");
+    var info2 = document.getElementById("info2");
+    pass = p.value;
+    if (p.value == "")
+    {
+        info2.innerHTML = "<img src='https://kyfw.12306.cn/otn/resources/images/ots/icon_wrong.png'><font color = 'red'>请输入密码！</font>";
+        return false;
+    }
 
-	if(p.value.length < 6)
-	{
-		info2.innerHTML = "<img src='https://kyfw.12306.cn/otn/resources/images/ots/icon_wrong.png'><font color = 'red'>密码长度不能少于6个字符！</font>";
-		return false;
-	}
+    if(p.value.length < 6)
+    {
+        info2.innerHTML = "<img src='https://kyfw.12306.cn/otn/resources/images/ots/icon_wrong.png'><font color = 'red'>密码长度不能少于6个字符！</font>";
+        return false;
+    }
 
-	var firstChar = p.value.charAt(0);
+    var firstChar = p.value.charAt(0);
 
-	// 定义一个正则表达式，校验用户名的规则
-	var r = /^[a-zA-Z][a-zA-Z0-9_]{5,29}$/;
-	if (!r.test(p.value))
-	{
-		info2.innerHTML="<img src='https://kyfw.12306.cn/otn/resources/images/ots/icon_wrong.png'><font color = 'red'>只能由字母，数字，下划线组成，须以字母开头";
-		return false;
-	}
+    // 定义一个正则表达式，校验用户名的规则
+    var r = /^[a-zA-Z][a-zA-Z0-9_]{5,29}$/;
+    if (!r.test(p.value))
+    {
+        info2.innerHTML="<img src='https://kyfw.12306.cn/otn/resources/images/ots/icon_wrong.png'><font color = 'red'>只能由字母，数字，下划线组成，须以字母开头";
+        return false;
+    }
 
-	yes1.innerHTML="<font color='green'>✔</font>";
-	info2.innerHTML="";
+    yes1.innerHTML="<font color='green'>✔</font>";
+    info2.innerHTML="";
 }
 
 /*********************checkPasswordtwice*******************************/
 function checkPasswordtwice()
 {
-	var p1 = document.getElementById("passwordconfirm");
-	var info3 = document.getElementById("info3");
-	if (p1.value!=pass)
-	{
-		info3.innerHTML = "<img src='https://kyfw.12306.cn/otn/resources/images/ots/icon_wrong.png'><font color = 'red'>确认密码与密码不同！</font>";
-		return false;
-	}
+    var p1 = document.getElementById("passwordconfirm");
+    var info3 = document.getElementById("info3");
+    if (p1.value!=pass)
+    {
+        info3.innerHTML = "<img src='https://kyfw.12306.cn/otn/resources/images/ots/icon_wrong.png'><font color = 'red'>确认密码与密码不同！</font>";
+        return false;
+    }
 
-	yes2.innerHTML="<font color='green'>✔</font>";
-	info3.innerHTML=""
+    yes2.innerHTML="<font color='green'>✔</font>";
+    info3.innerHTML=""
 }
 
 /*****************************checkID*********************************/
 function checkID()
 {
-	var p2 = document.getElementById("IDNO");
-	var info4 = document.getElementById("info4");
+    var p2 = document.getElementById("IDNO");
+    var info4 = document.getElementById("info4");
 
-	//var r = /^[0-9][a-zA-Z0-9]{18}$/;
-	var r1 = /[0-9]{18}$/;
-	if (!r1.test(p2.value))
-	{
-		info4.innerHTML="<img src='https://kyfw.12306.cn/otn/resources/images/ots/icon_wrong.png'><font color = 'red'>请正确输入18位的身份证号</font>";
-		return false;
-	}
-	yes3.innerHTML="<font color='green'>✔</font>";
-	info4.innerHTML=""
+    //var r = /^[0-9][a-zA-Z0-9]{18}$/;
+    var r1 = /[0-9]{18}$/;
+    if (!r1.test(p2.value))
+    {
+        info4.innerHTML="<img src='https://kyfw.12306.cn/otn/resources/images/ots/icon_wrong.png'><font color = 'red'>请正确输入18位的身份证号</font>";
+        return false;
+    }
+    yes3.innerHTML="<font color='green'>✔</font>";
+    info4.innerHTML=""
 }
 
 </script>

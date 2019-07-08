@@ -7,7 +7,6 @@ title: XUNGE's Blog
 subtitle: 训哥的故事
 description: 瞎折腾，知识点，经验值
 author: 训哥
-email: 1063563945@qq.com
 language: zh-CN
 timezone: Asia/Shanghai
 
@@ -22,9 +21,9 @@ permalink_defaults: :title.html
 # Directory
 source_dir: source
 public_dir: public
-# tag_dir: tags
-# archive_dir: archives
-# category_dir: categories
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
 code_dir: code
 i18n_dir: :lang
 skip_render: 
@@ -43,8 +42,8 @@ post_asset_folder: false
 relative_link: false
 future: true
 highlight:
-  enable: true
-  line_number: true
+  enable: false
+  line_number: false
   auto_detect: false
   tab_replace: false
 
@@ -86,7 +85,7 @@ include:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: indigo
+theme: hexo-theme-spectre
 # theme: hexo-theme-material
 
 search:
@@ -95,9 +94,11 @@ search:
 
 # RSS
 feed:
-  type: atom
-  path: atom.xml
-  limit: 0
+    type: rss2
+    path: rss.xml
+    limit: 0
+    hub:
+    content: true
     
 # Sitemap
 sitemap:
@@ -117,21 +118,4 @@ prism_plugin:
   theme: 'solarizedlight'
   line_number: false    # default false
 
-jsonContent:
-  meta: false
-  pages: false
-  posts:
-    title: true
-    date: true
-    path: true
-    text: true
-    raw: false
-    content: false
-    slug: false
-    updated: false
-    comments: false
-    link: false
-    permalink: false
-    excerpt: false
-    categories: false
-    tags: true
+  

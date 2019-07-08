@@ -177,3 +177,8 @@ verison: 1.0.0
 old_verison:
   - 1.4.0
   - 1.5.0
+
+toc:
+#   use: choose whether the line_number of toc will show or not.
+#       Available value of "linenumber": true | false
+    linenumber: true

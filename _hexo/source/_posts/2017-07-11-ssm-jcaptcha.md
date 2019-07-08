@@ -43,7 +43,7 @@ date: 2017-07-11 09:01:42
 
 ## maven 依赖
 
-```
+```xml
 <dependency>
     <groupId>com.octo.captcha</groupId>
     <artifactId>jcaptcha-all</artifactId>
@@ -95,7 +95,7 @@ date: 2017-07-11 09:01:42
 
 该文件主要控制验证码的样式，可根据官网适当修改。
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
@@ -237,7 +237,7 @@ date: 2017-07-11 09:01:42
 
 因为是在 `resources/spring` 下新建 `spring-jcaptcha.xml` ， 所以 `web.xml` 无需重新配置。
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://java.sun.com/xml/ns/javaee"
@@ -272,7 +272,7 @@ date: 2017-07-11 09:01:42
 
 在 `controller` 下新建 `JcaptchaImageCreater.java`，用来生成验证码图片。
 
-```
+```java
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -330,7 +330,7 @@ public class JcaptchaImageCreater {
 
 在 `service` 下新建 `CustomGenericManageableCaptchaService.java`，将 removeCaptcha 方法提出来，便可以使用 AJAX 进行验证。
 
-```
+```java
 import com.octo.captcha.engine.CaptchaEngine;
 import com.octo.captcha.service.CaptchaServiceException;
 import com.octo.captcha.service.multitype.GenericManageableCaptchaService;
@@ -395,7 +395,7 @@ public class CustomGenericManageableCaptchaService extends GenericManageableCapt
 
 在 `controller` 下新建 `LoginController`，进行用户注册和检查验证码的方法。
 
-```
+```java
 import javax.servlet.http.HttpServletRequest;
 
 import com.octo.captcha.service.image.ImageCaptchaService;
@@ -415,50 +415,49 @@ import com.xunge.springemp.service.IUserService;
 @SessionAttributes("username")
 public class LoginController {
 
-	@Autowired
-	private IUserService userService;
+    @Autowired
+    private IUserService userService;
 
-	@Autowired
-	private ImageCaptchaService imageCaptchaService;
+    @Autowired
+    private ImageCaptchaService imageCaptchaService;
 
-	@Autowired
-	private CustomGenericManageableCaptchaService customGenericManageableCaptchaService;
+    @Autowired
+    private CustomGenericManageableCaptchaService customGenericManageableCaptchaService;
 
-	@Autowired
-	private UserDAO userDAO;
+    @Autowired
+    private UserDAO userDAO;
 
-	@RequestMapping("userAdd")
-	public ModelAndView doAdd(User user, String captcha, HttpServletRequest request) throws Exception {
+    @RequestMapping("userAdd")
+    public ModelAndView doAdd(User user, String captcha, HttpServletRequest request) throws Exception {
 
-		Boolean isResponseCorrect = imageCaptchaService.validateResponseForID(request.getSession().getId(), captcha);
-		if (isResponseCorrect) {
-			userDAO.addUser(user);
-			customGenericManageableCaptchaService.removeCaptcha(request.getSession().getId());
-			ModelAndView mv = new ModelAndView("personal");
-			return mv;
-		} else {
-			ModelAndView mv = new ModelAndView("register");
-			return mv;
-		}
-	}
+        Boolean isResponseCorrect = imageCaptchaService.validateResponseForID(request.getSession().getId(), captcha);
+        if (isResponseCorrect) {
+            userDAO.addUser(user);
+            customGenericManageableCaptchaService.removeCaptcha(request.getSession().getId());
+            ModelAndView mv = new ModelAndView("personal");
+            return mv;
+        } else {
+            ModelAndView mv = new ModelAndView("register");
+            return mv;
+        }
+    }
 
-	@RequestMapping("/checkCaptcha")
-	public @ResponseBody int checkCaptcha(String captcha, HttpServletRequest request) throws Exception {
-		Boolean isResponseCorrect = imageCaptchaService.validateResponseForID(request.getSession().getId(), captcha);
+    @RequestMapping("/checkCaptcha")
+    public @ResponseBody int checkCaptcha(String captcha, HttpServletRequest request) throws Exception {
+        Boolean isResponseCorrect = imageCaptchaService.validateResponseForID(request.getSession().getId(), captcha);
 
-		if (isResponseCorrect == false) {
-			return 0;
-		} else {
-			return 1;
-		}
-	}
+        if (isResponseCorrect == false) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
 }
-
 ```
 
 ## 前端代码
 
-```
+```html
 <input type="text" class="form-control input-lg input_size input-captcha" id="captcha" name="captcha" maxlength="4" placeholder="请输入验证码" />
 <img class="img-captcha" src="captcha" onclick="this.src='captcha?d='+new Date().getTime()" />
 ```
@@ -467,7 +466,7 @@ public class LoginController {
 
 前端 AJAX 验证使用 JQuery 的 validate，进行表单的验证更美观。
 
-```script
+```javascript
 $("#regform").validate({
     rules: {
         captcha: {
