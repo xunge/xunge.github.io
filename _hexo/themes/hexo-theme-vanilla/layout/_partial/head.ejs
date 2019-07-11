@@ -1,0 +1,53 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link href="<%= url_for(theme.css) %>/style.css?v=<%= theme.version %>" rel="stylesheet" type="text/css">
+
+<% if (page.keywords) { %>
+  <meta name="keywords" content="<%= page.keywords %>">
+<% } else if (theme.keywords) { %>
+  <meta name="keywords" content="<%= theme.keywords %>">
+<% } %>
+
+
+<% if (theme.rss === '' && config.feed && config.feed.path) { %>
+  <% theme.rss = config.feed.path %>
+<% } %>
+<% if (theme.rss) { %>
+  <link rel="alternate" href="<%= url_for(theme.rss) %>" title="<%= config.title %>" type="application/atom+xml">
+<% } %>
+
+<% if (theme.favicon) { %>
+  <link rel="shortcut icon" type="image/x-icon" href="<%= url_for(theme.favicon) %>">
+<% } %>
+<% /*Canonical, good for google search engine (SEO) : https://support.google.com/webmasters/answer/139066*/ %>
+<% if (theme.canonical) { %>
+  <link rel="canonical" href="<%= config.url %>/<%= page.canonical_path.replace('index.html', '') %>"/>
+<% } %>
+<!-- <%- css('css/style.css') %> -->
+<%
+var title = page.title;
+
+if (is_archive()){
+  title = __('menu.archives');
+
+  if (is_month()){
+    title += ': ' + page.year + '/' + page.month;
+  } else if (is_year()){
+    title += ': ' + page.year;
+  }
+} else if (is_category()){
+  title = __('menu.category') + ': ' + page.category;
+} else if (is_tag()){
+  title = __('menu.tags') + ': ' + page.tag;
+} else if (page.path === 'tags/index.html') {
+  title = __('menu.tags')
+} else if (page.path === 'categories/index.html') {
+  title = __('menu.categories')
+}
+%>
+<title><% if (title) { %> <%= title %> | <% } %><%= config.title %></title>

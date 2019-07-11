@@ -1,0 +1,14 @@
+Menu:
+  home: Home
+  archives: Archives
+  categories: Categories
+  tags: Tags
+  about: About
+
+toc: Toc
+counter: There are %d
+continue: continue
+
+archive:
+  name: articles
+  counter: There are %d

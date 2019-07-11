@@ -1,0 +1,95 @@
+.posts {
+  .post-title {
+    margin-top: 0
+    text-align: left
+    .post-title-link {
+      display: inline-block
+      margin-bottom: 5px
+      border: none
+      text-decoration: none
+      color: COLOR-9
+      transition: color .3s ease
+      &:after {
+        content: ''
+        display: block
+        margin-top: 2px
+        height: 2px
+        background: transparent
+        transition: height .25s cubic-bezier(0, 0, .2, 1), background-color .25s cubic-bezier(0, 0, .2, 1)
+      }
+      &:hover:after {
+        height: 2px
+        background: black
+      }
+    }
+  }
+  .post-meta {
+    color: COLOR-7
+    a {
+      text-decoration: none
+      color: COLOR-7
+    }
+  }
+  .article-tag-link {
+    margin: 0 6px
+    padding: 2px 0
+    &:hover {
+      color: COLOR-9
+    }
+  }
+  .post-content {
+    padding: 1em 0
+  }
+  a.btn {
+    display: inline-block
+    margin: auto
+    padding: 0 20px
+    border: 2px solid COLOR-7
+    text-decoration: none
+    background: COLOR-0
+    color: COLOR-7
+    transition: .25s ease-in-out
+  }
+  a.btn:hover {
+    border-color: COLOR-9
+    color: COLOR-0
+    background: COLOR-9
+  }
+  a.btn:after {
+    content: " »"
+  }
+  article {
+    position: relative
+    padding-top: 1em
+    padding-bottom: 3em
+    border-bottom: 1px solid COLOR-3
+    &:after {
+      content: ""
+      position: absolute
+      bottom: -5px
+      left: 50%
+      display: block
+      width: 7px
+      height: 7px
+      margin-left: -5px
+      border: 1px solid COLOR-3
+      border-radius: 100%
+      background: COLOR-0
+      box-shadow: COLOR-0 0 0 0 5px
+    }
+    &:last-child {
+      border-bottom: 0
+      &:after {
+        display: none
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .post {
+    .post-title, .post-meta, .continue {
+      text-align: center
+    }
+  }
+}

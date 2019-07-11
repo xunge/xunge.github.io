@@ -1,0 +1,53 @@
+@import "_util/typo.css"
+@import "_util/base"
+@import "_util/highlight"
+
+.highlight {
+  font-size: .8em
+  overflow: auto
+  table {
+    width: 100%
+    margin-bottom: 0
+    td {
+      padding: 0
+      border: 0
+      pre {
+        border: none
+        margin-bottom: 0
+      }
+    }
+  }
+}
+
+.typo {
+  blockquote {
+    p, ul {
+      margin-bottom: 0
+    }
+  }
+  ul {
+    margin-left: 2.5em
+  }
+}
+
+.IPA {
+    width: 2em
+    height: 2em
+    font-family: "Segoe UI", Verdana, "Lucida Sans Regular", "Lucida Sans Unicode", Arial, sans-serif
+    line-height: 1.5em
+    text-align: center
+}
+
+.date {
+  font-family:  Georgia, Constantia, Candara, Corbel, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+@import "_partial/footer"
+@import "_partial/header"
+@import "_partial/paginator"
+@import "archive"
+@import "category"
+@import "index"
+@import "page"
+@import "post"
+@import "tag"

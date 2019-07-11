@@ -1,0 +1,32 @@
+.page-nav {
+  padding: 2rem 0
+  text-align: center
+  .page-prev {
+    float: left
+  }
+  .page-next {
+    float: right
+  }
+  .page-prev, .page-next {
+    width: 2rem
+    height: 2rem
+    border: 2px solid COLOR-7
+    font-weight: bold
+    line-height: 1.5rem
+    text-decoration: none
+    color: COLOR-7
+    transition: .25s ease-in-out
+    &:hover {
+      border-color: COLOR-9
+      color: COLOR-0
+      background: COLOR-9
+    }
+  }
+}
+.page-number {
+  display: inline-block
+  width: 10em
+  height: 2rem
+  line-height: 2rem
+  color: COLOR-7
+}

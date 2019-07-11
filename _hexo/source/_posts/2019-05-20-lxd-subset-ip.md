@@ -35,7 +35,7 @@ sudo vim /etc/netplan/01-netcfg.yaml
 
 如下：
 
-```
+```yaml
 # This file describes the network interfaces available on your system
 # For more information, see netplan(5).
 network:
@@ -96,7 +96,7 @@ nano /etc/netplan/50-cloud-init.yaml
 
 如下：
 
-```
+```yaml
 network:
   version: 2
   ethernets:

@@ -1,0 +1,106 @@
+# ---------------------------------------------------------------
+# Site Information Settings
+# ---------------------------------------------------------------
+
+# Put your favicon.ico into `hexo-site/source/` directory.
+favicon: https://img.xungejiang.com/static/images/favicon.png
+
+# Set default keywords (Use a comma to separate)
+keywords: "Hexo, plain"
+
+# Set rss to false to disable feed link.
+# Leave rss as empty to use site's feed link.
+# Set rss to specific value if you have burned your feed already.
+rss:
+
+# Canonical, set a canonical link tag in your hexo, you could use it for your SEO of blog.
+# See: https://support.google.com/webmasters/answer/139066
+# Tips: Before you open this tag, remeber set up your URL in hexo _config.yml ( ex. url: http://yourdomain.com )
+canonical: true
+
+
+# ---------------------------------------------------------------
+# Menu Settings
+# ---------------------------------------------------------------
+
+# When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/archives -> archives)
+menu:
+  home: /
+  archives: /archives/
+  categories: /categories/
+  tags: /tags/
+  about: /about/
+
+# ---------------------------------------------------------------
+# Headbar Settings
+# ---------------------------------------------------------------
+
+headbar:
+  avatar: false
+  title: true
+  description: false
+
+# ---------------------------------------------------------------
+# Sidebar Settings
+# ---------------------------------------------------------------
+
+sidebar:
+  avatar: true
+  title: true
+  description: true
+
+# Social Links Icons
+# Icon Mapping:
+#   Map a menu item to a specific FontAwesome icon name.
+#   Key is the name of the item and value is the name of FontAwsome icon. Key is case-senstive.
+#   When an globe mask icon presenting up means that the item has no mapping icon.
+social_icons:
+  # Icons.
+  GitHub: //github.com/xunge
+  Twitter:
+  Weibo:
+  Mail:
+
+# Topbar and Sidebar Avatar
+# in theme directory(source/images): /images/avatar.jpg
+# in site  directory(source/uploads): /uploads/avatar.jpg
+avatar: //img.xungejiang.com/static/images/avatar1.jpg
+
+
+# Table Of Contents in the Sidebar
+toc: true
+
+# Scroll to top
+top: true
+
+# Creative Commons 4.0 International License.
+# http://creativecommons.org/
+# Available: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | zero
+#creative_commons: by-nc-sa
+creative_commons: by-nc-nd
+
+# ---------------------------------------------------------------
+# Third Party Services Settings
+# ---------------------------------------------------------------
+
+# Disqus support
+disqus:
+  enable: true
+  shortname: //xungejiang.disqus.com
+  count: true
+  lazyload: true
+
+# MathJax Support
+# Support close in gloabal and open in single post for save resources
+mathjax:
+  enable: false
+  cdn: //cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML
+
+# https://github.com/aFarkas/lazysizes/tree/4.0.0-rc3
+lazyload: true
+
+# Assets
+css: /css
+
+# Theme version
+version: 0.1.0

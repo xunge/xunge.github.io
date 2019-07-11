@@ -1,0 +1,31 @@
+.archive-page-counter {
+  padding: 1em
+  font-size: 1.5rem
+  text-align: center
+}
+
+.archive-item {
+  padding: .5em
+  border-bottom: 1px dotted COLOR-7
+  transition: transform .2s, color .2s, -webkit-transform .2s
+  &:hover {
+    border-bottom: 1px dotted COLOR-9
+    transform: translateX(2px)
+  }
+  .archive-title {
+    overflow: hidden
+    width: 65%
+    border: none
+    text-overflow: ellipsis
+    white-space: nowrap
+    &:hover {
+      border: none
+    }
+  }
+  .archive-time {
+    float: right
+  }
+}
+.archives ul {
+  margin: 0
+}

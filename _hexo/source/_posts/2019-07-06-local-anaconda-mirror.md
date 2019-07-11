@@ -19,11 +19,11 @@ Anaconda是一个免费开源的Python等语言的发行版本，致力于简化
 
 搭建本地镜像肯定需要将所有镜像文件下载到本地。
 
-这里感谢清华开源下载镜像文件的Python[代码](https://github.com/tuna/tunasync-scripts/blob/master/anaconda.py)，这里进行了一定的修改，代码如下：
+这里感谢清华开源下载镜像文件的Python[代码](https://github.com/tuna/tunasync-scripts/blob/master/anaconda.py)，这里进行了一定的修改，代码如下。
+
+可以看到代码中的路径改为了国内的清华源， repos 只选择了 `main` 和 `free`，arches 选择了 `linux-64` 和 `win-64`，当然也可以选择同步注释代码中的更多系统和版本。博主下载了这些文件共189.1 GB（2019年6月），也就是说只需要占用不到 200 GB 的磁盘空间，无需下载即可使用Anaconda安装Python包，还是很实用的。
 
 <script src="https://gist.github.com/xunge/de60d28b5878768437148deaa52dd9d5.js"></script>
-
-可以看到代码中 repos 只选择了 `main` 和 `free`，arches 选择了 `linux-64` 和 `win-64`，当然也可以选择同步注释代码中的更多系统和版本。博主下载了这些文件共189.1 GB（2019年6月），也就是说只需要占用不到 200 GB 的磁盘空间，无需下载即可使用Anaconda安装Python包，还是很实用的。
 
 ## 建立索引
 

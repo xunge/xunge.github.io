@@ -8,7 +8,7 @@ subtitle: 训哥的故事
 description: 瞎折腾，知识点，经验值
 author: 训哥
 email: 1063563945@qq.com
-language: zh-CN
+language: zh-Hans
 timezone: Asia/Shanghai
 
 # URL
@@ -22,9 +22,9 @@ permalink_defaults: :title.html
 # Directory
 source_dir: source
 public_dir: public
-# tag_dir: tags
-# archive_dir: archives
-# category_dir: categories
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
 code_dir: code
 i18n_dir: :lang
 skip_render: 
@@ -44,9 +44,9 @@ relative_link: false
 future: true
 highlight:
   enable: true
-  line_number: true
+  line_number: false
   auto_detect: false
-  tab_replace: false
+  tab_replace: true
 
 # Category & Tag
 default_category: 瞎折腾
@@ -86,7 +86,8 @@ include:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: indigo
+theme: hexo-theme-vanilla
+# theme: indigo
 # theme: hexo-theme-material
 
 search:
