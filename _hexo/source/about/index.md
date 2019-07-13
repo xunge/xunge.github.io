@@ -5,8 +5,8 @@ layout: categories
 comments: false
 ---
 
-<script src="https://cdnjs.cat.net/ajax/libs/aplayer/1.6.0/APlayer.min.js"></script>
-<script src="https://api.i-meto.com/music/aplayer.min.js"></script>
+<!-- <script src="https://cdnjs.cat.net/ajax/libs/aplayer/1.6.0/APlayer.min.js"></script>
+<script src="https://api.i-meto.com/music/aplayer.min.js"></script> -->
 
 <!-- <div class="aplayer" data-title="愚弄者x愚弄者" data-author="洛天依 / 桑葚上的猴子" data-pic="https://ww1.sinaimg.cn/large/0060lm7Tly1fk7973eouqj30so0qpjt5.jpg" data-url="https://fuckalisummer.nfz.yecdn.com/music/%E6%84%9A%E5%BC%84%E8%80%85.mp3" data-lrc="https://fuckalisummer.nfz.yecdn.com/music/%E3%80%90%E6%B4%9B%E5%A4%A9%E4%BE%9D%E5%8E%9F%E5%88%9B%E6%9B%B2%E3%80%91%E6%84%9A%E5%BC%84%E8%80%85x%E6%84%9A%E5%BC%84%E8%80%85%20%EF%BC%88%E6%A1%91%E8%91%9A%E4%B8%8A%E7%9A%84%E7%8C%B4%E5%AD%90%EF%BC%89%E3%80%90%E4%B8%80%E5%9B%BEpv%E4%BB%98%E3%80%91.lrc" data-autoplay="false"></div> -->
 
