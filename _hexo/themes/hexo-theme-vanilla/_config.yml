@@ -68,7 +68,9 @@ avatar: //img.xungejiang.com/static/images/avatar1.jpg
 
 
 # Table Of Contents in the Sidebar
-toc: true
+# toc: true
+toc:
+  list_number: false  # 是否显示数字排序
 
 # Scroll to top
 top: true

@@ -61,4 +61,24 @@ conda config --add channels http://192.168.1.10/anaconda/pkgs/main/
 conda config --set show_channel_urls yes
 ```
 
+然后编辑配置文件 `.condarc`，一般在 `~/.condarc`，去掉最后的 `- defaults`
+
 至此，本地镜像的配置完成，我们可以离线安装Anaconda管理包了，速度不是一般的快。
+
+## 定时运行 anaconda.py 以更新镜像 (2019.08.11 更新)
+
+为了使得镜像及时更新，我们可以使用 Linux 的 crontab 服务定时更新 anaconda.py 脚本。具体方法如下：
+
+运行 `crontab –e` 编写一条定时任务：
+
+```
+0 1    * * 6    /usr/bin/python /home/ubuntu/anaconda.py --working-dir /home/ubuntu/anaconda-mirror > /home/ubuntu/auto.log
+```
+
+意思是每周六的凌晨 1:00 执行 anaconda.py 脚本。
+
+其他关于 crontab 的详细说明见文档说明 [19. crontab 定时任务](https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/crontab.html) 
+
+运行 `crontab –l` 进行验证。
+
+运行 `service cron restart` 重启服务。

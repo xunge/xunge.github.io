@@ -219,6 +219,33 @@ conda create -n pytorch pytorch=0.4
 
 只要 CUDA 版本与 NVIDIA 驱动版本相对应即可，可以在 [Release Notes :: CUDA Toolkit Documentation](https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html#major-components) 查找。
 
+## 安装远程桌面 (2019.08.11 更新)
+
+参考文档：[How to Connect to a Ubuntu 18.04 Server via Remote Desktop Connection using xRDP](https://draculaservers.com/tutorials/ubuntu-18-xrdp/)
+
+### 1. 安装 xRDP
+
+xRDP 是一款非常不错的远程桌面软件，且全平台支持。安装 xRDP 最好在干净的系统上安装。
+
+- Windows 可以直接使用微软的远程桌面连接。
+- Mac 可以使用 `Microsoft Remote Desktop` mac 版，App Store 搜不到，这里放上 [下载链接](https://go.microsoft.com/fwlink/?linkid=868963)。
+- Linux 可使用 `FreeRDP`、`Rdesktop` 等开源软件。
+
+```
+sudo apt-get update
+sudo apt-get install xrdp
+```
+
+### 2. 安装桌面环境
+
+Ubuntu 有很多桌面环境，例如 XFCE, Lubuntu, Xubuntu 和 MATE 等。这里使用 XFCE 为例：
+
+```
+sudo apt-get install xfce4
+```
+
+现在就可以使用远程桌面软件，通过 IP 即可访问。
+
 ## 总结
 
 至此，多人使用的 GPU 服务器就搭建完成了，当需要新建容器时，只需要完成以下几步：
