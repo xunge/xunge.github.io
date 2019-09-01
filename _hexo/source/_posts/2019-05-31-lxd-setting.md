@@ -246,6 +246,22 @@ sudo apt-get install xfce4
 
 现在就可以使用远程桌面软件，通过 IP 即可访问。
 
+## 在 LXD / LXC 中使用 Docker 容器
+
+在 LXD 环境中依然可以使用 Docker，但是需要更改一些配置，否则在 pull 镜像时会有 `permission denied` 错误，如下：
+
+```
+OCI runtime create failed: container_linux.go:345: starting container process caused "process_linux.go:430: container init caused \"rootfs_linux.go:58: mounting \\\"proc\\\" to rootfs \\\"/var/lib/docker/vfs/dir/c5cedb213621362913c6d950eec507ba91e04f2a933cd6d309f1c74a92c346ec\\\" at \\\"/proc\\\" caused \\\"permission denied\\\"\"": unknown
+```
+
+我们只需要在宿主机对容器进行以下配置即可：
+
+```
+lxc config set <container> security.nesting true
+lxc config set <container> security.privileged true
+```
+
+
 ## 总结
 
 至此，多人使用的 GPU 服务器就搭建完成了，当需要新建容器时，只需要完成以下几步：
