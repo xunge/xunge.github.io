@@ -118,46 +118,41 @@
   
     <div class="toc-article">
         <strong class="toc-title">文章目录</strong>
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-下载。"><span class="post-toc-text">1. 下载。</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-解压-MySQL-压缩包"><span class="post-toc-text">2. 解压 MySQL 压缩包</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-修改配置文件"><span class="post-toc-text">3. 修改配置文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-安装MySQL服务"><span class="post-toc-text">4. 安装MySQL服务</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-更改默认密码"><span class="post-toc-text">5. 更改默认密码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6-卸载-MySQL-服务"><span class="post-toc-text">6. 卸载 MySQL 服务</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载"><span class="post-toc-text">1. 下载。</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解压-mysql-压缩包"><span class="post-toc-text">2. 解压 MySQL 压缩包</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改配置文件"><span class="post-toc-text">3. 修改配置文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装mysql服务"><span class="post-toc-text">4. 安装MySQL服务</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#更改默认密码"><span class="post-toc-text">5. 更改默认密码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#卸载-mysql-服务"><span class="post-toc-text">6. 卸载 MySQL 服务</span></a></li></ol>
     </div>
   
   <div class="post-content">
     <p>MySQL 绿色版安装详细操作步骤。</p>
 <p>MySQL 绿色版优点是安装时间短，可在一部电脑兼容多个版本的 MySQL。</p>
 <a id="more"></a>
-
-
-
-
-<h2 id="1-下载。"><a href="#1-下载。" class="headerlink" title="1. 下载。"></a>1. 下载。</h2><p>下载地址：<a href="http://downloads.mysql.com/archives/get/file/mysql-5.7.11-winx64.zip" target="_blank" rel="noopener">http://downloads.mysql.com/archives/get/file/mysql-5.7.11-winx64.zip</a></p>
+<h2 id="下载">1. 下载。</h2>
+<p>下载地址：<a href="http://downloads.mysql.com/archives/get/file/mysql-5.7.11-winx64.zip" target="_blank" rel="noopener">http://downloads.mysql.com/archives/get/file/mysql-5.7.11-winx64.zip</a></p>
 <p>可以复制链接使用迅雷下载，速度较快。</p>
-<h2 id="2-解压-MySQL-压缩包"><a href="#2-解压-MySQL-压缩包" class="headerlink" title="2. 解压 MySQL 压缩包"></a>2. 解压 MySQL 压缩包</h2><p>解压到指定目录，我的是 “C:\MySQL\mysql-5.7.11-winx64”</p>
-<h2 id="3-修改配置文件"><a href="#3-修改配置文件" class="headerlink" title="3. 修改配置文件"></a>3. 修改配置文件</h2><p>将解压目录中的 <code>my-default.ini</code> 文件重命名为 <code>my.ini</code>，并将内容替换为以下即可</p>
+<h2 id="解压-mysql-压缩包">2. 解压 MySQL 压缩包</h2>
+<p>解压到指定目录，我的是 “C:-5.7.11-winx64”</p>
+<h2 id="修改配置文件">3. 修改配置文件</h2>
+<p>将解压目录中的 <code>my-default.ini</code> 文件重命名为 <code>my.ini</code>，并将内容替换为以下即可</p>
 <figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[mysqld]</span></span><br><span class="line"><span class="comment"># 注意：路径是反斜线，也可以改为两个正斜线，还可以加上双引号</span></span><br><span class="line"><span class="comment"># 设置mysql的安装目录</span></span><br><span class="line"><span class="attr">basedir</span> = C:\MySQL\mysql-<span class="number">5.7</span>.<span class="number">11</span>-winx64</span><br><span class="line"><span class="comment"># 设置 mysql 数据库的数据的存放目录，必须是 data</span></span><br><span class="line"><span class="attr">datadir</span> = C:\MySQL\mysql-<span class="number">5.7</span>.<span class="number">11</span>-winx64\data</span><br><span class="line"><span class="comment"># mysql端口</span></span><br><span class="line"><span class="attr">port</span> = <span class="number">3306</span></span><br><span class="line"></span><br><span class="line"><span class="attr">sql_mode</span> = NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES</span><br><span class="line"></span><br><span class="line"><span class="comment"># 服务端编码格式</span></span><br><span class="line"><span class="attr">character_set_server</span> = utf8</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不加这句话可能报错</span></span><br><span class="line"><span class="attr">innodb_flush_method</span> = normal</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-安装MySQL服务"><a href="#4-安装MySQL服务" class="headerlink" title="4. 安装MySQL服务"></a>4. 安装MySQL服务</h2><p>以管理员身份运行 cmd</p>
+<h2 id="安装mysql服务">4. 安装MySQL服务</h2>
+<p>以管理员身份运行 cmd</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">:: 进入 `C:\MySQL\mysql-5.7.11-winx64\bin` 目录下，</span><br><span class="line">cd C:\MySQL\mysql-5.7.11-winx64\bin</span><br><span class="line"></span><br><span class="line">:: 安装 MySQL 服务</span><br><span class="line">mysqld -install</span><br><span class="line">:: 显示 “Service successfully installed.” 即成功</span><br><span class="line"></span><br><span class="line">:: 初始化 MySQL (若安装目录有 data 文件夹则删除)</span><br><span class="line">mysqld --initialize</span><br><span class="line"></span><br><span class="line">:: 启动 MySQL 服务</span><br><span class="line">net start mysql</span><br><span class="line">:: 显示 “MySQL 服务正在启动 .”</span><br><span class="line">:: 显示 “MySQL 服务已经启动成功。”</span><br><span class="line">:: 若启动失败，在任务管理器中找到 “mysqld.exe” 进程，并删除</span><br></pre></td></tr></table></figure>
-
-<h2 id="5-更改默认密码"><a href="#5-更改默认密码" class="headerlink" title="5. 更改默认密码"></a>5. 更改默认密码</h2><p>打开 MySQL 安装目录，打开 data 目录，有一个 <code>.err</code> 后缀名的文件，用编辑器打开</p>
+<h2 id="更改默认密码">5. 更改默认密码</h2>
+<p>打开 MySQL 安装目录，打开 data 目录，有一个 <code>.err</code> 后缀名的文件，用编辑器打开</p>
 <p>如果每一行都是 <code>[Warning]</code>，没有 <code>[Error]</code>，就说明安装正确，并且最后一行应该如下</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[Note] A temporary password is generated for root@localhost: oK-R(foa&gt;4by</span><br></pre></td></tr></table></figure>
-
 <p>后面 12 个字符为默认生成初始密码，复制</p>
 <p>打开 cmd ，输入以下命令</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">:: 显示 “Enter password:” 后粘贴密码</span><br></pre></td></tr></table></figure>
-
-<p>若出现 “Welcome to the MySQL monitor.  Commands end with ; or \g. …” 则说明密码正确</p>
-<p>若出现 “ERROR 1045 (28000): Access denied for user ‘root’@’localhost’ (using password: YES)” 则说明密码错误，编辑 MySQL 配置文件 <code>my.ini</code> ，在 <code>[mysqld]</code> 这个条目下加入 <code>skip-grant-tables</code>，保存退出后重启 MySQL</p>
+<p>若出现 “Welcome to the MySQL monitor. Commands end with ; or . ...” 则说明密码正确</p>
+<p>若出现 “ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)” 则说明密码错误，编辑 MySQL 配置文件 <code>my.ini</code> ，在 <code>[mysqld]</code> 这个条目下加入 <code>skip-grant-tables</code>，保存退出后重启 MySQL</p>
 <p>密码正确后更改默认密码</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql&gt; ALTER USER &apos;root&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;newPassword&apos;;</span><br></pre></td></tr></table></figure>
-
 <p><code>newPassword</code> 更改为新密码</p>
-<h2 id="6-卸载-MySQL-服务"><a href="#6-卸载-MySQL-服务" class="headerlink" title="6. 卸载 MySQL 服务"></a>6. 卸载 MySQL 服务</h2><p>进入 <code>C:\MySQL\mysql-5.7.11-winx64\bin</code> 目录下，输入</p>
+<h2 id="卸载-mysql-服务">6. 卸载 MySQL 服务</h2>
+<p>进入 <code>C:\MySQL\mysql-5.7.11-winx64\bin</code> 目录下，输入</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysqld -remove</span><br></pre></td></tr></table></figure>
-
 <p>或者</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sc delete mysql</span><br></pre></td></tr></table></figure>
-
 <p>执行卸载服务。</p>
 
   </div>
@@ -434,5 +429,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

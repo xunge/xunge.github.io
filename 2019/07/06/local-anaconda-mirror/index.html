@@ -118,41 +118,40 @@
   
     <div class="toc-article">
         <strong class="toc-title">文章目录</strong>
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载所有镜像文件到本地"><span class="post-toc-text">下载所有镜像文件到本地</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#建立索引"><span class="post-toc-text">建立索引</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#搭建-http-文件服务器"><span class="post-toc-text">搭建 http 文件服务器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用本地镜像"><span class="post-toc-text">使用本地镜像</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#定时运行-anaconda-py-以更新镜像-2019-08-11-更新"><span class="post-toc-text">定时运行 anaconda.py 以更新镜像 (2019.08.11 更新)</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载所有镜像文件到本地"><span class="post-toc-text">下载所有镜像文件到本地</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#建立索引"><span class="post-toc-text">建立索引</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#搭建-http-文件服务器"><span class="post-toc-text">搭建 http 文件服务器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用本地镜像"><span class="post-toc-text">使用本地镜像</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#定时运行-anaconda.py-以更新镜像-2019.08.11-更新"><span class="post-toc-text">定时运行 anaconda.py 以更新镜像 (2019.08.11 更新)</span></a></li></ol>
     </div>
   
   <div class="post-content">
     <p>Anaconda是一个免费开源的Python等语言的发行版本，致力于简化包管理和部署，可以大大提高环境搭建效率。</p>
 <p>然而Anaconda国外源在国内下载速度较慢，虽然国内有清华源可以大大提高下载速度（2019年4月清华源曾因版权原因关闭，但在5月已重新开放），但是肯定没有搭建一个本地源速度快。本文将详细介绍如何将Anaconda镜像安装在本地，以供本机以及局域网内的其他电脑访问。</p>
 <a id="more"></a>
-
-<h2 id="下载所有镜像文件到本地"><a href="#下载所有镜像文件到本地" class="headerlink" title="下载所有镜像文件到本地"></a>下载所有镜像文件到本地</h2><p>搭建本地镜像肯定需要将所有镜像文件下载到本地。</p>
+<h2 id="下载所有镜像文件到本地">下载所有镜像文件到本地</h2>
+<p>搭建本地镜像肯定需要将所有镜像文件下载到本地。</p>
 <p>这里感谢清华开源下载镜像文件的Python<a href="https://github.com/tuna/tunasync-scripts/blob/master/anaconda.py" target="_blank" rel="noopener">代码</a>，这里进行了一定的修改，代码如下。</p>
 <p>可以看到代码中的路径改为了国内的清华源， repos 只选择了 <code>main</code> 和 <code>free</code>，arches 选择了 <code>linux-64</code> 和 <code>win-64</code>，当然也可以选择同步注释代码中的更多系统和版本。博主下载了这些文件共189.1 GB（2019年6月），也就是说只需要占用不到 200 GB 的磁盘空间，无需下载即可使用Anaconda安装Python包，还是很实用的。</p>
 <script src="https://gist.github.com/xunge/de60d28b5878768437148deaa52dd9d5.js"></script>
-
-<h2 id="建立索引"><a href="#建立索引" class="headerlink" title="建立索引"></a>建立索引</h2><p>下载的文件会在 <code>pkgs</code> 根目录下，我们需要运行以下命令</p>
+<h2 id="建立索引">建立索引</h2>
+<p>下载的文件会在 <code>pkgs</code> 根目录下，我们需要运行以下命令</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">conda index pkgs/*</span><br></pre></td></tr></table></figure>
-
 <p>运行需要较长时间，运行完成后会在 <code>free</code> 和 <code>main</code> 文件夹内生成 <code>noarch</code> 文件夹。</p>
-<h2 id="搭建-http-文件服务器"><a href="#搭建-http-文件服务器" class="headerlink" title="搭建 http 文件服务器"></a>搭建 http 文件服务器</h2><p>为了使局域网内的用户都可访问本地Anaconda镜像，我们首先搭建一个本地http服务器，参考这篇 <a href="https://www.jianshu.com/p/e1a6219167cf" target="_blank" rel="noopener">博客</a></p>
+<h2 id="搭建-http-文件服务器">搭建 http 文件服务器</h2>
+<p>为了使局域网内的用户都可访问本地Anaconda镜像，我们首先搭建一个本地http服务器，参考这篇 <a href="https://www.jianshu.com/p/e1a6219167cf" target="_blank" rel="noopener">博客</a></p>
 <p>在 ubuntu 系统下运行下面命令</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install apache2</span><br></pre></td></tr></table></figure>
-
 <p>apache2 的配置文件是 <code>/etc/apache2/apache2.conf</code>。</p>
 <p>服务器默认的访问路径在 <code>/var/www/html</code> 目录下。</p>
 <p>创建软链接，例如我们的镜像 pkgs 文件夹在 <code>/home/ubuntu/mirror/anaconda/pkgs</code> ，在 <code>/var/www/html</code> 目录下通过命令 <code>ln -s /home/ubuntu/mirror/anaconda/pkgs/ anaconda/pkgs</code> 创建一个软连接。就可以通过 <code>http://192.168.1.10/anaconda/pkgs</code> 访问到文件目录。</p>
-<h2 id="使用本地镜像"><a href="#使用本地镜像" class="headerlink" title="使用本地镜像"></a>使用本地镜像</h2><p>通过以下命令设置Anaconda的镜像路径：</p>
+<h2 id="使用本地镜像">使用本地镜像</h2>
+<p>通过以下命令设置Anaconda的镜像路径：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">conda config --add channels http://192.168.1.10/anaconda/pkgs/free/</span><br><span class="line">conda config --add channels http://192.168.1.10/anaconda/pkgs/main/</span><br><span class="line">conda config --set show_channel_urls yes</span><br></pre></td></tr></table></figure>
-
 <p>然后编辑配置文件 <code>.condarc</code>，一般在 <code>~/.condarc</code>，去掉最后的 <code>- defaults</code></p>
 <p>至此，本地镜像的配置完成，我们可以离线安装Anaconda管理包了，速度不是一般的快。</p>
-<h2 id="定时运行-anaconda-py-以更新镜像-2019-08-11-更新"><a href="#定时运行-anaconda-py-以更新镜像-2019-08-11-更新" class="headerlink" title="定时运行 anaconda.py 以更新镜像 (2019.08.11 更新)"></a>定时运行 anaconda.py 以更新镜像 (2019.08.11 更新)</h2><p>为了使得镜像及时更新，我们可以使用 Linux 的 crontab 服务定时更新 anaconda.py 脚本。具体方法如下：</p>
+<h2 id="定时运行-anaconda.py-以更新镜像-2019.08.11-更新">定时运行 anaconda.py 以更新镜像 (2019.08.11 更新)</h2>
+<p>为了使得镜像及时更新，我们可以使用 Linux 的 crontab 服务定时更新 anaconda.py 脚本。具体方法如下：</p>
 <p>运行 <code>crontab –e</code> 编写一条定时任务：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0 1    * * 6    /usr/bin/python /home/ubuntu/anaconda.py --working-dir /home/ubuntu/anaconda-mirror &gt; /home/ubuntu/auto.log</span><br></pre></td></tr></table></figure>
-
 <p>意思是每周六的凌晨 1:00 执行 anaconda.py 脚本。</p>
-<p>其他关于 crontab 的详细说明见文档说明 <a href="https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/crontab.html" target="_blank" rel="noopener">19. crontab 定时任务</a> </p>
+<p>其他关于 crontab 的详细说明见文档说明 <a href="https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/crontab.html" target="_blank" rel="noopener">19. crontab 定时任务</a></p>
 <p>运行 <code>crontab –l</code> 进行验证。</p>
 <p>运行 <code>service cron restart</code> 重启服务。</p>
 
@@ -430,5 +429,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

@@ -118,156 +118,155 @@
   
     <div class="toc-article">
         <strong class="toc-title">文章目录</strong>
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#环境概览"><span class="post-toc-text">环境概览</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#环境搭建"><span class="post-toc-text">环境搭建</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-Homebrew"><span class="post-toc-text">安装 Homebrew</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-coreutils，llvm，OpenMP"><span class="post-toc-text">安装 coreutils，llvm，OpenMP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-Python-依赖"><span class="post-toc-text">安装 Python 依赖</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-bazel"><span class="post-toc-text">安装 bazel</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#降级-Xcode-到-8-3-2"><span class="post-toc-text">降级 Xcode 到 8.3.2</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NVIDIA"><span class="post-toc-text">NVIDIA</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-安装-NVIDIA-Web-Drivers"><span class="post-toc-text">(1) 安装 NVIDIA Web-Drivers</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-安装-CUDA-Drivers"><span class="post-toc-text">(2) 安装 CUDA-Drivers</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-安装-CUDA-Toolkit-9-1"><span class="post-toc-text">(3) 安装 CUDA Toolkit 9.1</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-安装-cuDNN-7-0-5"><span class="post-toc-text">(4) 安装 cuDNN 7.0.5</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#编译准备"><span class="post-toc-text">编译准备</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#拉取-TensorFlow-源码-release-1-8-分支"><span class="post-toc-text">拉取 TensorFlow 源码 release 1.8 分支</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改代码，使其与-macOS-兼容"><span class="post-toc-text">修改代码，使其与 macOS 兼容</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#替换掉以下三个文件的-align-sizeof-T"><span class="post-toc-text">替换掉以下三个文件的 align(sizeof(T))</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#解决找不到-‘protobuf-bzl’-的问题"><span class="post-toc-text">解决找不到 ‘protobuf.bzl’ 的问题</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#添加依赖头文件-nccl-h-如编译1-7不用做此步骤"><span class="post-toc-text">添加依赖头文件 nccl.h (如编译1.7不用做此步骤)</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#修改-tensorflow-workspace-bzl-文件"><span class="post-toc-text">修改 tensorflow/workspace.bzl 文件</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开始编译"><span class="post-toc-text">开始编译</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#编译配置"><span class="post-toc-text">编译配置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#编译"><span class="post-toc-text">编译</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建wheel文件并安装"><span class="post-toc-text">创建wheel文件并安装</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#环境概览"><span class="post-toc-text">环境概览</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#环境搭建"><span class="post-toc-text">环境搭建</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-homebrew"><span class="post-toc-text">安装 Homebrew</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-coreutilsllvmopenmp"><span class="post-toc-text">安装 coreutils，llvm，OpenMP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-python-依赖"><span class="post-toc-text">安装 Python 依赖</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-bazel"><span class="post-toc-text">安装 bazel</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#降级-xcode-到-8.3.2"><span class="post-toc-text">降级 Xcode 到 8.3.2</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#nvidia"><span class="post-toc-text">NVIDIA</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装-nvidia-web-drivers"><span class="post-toc-text">(1) 安装 NVIDIA Web-Drivers</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装-cuda-drivers"><span class="post-toc-text">(2) 安装 CUDA-Drivers</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装-cuda-toolkit-9.1"><span class="post-toc-text">(3) 安装 CUDA Toolkit 9.1</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装-cudnn-7.0.5"><span class="post-toc-text">(4) 安装 cuDNN 7.0.5</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#编译准备"><span class="post-toc-text">编译准备</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#拉取-tensorflow-源码-release-1.8-分支"><span class="post-toc-text">拉取 TensorFlow 源码 release 1.8 分支</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改代码使其与-macos-兼容"><span class="post-toc-text">修改代码，使其与 macOS 兼容</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#替换掉以下三个文件的-alignsizeoft"><span class="post-toc-text">替换掉以下三个文件的 align(sizeof(T))</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#解决找不到-protobuf.bzl-的问题"><span class="post-toc-text">解决找不到 &#39;protobuf.bzl&#39; 的问题</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#添加依赖头文件-nccl.h-如编译1.7不用做此步骤"><span class="post-toc-text">添加依赖头文件 nccl.h (如编译1.7不用做此步骤)</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#修改-tensorflowworkspace.bzl-文件"><span class="post-toc-text">修改 tensorflow/workspace.bzl 文件</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开始编译"><span class="post-toc-text">开始编译</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#编译配置"><span class="post-toc-text">编译配置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#编译"><span class="post-toc-text">编译</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建wheel文件并安装"><span class="post-toc-text">创建wheel文件并安装</span></a></li></ol></li></ol>
     </div>
   
   <div class="post-content">
     <p>之前一直使用 Ubuntu Linux 系统作为 TensorFlow 机器学习的服务器，但是相对于 macOS 来说，无论是界面美化还是应用覆盖都是远远强于 Ubuntu 的，所以计划安装一个黑苹果作为 TensorFlow 的服务器</p>
 <p>但是因为 TensorFlow 在 1.2 版本后不再支持 macOS 的 GPU 版本，只能通过编译源代码进行安装，过程较为繁杂，所以在此记录</p>
 <a id="more"></a>
-
-
 <p>首先确定 Mac 显卡是 NVIDIA 显卡，且compute capabilities &gt;= 3.0，<a href="https://developer.nvidia.com/cuda-gpus" target="_blank" rel="noopener">点击这里</a> 查看你的显卡型号是否支持</p>
-<h2 id="环境概览"><a href="#环境概览" class="headerlink" title="环境概览"></a>环境概览</h2><table>
+<h2 id="环境概览">环境概览</h2>
+<table>
 <thead>
-<tr>
+<tr class="header">
 <th>软件</th>
 <th>版本号</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>macOS High Sierra</td>
 <td>10.13.4</td>
 </tr>
-<tr>
+<tr class="even">
 <td>TensorFlow</td>
 <td>1.8</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>python</td>
 <td>3.6.4</td>
 </tr>
-<tr>
+<tr class="even">
 <td>NVIDIA Web-Drivers</td>
 <td>387.10.10.10.30.106</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>CUDA-Drivers</td>
 <td>387.178</td>
 </tr>
-<tr>
+<tr class="even">
 <td>CUDA Toolkit</td>
 <td>9.1</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>cuDNN</td>
 <td>7.0.5</td>
 </tr>
-<tr>
+<tr class="even">
 <td>bazel</td>
 <td>0.10.0</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>Xcode</td>
 <td>8.3.2</td>
 </tr>
-<tr>
+<tr class="even">
 <td>Command Line Tools for Xcode</td>
 <td>8.3.2</td>
 </tr>
-</tbody></table>
-<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><h3 id="安装-Homebrew"><a href="#安装-Homebrew" class="headerlink" title="安装 Homebrew"></a>安装 Homebrew</h3><p>在终端输入下面命令安装 Homebrew</p>
+</tbody>
+</table>
+<h2 id="环境搭建">环境搭建</h2>
+<h3 id="安装-homebrew">安装 Homebrew</h3>
+<p>在终端输入下面命令安装 Homebrew</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span><br></pre></td></tr></table></figure>
-
-<h3 id="安装-coreutils，llvm，OpenMP"><a href="#安装-coreutils，llvm，OpenMP" class="headerlink" title="安装 coreutils，llvm，OpenMP"></a>安装 coreutils，llvm，OpenMP</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew install coreutils llvm cliutils/apple/libomp</span><br></pre></td></tr></table></figure>
-
-<h3 id="安装-Python-依赖"><a href="#安装-Python-依赖" class="headerlink" title="安装 Python 依赖"></a>安装 Python 依赖</h3><p>建议使用 Anaconda 包管理和 Virtualenv 虚拟环境等安装 Python</p>
+<h3 id="安装-coreutilsllvmopenmp">安装 coreutils，llvm，OpenMP</h3>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew install coreutils llvm cliutils/apple/libomp</span><br></pre></td></tr></table></figure>
+<h3 id="安装-python-依赖">安装 Python 依赖</h3>
+<p>建议使用 Anaconda 包管理和 Virtualenv 虚拟环境等安装 Python</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install six numpy wheel</span><br></pre></td></tr></table></figure>
-
-<h3 id="安装-bazel"><a href="#安装-bazel" class="headerlink" title="安装 bazel"></a>安装 bazel</h3><p>下载 <a href="https://github.com/bazelbuild/bazel/releases" target="_blank" rel="noopener">0.10.0</a> 版本中的 <code>bazel-0.10.0-installer-darwin-x86_64.sh</code> 文件</p>
+<h3 id="安装-bazel">安装 bazel</h3>
+<p>下载 <a href="https://github.com/bazelbuild/bazel/releases" target="_blank" rel="noopener">0.10.0</a> 版本中的 <code>bazel-0.10.0-installer-darwin-x86_64.sh</code> 文件</p>
 <p>需要注意，这里必须是 0.10.0 版本，新或旧都能导致编译失败</p>
 <p>在下载目录打开终端，输入下面命令进行安装</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">chmod +x bazel-0.10.0-installer-darwin-x86_64.sh</span><br><span class="line">./bazel-0.10.0-installer-darwin-x86_64.sh</span><br></pre></td></tr></table></figure>
-
-<h3 id="降级-Xcode-到-8-3-2"><a href="#降级-Xcode-到-8-3-2" class="headerlink" title="降级 Xcode 到 8.3.2"></a>降级 Xcode 到 8.3.2</h3><p>下载 <code>Xcode 8.3.2</code> 和 <code>Command Line Tools for Xcode 8.3.2</code>，Xcode 9 需要降级，因为编译 TensorFlow 只能使用 Xcode 8，官网下载需要登录苹果账号，<a href="https://developer.apple.com/download/more/" target="_blank" rel="noopener">官网下载链接</a>，按名称排列即可快速找到。</p>
+<h3 id="降级-xcode-到-8.3.2">降级 Xcode 到 8.3.2</h3>
+<p>下载 <code>Xcode 8.3.2</code> 和 <code>Command Line Tools for Xcode 8.3.2</code>，Xcode 9 需要降级，因为编译 TensorFlow 只能使用 Xcode 8，官网下载需要登录苹果账号，<a href="https://developer.apple.com/download/more/" target="_blank" rel="noopener">官网下载链接</a>，按名称排列即可快速找到。</p>
 <ul>
 <li><code>Xcode8.3.2.xip</code> (4.49GB) 下载后解压，重命名为 <code>Xcode8.3.2</code> 并复制到 <code>应用程序</code> 即可</li>
 <li><code>CommandLineToolsforXcode8.3.2.dmg</code> (166.1MB) 下载后安装即可</li>
 </ul>
 <p>使用下面的命令在终端激活 Xcode 8.3.2</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo xcode-select -s /Applications/Xcode8.3.2.app</span><br></pre></td></tr></table></figure>
-
 <p>换回 Xcode 9 可以用</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo xcode-select -s /Applications/Xcode.app</span><br></pre></td></tr></table></figure>
-
-<h3 id="NVIDIA"><a href="#NVIDIA" class="headerlink" title="NVIDIA"></a>NVIDIA</h3><h4 id="1-安装-NVIDIA-Web-Drivers"><a href="#1-安装-NVIDIA-Web-Drivers" class="headerlink" title="(1) 安装 NVIDIA Web-Drivers"></a>(1) 安装 NVIDIA Web-Drivers</h4><p>下载 <code>NVIDIA Web-Drivers</code> 驱动，根据不同的 Mac 系统进行下载，<a href="https://www.tonymacx86.com/nvidia-drivers/" target="_blank" rel="noopener">点击这里</a> 下载，支持 macOS 10.13.4 的版本为 387.10.10.10.30.106</p>
+<h3 id="nvidia">NVIDIA</h3>
+<h4 id="安装-nvidia-web-drivers">(1) 安装 NVIDIA Web-Drivers</h4>
+<p>下载 <code>NVIDIA Web-Drivers</code> 驱动，根据不同的 Mac 系统进行下载，<a href="https://www.tonymacx86.com/nvidia-drivers/" target="_blank" rel="noopener">点击这里</a> 下载，支持 macOS 10.13.4 的版本为 387.10.10.10.30.106</p>
 <ul>
 <li><code>WebDriver-387.10.10.10.30.106.pkg</code> (63.9MB) 下载后安装即可</li>
 </ul>
-<h4 id="2-安装-CUDA-Drivers"><a href="#2-安装-CUDA-Drivers" class="headerlink" title="(2) 安装 CUDA-Drivers"></a>(2) 安装 CUDA-Drivers</h4><p>下载 <code>CUDA-Drivers</code> 驱动，支持 CUDA 9.1 的版本号为 387.178，<a href="https://www.nvidia.cn/object/macosx-cuda-387.178-driver-cn.html" target="_blank" rel="noopener">官网</a> 下载、 <a href="https://pan.baidu.com/s/1GyoCyuh-hhJtEgFC0XS0IQ" target="_blank" rel="noopener">百度云</a> 下载</p>
+<h4 id="安装-cuda-drivers">(2) 安装 CUDA-Drivers</h4>
+<p>下载 <code>CUDA-Drivers</code> 驱动，支持 CUDA 9.1 的版本号为 387.178，<a href="https://www.nvidia.cn/object/macosx-cuda-387.178-driver-cn.html" target="_blank" rel="noopener">官网</a> 下载、 <a href="https://pan.baidu.com/s/1GyoCyuh-hhJtEgFC0XS0IQ" target="_blank" rel="noopener">百度云</a> 下载</p>
 <ul>
 <li><code>cudadriver_387.178_macos.dmg</code> (39.9MB) 下载后安装即可</li>
 </ul>
-<h4 id="3-安装-CUDA-Toolkit-9-1"><a href="#3-安装-CUDA-Toolkit-9-1" class="headerlink" title="(3) 安装 CUDA Toolkit 9.1"></a>(3) 安装 CUDA Toolkit 9.1</h4><p>下载 <code>CUDA Toolkit 9.1</code>，<a href="https://developer.nvidia.com/cuda-91-download-archive?target_os=MacOSX&target_arch=x86_64&target_version=1013&target_type=dmglocal" target="_blank" rel="noopener">官网</a> 下载和 <a href="https://pan.baidu.com/s/1zPU_2aC6_uK3P2j7v-RtEw" target="_blank" rel="noopener">百度云</a> 下载</p>
+<h4 id="安装-cuda-toolkit-9.1">(3) 安装 CUDA Toolkit 9.1</h4>
+<p>下载 <code>CUDA Toolkit 9.1</code>，<a href="https://developer.nvidia.com/cuda-91-download-archive?target_os=MacOSX&amp;target_arch=x86_64&amp;target_version=1013&amp;target_type=dmglocal" target="_blank" rel="noopener">官网</a> 下载和 <a href="https://pan.baidu.com/s/1zPU_2aC6_uK3P2j7v-RtEw" target="_blank" rel="noopener">百度云</a> 下载</p>
 <ul>
 <li><code>cuda_9.1.128_mac.dmg</code> (1.53GB) 下载后安装即可</li>
 </ul>
 <p>配置 CUDA 环境，编辑 <code>~/.bash_profile</code> 文件，如果安装了zsh则编辑 <code>~/.zshrc</code> 文件，打开终端：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">open -e .bash_profile</span><br></pre></td></tr></table></figure>
-
 <p>然后在弹出的文件中添加：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export CUDA_HOME=/usr/local/cuda</span><br><span class="line">export DYLD_LIBRARY_PATH=/usr/local/cuda/lib:/usr/local/cuda/extras/CUPTI/lib</span><br><span class="line">export LD_LIBRARY_PATH=$DYLD_LIBRARY_PATH</span><br><span class="line">export PATH=$PATH:$DYLD_LIBRARY_PATH</span><br></pre></td></tr></table></figure>
-
 <p>执行命令重启bash_profile</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">. ~/.bash_profile</span><br></pre></td></tr></table></figure>
-
 <p>检测CUDA能否正常运行：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd /usr/local/cuda/samples</span><br><span class="line">sudo make -C 1_Utilities/deviceQuery</span><br><span class="line">./bin/x86_64/darwin/release/deviceQuery</span><br></pre></td></tr></table></figure>
-
 <p>第一次编译时可能需要同意苹果协议，按照要求填 <code>agree</code> 即可</p>
 <p>最终结果为 <code>Result = PASS</code> 则安装正确。</p>
-<h4 id="4-安装-cuDNN-7-0-5"><a href="#4-安装-cuDNN-7-0-5" class="headerlink" title="(4) 安装 cuDNN 7.0.5"></a>(4) 安装 cuDNN 7.0.5</h4><p>下载 <code>cuDNN 7.0.5</code>，该版本支持 CUDA 9.1 ，官网下载时需要登录 NVIDIA 账号，<a href="https://developer.nvidia.com/rdp/cudnn-archive" target="_blank" rel="noopener">官网</a> 下载、 <a href="https://pan.baidu.com/s/1wY5A75FzXbNVmf0ZAIwvkg" target="_blank" rel="noopener">百度云</a> 下载</p>
+<h4 id="安装-cudnn-7.0.5">(4) 安装 cuDNN 7.0.5</h4>
+<p>下载 <code>cuDNN 7.0.5</code>，该版本支持 CUDA 9.1 ，官网下载时需要登录 NVIDIA 账号，<a href="https://developer.nvidia.com/rdp/cudnn-archive" target="_blank" rel="noopener">官网</a> 下载、 <a href="https://pan.baidu.com/s/1wY5A75FzXbNVmf0ZAIwvkg" target="_blank" rel="noopener">百度云</a> 下载</p>
 <ul>
 <li><code>cudnn-9.1-osx-x64-v7-ga.tgz</code> (340.3MB) 下载后解压，切换到解压缩的 <code>cuda</code> 目录，输入以下命令</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo cp cuda/include/cudnn.h /usr/local/cuda/include</span><br><span class="line">sudo cp cuda/lib/libcudnn_static.a /usr/local/cuda/lib</span><br><span class="line">sudo cp cuda/lib/libcudnn.7.dylib /usr/local/cuda/lib</span><br><span class="line">sudo ln -s /usr/local/cuda/lib/libcudnn.7.dylib /usr/local/cuda/lib/libcudnn.dylib</span><br><span class="line">sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib/libcudnn*</span><br></pre></td></tr></table></figure>
-
-<h2 id="编译准备"><a href="#编译准备" class="headerlink" title="编译准备"></a>编译准备</h2><h3 id="拉取-TensorFlow-源码-release-1-8-分支"><a href="#拉取-TensorFlow-源码-release-1-8-分支" class="headerlink" title="拉取 TensorFlow 源码 release 1.8 分支"></a>拉取 TensorFlow 源码 release 1.8 分支</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/tensorflow/tensorflow -b r1.8</span><br><span class="line">cd tensorflow</span><br></pre></td></tr></table></figure>
-
-<h3 id="修改代码，使其与-macOS-兼容"><a href="#修改代码，使其与-macOS-兼容" class="headerlink" title="修改代码，使其与 macOS 兼容"></a>修改代码，使其与 macOS 兼容</h3><h4 id="替换掉以下三个文件的-align-sizeof-T"><a href="#替换掉以下三个文件的-align-sizeof-T" class="headerlink" title="替换掉以下三个文件的 align(sizeof(T))"></a>替换掉以下三个文件的 align(sizeof(T))</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd tensorflow</span><br><span class="line">sed -i -e &quot;s/ __align__(sizeof(T))//g&quot; tensorflow/core/kernels/concat_lib_gpu_impl.cu.cc</span><br><span class="line">sed -i -e &quot;s/ __align__(sizeof(T))//g&quot; tensorflow/core/kernels/depthwise_conv_op_gpu.cu.cc</span><br><span class="line">sed -i -e &quot;s/ __align__(sizeof(T))//g&quot; tensorflow/core/kernels/split_lib_gpu.cu.cc</span><br></pre></td></tr></table></figure>
-
-<h4 id="解决找不到-‘protobuf-bzl’-的问题"><a href="#解决找不到-‘protobuf-bzl’-的问题" class="headerlink" title="解决找不到 ‘protobuf.bzl’ 的问题"></a>解决找不到 ‘protobuf.bzl’ 的问题</h4><p>我还遇到了以下错误</p>
+<h2 id="编译准备">编译准备</h2>
+<h3 id="拉取-tensorflow-源码-release-1.8-分支">拉取 TensorFlow 源码 release 1.8 分支</h3>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/tensorflow/tensorflow -b r1.8</span><br><span class="line">cd tensorflow</span><br></pre></td></tr></table></figure>
+<h3 id="修改代码使其与-macos-兼容">修改代码，使其与 macOS 兼容</h3>
+<h4 id="替换掉以下三个文件的-alignsizeoft">替换掉以下三个文件的 align(sizeof(T))</h4>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd tensorflow</span><br><span class="line">sed -i -e &quot;s/ __align__(sizeof(T))//g&quot; tensorflow/core/kernels/concat_lib_gpu_impl.cu.cc</span><br><span class="line">sed -i -e &quot;s/ __align__(sizeof(T))//g&quot; tensorflow/core/kernels/depthwise_conv_op_gpu.cu.cc</span><br><span class="line">sed -i -e &quot;s/ __align__(sizeof(T))//g&quot; tensorflow/core/kernels/split_lib_gpu.cu.cc</span><br></pre></td></tr></table></figure>
+<h4 id="解决找不到-protobuf.bzl-的问题">解决找不到 'protobuf.bzl' 的问题</h4>
+<p>我还遇到了以下错误</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ERROR: /Users/xunge/Desktop/tensorflow/tensorflow/tools/pip_package/BUILD:166:1: error loading package &apos;tensorflow&apos;: Encountered error while reading extension file &apos;protobuf.bzl&apos;: no such package &apos;@protobuf_archive//&apos;: java.io.IOException: thread interrupted and referenced by &apos;//tensorflow/tools/pip_package:build_pip_package&apos;</span><br></pre></td></tr></table></figure>
-
 <p><a href="https://github.com/tensorflow/tensorflow/issues/12979" target="_blank" rel="noopener">解决办法</a> 如下：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sed -i &apos;\@https://github.com/google/protobuf/archive/0b059a3d8a8f8aa40dde7bea55edca4ec5dfea66.tar.gz@d&apos; tensorflow/workspace.bzl</span><br></pre></td></tr></table></figure>
-
-<h4 id="添加依赖头文件-nccl-h-如编译1-7不用做此步骤"><a href="#添加依赖头文件-nccl-h-如编译1-7不用做此步骤" class="headerlink" title="添加依赖头文件 nccl.h (如编译1.7不用做此步骤)"></a>添加依赖头文件 nccl.h (如编译1.7不用做此步骤)</h4><p>下载 <a href="https://github.com/NVIDIA/nccl/blob/master/src/nccl.h" target="_blank" rel="noopener">nccl.h</a>，放在 <code>third_party/nccl</code> 文件夹内</p>
-<h4 id="修改-tensorflow-workspace-bzl-文件"><a href="#修改-tensorflow-workspace-bzl-文件" class="headerlink" title="修改 tensorflow/workspace.bzl 文件"></a>修改 tensorflow/workspace.bzl 文件</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tf_http_archive(</span><br><span class="line">    name = &quot;protobuf_archive&quot;,</span><br><span class="line">    urls = [</span><br><span class="line">        &quot;https://mirror.bazel.build/github.com/google/protobuf/archive/396336eb961b75f03b25824fe86cf6490fb75e3a.tar.gz&quot;,</span><br><span class="line">        &quot;https://github.com/google/protobuf/archive/396336eb961b75f03b25824fe86cf6490fb75e3a.tar.gz&quot;,</span><br><span class="line">    ],</span><br><span class="line">    sha256 = &quot;846d907acf472ae233ec0882ef3a2d24edbbe834b80c305e867ac65a1f2c59e3&quot;,</span><br><span class="line">    strip_prefix = &quot;protobuf-396336eb961b75f03b25824fe86cf6490fb75e3a&quot;,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
+<h4 id="添加依赖头文件-nccl.h-如编译1.7不用做此步骤">添加依赖头文件 nccl.h (如编译1.7不用做此步骤)</h4>
+<p>下载 <a href="https://github.com/NVIDIA/nccl/blob/master/src/nccl.h" target="_blank" rel="noopener">nccl.h</a>，放在 <code>third_party/nccl</code> 文件夹内</p>
+<h4 id="修改-tensorflowworkspace.bzl-文件">修改 tensorflow/workspace.bzl 文件</h4>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tf_http_archive(</span><br><span class="line">    name = &quot;protobuf_archive&quot;,</span><br><span class="line">    urls = [</span><br><span class="line">        &quot;https://mirror.bazel.build/github.com/google/protobuf/archive/396336eb961b75f03b25824fe86cf6490fb75e3a.tar.gz&quot;,</span><br><span class="line">        &quot;https://github.com/google/protobuf/archive/396336eb961b75f03b25824fe86cf6490fb75e3a.tar.gz&quot;,</span><br><span class="line">    ],</span><br><span class="line">    sha256 = &quot;846d907acf472ae233ec0882ef3a2d24edbbe834b80c305e867ac65a1f2c59e3&quot;,</span><br><span class="line">    strip_prefix = &quot;protobuf-396336eb961b75f03b25824fe86cf6490fb75e3a&quot;,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <p>搜索如上替换为如下</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tf_http_archive(</span><br><span class="line">    name = &quot;protobuf_archive&quot;,</span><br><span class="line">    urls = [</span><br><span class="line">        &quot;https://mirror.bazel.build/github.com/dtrebbien/protobuf/archive/50f552646ba1de79e07562b41f3999fe036b4fd0.tar.gz&quot;,</span><br><span class="line">        &quot;https://github.com/dtrebbien/protobuf/archive/50f552646ba1de79e07562b41f3999fe036b4fd0.tar.gz&quot;,</span><br><span class="line">    ],</span><br><span class="line">    sha256 = &quot;eb16b33431b91fe8cee479575cee8de202f3626aaf00d9bf1783c6e62b4ffbc7&quot;,</span><br><span class="line">    strip_prefix = &quot;protobuf-50f552646ba1de79e07562b41f3999fe036b4fd0&quot;,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
 <p>修复 third_party/gpus/cuda/BUILD.tpl 文件 -lgomp 报错</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">linkopts = [&quot;-lgomp&quot;],</span><br></pre></td></tr></table></figure>
-
 <p>搜索如上，注释掉</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># linkopts = [&quot;-lgomp&quot;],</span><br></pre></td></tr></table></figure>
-
-<h2 id="开始编译"><a href="#开始编译" class="headerlink" title="开始编译"></a>开始编译</h2><h3 id="编译配置"><a href="#编译配置" class="headerlink" title="编译配置"></a>编译配置</h3><p>在 TensorFlow 目录下输入以下命令进行命令配置</p>
+<h2 id="开始编译">开始编译</h2>
+<h3 id="编译配置">编译配置</h3>
+<p>在 TensorFlow 目录下输入以下命令进行命令配置</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">./configure</span><br></pre></td></tr></table></figure>
-
 <p>配置文件如下</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">You have bazel 0.10 installed.</span><br><span class="line">Please specify the location of python. [Default is /Users/user/.pyenv/versions/tensorflow-gpu/bin/python]: </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Found possible Python library paths:</span><br><span class="line">  /Users/user/.pyenv/versions/tensorflow-gpu/lib/python3.6/site-packages</span><br><span class="line">Please input the desired Python library path to use.  Default is [/Users/user/.pyenv/versions/tensorflow-gpu/lib/python3.6/site-packages]</span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with Google Cloud Platform support? [Y/n]: n</span><br><span class="line">No Google Cloud Platform support will be enabled for TensorFlow.</span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with Hadoop File System support? [Y/n]: n</span><br><span class="line">No Hadoop File System support will be enabled for TensorFlow.</span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with Amazon S3 File System support? [Y/n]: n</span><br><span class="line">No Amazon S3 File System support will be enabled for TensorFlow.</span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with Apache Kafka Platform support? [y/N]: n</span><br><span class="line">No Apache Kafka Platform support will be enabled for TensorFlow.</span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with XLA JIT support? [y/N]: n</span><br><span class="line">No XLA JIT support will be enabled for TensorFlow.</span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with GDR support? [y/N]: n</span><br><span class="line">No GDR support will be enabled for TensorFlow.</span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with VERBS support? [y/N]: n</span><br><span class="line">No VERBS support will be enabled for TensorFlow.</span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with OpenCL SYCL support? [y/N]: n</span><br><span class="line">No OpenCL SYCL support will be enabled for TensorFlow.</span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with CUDA support? [y/N]: y</span><br><span class="line">CUDA support will be enabled for TensorFlow.</span><br><span class="line"></span><br><span class="line">Please specify the CUDA SDK version you want to use, e.g. 7.0. [Leave empty to default to CUDA 9.0]: 9.1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Please specify the location where CUDA 9.1 toolkit is installed. Refer to README.md for more details. [Default is /usr/local/cuda]: </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Please specify the cuDNN version you want to use. [Leave empty to default to cuDNN 7.0]: </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Please specify the location where cuDNN 7 library is installed. Refer to README.md for more details. [Default is /usr/local/cuda]:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Please specify a list of comma-separated Cuda compute capabilities you want to build with.</span><br><span class="line">You can find the compute capability of your device at: https://developer.nvidia.com/cuda-gpus.</span><br><span class="line">Please note that each additional compute capability significantly increases your build time and binary size. [Default is: 3.5,5.2]6.1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Do you want to use clang as CUDA compiler? [y/N]: n</span><br><span class="line">nvcc will be used as CUDA compiler.</span><br><span class="line"></span><br><span class="line">Please specify which gcc should be used by nvcc as the host compiler. [Default is /usr/bin/gcc]: </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Do you wish to build TensorFlow with MPI support? [y/N]: n</span><br><span class="line">No MPI support will be enabled for TensorFlow.</span><br><span class="line"></span><br><span class="line">Please specify optimization flags to use during compilation when bazel option &quot;--config=opt&quot; is specified [Default is -march=native]: </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Would you like to interactively configure ./WORKSPACE for Android builds? [y/N]: </span><br><span class="line">Not configuring the WORKSPACE for Android builds.</span><br><span class="line"></span><br><span class="line">Preconfigured Bazel build configs. You can use any of the below by adding &quot;--config=&lt;&gt;&quot; to your build command. See tools/bazel.rc for more details.</span><br><span class="line">	--config=mkl         	# Build with MKL support.</span><br><span class="line">	--config=monolithic  	# Config for mostly static monolithic build.</span><br><span class="line">Configuration finished</span><br></pre></td></tr></table></figure>
-
-<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bazel clean --expunge</span><br><span class="line">bazel build --config=cuda --config=opt --cxxopt=&quot;-D_GLIBCXX_USE_CXX11_ABI=0&quot; --action_env PATH --action_env LD_LIBRARY_PATH --action_env DYLD_LIBRARY_PATH //tensorflow/tools/pip_package:build_pip_package</span><br></pre></td></tr></table></figure>
-
+<h3 id="编译">编译</h3>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bazel clean --expunge</span><br><span class="line">bazel build --config=cuda --config=opt --cxxopt=&quot;-D_GLIBCXX_USE_CXX11_ABI=0&quot; --action_env PATH --action_env LD_LIBRARY_PATH --action_env DYLD_LIBRARY_PATH //tensorflow/tools/pip_package:build_pip_package</span><br></pre></td></tr></table></figure>
 <p>如果看到</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">INFO: Build completed successfully, 9160 total actions</span><br></pre></td></tr></table></figure>
-
 <p>就说明编译成功</p>
-<h3 id="创建wheel文件并安装"><a href="#创建wheel文件并安装" class="headerlink" title="创建wheel文件并安装"></a>创建wheel文件并安装</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg</span><br><span class="line">cd ~</span><br><span class="line">sudo pip install /tmp/tensorflow_pkg/tensorflow-1.8-cp36-cp36m-macosx_10_13_x86_64.whl</span><br></pre></td></tr></table></figure>
-
+<h3 id="创建wheel文件并安装">创建wheel文件并安装</h3>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg</span><br><span class="line">cd ~</span><br><span class="line">sudo pip install /tmp/tensorflow_pkg/tensorflow-1.8-cp36-cp36m-macosx_10_13_x86_64.whl</span><br></pre></td></tr></table></figure>
 <p>本人编译完成后的文件为 <code>tensorflow-1.8.0-cp36-cp36m-macosx_10_7_x86_64.whl</code> <a href="https://pan.baidu.com/s/14o0uIOutmW866ftbf8nvuA" target="_blank" rel="noopener">百度云下载</a></p>
 <p>最后提供本人 Z270 + i7-7700k 的黑苹果 <a href="https://pan.baidu.com/s/1ttgZ1cralJrTYkZS5BmwnQ" target="_blank" rel="noopener">EFI</a></p>
 <p>参考文章：</p>
@@ -549,5 +548,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

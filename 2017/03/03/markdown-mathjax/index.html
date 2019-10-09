@@ -118,69 +118,72 @@
   
     <div class="toc-article">
         <strong class="toc-title">文章目录</strong>
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#工具"><span class="post-toc-text">工具</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置-Markdown-Preview-来支持-MathJax"><span class="post-toc-text">配置 Markdown Preview 来支持 MathJax</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置-Pelican-主题模板来支持-MathJax"><span class="post-toc-text">配置 Pelican 主题模板来支持 MathJax</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#LaTex-简明教程"><span class="post-toc-text">LaTex 简明教程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#规则"><span class="post-toc-text">规则</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#几个非常有用的资源"><span class="post-toc-text">几个非常有用的资源</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#工具"><span class="post-toc-text">工具</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置-markdown-preview-来支持-mathjax"><span class="post-toc-text">配置 Markdown Preview 来支持 MathJax</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置-pelican-主题模板来支持-mathjax"><span class="post-toc-text">配置 Pelican 主题模板来支持 MathJax</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#latex-简明教程"><span class="post-toc-text">LaTex 简明教程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#规则"><span class="post-toc-text">规则</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#几个非常有用的资源"><span class="post-toc-text">几个非常有用的资源</span></a></li></ol></li></ol>
     </div>
   
   <div class="post-content">
     <p>在书写数值计算类文章，难免需要插入复杂的数学公式。一种是用图片在网页上展示，另外一种是使用 <a href="https://www.mathjax.org" target="_blank" rel="noopener">MathJax</a> 来展示复杂的数学公式。</p>
 <a id="more"></a>
-
-
-
 <p>它直接使用 Javascript 使用矢量字库或 SVG 文件来显示数学公式。优点是效果好，比如在 Retina 屏幕上也不会变得模糊。并且可以直接把公式写在 Markdown 文章里。本文介绍在 Sublime 中使用 MathJax 在 Markdown 文件里直接插入数学公式。并且附带一个简单的书写数学公式的 LaTex 教程。</p>
-<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><h3 id="配置-Markdown-Preview-来支持-MathJax"><a href="#配置-Markdown-Preview-来支持-MathJax" class="headerlink" title="配置 Markdown Preview 来支持 MathJax"></a>配置 Markdown Preview 来支持 MathJax</h3><p>使用 Sublime + Markdown Preview 插件来写博客时。需要开启 Markdown Preview 对 MathJax 的支持，这样在预览界面才能正确地显示数学公式。方法是打开在 Markdown Preview 的用户配置文件 (Package Settings -&gt; Markdown Preview -&gt; Setting - User) 里添加如下内容：</p>
+<h2 id="工具">工具</h2>
+<h3 id="配置-markdown-preview-来支持-mathjax">配置 Markdown Preview 来支持 MathJax</h3>
+<p>使用 Sublime + Markdown Preview 插件来写博客时。需要开启 Markdown Preview 对 MathJax 的支持，这样在预览界面才能正确地显示数学公式。方法是打开在 Markdown Preview 的用户配置文件 (Package Settings -&gt; Markdown Preview -&gt; Setting - User) 里添加如下内容：</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">"enable_mathjax":</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="配置-Pelican-主题模板来支持-MathJax"><a href="#配置-Pelican-主题模板来支持-MathJax" class="headerlink" title="配置 Pelican 主题模板来支持 MathJax"></a>配置 Pelican 主题模板来支持 MathJax</h3><p>如果博客不支持 MathJax 可以在模板中添加如下脚本</p>
+<h3 id="配置-pelican-主题模板来支持-mathjax">配置 Pelican 主题模板来支持 MathJax</h3>
+<p>如果博客不支持 MathJax 可以在模板中添加如下脚本</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!-- mathjax config similar to math.stackexchange --&gt;</span><br><span class="line">&lt;script type=<span class="string">"text/x-mathjax-config"</span>&gt;</span><br><span class="line">MathJax.Hub.Config(&#123;</span><br><span class="line">    jax: [<span class="string">"input/TeX"</span>, <span class="string">"output/HTML-CSS"</span>],</span><br><span class="line">    tex2jax: &#123;</span><br><span class="line">        inlineMath: [ [<span class="string">'$'</span>, <span class="string">'$'</span>] ],</span><br><span class="line">        displayMath: [ [<span class="string">'$$'</span>, <span class="string">'$$'</span>]],</span><br><span class="line">        processEscapes: <span class="literal">true</span>,</span><br><span class="line">        skipTags: [<span class="string">'script'</span>, <span class="string">'noscript'</span>, <span class="string">'style'</span>, <span class="string">'textarea'</span>, <span class="string">'pre'</span>, <span class="string">'code'</span>]</span><br><span class="line">    &#125;,</span><br><span class="line">    messageStyle: <span class="string">"none"</span>,</span><br><span class="line">    <span class="string">"HTML-CSS"</span>: &#123; <span class="attr">preferredFont</span>: <span class="string">"TeX"</span>, <span class="attr">availableFonts</span>: [<span class="string">"STIX"</span>,<span class="string">"TeX"</span>] &#125;</span><br><span class="line">&#125;);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">&lt;script type="text/</span>javascript<span class="string">" src="</span>https:<span class="comment">//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="LaTex-简明教程"><a href="#LaTex-简明教程" class="headerlink" title="LaTex 简明教程"></a>LaTex 简明教程</h2><h3 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h3><p>关于在 Markdown 书写 LaTex 数学公式有几个规则常用规则需要记住：</p>
-<p><strong>行内公式</strong><br>行内公式使用 <code>$</code> 和 <code>$</code> 作为公式的左右边界，如 $h(x) = \theta_0 + \theta_1 x$ 公式的 LaTex 内容如下</p>
+<h2 id="latex-简明教程">LaTex 简明教程</h2>
+<h3 id="规则">规则</h3>
+<p>关于在 Markdown 书写 LaTex 数学公式有几个规则常用规则需要记住：</p>
+<p><strong>行内公式</strong> 行内公式使用 <code>$</code> 和 <code>$</code> 作为公式的左右边界，如 <span class="math inline">\(h(x) = \theta_0 + \theta_1 x\)</span> 公式的 LaTex 内容如下</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$h(x) = \theta_0 + \theta_1 x$</span><br></pre></td></tr></table></figure>
-
-<p><strong>行间公式</strong><br>公式需要独立显示一行时，使用 <code>$$</code> 来作为公式的左右边界，如</p>
-<p>$$<br>\theta_i = \theta_i - \alpha\frac\partial{\partial\theta_i}J(\theta)<br>$$</p>
+<p><strong>行间公式</strong> 公式需要独立显示一行时，使用 <code>$$</code> 来作为公式的左右边界，如</p>
+<p><span class="math display">\[
+\theta_i = \theta_i - \alpha\frac\partial{\partial\theta_i}J(\theta)
+\]</span></p>
 <p>的 LaTex 代码为：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$$</span><br><span class="line">\theta_i = \theta_i - \alpha\frac\partial&#123;\partial\theta_i&#125;J(\theta)</span><br><span class="line">$$</span><br></pre></td></tr></table></figure>
-
-<p><strong>常用 LaTex 代码</strong><br>需要记住的几个常用的符号，这样书写起来会快一点</p>
+<p><strong>常用 LaTex 代码</strong> 需要记住的几个常用的符号，这样书写起来会快一点</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>编码</th>
 <th>说明</th>
 <th>示例</th>
 </tr>
 </thead>
-<tbody><tr>
-<td>\frac</td>
+<tbody>
+<tr class="odd">
+<td></td>
 <td>分子分母之间的横线</td>
-<td>\(\frac1x\)</td>
+<td>\(1x\)</td>
 </tr>
-<tr>
+<tr class="even">
 <td>_</td>
 <td>用下划线来表示下标</td>
 <td>\(x_i\)</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>^</td>
 <td>次方运算符来表示上标</td>
 <td>\(x^i\)</td>
 </tr>
-<tr>
-<td>\sum</td>
+<tr class="even">
+<td></td>
 <td>累加器，上下标用上面介绍的编码来书写</td>
-<td>\(\sum\)</td>
+<td>\(\)</td>
 </tr>
-<tr>
-<td>\alpha</td>
+<tr class="odd">
+<td></td>
 <td>希腊字母 alpha</td>
-<td>\(y := \alpha x\)</td>
+<td>\(y := x\)</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>要特别注意公式里空格和 <code>{}</code> 的运用规则。基本原则是，空格可加可不加，但如果会引起歧义，最好加上空格。<code>{}</code> 是用来组成群组的。比如写一个分式时，分母是一个复杂公式时，可以用 <code>{}</code> 包含起来，这样整个复杂公式都会变成分母了。</p>
-<h3 id="几个非常有用的资源"><a href="#几个非常有用的资源" class="headerlink" title="几个非常有用的资源"></a>几个非常有用的资源</h3><ul>
-<li>这是一篇质量很高的<a href="http://mlworks.cn/posts/introduction-to-mathjax-and-latex-expression/" target="_blank" rel="noopener">介绍 MathJax 的中文博客文章</a>，需要注意的是如果是用 markdown 编写 MathJax 公式，当公式里需要两个斜杠 \ 时要写四个斜杠 \。因为 \ 会被 markdown 转义一次。</li>
+<h3 id="几个非常有用的资源">几个非常有用的资源</h3>
+<ul>
+<li>这是一篇质量很高的<a href="http://mlworks.cn/posts/introduction-to-mathjax-and-latex-expression/" target="_blank" rel="noopener">介绍 MathJax 的中文博客文章</a>，需要注意的是如果是用 markdown 编写 MathJax 公式，当公式里需要两个斜杠  时要写四个斜杠 。因为  会被 markdown 转义一次。</li>
 <li>Github 上有个<a href="https://kerzol.github.io/markdown-mathjax/editor.html" target="_blank" rel="noopener">在线 Markdown MathJax 编辑器</a>，可以在这里练习，平时写公式时也可以在这里先写好再拷贝到文章里</li>
 <li>这是 <a href="http://www.forkosh.com/mathtextutorial.html" target="_blank" rel="noopener">LaTex 完整教程</a>，包含完整的 LaTex 数学公式的内容，包括更高级的格式控制等</li>
 <li>这是一份PDF 格式的 <a href="http://mirrors.ctan.org/info/symbols/math/maths-symbols.pdf" target="_blank" rel="noopener">MathJax 支持的数学符号表</a>，当需要书写复杂数学公式时，一些非常特殊的符号的转义字符可以从这里查到</li>
@@ -462,5 +465,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

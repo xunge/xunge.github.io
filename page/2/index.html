@@ -163,7 +163,7 @@
       <div class="post-content">
         <p>原文：<a href="http://www.cleverhans.io/security/privacy/ml/2017/02/15/why-attacking-machine-learning-is-easier-than-defending-it.html" target="_blank" rel="noopener">Is attacking machine learning easier than defending it?</a></p>
 <p>译文：<a href="http://xungejiang.com/2017/11/29/translate-blog2/">攻击机器学习比防御更容易吗?</a></p>
-<p>原文写作日期：2017年3月15日<br>译文写作日期：2017年11月29日</p>
+<p>原文写作日期：2017年3月15日 译文写作日期：2017年11月29日</p>
 <p>本文为<a href="http://www.cleverhans.io/" target="_blank" rel="noopener">cleverhans-blog</a>的第二篇博客，作者为 Ian Goodfellow 和 Nicolas Papernot，主要讲解 <strong>对抗性训练</strong> 和 <strong>防御性蒸馏</strong> 两种防御方法之间的优势与不足。</p>
 <p>xunge 是一名初学者，论文翻译中用到了 Google，并自己逐句检查过，但还是会有显得晦涩的地方，如有语法/专业名词翻译错误，还请见谅，并欢迎及时指出。</p>
 <p>转载请注明出处！</p>
@@ -230,7 +230,7 @@
         
       </span></span></span></span></div>
       <div class="post-content">
-        <p>参考资料 <a href="http://www.goodnas.net/forum.php?mod=viewthread&tid=24" target="_blank" rel="noopener">http://www.goodnas.net/forum.php?mod=viewthread&amp;tid=24</a></p>
+        <p>参考资料 <a href="http://www.goodnas.net/forum.php?mod=viewthread&amp;tid=24" target="_blank" rel="noopener">http://www.goodnas.net/forum.php?mod=viewthread&amp;tid=24</a></p>
 <p>本文主要讲述群晖的 SHR 、raid1 、raid0 、raid1 、raid5 之间的区别。</p>
       </div>
       <div class="continue"><a class="btn" href="/2017/08/03/shr-raid015/">继续阅读</a></div>
@@ -456,5 +456,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

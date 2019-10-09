@@ -124,15 +124,14 @@
   <div class="post-content">
     <p>如何在苹果电脑中安装双系统 mac + win10</p>
 <a id="more"></a>
-
-
-
-
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>苹果电脑当然还是苹果系统最适合，优势最明显的是省电，当然也有美观、系统流畅等其他优点。但是也有很多劣势，比如 mac 系统学习成本比较大，很多软件不兼容。所以在硬盘空间的允许下装双系统应该是再合适不过的啦。</p>
+<h2 id="前言">前言</h2>
+<p>苹果电脑当然还是苹果系统最适合，优势最明显的是省电，当然也有美观、系统流畅等其他优点。但是也有很多劣势，比如 mac 系统学习成本比较大，很多软件不兼容。所以在硬盘空间的允许下装双系统应该是再合适不过的啦。</p>
 <p>博主就是因为老爸不习惯 macOS ，而博主又特别喜欢 macOS 的界面，所以权衡利弊借助 bootcamp 装了双系统。</p>
 <p>其实想在苹果电脑上运行 mac 还可以用虚拟机，这里推荐 <code>parlldesktop</code> 虚拟机，不过需要花钱，也有破解版。</p>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>win10 镜像， USB 2.0 。</p>
-<h2 id="开始制作"><a href="#开始制作" class="headerlink" title="开始制作"></a>开始制作</h2><p>首先需要 win10 镜像，推荐 <a href>MSN I tell you</a>，镜像都是原版无添加。</p>
+<h2 id="准备工作">准备工作</h2>
+<p>win10 镜像， USB 2.0 。</p>
+<h2 id="开始制作">开始制作</h2>
+<p>首先需要 win10 镜像，推荐 <a href>MSN I tell you</a>，镜像都是原版无添加。</p>
 <p>然后需要一个 USB 2.0 的U盘。。<strong>注意，最好！！一定！！是 2.0 的U盘</strong> 因为博主试过好多 3.0 的U盘都不成功，后来看有人建议用 2.0 的U盘试试，果然成功了！！博主用的是 Kingston 的 2.0 U盘。</p>
 <p>然后需要用 bootcamp 制作 win10 的启动U盘。</p>
 <p>实用工具 -&gt; bootcamp助理 -&gt; 继续 -&gt; 打好三个对勾，然后会自动将镜像拷贝到U盘，并下载一些必要的驱动。之后会自动重启，安装方法和 Windows 就没有什么区别了。</p>
@@ -415,5 +414,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

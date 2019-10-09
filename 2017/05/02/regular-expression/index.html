@@ -124,139 +124,126 @@
   <div class="post-content">
     <p>正则表达式是一种特殊的字符串模式，用于匹配一组字符串。本文将介绍正则表达式的简单规则。</p>
 <a id="more"></a>
-
-
-
-<h2 id="正则表达式通用匹配符号"><a href="#正则表达式通用匹配符号" class="headerlink" title="正则表达式通用匹配符号"></a>正则表达式通用匹配符号</h2><table>
+<h2 id="正则表达式通用匹配符号">正则表达式通用匹配符号</h2>
+<table>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>正则表达式</th>
 <th>说明</th>
 <th>正确示例</th>
 <th>错误示例</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>.</td>
 <td>匹配任何单个符号，包括所有字符</td>
 <td>(“..”, “a%”) – true</td>
 <td>(“..”, “a”) – false</td>
 </tr>
-<tr>
+<tr class="even">
 <td>^xxx</td>
 <td>在开头匹配正则xxx</td>
 <td>(“^a.c.”, “abcd”) – true</td>
 <td>(“^a”, “ac”) – false</td>
 </tr>
-<tr>
-<td>xxx\$</td>
-<td>在结尾匹配正则xxx</td>
-<td>(“..cd\$”, “abcd”) – true</td>
+<tr class="odd">
+<td>xxx\<span class="math inline">\(|在结尾匹配正则xxx|(“..cd\\\)</span>”, “abcd”) – true</td>
 <td>(“a\$”, “aca”) – false</td>
+<td></td>
+<td></td>
 </tr>
-<tr>
+<tr class="even">
 <td>[abc]</td>
 <td>能够匹配字母a,b或c</td>
-<td>(“^[abc]d.”, “ad9”) – true</td>
+<td>(“<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>d.”, “ad9”) – true</td>
 <td>(“[ab]x”, “cx”) – false</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>[^abc]</td>
 <td>当^是[]中的第一个字符时代表取反</td>
 <td>(“[^ab][^12].”, “c3#”) – true</td>
 <td>(“[^ab][^12]“, “c2″) – false</td>
 </tr>
-<tr>
+<tr class="even">
 <td>[a-e1-8]</td>
 <td>匹配a到e或者1到8之间的字符</td>
 <td>(“[a-e1-3].”, “d#”) – true</td>
 <td>(“[a-e1-3]“, “f2″) – false</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>xx\</td>
 <td>yy</td>
 <td>匹配正则xx或者yy</td>
 <td>(“x.\</td>
 </tr>
-</tbody></table>
-<h2 id="正则表达式元字符"><a href="#正则表达式元字符" class="headerlink" title="正则表达式元字符"></a>正则表达式元字符</h2><table>
+</tbody>
+</table>
+<h2 id="正则表达式元字符">正则表达式元字符</h2>
+<table>
 <thead>
-<tr>
-<th align="center">正则表达式</th>
+<tr class="header">
+<th style="text-align: center;">正则表达式</th>
 <th>说明</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">\d</td>
-<td>任意数字，等同于[0-9]</td>
-</tr>
-<tr>
-<td align="center">\D</td>
-<td>任意非数字，等同于[^0-9]</td>
-</tr>
-<tr>
-<td align="center">\s</td>
-<td>任意空白字符，等同于[\t\n\x0B\f\r]</td>
-</tr>
-<tr>
-<td align="center">\S</td>
-<td>任意非空白字符，等同于[^\s]</td>
-</tr>
-<tr>
-<td align="center">\w</td>
-<td>任意英文字符，等同于[a-zA-Z_0-9]</td>
-</tr>
-<tr>
-<td align="center">\W</td>
-<td>任意非英文字符，等同于[^\w]</td>
-</tr>
-<tr>
-<td align="center">\b</td>
-<td>单词边界</td>
-</tr>
-<tr>
-<td align="center">\B</td>
-<td>非单词边界</td>
-</tr>
-</tbody></table>
+<tbody>
+</tbody>
+</table>
+<p>任意数字，等同于[0-9] |任意非数字，等同于[^0-9] |任意空白字符，等同于[0B |任意非空白字符，等同于[^\s] |任意英文字符，等同于[a-zA-Z_0-9] |任意非英文字符，等同于[^\w] 单词边界 |非单词边界</p>
 <p>有两种方法可以在正则表达式中像一般字符一样使用元字符。</p>
-<ol>
+<ol type="1">
 <li>在元字符前添加反斜杠()</li>
-<li>将元字符置于\Q(开始引用)和\E(结束引用)间</li>
+<li>将元字符置于(开始引用)和(结束引用)间</li>
 </ol>
-<h2 id="正则表达式量词"><a href="#正则表达式量词" class="headerlink" title="正则表达式量词"></a>正则表达式量词</h2><table>
+<h2 id="正则表达式量词">正则表达式量词</h2>
+<table>
 <thead>
-<tr>
+<tr class="header">
 <th>正则表达式</th>
 <th>说明</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>x?</td>
 <td>x没有出现或者只出现一次</td>
 </tr>
-<tr>
+<tr class="even">
 <td>X*</td>
 <td>X出现0次或更多</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>X+</td>
 <td>X出现1次或更多</td>
 </tr>
-<tr>
+<tr class="even">
 <td>X{n}</td>
 <td>X正好出现n次</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>X{n,}</td>
 <td>X出席n次或更多</td>
 </tr>
-<tr>
+<tr class="even">
 <td>X{n,m}</td>
 <td>X出现至少n次但不多于m次</td>
 </tr>
-</tbody></table>
-<p>原文链接： <a href="http://www.journaldev.com/634/regular-expression-in-java-regex-example" target="_blank" rel="noopener">journaldev</a> 翻译： ImportNew.com - ImportNew读者<br>译文链接： <a href="http://www.importnew.com/6810.html" target="_blank" rel="noopener">http://www.importnew.com/6810.html</a><br>[ 转载请保留原文出处、译者和译文链接。]</p>
+</tbody>
+</table>
+<p>原文链接： <a href="http://www.journaldev.com/634/regular-expression-in-java-regex-example" target="_blank" rel="noopener">journaldev</a> 翻译： ImportNew.com - ImportNew读者 译文链接： <a href="http://www.importnew.com/6810.html" target="_blank" rel="noopener">http://www.importnew.com/6810.html</a> [ 转载请保留原文出处、译者和译文链接。]</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1" role="doc-endnote"><p>abc<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
   </div>
 </article>
@@ -532,5 +519,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

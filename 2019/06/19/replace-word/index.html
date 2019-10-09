@@ -124,11 +124,10 @@
   <div class="post-content">
     <p>当使用翻译软件翻译论文时，经常会将某些专业名词翻译错误，例如将 <code>adversarial example</code> 翻译为 <code>对抗性的例子</code> 而不是 <code>对抗样本</code>。虽然 Word 可以全局替换，但是一次只能替换一个词组，如果想同时替换多个词组将非常费事。这时使用 VBA 将是一个不错的选择。</p>
 <a id="more"></a>
-
-<h2 id="添加宏"><a href="#添加宏" class="headerlink" title="添加宏"></a>添加宏</h2><p><code>视图</code> -&gt; <code>宏</code> -&gt; <code>查看宏</code> -&gt; <code>新建宏</code> 命名为 replace。</p>
+<h2 id="添加宏">添加宏</h2>
+<p><code>视图</code> -&gt; <code>宏</code> -&gt; <code>查看宏</code> -&gt; <code>新建宏</code> 命名为 replace。</p>
 <p>在打开的 VB 编辑器粘贴下面代码，更改具体的替换词语，即可</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Sub replace()</span><br><span class="line">&apos;</span><br><span class="line">&apos; replace 宏</span><br><span class="line">&apos;</span><br><span class="line">    Const wdReplaceAll = 2</span><br><span class="line">    Dim oRng As Range</span><br><span class="line">    Set oRng = ActiveDocument.Content</span><br><span class="line">    With oRng.Find</span><br><span class="line">        .Execute FindText:=&quot;对抗性的例子&quot;, ReplaceWith:=&quot;对抗样本&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;对抗性示例&quot;, ReplaceWith:=&quot;对抗样本&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;对抗性实例&quot;, ReplaceWith:=&quot;对抗样本&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;对抗性例子&quot;, ReplaceWith:=&quot;对抗样本&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;对抗实例&quot;, ReplaceWith:=&quot;对抗样本&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;对手&quot;, ReplaceWith:=&quot;攻击者&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;挤压&quot;, ReplaceWith:=&quot;压缩&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;功能&quot;, ReplaceWith:=&quot;特征&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;显着&quot;, ReplaceWith:=&quot;显著&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;稳健&quot;, ReplaceWith:=&quot;鲁棒&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;健壮&quot;, ReplaceWith:=&quot;鲁棒&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;样品&quot;, ReplaceWith:=&quot;样本&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;渐变&quot;, ReplaceWith:=&quot;梯度&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;培训&quot;, ReplaceWith:=&quot;训练&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;规范&quot;, ReplaceWith:=&quot;范数&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;探测&quot;, ReplaceWith:=&quot;检测&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;辍学&quot;, ReplaceWith:=&quot;dropout&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;图层&quot;, ReplaceWith:=&quot;层&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;合法示例&quot;, ReplaceWith:=&quot;合法样本&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;对抗性样本&quot;, ReplaceWith:=&quot;对抗样本&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;对抗性训练&quot;, ReplaceWith:=&quot;对抗训练&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;对抗性鲁棒性&quot;, ReplaceWith:=&quot;对抗鲁棒性&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;对抗性强大&quot;, ReplaceWith:=&quot;对抗鲁棒性&quot;, replace:=wdReplaceAll</span><br><span class="line">        .Execute FindText:=&quot;敌对&quot;, ReplaceWith:=&quot;对抗&quot;, replace:=wdReplaceAll</span><br><span class="line">    End With</span><br><span class="line">End Sub</span><br></pre></td></tr></table></figure>
-
 <p>保存后关闭编辑器即可。</p>
 <p>之后只需要运行名为 replace 的宏即可。</p>
 <p>也可以将该宏添加到快速访问工具栏中，这样可以更方便的调用宏。</p>
@@ -407,5 +406,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

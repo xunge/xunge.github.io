@@ -118,66 +118,92 @@
   
     <div class="toc-article">
         <strong class="toc-title">文章目录</strong>
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-Sigmoid-型激活函数"><span class="post-toc-text">1. Sigmoid 型激活函数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-1-Logistic-函数"><span class="post-toc-text">1.1 Logistic 函数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-2-Tanh-函数"><span class="post-toc-text">1.2 Tanh 函数</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-ReLU-函数"><span class="post-toc-text">2. ReLU 函数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-1-Leaky-ReLU"><span class="post-toc-text">2.1 Leaky ReLU</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-2-PReLU"><span class="post-toc-text">2.2 PReLU</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-3-EReLU"><span class="post-toc-text">2.3 EReLU</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-4-Softplus"><span class="post-toc-text">2.4 Softplus</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-text">参考</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#sigmoid-型激活函数"><span class="post-toc-text">1. Sigmoid 型激活函数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#logistic-函数"><span class="post-toc-text">1.1 Logistic 函数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#tanh-函数"><span class="post-toc-text">1.2 Tanh 函数</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#relu-函数"><span class="post-toc-text">2. ReLU 函数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#leaky-relu"><span class="post-toc-text">2.1 Leaky ReLU</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#prelu"><span class="post-toc-text">2.2 PReLU</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#erelu"><span class="post-toc-text">2.3 EReLU</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#softplus"><span class="post-toc-text">2.4 Softplus</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-text">参考</span></a></li></ol>
     </div>
   
   <div class="post-content">
     <p>神经网络中使用激活函数来加入非线性因素，提高模型的表达能力。</p>
 <a id="more"></a>
-
 <p>激活函数需要具备以下几点<strong>性质</strong>:</p>
-<ol>
+<ol type="1">
 <li>连续并可导 (允许少数点上不可导) 的非线性函数。可导的激活函数可以直接利用数值优化的方法来学习网络参数。</li>
 <li>激活函数及其导函数要尽可能的简单，有利于提高网络计算效率。</li>
 <li>激活函数的导函数的值域要在一个合适的区间内，不能太大也不能太小，否则会影响训练的效率和稳定性。</li>
 </ol>
-<h2 id="1-Sigmoid-型激活函数"><a href="#1-Sigmoid-型激活函数" class="headerlink" title="1. Sigmoid 型激活函数"></a>1. Sigmoid 型激活函数</h2><p>Sigmoid 型函数是指一类 S 型曲线函数，为两端饱和函数。常用的 Sigmoid 型函数有 Logistic 函数和 Tanh 函数。</p>
-<h3 id="1-1-Logistic-函数"><a href="#1-1-Logistic-函数" class="headerlink" title="1.1 Logistic 函数"></a>1.1 Logistic 函数</h3><p><strong>公式定义如下：</strong></p>
-<p>$$<br>\sigma(x)=\frac{1}{1+\exp (-x)}<br>$$</p>
+<h2 id="sigmoid-型激活函数">1. Sigmoid 型激活函数</h2>
+<p>Sigmoid 型函数是指一类 S 型曲线函数，为两端饱和函数。常用的 Sigmoid 型函数有 Logistic 函数和 Tanh 函数。</p>
+<h3 id="logistic-函数">1.1 Logistic 函数</h3>
+<p><strong>公式定义如下：</strong></p>
+<p><span class="math display">\[
+\sigma(x)=\frac{1}{1+\exp (-x)}
+\]</span></p>
 <p><strong>特点：</strong></p>
-<ol>
+<ol type="1">
 <li>当输入值在 0 附近时，函数近似为线性函数；当输入值靠近两端时，对输入进行抑制。</li>
 <li>输入越小，越接近于 0；输入越大，越接近于 1。</li>
 <li>其输出直接可以看作是概率分布，使得神经网络可以更好地和统计学习模型进行结合。</li>
 <li>其可以看作是一个<code>软性门</code> (Soft Gate)，用来控制其它神经元输出信息的数量。</li>
 </ol>
-<h3 id="1-2-Tanh-函数"><a href="#1-2-Tanh-函数" class="headerlink" title="1.2 Tanh 函数"></a>1.2 Tanh 函数</h3><p><strong>公式定义如下：</strong></p>
-<p>$$<br>\tanh (x)=\frac{\exp (x)-\exp (-x)}{\exp (x)+\exp (-x)}<br>$$</p>
+<h3 id="tanh-函数">1.2 Tanh 函数</h3>
+<p><strong>公式定义如下：</strong></p>
+<p><span class="math display">\[
+\tanh (x)=\frac{\exp (x)-\exp (-x)}{\exp (x)+\exp (-x)}
+\]</span></p>
 <p>Tanh 函数也可以看作是放大并平移的 Logistic 函数，其值域是 (−1, 1)。</p>
-<p>$$<br>\tanh (x)=2 \sigma(2 x)-1<br>$$</p>
+<p><span class="math display">\[
+\tanh (x)=2 \sigma(2 x)-1
+\]</span></p>
 <p>Sigmoid 两个函数对比如下图所示。如图可知，Tanh 函数的输出是 <code>零中心化的</code> (Zero-Centered)，而 Logistic 函数的输出恒大于 0。非零中心化的输出会使得其后一层的神经元的输入发生 <code>偏置偏移</code> (Bias Shift)，并进一步使得梯度下降的收敛速度变慢。</p>
-<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/19-07-13/sigmoid.jpg" alt></p>
-<h2 id="2-ReLU-函数"><a href="#2-ReLU-函数" class="headerlink" title="2. ReLU 函数"></a>2. ReLU 函数</h2><p><strong>线性整流函数</strong> (Rectified Linear Unit, ReLU)，又称<strong>修正线性单元</strong>，通常指代以斜坡函数及其变种为代表的非线性函数。是目前深层神经网络中经常使用的激活函数。公式定义为：</p>
-<p>$$<br>\begin{aligned} \operatorname{ReLU}(x) &amp;=\left{\begin{array}{ll}{x} &amp; {x \geq 0} \ {0} &amp; {x&lt;0}\end{array}\right.\ &amp;=\max (0, x) \end{aligned}<br>$$</p>
+<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/19-07-13/sigmoid.jpg"></p>
+<h2 id="relu-函数">2. ReLU 函数</h2>
+<p><strong>线性整流函数</strong> (Rectified Linear Unit, ReLU)，又称<strong>修正线性单元</strong>，通常指代以斜坡函数及其变种为代表的非线性函数。是目前深层神经网络中经常使用的激活函数。公式定义为：</p>
+<p><span class="math display">\[
+\begin{aligned} \operatorname{ReLU}(x) &amp;=\left\{\begin{array}{ll}{x} &amp; {x \geq 0} \\ {0} &amp; {x&lt;0}\end{array}\right.\\ &amp;=\max (0, x) \end{aligned}
+\]</span></p>
 <p><strong>优点：</strong></p>
-<ol>
+<ol type="1">
 <li>采用ReLU的神经元只需要进行加、乘和比较的操作，计算上更加高效。</li>
 <li>Sigmoid型激活函数会导致一个非稀疏的神经网络，而 ReLU 却具有很好的稀疏性，大约 50% 的神经元会处于激活状态。</li>
-<li>相比于 Sigmoid 型函数的两端饱和，ReLU 函数为左饱和函数，且在 $x &gt; 0$ 时导数为 1，在一定程度上缓解了神经网络的梯度消失问题，加速梯度下降的收敛速度。</li>
+<li>相比于 Sigmoid 型函数的两端饱和，ReLU 函数为左饱和函数，且在 <span class="math inline">\(x &gt; 0\)</span> 时导数为 1，在一定程度上缓解了神经网络的梯度消失问题，加速梯度下降的收敛速度。</li>
 </ol>
 <p><strong>缺点：</strong></p>
-<ol>
+<ol type="1">
 <li>ReLU 函数的输出是非零中心化的，给后一层的神经网络引入偏置偏移，会影响梯度下降的效率。</li>
 <li>ReLU 神经元在训练时比较容易“死亡”。在训练时，如果参数在一次不恰当的更新后，第一个隐藏层中的某个 ReLU 神经元在所有的训练数据上都不能被激活，那么这个神经元自身参数的梯度永远都会是 0，在以后的训练过程中永远不能被激活。</li>
 </ol>
 <p>为了避免上述情况，有几种 ReLU 的变种也会被广泛使用。</p>
-<h3 id="2-1-Leaky-ReLU"><a href="#2-1-Leaky-ReLU" class="headerlink" title="2.1 Leaky ReLU"></a>2.1 Leaky ReLU</h3><p><strong>带泄露的ReLU</strong> (Leaky ReLU) 在输入 $x &lt; 0$ 时，保持一个很小的梯度 $\gamma$。这样当神经元非激活时也能有一个非零的梯度可以更新参数，避免永远不能被激活。带泄露的ReLU的定义如下:</p>
-<p>$$<br>\begin{aligned} \text { LeakyReLU(x)} &amp;=\left{\begin{array}{ll}{x} &amp; { x&gt;0} \ {\gamma x} &amp; { x \leq 0}\end{array}\right.\ &amp;=\max (0, x)+\gamma \min (0, x) \end{aligned}<br>$$</p>
-<p>其中 $\gamma$ 是一个很小的常数，比如 0.01。当 $\gamma &lt; 1$ 时，带泄露的 ReLU 也可以写为</p>
-<p>$$<br>\text { Leaky ReLU }(x)=\max (x, \gamma x)<br>$$</p>
+<h3 id="leaky-relu">2.1 Leaky ReLU</h3>
+<p><strong>带泄露的ReLU</strong> (Leaky ReLU) 在输入 <span class="math inline">\(x &lt; 0\)</span> 时，保持一个很小的梯度 <span class="math inline">\(\gamma\)</span>。这样当神经元非激活时也能有一个非零的梯度可以更新参数，避免永远不能被激活。带泄露的ReLU的定义如下:</p>
+<p><span class="math display">\[
+\begin{aligned} \text { LeakyReLU(x)} &amp;=\left\{\begin{array}{ll}{x} &amp; { x&gt;0} \\ {\gamma x} &amp; { x \leq 0}\end{array}\right.\\ &amp;=\max (0, x)+\gamma \min (0, x) \end{aligned}
+\]</span></p>
+<p>其中 <span class="math inline">\(\gamma\)</span> 是一个很小的常数，比如 0.01。当 <span class="math inline">\(\gamma &lt; 1\)</span> 时，带泄露的 ReLU 也可以写为</p>
+<p><span class="math display">\[
+\text { Leaky ReLU }(x)=\max (x, \gamma x)
+\]</span></p>
 <p>相当于是一个比较简单的 maxout 单元。</p>
-<h3 id="2-2-PReLU"><a href="#2-2-PReLU" class="headerlink" title="2.2 PReLU"></a>2.2 PReLU</h3><p><strong>带参数的 ReLU</strong> (Parametric ReLU, PReLU) 引入一个可学习的参数，不同神经元可以有不同的参数。对于第 $i$ 个神经元，其 PReLU 的定义为：</p>
-<p>$$<br>\begin{aligned} \operatorname{PReLU}<em>{i}(x) &amp;=\left{\begin{array}{ll}{x} &amp; { x&gt;0} \ {\gamma</em>{i} x} &amp; { x \leq 0}\end{array}\right.\ &amp;=\max (0, x)+\gamma_{i} \min (0, x) \end{aligned}<br>$$</p>
-<p>其中 $\gamma_{i}$ 为 $x \leq 0$ 时函数的斜率。因此，PReLU 是非饱和函数。如果 $\gamma_{i}=0$，那么 PReLU 就退化为 ReLU。如果 $\gamma_{i}$ 为一个很小的常数，则 PReLU 可以看作带泄露的 ReLU。PReLU 可以允许不同神经元具有不同的参数，也可以一组神经元共享一个参数。</p>
-<h3 id="2-3-EReLU"><a href="#2-3-EReLU" class="headerlink" title="2.3 EReLU"></a>2.3 EReLU</h3><p><strong>指数线性单元</strong> (Exponential Linear Unit, ELU)是一个近似的零中心化的非线性函数，其定义为：</p>
-<p>$$<br>\begin{aligned} \operatorname{ELU}(x) &amp;=\left{\begin{array}{ll}{x} &amp; { x&gt;0} \ {\gamma(\exp (x)-1)} &amp; { x \leq 0}\end{array}\right.\ &amp;=\max (0, x)+\min (0, \gamma(\exp (x)-1)) \end{aligned}<br>$$</p>
-<p>其中 $\gamma \geq 0$ 是一个超参数，决定 $x \leq 0$ 时的饱和曲线，并调整输出均值在 0 附近。</p>
-<h3 id="2-4-Softplus"><a href="#2-4-Softplus" class="headerlink" title="2.4 Softplus"></a>2.4 Softplus</h3><p><strong>Softplus 函数</strong>可以看作是 rectifier 函数的平滑版本，其定义为：</p>
-<p>$$<br>\operatorname{Softplus}(x)=\log (1+\exp (x))<br>$$</p>
+<h3 id="prelu">2.2 PReLU</h3>
+<p><strong>带参数的 ReLU</strong> (Parametric ReLU, PReLU) 引入一个可学习的参数，不同神经元可以有不同的参数。对于第 <span class="math inline">\(i\)</span> 个神经元，其 PReLU 的定义为：</p>
+<p><span class="math display">\[
+\begin{aligned} \operatorname{PReLU}_{i}(x) &amp;=\left\{\begin{array}{ll}{x} &amp; { x&gt;0} \\ {\gamma_{i} x} &amp; { x \leq 0}\end{array}\right.\\ &amp;=\max (0, x)+\gamma_{i} \min (0, x) \end{aligned}
+\]</span></p>
+<p>其中 <span class="math inline">\(\gamma_{i}\)</span> 为 <span class="math inline">\(x \leq 0\)</span> 时函数的斜率。因此，PReLU 是非饱和函数。如果 <span class="math inline">\(\gamma_{i}=0\)</span>，那么 PReLU 就退化为 ReLU。如果 <span class="math inline">\(\gamma_{i}\)</span> 为一个很小的常数，则 PReLU 可以看作带泄露的 ReLU。PReLU 可以允许不同神经元具有不同的参数，也可以一组神经元共享一个参数。</p>
+<h3 id="erelu">2.3 EReLU</h3>
+<p><strong>指数线性单元</strong> (Exponential Linear Unit, ELU)是一个近似的零中心化的非线性函数，其定义为：</p>
+<p><span class="math display">\[
+\begin{aligned} \operatorname{ELU}(x) &amp;=\left\{\begin{array}{ll}{x} &amp; { x&gt;0} \\ {\gamma(\exp (x)-1)} &amp; { x \leq 0}\end{array}\right.\\ &amp;=\max (0, x)+\min (0, \gamma(\exp (x)-1)) \end{aligned}
+\]</span></p>
+<p>其中 <span class="math inline">\(\gamma \geq 0\)</span> 是一个超参数，决定 <span class="math inline">\(x \leq 0\)</span> 时的饱和曲线，并调整输出均值在 0 附近。</p>
+<h3 id="softplus">2.4 Softplus</h3>
+<p><strong>Softplus 函数</strong>可以看作是 rectifier 函数的平滑版本，其定义为：</p>
+<p><span class="math display">\[
+\operatorname{Softplus}(x)=\log (1+\exp (x))
+\]</span></p>
 <p>Softplus 函数其导数刚好是 Logistic 函数。Softplus 函数虽然也有具有单侧抑制、宽兴奋边界的特性，却没有稀疏激活性。</p>
 <p>下图给出了 ReLU、Leaky ReLU、ELU 以及 Softplus 函数的示例：</p>
-<p><img class="lazyload" data-src="http://img.xungejiang.com/static/images/19-07-13/relu.jpg" alt></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<p><img class="lazyload" data-src="http://img.xungejiang.com/static/images/19-07-13/relu.jpg"></p>
+<h2 id="参考">参考</h2>
+<ul>
 <li><a href="https://www.cnblogs.com/makefile/p/activation-function.html" target="_blank" rel="noopener">激活函数(ReLU, Swish, Maxout)</a></li>
 <li><a href="https://nndl.github.io/" target="_blank" rel="noopener">神经网络与深度学习</a></li>
 </ul>
@@ -456,5 +482,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

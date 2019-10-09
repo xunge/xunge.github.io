@@ -118,37 +118,39 @@
   
     <div class="toc-article">
         <strong class="toc-title">文章目录</strong>
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用-mpld3-包"><span class="post-toc-text">使用 mpld3 包</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#保存在网页服务器的-static-目录下"><span class="post-toc-text">保存在网页服务器的 static 目录下</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用请求的方式将图像传到前端"><span class="post-toc-text">使用请求的方式将图像传到前端</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#将图像以-Base64-格式发送给前端"><span class="post-toc-text">将图像以 Base64 格式发送给前端</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用-mpld3-包"><span class="post-toc-text">使用 mpld3 包</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#保存在网页服务器的-static-目录下"><span class="post-toc-text">保存在网页服务器的 static 目录下</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用请求的方式将图像传到前端"><span class="post-toc-text">使用请求的方式将图像传到前端</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#将图像以-base64-格式发送给前端"><span class="post-toc-text">将图像以 Base64 格式发送给前端</span></a></li></ol>
     </div>
   
   <div class="post-content">
     <p>我们知道 Matplotlib 是一个非常强大的 Python 画图工具，其不仅可以画条形图、饼状图等统计图，也可以画以像素构成的图像。MATLAB 能画的图像，Matplotlib 通过 Python 语言也能画。</p>
 <p>做项目的时候遇到一个需求，就是如何将网页后端生成的 Matplotlib 图像展示在前端页面上。尝试使用了如下几种方法，在此记录一下。</p>
 <a id="more"></a>
-
-<h2 id="使用-mpld3-包"><a href="#使用-mpld3-包" class="headerlink" title="使用 mpld3 包"></a>使用 mpld3 包</h2><p>这是一个相对简单并且改动较小的方法，只需要在后端改一下 import 就可以，具体使用方法参照<a href="http://mpld3.github.io/quickstart.html" target="_blank" rel="noopener">官方教程</a>。</p>
+<h2 id="使用-mpld3-包">使用 mpld3 包</h2>
+<p>这是一个相对简单并且改动较小的方法，只需要在后端改一下 import 就可以，具体使用方法参照<a href="http://mpld3.github.io/quickstart.html" target="_blank" rel="noopener">官方教程</a>。</p>
 <p>但是实现的时候遇到了一些问题</p>
 <ul>
 <li>不适合大数据可视化的处理，当图像超过几千个元素时，前端展示的图像会有一定的模糊；</li>
 <li>使用时必须联网；</li>
 <li>一些 Matplotlib 的方法在 mpld3 中缺失。</li>
 </ul>
-<h2 id="保存在网页服务器的-static-目录下"><a href="#保存在网页服务器的-static-目录下" class="headerlink" title="保存在网页服务器的 static 目录下"></a>保存在网页服务器的 static 目录下</h2><p>该方法易于实现，首先将网页后端的图像保存到后端服务器的 static 目录下，前端再从 static 目录下读取图片进行展示。</p>
+<h2 id="保存在网页服务器的-static-目录下">保存在网页服务器的 static 目录下</h2>
+<p>该方法易于实现，首先将网页后端的图像保存到后端服务器的 static 目录下，前端再从 static 目录下读取图片进行展示。</p>
 <p>但是依然存在一些问题</p>
 <ul>
 <li>无法判断响应时间。因为后端生成图片的时间未知，所以只能采用在前端延时展示，这样也浪费时间资源；</li>
 <li>前后端分离的项目中，前端访问后端 static 目录路径时不方便。</li>
 </ul>
-<h2 id="使用请求的方式将图像传到前端"><a href="#使用请求的方式将图像传到前端" class="headerlink" title="使用请求的方式将图像传到前端"></a>使用请求的方式将图像传到前端</h2><p>该方法将图像以请求的方式传到前端，前端只需将 <code>&lt;img&gt;</code> 标签的 src 属性赋值为后端的请求路径即可。</p>
+<h2 id="使用请求的方式将图像传到前端">使用请求的方式将图像传到前端</h2>
+<p>该方法将图像以请求的方式传到前端，前端只需将 <code>&lt;img&gt;</code> 标签的 src 属性赋值为后端的请求路径即可。</p>
 <p>该方法可以在后端生成完图像后再发送给前端，无需设置延时获取图像，但也遇到一些问题</p>
 <ul>
 <li>项目中后端获取前端的请求后需要返回两个请求，一个是表格数据，一个是图像，这样代码就比较冗余；</li>
-<li>由于 Matplotlib 生成的图像有白边，而只有加上 <code>fig.savefig(&#39;a.png&#39;, bbox_inches=&#39;tight&#39;, pad_inches=0.0)</code> 这句代码时才能去除白边，而发送请求只能发送 fig ，所以前端显示的图像有白边。</li>
+<li>由于 Matplotlib 生成的图像有白边，而只有加上 <code>fig.savefig('a.png', bbox_inches='tight', pad_inches=0.0)</code> 这句代码时才能去除白边，而发送请求只能发送 fig ，所以前端显示的图像有白边。</li>
 </ul>
-<h2 id="将图像以-Base64-格式发送给前端"><a href="#将图像以-Base64-格式发送给前端" class="headerlink" title="将图像以 Base64 格式发送给前端"></a>将图像以 Base64 格式发送给前端</h2><p>该方法也是本人最终采取的方法。原理是在调用 savefig 方法时不存储为图像，而是存储为二进制格式，二进制格式再转化为 Base64 格式，并将其发送给前端，前端只需要将 <code>&lt;img&gt;</code> 标签的 src 属性赋值为后端发送的 Base64 字符串即可。</p>
+<h2 id="将图像以-base64-格式发送给前端">将图像以 Base64 格式发送给前端</h2>
+<p>该方法也是本人最终采取的方法。原理是在调用 savefig 方法时不存储为图像，而是存储为二进制格式，二进制格式再转化为 Base64 格式，并将其发送给前端，前端只需要将 <code>&lt;img&gt;</code> 标签的 src 属性赋值为后端发送的 Base64 字符串即可。</p>
 <p>后端代码如下所示</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">fig = plt.figure(figsize=(<span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">...</span><br><span class="line">sio = BytesIO()</span><br><span class="line">fig.savefig(sio, format=<span class="string">'png'</span>, bbox_inches=<span class="string">'tight'</span>, pad_inches=<span class="number">0.0</span>)</span><br><span class="line">data = base64.encodebytes(sio.getvalue()).decode()</span><br><span class="line">src = <span class="string">'data:image/png;base64,'</span> + str(data)</span><br></pre></td></tr></table></figure>
-
 <p>将最后一行的 <code>src</code> 传到前端即可展示。</p>
 <p>该方法优点如下</p>
 <ul>
@@ -432,5 +434,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

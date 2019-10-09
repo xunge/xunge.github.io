@@ -118,56 +118,50 @@
   
     <div class="toc-article">
         <strong class="toc-title">文章目录</strong>
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看显卡型号"><span class="post-toc-text">查看显卡型号</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载显卡驱动程序"><span class="post-toc-text">下载显卡驱动程序</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#禁用-nouveau-驱动"><span class="post-toc-text">禁用 nouveau 驱动</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-NVIDIA-显卡驱动"><span class="post-toc-text">安装 NVIDIA 显卡驱动</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#查看显卡型号"><span class="post-toc-text">查看显卡型号</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载显卡驱动程序"><span class="post-toc-text">下载显卡驱动程序</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#禁用-nouveau-驱动"><span class="post-toc-text">禁用 nouveau 驱动</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-nvidia-显卡驱动"><span class="post-toc-text">安装 NVIDIA 显卡驱动</span></a></li></ol>
     </div>
   
   <div class="post-content">
     <p>最近给实验室服务器安装系统，多次因为显卡驱动的问题而崩溃。。在此整理一下显卡驱动的安装。</p>
-<h2 id="查看显卡型号"><a href="#查看显卡型号" class="headerlink" title="查看显卡型号"></a>查看显卡型号</h2><p>不知道显卡型号的可以通过此命令查看，但可能有的新显卡无法识别。</p>
+<a id="more"></a>
+<h2 id="查看显卡型号">查看显卡型号</h2>
+<p>不知道显卡型号的可以通过此命令查看，但可能有的新显卡无法识别。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lspci | grep VGA</span><br></pre></td></tr></table></figure>
-
-<h2 id="下载显卡驱动程序"><a href="#下载显卡驱动程序" class="headerlink" title="下载显卡驱动程序"></a>下载显卡驱动程序</h2><p>在 <a href="https://www.nvidia.com/Download/index.aspx?lang=cn" target="_blank" rel="noopener">NVIDIA 官网</a> 或 <a href="https://www.geforce.com/drivers" target="_blank" rel="noopener">GeForce 官网</a> 下载所需的显卡驱动程序。</p>
+<h2 id="下载显卡驱动程序">下载显卡驱动程序</h2>
+<p>在 <a href="https://www.nvidia.com/Download/index.aspx?lang=cn" target="_blank" rel="noopener">NVIDIA 官网</a> 或 <a href="https://www.geforce.com/drivers" target="_blank" rel="noopener">GeForce 官网</a> 下载所需的显卡驱动程序。</p>
 <p>需要注意的是显卡驱动需要和 CUDA 版本对应，而 CUDA 版本又要和 PyTorch 或 TensorFlow 的版本对应，所以原则上是越新的版本越好，因为可以支持更多版本的深度学习框架。</p>
-<h2 id="禁用-nouveau-驱动"><a href="#禁用-nouveau-驱动" class="headerlink" title="禁用 nouveau 驱动"></a>禁用 nouveau 驱动</h2><p>1.使用下述命令可以查看 nouveau 驱动是否运行：</p>
+<h2 id="禁用-nouveau-驱动">禁用 nouveau 驱动</h2>
+<p>1.使用下述命令可以查看 nouveau 驱动是否运行：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lsmod | grep nouveau</span><br></pre></td></tr></table></figure>
-
 <p>若出现下述结果：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nouveau              1863680  9</span><br><span class="line">video                  49152  1 nouveau</span><br><span class="line">ttm                   102400  1 nouveau</span><br><span class="line">mxm_wmi                16384  1 nouveau</span><br><span class="line">drm_kms_helper        180224  1 nouveau</span><br><span class="line">drm                   479232  12 drm_kms_helper,ttm,nouveau</span><br><span class="line">i2c_algo_bit           16384  2 igb,nouveau</span><br><span class="line">wmi                    28672  4 intel_wmi_thunderbolt,wmi_bmof,mxm_wmi,nouveau</span><br></pre></td></tr></table></figure>
-
 <p>说明 nouveau 驱动正在运行。</p>
 <p>2.运行下述命令禁用该驱动：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo bash -c &quot;echo blacklist nouveau &gt; /etc/modprobe.d/blacklist-nvidia-nouveau.conf&quot;</span><br><span class="line">sudo bash -c &quot;echo options nouveau modeset=0 &gt;&gt; /etc/modprobe.d/blacklist-nvidia-nouveau.conf&quot;</span><br></pre></td></tr></table></figure>
-
 <p>检查命令是否正确：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat /etc/modprobe.d/blacklist-nvidia-nouveau.conf</span><br></pre></td></tr></table></figure>
-
 <p>若出现下述结果说明命令正确：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">blacklist nouveau</span><br><span class="line">options nouveau modeset=0</span><br></pre></td></tr></table></figure>
-
 <p>3.更新设置并重启：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo update-initramfs -u</span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
-
 <p>4.重启后重新输入下述命令：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lsmod | grep nouveau</span><br></pre></td></tr></table></figure>
-
 <p>若没有任何输出说明禁用 nouveau 驱动成功</p>
-<h2 id="安装-NVIDIA-显卡驱动"><a href="#安装-NVIDIA-显卡驱动" class="headerlink" title="安装 NVIDIA 显卡驱动"></a>安装 NVIDIA 显卡驱动</h2><p>1.安装依赖：</p>
+<h2 id="安装-nvidia-显卡驱动">安装 NVIDIA 显卡驱动</h2>
+<p>1.安装依赖：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install gcc g++ make</span><br></pre></td></tr></table></figure>
-
 <p>2.登录时按 <code>ctrl + alt + F2</code> 进入命令行并使用用户名密码登录，并输入 <code>sudo telinit 3</code> 打开一个新的 TTY1 界面。如果是 SSH 远程连接，则不需要做上述步骤。</p>
 <p>3.安装驱动：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo bash ./NVIDIA-Linux-x86_64-418.56.run</span><br></pre></td></tr></table></figure>
-
 <p>并按下述选项选择：</p>
-<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/19-10-09/nvidia01.png" alt></p>
-<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/19-10-09/nvidia02.png" alt></p>
-<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/19-10-09/nvidia03.png" alt></p>
-<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/19-10-09/nvidia04.png" alt></p>
-<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/19-10-09/nvidia05.png" alt></p>
-<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/19-10-09/nvidia06.png" alt></p>
+<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/19-10-09/nvidia01.png"></p>
+<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/19-10-09/nvidia02.png"></p>
+<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/19-10-09/nvidia03.png"></p>
+<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/19-10-09/nvidia04.png"></p>
+<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/19-10-09/nvidia05.png"></p>
+<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/19-10-09/nvidia06.png"></p>
 <p>4.安装成功后输入 <code>nvidia-smi</code>，若有类似下述输出证明显卡安装成功：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 418.56       Driver Version: 418.56       CUDA Version: 10.1     |</span><br><span class="line">|-------------------------------+----------------------+----------------------+</span><br><span class="line">| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |</span><br><span class="line">| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |</span><br><span class="line">|===============================+======================+======================|</span><br><span class="line">|   0  GeForce RTX 208...  Off  | 00000000:19:00.0 Off |                  N/A |</span><br><span class="line">| 52%   57C    P0    59W / 250W |      0MiB / 10989MiB |      0%      Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line">|   1  GeForce RTX 208...  Off  | 00000000:1A:00.0 Off |                  N/A |</span><br><span class="line">| 73%   70C    P0    73W / 250W |      0MiB / 10989MiB |      0%      Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line">|   2  GeForce RTX 208...  Off  | 00000000:67:00.0 Off |                  N/A |</span><br><span class="line">| 79%   71C    P0    86W / 250W |      0MiB / 10989MiB |      1%      Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line">|   3  GeForce RTX 208...  Off  | 00000000:68:00.0 Off |                  N/A |</span><br><span class="line">| 44%   71C    P0     1W / 250W |      0MiB / 10986MiB |      0%      Default |</span><br><span class="line">+-------------------------------+----------------------+----------------------+</span><br><span class="line"></span><br><span class="line">+-----------------------------------------------------------------------------+</span><br><span class="line">| Processes:                                                       GPU Memory |</span><br><span class="line">|  GPU       PID   Type   Process name                             Usage      |</span><br><span class="line">|=============================================================================|</span><br><span class="line">|  No running processes found                                                 |</span><br><span class="line">+-----------------------------------------------------------------------------+</span><br></pre></td></tr></table></figure>
-
 
   </div>
 </article>
@@ -443,5 +437,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

@@ -118,7 +118,7 @@
         
       </span></span></span></span></div>
       <div class="post-content">
-        
+        <p>最近给实验室服务器安装系统，多次因为显卡驱动的问题而崩溃。。在此整理一下显卡驱动的安装。</p>
       </div>
       <div class="continue"><a class="btn" href="/2019/10/08/ubuntu-gpu-driver/">继续阅读</a></div>
     </article>
@@ -442,5 +442,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

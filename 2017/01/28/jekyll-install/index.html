@@ -118,55 +118,48 @@
   
     <div class="toc-article">
         <strong class="toc-title">文章目录</strong>
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-Ruby"><span class="post-toc-text">安装 Ruby</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#下载-RubyInstaller"><span class="post-toc-text">下载 RubyInstaller</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-Ruby-1"><span class="post-toc-text">安装 Ruby</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#下载DevKit"><span class="post-toc-text">下载DevKit</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装DevKit"><span class="post-toc-text">安装DevKit</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-Jekyll"><span class="post-toc-text">安装 Jekyll</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#更换源"><span class="post-toc-text">更换源</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-Jekyll-1"><span class="post-toc-text">安装 Jekyll</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-paginate"><span class="post-toc-text">安装 paginate</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用jekyll"><span class="post-toc-text">使用jekyll</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#提交文章"><span class="post-toc-text">提交文章</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-ruby"><span class="post-toc-text">安装 Ruby</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#下载-rubyinstaller"><span class="post-toc-text">下载 RubyInstaller</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-ruby-1"><span class="post-toc-text">安装 Ruby</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#下载devkit"><span class="post-toc-text">下载DevKit</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装devkit"><span class="post-toc-text">安装DevKit</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-jekyll"><span class="post-toc-text">安装 Jekyll</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#更换源"><span class="post-toc-text">更换源</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-jekyll-1"><span class="post-toc-text">安装 Jekyll</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-paginate"><span class="post-toc-text">安装 paginate</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用jekyll"><span class="post-toc-text">使用jekyll</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#提交文章"><span class="post-toc-text">提交文章</span></a></li></ol>
     </div>
   
   <div class="post-content">
-    <p>本文主要是为了让博客系统在本地跑起来，如果不想在本地运行，可以无视本文，但我还是强烈建议试着先在本地跑起来，没有什么问题后再推送的 GitHub 上。</p>
-<a id="more"></a>
-
-
-<img class="lazyload" data-src="http://7xvx4s.com2.z0.glb.qiniucdn.com/17-03-28-001.png" width="50%">
-
-
-
-
-
+    <p>本文主要是为了让博客系统在本地跑起来，如果不想在本地运行，可以无视本文，但我还是强烈建议试着先在本地跑起来，没有什么问题后再推送的 GitHub 上。 <a id="more"></a></p>
+<p><img class="lazyload" data-src="http://7xvx4s.com2.z0.glb.qiniucdn.com/17-03-28-001.png" width="50%"></p>
 <p>Jekyll是一个开源的博客生成工具，类似WordPress。但与之不同的是，jekyll只生成静态网页，并不需要数据库支持。通常配合第三方评论系统使用，例如 <a href="http://www.uyan.cc/" target="_blank" rel="noopener">有言</a>, <del>Disqus（由于众所周知的原因上不去）</del>, <del>多说（已倒闭）</del>。GitHub Pages 原生支持 jekyll，而且可以绑定自己的域名。</p>
 <p>关于 <a href="http://xungejiang.com/2017/01/27/github-domain-name/">GithubPages 绑定自定义域名</a> 可以参考这篇文章。</p>
-<h2 id="安装-Ruby"><a href="#安装-Ruby" class="headerlink" title="安装 Ruby"></a>安装 Ruby</h2><p>Jekyll是用ruby语言编写的，所以我们首先要在windows上装好ruby环境。</p>
-<h3 id="下载-RubyInstaller"><a href="#下载-RubyInstaller" class="headerlink" title="下载 RubyInstaller"></a>下载 <a href="http://rubyinstaller.org/downloads/" target="_blank" rel="noopener">RubyInstaller</a></h3><p>注意选择对应的操作系统版本为 64位 还是 32位。</p>
-<h3 id="安装-Ruby-1"><a href="#安装-Ruby-1" class="headerlink" title="安装 Ruby"></a>安装 Ruby</h3><p>记得要勾选 <strong>Add Ruby executables to your PATH</strong>，其作用是绑定ruby环境变量，另外安装目录不可以包含空格。</p>
-<h3 id="下载DevKit"><a href="#下载DevKit" class="headerlink" title="下载DevKit"></a>下载DevKit</h3><p>与RubyInstller同一链接，页面稍下方有“DEVELOPMENT KIT”， 注意：DevKit版本要与上面的ruby版本是匹配的。</p>
-<h3 id="安装DevKit"><a href="#安装DevKit" class="headerlink" title="安装DevKit"></a>安装DevKit</h3><p>解压DevKit完成后打开CMD窗口，回到Devkit根目录，输入：</p>
+<h2 id="安装-ruby">安装 Ruby</h2>
+<p>Jekyll是用ruby语言编写的，所以我们首先要在windows上装好ruby环境。</p>
+<h3 id="下载-rubyinstaller">下载 <a href="http://rubyinstaller.org/downloads/" target="_blank" rel="noopener">RubyInstaller</a></h3>
+<p>注意选择对应的操作系统版本为 64位 还是 32位。</p>
+<h3 id="安装-ruby-1">安装 Ruby</h3>
+<p>记得要勾选 <strong>Add Ruby executables to your PATH</strong>，其作用是绑定ruby环境变量，另外安装目录不可以包含空格。</p>
+<h3 id="下载devkit">下载DevKit</h3>
+<p>与RubyInstller同一链接，页面稍下方有“DEVELOPMENT KIT”， 注意：DevKit版本要与上面的ruby版本是匹配的。</p>
+<h3 id="安装devkit">安装DevKit</h3>
+<p>解压DevKit完成后打开CMD窗口，回到Devkit根目录，输入：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ruby dk.rb init</span><br><span class="line">ruby dk.rb install</span><br></pre></td></tr></table></figure>
-
 <p>返回的分别是</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[INFO] found RubyInstaller v2.3.3 at C:/Ruby23-x64</span><br><span class="line"></span><br><span class="line">Initialization complete! Please review and modify the auto-generated</span><br><span class="line">&apos;config.yml&apos; file to ensure it contains the root directories to all</span><br><span class="line">of the installed Rubies you want enhanced by the DevKit.</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[INFO] Updating convenience notice gem override for &apos;C:/Ruby23-x64&apos;</span><br><span class="line">[INFO] Installing &apos;C:/Ruby23-x64/lib/ruby/site_ruby/devkit.rb&apos;</span><br></pre></td></tr></table></figure>
-
-<h2 id="安装-Jekyll"><a href="#安装-Jekyll" class="headerlink" title="安装 Jekyll"></a>安装 Jekyll</h2><h3 id="更换源"><a href="#更换源" class="headerlink" title="更换源"></a>更换源</h3><p>无翻墙软件，可使用国内淘宝提供的源</p>
+<h2 id="安装-jekyll">安装 Jekyll</h2>
+<h3 id="更换源">更换源</h3>
+<p>无翻墙软件，可使用国内淘宝提供的源</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gem sources --remove https://rubygems.org/</span><br><span class="line">gem sources -a https://ruby.taobao.org/</span><br><span class="line">gem sources -l</span><br></pre></td></tr></table></figure>
-
 <p>有翻墙软件，可以使用如下源</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gem sources --remove https://rubygems.org/</span><br><span class="line">gem sources -a  http://rubygems.org/</span><br></pre></td></tr></table></figure>
-
-<h3 id="安装-Jekyll-1"><a href="#安装-Jekyll-1" class="headerlink" title="安装 Jekyll"></a>安装 Jekyll</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gem install jekyll</span><br></pre></td></tr></table></figure>
-
-<h3 id="安装-paginate"><a href="#安装-paginate" class="headerlink" title="安装 paginate"></a>安装 paginate</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gem install jekyll-paginate</span><br></pre></td></tr></table></figure>
-
-<h2 id="使用jekyll"><a href="#使用jekyll" class="headerlink" title="使用jekyll"></a>使用jekyll</h2><p>网上找个模板好看的 github pages 的博客， Clone 下来。</p>
+<h3 id="安装-jekyll-1">安装 Jekyll</h3>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gem install jekyll</span><br></pre></td></tr></table></figure>
+<h3 id="安装-paginate">安装 paginate</h3>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gem install jekyll-paginate</span><br></pre></td></tr></table></figure>
+<h2 id="使用jekyll">使用jekyll</h2>
+<p>网上找个模板好看的 github pages 的博客， Clone 下来。</p>
 <p>Clone 有两种方法</p>
-<p>第一种是 https 方法，通过直接输入账号密码的格式提交代码；<br>第二种是 ssh 的方式，需要提前配置 SSH ，之后可直接 push 代码。</p>
+<p>第一种是 https 方法，通过直接输入账号密码的格式提交代码； 第二种是 ssh 的方式，需要提前配置 SSH ，之后可直接 push 代码。</p>
 <p>Git 的基本操作参考 <a href="http://xungejiang.com/2016/07/07/github/">git介绍 github的基本配置</a> 这篇文章。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/[username]/[username].github.io.git</span><br><span class="line">git clone git@github.com:[username]/[username].github.io.git</span><br></pre></td></tr></table></figure>
-
 <p>启动jekyll服务</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd xxxx.github.io.git</span><br><span class="line">jekyll s</span><br></pre></td></tr></table></figure>
-
-<h2 id="提交文章"><a href="#提交文章" class="headerlink" title="提交文章"></a>提交文章</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#123;username.github.io&#125;</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;提交简介&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-
+<h2 id="提交文章">提交文章</h2>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#123;username.github.io&#125;</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;提交简介&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
 
   </div>
 </article>
@@ -442,5 +435,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

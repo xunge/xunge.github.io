@@ -118,40 +118,40 @@
   
     <div class="toc-article">
         <strong class="toc-title">文章目录</strong>
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装MinGW"><span class="post-toc-text">安装MinGW</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#环境变量配置"><span class="post-toc-text">环境变量配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Build-System-配置"><span class="post-toc-text">Build System 配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#模板配置"><span class="post-toc-text">模板配置</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装mingw"><span class="post-toc-text">安装MinGW</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#环境变量配置"><span class="post-toc-text">环境变量配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#build-system-配置"><span class="post-toc-text">Build System 配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#模板配置"><span class="post-toc-text">模板配置</span></a></li></ol>
     </div>
   
   <div class="post-content">
     <p>本文将着重介绍 Sublime 如何配置 C++ 环境，并给出方便 ACMer 的模板使用方式。</p>
 <a id="more"></a>
-
 <p>Sublime 作为文本编辑器的同时还可以进行一些轻量级的编程运算，由于其漂亮的界面，深得 ACMer 的喜爱。</p>
 <p>虽然 Sublime 自带一个C语言的编译功能，但却无法使用，需要一定的配置才可以运行。</p>
-<h2 id="安装MinGW"><a href="#安装MinGW" class="headerlink" title="安装MinGW"></a>安装MinGW</h2><p>要想编译C语言首先要有编译器，Windows平台主要是 <code>gcc</code> 和 <code>g++</code>，是通过安装 MinGW 实现的。</p>
+<h2 id="安装mingw">安装MinGW</h2>
+<p>要想编译C语言首先要有编译器，Windows平台主要是 <code>gcc</code> 和 <code>g++</code>，是通过安装 MinGW 实现的。</p>
 <p>MinGW 的官网是 <a href="http://www.mingw.org/" target="_blank" rel="noopener">http://www.mingw.org/</a> ，但是从官网安装很麻烦，在线安装经常龟速容易失败。</p>
 <p>博主推荐的方法是借助 <a href="http://www.codeblocks.org/downloads/binaries" target="_blank" rel="noopener">codeblocks</a>，选择带有MinGW的版本安装(100M以上)。</p>
 <p>博主也提供一个 <a href="https://pan.baidu.com/s/1o80CoYm" target="_blank" rel="noopener">codeblocks-16.01mingw-setup</a> 的百度云下载，感觉codeblocks官网还是下载慢。</p>
 <p>安装后把MinGW文件夹复制出来放到C盘根目录就可以了。</p>
-<h2 id="环境变量配置"><a href="#环境变量配置" class="headerlink" title="环境变量配置"></a>环境变量配置</h2><p>右键计算机-&gt;属性-&gt;高级系统设置-&gt;环境变量</p>
-<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/16-7-7/023.jpg" alt></p>
+<h2 id="环境变量配置">环境变量配置</h2>
+<p>右键计算机-&gt;属性-&gt;高级系统设置-&gt;环境变量</p>
+<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/16-7-7/023.jpg"></p>
 <p>把 <code>C:\MinGW\bin</code> 添加到path变量中，注意前后英文分号。</p>
-<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/16-7-7/024.jpg" alt></p>
-<h2 id="Build-System-配置"><a href="#Build-System-配置" class="headerlink" title="Build System 配置"></a>Build System 配置</h2><p>Tools -&gt; Build System -&gt; New Build System</p>
-<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/16-7-7/025.jpg" alt></p>
+<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/16-7-7/024.jpg"></p>
+<h2 id="build-system-配置">Build System 配置</h2>
+<p>Tools -&gt; Build System -&gt; New Build System</p>
+<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/16-7-7/025.jpg"></p>
 <p>将下面代码粘贴，并保存为 <code>gcc.sublime-build</code> 。</p>
 <p>Windows 系统代码如下</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;encoding&quot;: &quot;cp936&quot;,</span><br><span class="line">    &quot;working_dir&quot;: &quot;$file_path&quot;,</span><br><span class="line">    &quot;shell_cmd&quot;: &quot;g++ -Wall -std=c++0x -fexec-charset=GBK $file_name -o $file_base_name&quot;,</span><br><span class="line">    &quot;file_regex&quot;: &quot;^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$&quot;,</span><br><span class="line">    &quot;selector&quot;: &quot;source.c++&quot;,</span><br><span class="line"></span><br><span class="line">    &quot;variants&quot;:</span><br><span class="line">    [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;Run&quot;,</span><br><span class="line">            &quot;shell_cmd&quot;: &quot;g++ -Wall -fexec-charset=utf-8 \&quot;$file\&quot; -o \&quot;$file_base_name\&quot; &amp;&amp; start cmd /c \&quot;\&quot;$&#123;file_path&#125;/$&#123;file_base_name&#125;\&quot; &amp; pause\&quot;&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>MAC 系统代码如下</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;shell_cmd&quot;: &quot;g++ -o \&quot;$&#123;file_path&#125;/$&#123;file_base_name&#125;\&quot;\&quot;$&#123;file&#125;\&quot;&quot;,</span><br><span class="line">    &quot;file_regex&quot;: &quot;^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$&quot;,</span><br><span class="line">    &quot;working_dir&quot;: &quot;$&#123;file_path&#125;&quot;,</span><br><span class="line">    &quot;selector&quot;: &quot;source.c++&quot;,</span><br><span class="line"></span><br><span class="line">    &quot;variants&quot;:</span><br><span class="line">    [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;Run&quot;,</span><br><span class="line">            &quot;shell_cmd&quot;: &quot;g++ -o \&quot;$&#123;file_path&#125;/$&#123;file_base_name&#125;\&quot; \&quot;$&#123;file&#125;\&quot; &amp;&amp; open \&quot;$&#123;file_path&#125;/$&#123;file_base_name&#125;\&quot;&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>这样就可以用cmd运行，并且scanf也能读取。</p>
-<h2 id="模板配置"><a href="#模板配置" class="headerlink" title="模板配置"></a>模板配置</h2><p>sublime我认为最方便的地方就是可以设置一些模板，比如博主参加ACM竞赛开头会有很多在每道题都出现的语句，头文件等，如果有模板就会非常方便。</p>
+<h2 id="模板配置">模板配置</h2>
+<p>sublime我认为最方便的地方就是可以设置一些模板，比如博主参加ACM竞赛开头会有很多在每道题都出现的语句，头文件等，如果有模板就会非常方便。</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;snippet&gt;</span><br><span class="line">&lt;content&gt;&lt;![CDATA[</span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF 0x3f3f3f3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> eps = <span class="number">1e-8</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = (<span class="keyword">int</span>)<span class="number">1e5</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> LL MOD = <span class="number">1000000007</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> ONLINE_JUDGE</span></span><br><span class="line">    <span class="comment">//freopen("in.txt", "r", stdin);</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> cas;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;cas);</span><br><span class="line">    <span class="keyword">while</span>(cas--)</span><br><span class="line">    &#123;</span><br><span class="line">        $&#123;<span class="number">1</span>&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">]]&gt;&lt;/content&gt;</span><br><span class="line">    &lt;!-- Optional: Set a tabTrigger to define how to trigger the snippet --&gt;</span><br><span class="line">    &lt;!-- &lt;tabTrigger&gt;hello&lt;/tabTrigger&gt; --&gt;</span><br><span class="line">    &lt;tabTrigger&gt;acm&lt;/tabTrigger&gt;</span><br><span class="line">    &lt;!-- Optional: Set a scope to limit where the snippet will trigger --&gt;</span><br><span class="line">    &lt;!-- &lt;scope&gt;source.python&lt;/scope&gt; --&gt;</span><br><span class="line">    &lt;scope&gt;source.c++&lt;/scope&gt;</span><br><span class="line">&lt;/snippet&gt;</span><br></pre></td></tr></table></figure>
-
 <p>中间代码的位置当然可以修改。然后保存为<code>文件名.sublime-snippet</code>。例如博主起名为 <code>acm.sublime-snippet</code>，之后只要用sublime打开 <code>.cpp</code> 文件，输入 <code>acm</code> -&gt; 回车就可以显示中间代码。是不是很方便啊~</p>
 <p>演示效果如下：</p>
-<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/16-7-7/021.gif" alt></p>
+<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/16-7-7/021.gif"></p>
 
   </div>
 </article>
@@ -427,5 +427,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

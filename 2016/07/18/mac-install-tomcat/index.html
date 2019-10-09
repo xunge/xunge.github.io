@@ -125,25 +125,23 @@
     <p>Tomcat 服务器是一个免费的开放源代码的 Web 应用服务器，属于轻量级应用服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用，是开发和调试 JSP 程序的首选。</p>
 <p>博主是在学习 JavaWeb 的时候接触到 tomcat 的，这里介绍一下在 mac 系统安装 tomcat 的过程</p>
 <a id="more"></a>
-
-
-<h2 id="下载-tomcat"><a href="#下载-tomcat" class="headerlink" title="下载 tomcat"></a>下载 tomcat</h2><p>首先到 <a href="http://tomcat.apache.org" target="_blank" rel="noopener">tomcat 官网</a> 下载 tomcat ，版本既然是新版兼容旧版当然是越新越好啦。</p>
+<h2 id="下载-tomcat">下载 tomcat</h2>
+<p>首先到 <a href="http://tomcat.apache.org" target="_blank" rel="noopener">tomcat 官网</a> 下载 tomcat ，版本既然是新版兼容旧版当然是越新越好啦。</p>
 <p>选择 <code>zip</code> 或者 <code>tar.gz</code> 下载即可。下载后解压，更名为 <code>tomcat</code> ，并复制到 <code>/Library</code> (就是finder中的资源库)。当时博主将文件夹重命名为 tomcat 后居然带后缀名 <code>tomcat.M9</code> 。。文件夹居然带后缀名！！后缀名居然删不掉！！也不知道那个 <code>.M9</code> 是咋出来的。。在表面看是看不到的啊！！</p>
-<h2 id="修改授权"><a href="#修改授权" class="headerlink" title="修改授权"></a>修改授权</h2><p>tomcat中的几个运行服务程序都是以*.sh结尾的，在运行之前需要授权。打开终端输入如下命令:</p>
+<h2 id="修改授权">修改授权</h2>
+<p>tomcat中的几个运行服务程序都是以*.sh结尾的，在运行之前需要授权。打开终端输入如下命令:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo chmod 755 /Library/tomcat/bin/*.sh</span><br></pre></td></tr></table></figure>
-
 <p>其中 tomcat 为你的文件夹名。(博主当时很无奈的将tomcat换成了tomcat.M9)</p>
 <p>回车出现要输入密码：请输入本机账户密码</p>
-<h2 id="启动-tomcat-服务"><a href="#启动-tomcat-服务" class="headerlink" title="启动 tomcat 服务"></a>启动 tomcat 服务</h2><p>先使用 cd 命令进入tomcat的bin目录,命令如下:</p>
+<h2 id="启动-tomcat-服务">启动 tomcat 服务</h2>
+<p>先使用 cd 命令进入tomcat的bin目录,命令如下:</p>
 <p>cd /Library/tomcat/bin/</p>
 <p>启动服务命令:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo sh startup.sh</span><br></pre></td></tr></table></figure>
-
 <p>启动成功,会出现如下结果:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Using CATALINA_BASE:   /ProgramFile/tomcat</span><br><span class="line">Using CATALINA_HOME:   /ProgramFile/tomcat</span><br><span class="line">Using CATALINA_TMPDIR: /ProgramFile/tomcat/temp</span><br><span class="line">Using JRE_HOME:        /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home</span><br><span class="line">Using CLASSPATH:       /ProgramFile/tomcat/bin/bootstrap.jar:/ProgramFile/tomcat/bin/tomcat-juli.jar</span><br><span class="line">Tomcat started.</span><br></pre></td></tr></table></figure>
-
 <p>如果出现如上结果，说明tomcat启动成功。</p>
-<p>这个时候输入 <a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a> 应该就可以访问了。</p>
+<p>这个时候输入 http://localhost:8080/ 应该就可以访问了。</p>
 
   </div>
 </article>
@@ -419,5 +417,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

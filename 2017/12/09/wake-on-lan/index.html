@@ -118,38 +118,38 @@
   
     <div class="toc-article">
         <strong class="toc-title">文章目录</strong>
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置主板-BIOS"><span class="post-toc-text">设置主板 BIOS</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置网卡"><span class="post-toc-text">设置网卡</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置路由器-DDNS-动态-DNS-服务"><span class="post-toc-text">配置路由器 DDNS (动态 DNS) 服务</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置主板-bios"><span class="post-toc-text">设置主板 BIOS</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置网卡"><span class="post-toc-text">设置网卡</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置路由器-ddns-动态-dns-服务"><span class="post-toc-text">配置路由器 DDNS (动态 DNS) 服务</span></a></li></ol>
     </div>
   
   <div class="post-content">
     <p>最近在实验室想控制家里的电脑。控制很容易， TeamViewer 就好啦。但是白天家里没人，没人帮我开电脑，于是找到了 WOL 这种方法。</p>
 <a id="more"></a>
-
-
-
-<h2 id="设置主板-BIOS"><a href="#设置主板-BIOS" class="headerlink" title="设置主板 BIOS"></a>设置主板 BIOS</h2><p>需要在 BIOS 中进行更改。我的是微星 BIOS，操作如下</p>
+<h2 id="设置主板-bios">设置主板 BIOS</h2>
+<p>需要在 BIOS 中进行更改。我的是微星 BIOS，操作如下</p>
 <p><code>高级</code> -&gt; <code>换型事件设置</code> -&gt; 将 <code>PCIE设备唤醒</code> 和 <code>网络唤醒</code> 设置为 <code>允许</code> (Enable)</p>
-<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/17-12-9/007.jpg" alt></p>
+<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/17-12-9/007.jpg"></p>
 <p>其他 BIOS 也类似，因为网卡也属于 PCIE 设备，所以 PCIE设备唤醒 也需要打开。</p>
-<h2 id="设置网卡"><a href="#设置网卡" class="headerlink" title="设置网卡"></a>设置网卡</h2><p>在设备驱动管理器中，找到 <code>网络适配器</code> ，在第一个驱动 <code>右键</code> -&gt; <code>属性</code></p>
-<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/17-12-9/001.png" alt></p>
+<h2 id="设置网卡">设置网卡</h2>
+<p>在设备驱动管理器中，找到 <code>网络适配器</code> ，在第一个驱动 <code>右键</code> -&gt; <code>属性</code></p>
+<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/17-12-9/001.png"></p>
 <p>在 <code>高级</code> 菜单中的属性找到 <code>唤醒魔包</code> (Wake on Magic Packet) 设置为 <code>启用</code></p>
-<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/17-12-9/002.png" alt></p>
+<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/17-12-9/002.png"></p>
 <p>在 <code>电源管理</code> 中 <code>勾选</code> <code>允许此设备唤醒计算机</code></p>
-<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/17-12-9/003.png" alt></p>
-<h2 id="配置路由器-DDNS-动态-DNS-服务"><a href="#配置路由器-DDNS-动态-DNS-服务" class="headerlink" title="配置路由器 DDNS (动态 DNS) 服务"></a>配置路由器 DDNS (动态 DNS) 服务</h2><p>由于 IPV4 地址紧张，运营商宽带都是使用的动态 IP 地址，这就需要 <code>动态 DNS 服务</code> 进行穿透局域网。</p>
+<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/17-12-9/003.png"></p>
+<h2 id="配置路由器-ddns-动态-dns-服务">配置路由器 DDNS (动态 DNS) 服务</h2>
+<p>由于 IPV4 地址紧张，运营商宽带都是使用的动态 IP 地址，这就需要 <code>动态 DNS 服务</code> 进行穿透局域网。</p>
 <p>我家的路由器是 <code>网件 NETGEAR R7800</code> 所以这里使用 NETGEAR 的 DDNS 服务，其他路由器基本也有自己的 DDNS 服务，大家可以自己选择。</p>
 <p>首先登录路由器控制界面，一般是浏览器输入 192.168.0.1 / 192.168.1.1 / 10.0.0.1 等进入。</p>
-<p>找到 <code>DDNS</code>  或者 <code>动态 DNS</code> ，注册 DDNS 服务商。网件提供三个 DDNS 服务商，我选择的是 <code>www.No-IP.com</code>。</p>
-<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/17-12-9/004.png" alt></p>
+<p>找到 <code>DDNS</code> 或者 <code>动态 DNS</code> ，注册 DDNS 服务商。网件提供三个 DDNS 服务商，我选择的是 <code>www.No-IP.com</code>。</p>
+<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/17-12-9/004.png"></p>
 <p>找到 <code>端口映射/端口触发</code>，在 <code>端口映射</code> 中 <code>添加自定义服务</code>。</p>
-<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/17-12-9/005.png" alt></p>
+<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/17-12-9/005.png"></p>
 <p>服务名随便填，协议：TCP/UDP，<code>外部端口组</code> 和 <code>内部端口组</code> 一致即可，<code>内部 IP 地址</code>映射到家里电脑的 IP。</p>
-<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/17-12-9/008.png" alt></p>
+<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/17-12-9/008.png"></p>
 <p>这样，你就可以使用 WOL 软件发送一个数据包唤醒家里的电脑了。</p>
 <p>有一个网站就可以使用 <a href="https://www.depicus.com/wake-on-lan/woli" target="_blank" rel="noopener">https://www.depicus.com/wake-on-lan/woli</a>。</p>
 <p>该网站还提供了 windows, mac OS, Android, iOS 等不同平台的应用，有需要的可以自行下载。</p>
-<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/17-12-9/006.png" alt></p>
+<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/17-12-9/006.png"></p>
 <p>mac 地址可以在控制台输入 <code>ipconfig /all</code> 获取；</p>
 <p>IP 地址填 <code>域名即可</code>；</p>
 <p>子网掩码为 <code>255.255.255.255</code>；</p>
@@ -429,5 +429,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

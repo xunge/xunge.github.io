@@ -118,32 +118,26 @@
   
     <div class="toc-article">
         <strong class="toc-title">文章目录</strong>
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#PPT-中插入高亮代码的踩坑历程"><span class="post-toc-text">PPT 中插入高亮代码的踩坑历程</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ppt-中插入高亮代码的踩坑历程"><span class="post-toc-text">PPT 中插入高亮代码的踩坑历程</span></a></li></ol>
     </div>
   
   <div class="post-content">
     <p>转载作者：<a href="http://www.snovey.com/" target="_blank" rel="noopener">snovey</a></p>
 <p>如果你是一名小白，又梦想有朝一日成为一代大 PPT 工程师，或许你会需要这篇文章。</p>
 <a id="more"></a>
-
-
-
-
-
-<h2 id="PPT-中插入高亮代码的踩坑历程"><a href="#PPT-中插入高亮代码的踩坑历程" class="headerlink" title="PPT 中插入高亮代码的踩坑历程"></a>PPT 中插入高亮代码的踩坑历程</h2><p>如何在 PPT 中插入高亮的代码？少量代码大可以手调，但是当代码多起来就力不从心了。一个显然的办法是用 HTML 对代码高亮，然后粘贴过去，HTML 高亮的方法有很多，一搜一大堆，但是 HTML 格式的代码粘贴到 Word 是高亮的，但是粘贴到 PPT（即使是从 Word 粘贴过去）都会出现问题，至少我这里会出现问题。</p>
+<h2 id="ppt-中插入高亮代码的踩坑历程">PPT 中插入高亮代码的踩坑历程</h2>
+<p>如何在 PPT 中插入高亮的代码？少量代码大可以手调，但是当代码多起来就力不从心了。一个显然的办法是用 HTML 对代码高亮，然后粘贴过去，HTML 高亮的方法有很多，一搜一大堆，但是 HTML 格式的代码粘贴到 Word 是高亮的，但是粘贴到 PPT（即使是从 Word 粘贴过去）都会出现问题，至少我这里会出现问题。</p>
 <p>怎么办呢？</p>
 <p>查了一下，微软自家的产品内部通用 <a href="https://www.wikiwand.com/zh/RTF" target="_blank" rel="noopener">RTF (Rich Text Format)</a> 格式，接下来就是如何得到 RTF 格式的高亮代码了。</p>
 <p>我手头用的 Sublime，有一款插件叫做 Highlight，选中代码，右键 -&gt; Copy as RTF，然后粘贴到 PPT 就好了。然后发现代码高亮有坑（诸如左右括号不一样颜色之类的 bug）。</p>
 <p>Notepad++ 也有这个功能，下载最新的 Notepad++ 7.0 版本，安装插件，连个 plugin manager 都没有，手动安装出错，遂退回到 6.9 版本，然后 Copy as RTF 粘贴到 PPT，结果连背景色都带上了，RTF 那个语法，简直了，看着就想吐，别说改了，卒。</p>
 <p>最后我选择了 <a href="http://pygments.org/" target="_blank" rel="noopener">Pygments</a>，安装：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install Pygments</span><br></pre></td></tr></table></figure>
-
 <p>执行：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pygmentize -f rtf -O style=paraiso-dark -l c -o code.rtf code.c</span><br></pre></td></tr></table></figure>
-
 <p>粘贴到 PPT，OK。</p>
 <p>结束了 PPT 中代码高亮的噩梦。</p>
-<p>参考：<br><a href="https://superuser.com/questions/85948/how-can-i-embed-programming-source-code-in-powerpoint-slide-and-keep-code-highli" target="_blank" rel="noopener">How can I embed programming source code in Powerpoint slide and keep code highlighting?</a><br><a href="http://pygments.org/docs/cmdline/" target="_blank" rel="noopener">Pygments Docs</a><br><a href="https://gist.github.com/ept/4475995" target="_blank" rel="noopener">How to add syntax-highlighted code to PowerPoint slides (Mac OS)</a></p>
+<p>参考： <a href="https://superuser.com/questions/85948/how-can-i-embed-programming-source-code-in-powerpoint-slide-and-keep-code-highli" target="_blank" rel="noopener">How can I embed programming source code in Powerpoint slide and keep code highlighting?</a> <a href="http://pygments.org/docs/cmdline/" target="_blank" rel="noopener">Pygments Docs</a> <a href="https://gist.github.com/ept/4475995" target="_blank" rel="noopener">How to add syntax-highlighted code to PowerPoint slides (Mac OS)</a></p>
 
   </div>
 </article>
@@ -419,5 +413,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
