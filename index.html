@@ -104,7 +104,7 @@
   
     <article class="post">
       <div class="post-title">
-        <h2><a class="post-title-link" href="/2019/10/10/ICT-LXD-readme/">LXD 容器使用说明</a></h2>
+        <h2><a class="post-title-link" href="/2019/10/10/ICT-LXD-readme/">ICT 实验室深度学习服务器使用说明</a></h2>
       </div>
       <div class="post-meta">
         <span class="date">2019-10-10</span>
@@ -118,7 +118,7 @@
         
       </span></span></span></span></div>
       <div class="post-content">
-        <p>实验室新到的服务器已经配置完成。为了满足实验室所有同学的实验需求，同时最大化服务器的利用率，故为每位同学分配一个 LXD 容器使用，本文将详细介绍 LXD 的使用方式。</p>
+        <p>实验室新到的服务器已经配置完成。为了满足实验室所有同学的实验需求，同时最大化服务器的利用率，故为每位同学分配一个 LXD 容器，每个容器一个内网 IP。本文将详细介绍服务器的使用方式。</p>
       </div>
       <div class="continue"><a class="btn" href="/2019/10/10/ICT-LXD-readme/">继续阅读</a></div>
     </article>
@@ -289,7 +289,9 @@
         
       </span></span></span></span></div>
       <div class="post-content">
-        <p>本教程适用于 13/14/15 年 MacBook Pro 升级非官方硬盘</p>
+        <p>作者一年后更新：</p>
+<p>不再建议使用转接卡更换苹果电脑固态硬盘，因为在一年后就无法正常工作了。转接卡失效，760p 固态硬盘主控坏掉，只能识别 1 GB 的缓存。虽然数据及时导出，且硬盘有 5 年质保，但仍不推荐使用此方法扩容。可以尝试咸鱼购买拆机硬盘，现在也不贵。</p>
+<p>本教程适用于 13/14/15 年 MacBook Pro 升级非官方硬盘</p>
       </div>
       <div class="continue"><a class="btn" href="/2018/11/18/mac-change-ssd-760p/">继续阅读</a></div>
     </article>
@@ -441,5 +443,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

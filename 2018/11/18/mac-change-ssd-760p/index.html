@@ -122,7 +122,9 @@
     </div>
   
   <div class="post-content">
-    <p>本教程适用于 13/14/15 年 MacBook Pro 升级非官方硬盘</p>
+    <p>作者一年后更新：</p>
+<p>不再建议使用转接卡更换苹果电脑固态硬盘，因为在一年后就无法正常工作了。转接卡失效，760p 固态硬盘主控坏掉，只能识别 1 GB 的缓存。虽然数据及时导出，且硬盘有 5 年质保，但仍不推荐使用此方法扩容。可以尝试咸鱼购买拆机硬盘，现在也不贵。</p>
+<p>本教程适用于 13/14/15 年 MacBook Pro 升级非官方硬盘</p>
 <a id="more"></a>
 <p>由于 MacBook Pro 的硬盘接口是自己设计的，所以更换硬盘有两种选择：</p>
 <ul>
@@ -450,5 +452,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
