@@ -23,11 +23,11 @@
 
 
 
-  <link rel="canonical" href="https://xungejiang.com/archives/2016/page/2/">
+  <link rel="canonical" href="https://xungejiang.com/2019/10/20/imagenet-train-set/">
 
 <!-- <link rel="stylesheet" href="/css/style.css"> -->
 
-<title> 归档: 2016 | XUNGE&#39;s Blog</title>
+<title> ImageNet 训练集特殊图像集合 | XUNGE&#39;s Blog</title>
 
 </head>
 <body class="typo borderbox" lang="zh-Hans" itemtype="http://schema.org/WebPage" itemscope>
@@ -100,63 +100,213 @@
     </div>
   </header>
   <main class="main">
-  <section class="archives">
-  <div class="archive-page-counter">共计 46 篇日志</div>
-  <div class="archive">
-    
-    
-      
-      
-        <h2 class="archive-year date">2016</h2>
-        
-      
-      <div class="archive-item">
-        <a class="archive-title" href="/2016/07/07/mac-bootcamp-win10/">在 macOS 中使用 BootCamp 安装 Windows10</a>
-        <span class="archive-time date">07-07</span>
-      </div>
-      
-      
-      
-      <div class="archive-item">
-        <a class="archive-title" href="/2016/07/07/sublime-C/">Sublime Text 3 设置C/C++编译环境</a>
-        <span class="archive-time date">07-07</span>
-      </div>
-      
-      
-      
-      <div class="archive-item">
-        <a class="archive-title" href="/2016/07/04/install-macOS/">使用 U 盘安装 mac OS 系统</a>
-        <span class="archive-time date">07-04</span>
-      </div>
-      
-      
-      
-      <div class="archive-item">
-        <a class="archive-title" href="/2016/07/03/sublime-introduction/">Sublime 介绍以及插件推荐</a>
-        <span class="archive-time date">07-03</span>
-      </div>
-      
+  <article class="post-detail">
+  <div class="post-title">
+    <h1 class="title">ImageNet 训练集特殊图像集合</h1>
   </div>
-</section>
+   <div class="post-meta">
+    <span class="date">2019-10-20</span>
+    
+      <span>|<span>
+      <a class="article-tag-link" href="/tags/imagenet/">imagenet</a>, <a class="article-tag-link" href="/tags/pytorch/">pytorch</a>
+    
+    
+      <span>|<span>
+      <a class="article-tag-link" href="/categories/经验值/">经验值</a>
+    
+  </span></span></span></span></div>
+  
+    <div class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#n02105855_2933.jpeg-其实是-png-图像"><span class="post-toc-text">n02105855_2933.JPEG 其实是 PNG 图像</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#n04152593_17460.jpeg-其实是-heic-图像"><span class="post-toc-text">n04152593_17460.JPEG 其实是 HEIC 图像</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#cmyk-图像"><span class="post-toc-text">CMYK 图像</span></a></li></ol>
+    </div>
+  
+  <div class="post-content">
+    <p>最近运行一个 PyTorch 工程的代码，在读取数据集时没有用官方的 Dataloader，而是自己写了一个读取数据集的函数。在读取 ImageNet 2012 数据集时遇到了一些错误，在此记录一下。</p>
+<a id="more"></a>
+<h2 id="n02105855_2933.jpeg-其实是-png-图像">n02105855_2933.JPEG 其实是 PNG 图像</h2>
+<p>在读取数据集并将其馈送到 <code>model(data)</code> 时，如果没有对data进行检验，就有可能报下面的错误</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">RuntimeError: Given groups=1, weight of size 64 3 7 7, expected input[1, 4, 224, 224] to have 3 channels, but got 4 channels instead</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">RuntimeError: invalid argument 0: Sizes of tensors must match except in dimension 0. Got 3 and 4 in dimension 1 at /tmp/pip-req-build-58y_cjjl/aten/src/TH/generic/THTensor.cpp:689</span><br></pre></td></tr></table></figure>
+<p>这是因为训练集中有一个图片是 PNG 图片，强行将后缀名改为了 <code>.JPEG</code>，但还是保留了 PNG 图像的 4 通道（PNG图像除了 RGB 三通道外还有一个 Alpha 通道，表示图像的透明度）</p>
+<p>这个图片就是 <code>n02105855_2933.JPEG</code></p>
+<h2 id="n04152593_17460.jpeg-其实是-heic-图像">n04152593_17460.JPEG 其实是 HEIC 图像</h2>
+<p>这个图片在读取时没有报错，但会报 warning。</p>
+<h2 id="cmyk-图像">CMYK 图像</h2>
+<p>JPEG 图像分两种，一种 RGB，一种 CMYK，下面是 CMYK 的图像列表：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">n01739381_1309.JPEG</span><br><span class="line">n02077923_14822.JPEG</span><br><span class="line">n02447366_23489.JPEG</span><br><span class="line">n02492035_15739.JPEG</span><br><span class="line">n02747177_10752.JPEG</span><br><span class="line">n03018349_4028.JPEG</span><br><span class="line">n03062245_4620.JPEG</span><br><span class="line">n03347037_9675.JPEG</span><br><span class="line">n03467068_12171.JPEG</span><br><span class="line">n03529860_11437.JPEG</span><br><span class="line">n03544143_17228.JPEG</span><br><span class="line">n03633091_5218.JPEG</span><br><span class="line">n03710637_5125.JPEG</span><br><span class="line">n03961711_5286.JPEG</span><br><span class="line">n04033995_2932.JPEG</span><br><span class="line">n04258138_17003.JPEG</span><br><span class="line">n04264628_27969.JPEG</span><br><span class="line">n04336792_7448.JPEG</span><br><span class="line">n04371774_5854.JPEG</span><br><span class="line">n04596742_4225.JPEG</span><br><span class="line">n07583066_647.JPEG</span><br><span class="line">n13037406_4650.JPEG</span><br></pre></td></tr></table></figure>
+<p>当你在读取 ImageNet 2012 训练集遇到问题时，可以先尝试使用验证集进行训练，确认不是程序问题，而是训练集问题时，可以尝试删除或替换上述图像。</p>
 
-  <nav class="page-nav">
-       
-       <a class="page-prev" href="/archives/2016/">
-        &lt;
-        <!-- <span>
-          
-            (no title)
-          
-        </span> -->
-      </a>
-      
-      <div class="page-number date">2 / 5</div>
-      
-  </nav>
+  </div>
+</article>
+
+<a class="top" id="top" href="javascript:;"></a>
+
+
+<script>
+  window.onscroll = function () {
+    if (document.body.scrollTop > window.innerHeight) {
+      document.getElementById('top').classList.add('toggle')
+    } else {
+      document.getElementById('top').classList.remove('toggle')
+    }
+  }
+
+  function scrollTo (element, to, duration) {
+    if (duration <= 0) return
+    var difference = to - element.scrollTop
+    var perTick = -25 + difference / duration * 10
+    // console.log(to, element.scrollTop, difference, duration, perTick)
+
+    setTimeout(function () {
+      element.scrollTop = element.scrollTop + perTick
+      if (element.scrollTop <= to) return
+      scrollTo(element, to, duration)
+    }, 10)
+  }
+
+  document.getElementById('top').addEventListener("click", function () {
+    scrollTo(document.body, 0, Math.ceil(document.body.scrollTop / 10))
+  }, false)
+</script>
+
 
 
   <div id="disqus_thread"></div>
   
+  
+    <script type="text/javascript">
+      /*
+        disqusLoader.js v1.0
+        A JavaScript plugin for lazy-loading Disqus comments widget.
+        -
+        By Osvaldas Valutis, www.osvaldas.info
+        Available for use under the MIT License
+      */
+
+      ;(function (window, document, index) {
+        'use strict'
+      
+        var extendObj = function (defaults, options) {
+            var prop, extended = {}
+            for (prop in defaults) {
+              if (Object.prototype.hasOwnProperty.call(defaults, prop)) extended[prop] = defaults[prop]
+            }
+            for (prop in options) {
+              if (Object.prototype.hasOwnProperty.call(options, prop)) extended[prop] = options[prop]
+            }
+            return extended
+          },
+          getOffset = function (el) {
+            var rect = el.getBoundingClientRect()
+            return {
+              top: rect.top + document.body.scrollTop,
+              left: rect.left + document.body.scrollLeft
+            }
+          },
+          loadScript = function (url, callback) {
+            var script = document.createElement('script')
+            script.src = url
+            script.async = true
+            script.setAttribute('data-timestamp', +new Date())
+            script.addEventListener('load', function () {
+              if (typeof callback === 'function') callback()
+            })
+            script.addEventListener('error', function () {
+              console.error('connect disqus failed')
+            })
+            ;(document.head || document.body).appendChild(script)
+          },
+          throttle = function (a, b) {
+            var c, d
+            return function () {
+              var e = this,
+                f = arguments,
+                g = +new Date
+              c && g < c + a ? (clearTimeout(d), d = setTimeout(function () {
+                c = g, b.apply(e, f)
+              }, a)) : (c = g, b.apply(e, f))
+            }
+          },
+      
+          throttleTO = false,
+          laziness = false,
+          disqusConfig = false,
+          scriptUrl = false,
+      
+          scriptStatus = 'unloaded',
+          instance = false,
+      
+          init = function () {
+            if (!instance || !document.body.contains(instance) || instance.disqusLoaderStatus == 'loaded') return true
+
+            var winST = window.pageYOffset,
+              offset = getOffset(instance).top
+
+            // if the element is too far below || too far above
+            if (offset - winST > window.innerHeight * laziness || winST - offset - instance.offsetHeight - (window.innerHeight * laziness) > 0) return true
+
+            var tmp = document.getElementById('disqus_thread')
+            if (tmp) tmp.removeAttribute('id')
+            instance.setAttribute('id', 'disqus_thread')
+            instance.disqusLoaderStatus = 'loaded'
+
+            if (scriptStatus == 'loaded') {
+              DISQUS.reset({
+                reload: true,
+                config: disqusConfig
+              })
+            } else { // unloaded | loading
+              window.disqus_config = disqusConfig
+              if (scriptStatus == 'unloaded') {
+                scriptStatus = 'loading'
+                loadScript(scriptUrl, function () {
+                  scriptStatus = 'loaded'
+                })
+              }
+            }
+          }
+      
+        window.addEventListener('scroll', throttle(throttleTO, init))
+        window.addEventListener('resize', throttle(throttleTO, init))
+      
+        window.disqusLoader = function (element, options) {
+          options = extendObj({
+            laziness: 1,
+            throttle: 250,
+            scriptUrl: false,
+            disqusConfig: false,
+      
+          }, options)
+      
+          laziness = options.laziness + 1
+          throttleTO = options.throttle
+          disqusConfig = options.disqusConfig
+          scriptUrl = scriptUrl === false ? options.scriptUrl : scriptUrl // set it only once
+      
+          if (typeof element === 'string') instance = document.querySelector(element)
+          else if (typeof element.length === 'number') instance = element[0]
+          else instance = element
+      
+          instance.disqusLoaderStatus = 'unloaded'
+      
+          init()
+        }
+      
+      }(window, document, 0))
+      var options = {
+        scriptUrl: '//xungejiang.disqus.com' + '/embed.js',
+        laziness: 1,
+        throttle: 250,
+        disqusConfig: function() {
+          this.page.url         = 'https://xungejiang.com/2019/10/20/imagenet-train-set/'
+          this.page.identifier  = '//2019/10/20/imagenet-train-set/'
+          this.page.title       = 'ImageNet 训练集特殊图像集合'
+        }
+      }
+      disqusLoader('#disqus_thread', options)
+    </script>
   
   </main>
   <footer class="footer">
