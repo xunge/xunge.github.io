@@ -125,7 +125,7 @@
     <p>最近运行一个 PyTorch 工程的代码，在读取数据集时没有用官方的 Dataloader，而是自己写了一个读取数据集的函数。在读取 ImageNet 2012 数据集时遇到了一些错误，在此记录一下。</p>
 <a id="more"></a>
 <h2 id="n02105855_2933.jpeg-其实是-png-图像">n02105855_2933.JPEG 其实是 PNG 图像</h2>
-<p>在读取数据集并将其馈送到 <code>model(data)</code> 时，如果没有对data进行检验，就有可能报下面的错误</p>
+<p>在使用 cv2 读取数据集并将其馈送到 <code>model(data)</code> 时，如果没有对data进行检验，就有可能报下面的错误</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">RuntimeError: Given groups=1, weight of size 64 3 7 7, expected input[1, 4, 224, 224] to have 3 channels, but got 4 channels instead</span><br></pre></td></tr></table></figure>
 <p>或者</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">RuntimeError: invalid argument 0: Sizes of tensors must match except in dimension 0. Got 3 and 4 in dimension 1 at /tmp/pip-req-build-58y_cjjl/aten/src/TH/generic/THTensor.cpp:689</span><br></pre></td></tr></table></figure>
@@ -426,6 +426,6 @@
             all[i].SourceElement().parentNode.className += ' has-jax';
     });
 </script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
