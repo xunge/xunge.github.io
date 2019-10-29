@@ -914,6 +914,30 @@
   </entry>
   
   <entry>
+    <title>wordpress 使用 highlight.js 添加语法高亮</title>
+    <link href="https://xungejiang.com//2016/07/19/highlight/"/>
+    <id>https://xungejiang.com//2016/07/19/highlight/</id>
+    <published>2016-07-19T01:01:42.000Z</published>
+    <updated>2016-07-19T01:01:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>wordpress 使用 highlight.js 添加语法高亮</p><p>转载作者博客：<a href="http://www.snovey.com/" target="_blank" rel="noopener">snovey</a></p><a id="more"></a><h2 id="highlight.js-简介">highlight.js 简介</h2><p>wordpress 有强大的 <a href="https://cn.wordpress.org/plugins/crayon-syntax-highlighter/" target="_blank" rel="noopener">Crayon Syntax Highlighter</a>，因为太过强大，很多功能用不上，用这个插件会拖慢网站速度，于是找到了这个插件：<a href="https://highlightjs.org/" target="_blank" rel="noopener">highlight.js</a>，如果你只是想给代码添加简单的高亮而不需要添加行号、复制按钮之类的功能，那么这款插件刚好适合你。下面简单的介绍一下： <a href="https://highlightjs.org/" target="_blank" rel="noopener">highlight.js</a> 是一款强大的代码高亮插件。官方给出描述如下：</p><blockquote><ul><li>支持 166 种语言，有 77 种样式</li><li>自动识别语言</li><li>同时支持多种语言</li><li>支持 node.js 平台</li><li>支持各种标记</li><li>兼容任何 js 框架</li></ul></blockquote><p>该项目已在 Github 开源，项目地址：<a href="https://github.com/isagalaev/highlight.js" target="_blank" rel="noopener">highlight.js</a> 安装的思路非常简单：</p><blockquote><ol type="1"><li>导入 CSS 文件</li><li>导入 JS 文件</li><li>加载 JS</li></ol></blockquote><h2 id="导入-highlight.js">导入 highlight.js</h2><p>最简单粗暴的方法如下，在 <code>header.php</code> 中加入如下代码：</p><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"/path/to/styles/default.css"</span>&gt;</span><br><span class="line">&lt;script src=<span class="string">"/path/to/highlight.pack.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;script&gt;hljs.initHighlightingOnLoad();<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure><p>注意修改路径！ 当然，这个办法非常不可取，JS 应当放在 <code>&lt;body&gt;</code> 中而非 <code>&lt;head&gt;</code> 中，所以改进后的办法是将</p><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script src=<span class="string">"/path/to/highlight.pack.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;script&gt;hljs.initHighlightingOnLoad();<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure><p>移至 <code>footer.php</code> 中 <code>&lt;/body&gt;</code> 标签之前。 为了插件化我更推荐你这样做：在 <code>function.php</code> 中添加如下代码</p><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add_highlight_js</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    wp_enqueue_style(<span class="string">'highlightcss'</span>,<span class="string">'/path/to/styles/default.css'</span>);</span><br><span class="line">    wp_register_script(<span class="string">'highlightjs'</span>,<span class="string">'/path/to/highlight.pack.js'</span>); <span class="comment">//注册 handle</span></span><br><span class="line">    wp_enqueue_script(<span class="string">'highlightjs'</span>, <span class="literal">false</span>, array(), <span class="literal">false</span>, <span class="literal">true</span>); <span class="comment">//放至&lt;body&gt;下方</span></span><br><span class="line">&#125;</span><br><span class="line">add_action(<span class="string">'wp_enqueue_scripts'</span>, <span class="string">'add_highlight_js'</span>);</span><br></pre></td></tr></table></figure><p>然后在 <code>footer.php</code> 中添加</p><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;hljs.initHighlightingOnLoad();<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure><p>设置触发函数。</p><h2 id="关于安装路径">关于安装路径</h2><p>如果是下载至本地，那么在网站的 <code>/wp-content/plugins/</code> 目录下新建 <code>highlight</code> 文件夹，然后将压缩包解压至该文件夹，将上述的</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/path/to/styles/default.css</span><br><span class="line">/path/to/highlight.pack.js</span><br></pre></td></tr></table></figure><p>修改为</p><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> get_site_url() . <span class="string">'/wp-content/plugins/highlight/default.css'</span>;<span class="meta">?&gt;</span></span><br><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> get_site_url() . <span class="string">'/wp-content/plugins/highlight/highlight.min.js'</span>;<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure><p>即可。如果想要提高网站的速度，也可以不从本地加载，转而使用第三方提供的 CDN，下面贴几个。</p><p>cdnjs</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js</span><br></pre></td></tr></table></figure><p>yandex:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://yandex.st/highlightjs/8.2/styles/default.min.css</span><br><span class="line">https://yandex.st/highlightjs/8.2/highlight.min.js</span><br></pre></td></tr></table></figure><p>Bootstrap</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://cdn.bootcss.com/highlight.js/9.6.0/styles/default.min.css</span><br><span class="line">https://cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js</span><br></pre></td></tr></table></figure><p>注意 <code>cdnjs</code> 不提供 CSS，而 <code>yandex</code> 貌似没有 8.2 以后的版本，根据自己的情况选择 CDN 吧。如果你想自定义代码高亮，不妨从 CDN 加载 JS，从本地加载 CSS，这里不啰嗦了。</p><h2 id="使用-highlight.js">使用 highlight.js</h2><p><code>hljs.initHighlightingOnLoad()</code> 会寻找 <code>&lt;pre&gt;&lt;code&gt;</code> 标签，所以使用 highlight.js 时应当这样写代码：</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">pre</span>&gt;</span><span class="tag">&lt;<span class="name">code</span> <span class="attr">class</span>=<span class="string">"html"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">code</span>&gt;</span><span class="tag">&lt;/<span class="name">pre</span>&gt;</span></span><br></pre></td></tr></table></figure><p>记得在 class 中填写语言的类型。啥？介绍时不是说可以自动识别么？即便如此，标记语言类型是一种良好的编码习惯。</p><p>参考链接：</p><p><a href="https://highlightjs.org/" target="_blank" rel="noopener">highlight.js</a> <a href="https://github.com/isagalaev/highlight.js" target="_blank" rel="noopener">highlight.js</a> <a href="https://blog.wpjam.com/article/how-to-include-js-and-css-in-wordpress/" target="_blank" rel="noopener">如何正确引用 JavaScript 和 CSS 文件</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;wordpress 使用 highlight.js 添加语法高亮&lt;/p&gt;
+&lt;p&gt;转载作者博客：&lt;a href=&quot;http://www.snovey.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;snovey&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="瞎折腾" scheme="https://xungejiang.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/"/>
+    
+    
+      <category term="wordpress" scheme="https://xungejiang.com/tags/wordpress/"/>
+    
+  </entry>
+  
+  <entry>
     <title>HTML 表单的验证</title>
     <link href="https://xungejiang.com//2016/07/19/form-confirm/"/>
     <id>https://xungejiang.com//2016/07/19/form-confirm/</id>
@@ -936,30 +960,6 @@
       <category term="HTML" scheme="https://xungejiang.com/tags/HTML/"/>
     
       <category term="JS" scheme="https://xungejiang.com/tags/JS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>wordpress 使用 highlight.js 添加语法高亮</title>
-    <link href="https://xungejiang.com//2016/07/19/highlight/"/>
-    <id>https://xungejiang.com//2016/07/19/highlight/</id>
-    <published>2016-07-19T01:01:42.000Z</published>
-    <updated>2016-07-19T01:01:42.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>wordpress 使用 highlight.js 添加语法高亮</p><p>转载作者博客：<a href="http://www.snovey.com/" target="_blank" rel="noopener">snovey</a></p><a id="more"></a><h2 id="highlight.js-简介">highlight.js 简介</h2><p>wordpress 有强大的 <a href="https://cn.wordpress.org/plugins/crayon-syntax-highlighter/" target="_blank" rel="noopener">Crayon Syntax Highlighter</a>，因为太过强大，很多功能用不上，用这个插件会拖慢网站速度，于是找到了这个插件：<a href="https://highlightjs.org/" target="_blank" rel="noopener">highlight.js</a>，如果你只是想给代码添加简单的高亮而不需要添加行号、复制按钮之类的功能，那么这款插件刚好适合你。下面简单的介绍一下： <a href="https://highlightjs.org/" target="_blank" rel="noopener">highlight.js</a> 是一款强大的代码高亮插件。官方给出描述如下：</p><blockquote><ul><li>支持 166 种语言，有 77 种样式</li><li>自动识别语言</li><li>同时支持多种语言</li><li>支持 node.js 平台</li><li>支持各种标记</li><li>兼容任何 js 框架</li></ul></blockquote><p>该项目已在 Github 开源，项目地址：<a href="https://github.com/isagalaev/highlight.js" target="_blank" rel="noopener">highlight.js</a> 安装的思路非常简单：</p><blockquote><ol type="1"><li>导入 CSS 文件</li><li>导入 JS 文件</li><li>加载 JS</li></ol></blockquote><h2 id="导入-highlight.js">导入 highlight.js</h2><p>最简单粗暴的方法如下，在 <code>header.php</code> 中加入如下代码：</p><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"/path/to/styles/default.css"</span>&gt;</span><br><span class="line">&lt;script src=<span class="string">"/path/to/highlight.pack.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;script&gt;hljs.initHighlightingOnLoad();<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure><p>注意修改路径！ 当然，这个办法非常不可取，JS 应当放在 <code>&lt;body&gt;</code> 中而非 <code>&lt;head&gt;</code> 中，所以改进后的办法是将</p><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script src=<span class="string">"/path/to/highlight.pack.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;script&gt;hljs.initHighlightingOnLoad();<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure><p>移至 <code>footer.php</code> 中 <code>&lt;/body&gt;</code> 标签之前。 为了插件化我更推荐你这样做：在 <code>function.php</code> 中添加如下代码</p><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add_highlight_js</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    wp_enqueue_style(<span class="string">'highlightcss'</span>,<span class="string">'/path/to/styles/default.css'</span>);</span><br><span class="line">    wp_register_script(<span class="string">'highlightjs'</span>,<span class="string">'/path/to/highlight.pack.js'</span>); <span class="comment">//注册 handle</span></span><br><span class="line">    wp_enqueue_script(<span class="string">'highlightjs'</span>, <span class="literal">false</span>, array(), <span class="literal">false</span>, <span class="literal">true</span>); <span class="comment">//放至&lt;body&gt;下方</span></span><br><span class="line">&#125;</span><br><span class="line">add_action(<span class="string">'wp_enqueue_scripts'</span>, <span class="string">'add_highlight_js'</span>);</span><br></pre></td></tr></table></figure><p>然后在 <code>footer.php</code> 中添加</p><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;hljs.initHighlightingOnLoad();<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure><p>设置触发函数。</p><h2 id="关于安装路径">关于安装路径</h2><p>如果是下载至本地，那么在网站的 <code>/wp-content/plugins/</code> 目录下新建 <code>highlight</code> 文件夹，然后将压缩包解压至该文件夹，将上述的</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/path/to/styles/default.css</span><br><span class="line">/path/to/highlight.pack.js</span><br></pre></td></tr></table></figure><p>修改为</p><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> get_site_url() . <span class="string">'/wp-content/plugins/highlight/default.css'</span>;<span class="meta">?&gt;</span></span><br><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> get_site_url() . <span class="string">'/wp-content/plugins/highlight/highlight.min.js'</span>;<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure><p>即可。如果想要提高网站的速度，也可以不从本地加载，转而使用第三方提供的 CDN，下面贴几个。</p><p>cdnjs</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js</span><br></pre></td></tr></table></figure><p>yandex:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://yandex.st/highlightjs/8.2/styles/default.min.css</span><br><span class="line">https://yandex.st/highlightjs/8.2/highlight.min.js</span><br></pre></td></tr></table></figure><p>Bootstrap</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://cdn.bootcss.com/highlight.js/9.6.0/styles/default.min.css</span><br><span class="line">https://cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js</span><br></pre></td></tr></table></figure><p>注意 <code>cdnjs</code> 不提供 CSS，而 <code>yandex</code> 貌似没有 8.2 以后的版本，根据自己的情况选择 CDN 吧。如果你想自定义代码高亮，不妨从 CDN 加载 JS，从本地加载 CSS，这里不啰嗦了。</p><h2 id="使用-highlight.js">使用 highlight.js</h2><p><code>hljs.initHighlightingOnLoad()</code> 会寻找 <code>&lt;pre&gt;&lt;code&gt;</code> 标签，所以使用 highlight.js 时应当这样写代码：</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">pre</span>&gt;</span><span class="tag">&lt;<span class="name">code</span> <span class="attr">class</span>=<span class="string">"html"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">code</span>&gt;</span><span class="tag">&lt;/<span class="name">pre</span>&gt;</span></span><br></pre></td></tr></table></figure><p>记得在 class 中填写语言的类型。啥？介绍时不是说可以自动识别么？即便如此，标记语言类型是一种良好的编码习惯。</p><p>参考链接：</p><p><a href="https://highlightjs.org/" target="_blank" rel="noopener">highlight.js</a> <a href="https://github.com/isagalaev/highlight.js" target="_blank" rel="noopener">highlight.js</a> <a href="https://blog.wpjam.com/article/how-to-include-js-and-css-in-wordpress/" target="_blank" rel="noopener">如何正确引用 JavaScript 和 CSS 文件</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;wordpress 使用 highlight.js 添加语法高亮&lt;/p&gt;
-&lt;p&gt;转载作者博客：&lt;a href=&quot;http://www.snovey.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;snovey&lt;/a&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="瞎折腾" scheme="https://xungejiang.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/"/>
-    
-    
-      <category term="wordpress" scheme="https://xungejiang.com/tags/wordpress/"/>
     
   </entry>
   
@@ -1059,6 +1059,29 @@
   </entry>
   
   <entry>
+    <title>在 macOS 中使用 BootCamp 安装 Windows10</title>
+    <link href="https://xungejiang.com//2016/07/07/mac-bootcamp-win10/"/>
+    <id>https://xungejiang.com//2016/07/07/mac-bootcamp-win10/</id>
+    <published>2016-07-07T01:01:42.000Z</published>
+    <updated>2016-07-07T01:01:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>如何在苹果电脑中安装双系统 mac + win10</p><a id="more"></a><h2 id="前言">前言</h2><p>苹果电脑当然还是苹果系统最适合，优势最明显的是省电，当然也有美观、系统流畅等其他优点。但是也有很多劣势，比如 mac 系统学习成本比较大，很多软件不兼容。所以在硬盘空间的允许下装双系统应该是再合适不过的啦。</p><p>博主就是因为老爸不习惯 macOS ，而博主又特别喜欢 macOS 的界面，所以权衡利弊借助 bootcamp 装了双系统。</p><p>其实想在苹果电脑上运行 mac 还可以用虚拟机，这里推荐 <code>parlldesktop</code> 虚拟机，不过需要花钱，也有破解版。</p><h2 id="准备工作">准备工作</h2><p>win10 镜像， USB 2.0 。</p><h2 id="开始制作">开始制作</h2><p>首先需要 win10 镜像，推荐 <a href>MSN I tell you</a>，镜像都是原版无添加。</p><p>然后需要一个 USB 2.0 的U盘。。<strong>注意，最好！！一定！！是 2.0 的U盘</strong> 因为博主试过好多 3.0 的U盘都不成功，后来看有人建议用 2.0 的U盘试试，果然成功了！！博主用的是 Kingston 的 2.0 U盘。</p><p>然后需要用 bootcamp 制作 win10 的启动U盘。</p><p>实用工具 -&gt; bootcamp助理 -&gt; 继续 -&gt; 打好三个对勾，然后会自动将镜像拷贝到U盘，并下载一些必要的驱动。之后会自动重启，安装方法和 Windows 就没有什么区别了。</p><p>安装好 Windows 会发现没有无线网驱动，分辨率也不是很适配。这时候就需要打开C盘，会有一个 bootcamp 的文件夹，里头有 setup 的驱动程序，安装完成后就发现无线网卡出现了，分辨率也适配到了最佳水准。</p><hr><p>2018.10 update</p><p>新版 BootCamp(启动转换助理) 不再需要使用 U 盘，系统会自动将硬盘的一部分分区作为系统盘，并在之后的使用中删去这个分区，使用更加方便</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;如何在苹果电脑中安装双系统 mac + win10&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="瞎折腾" scheme="https://xungejiang.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/"/>
+    
+    
+      <category term="mac" scheme="https://xungejiang.com/tags/mac/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Sublime Text 3 设置C/C++编译环境</title>
     <link href="https://xungejiang.com//2016/07/07/sublime-C/"/>
     <id>https://xungejiang.com//2016/07/07/sublime-C/</id>
@@ -1103,29 +1126,6 @@
     
     
       <category term="github" scheme="https://xungejiang.com/tags/github/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在 macOS 中使用 BootCamp 安装 Windows10</title>
-    <link href="https://xungejiang.com//2016/07/07/mac-bootcamp-win10/"/>
-    <id>https://xungejiang.com//2016/07/07/mac-bootcamp-win10/</id>
-    <published>2016-07-07T01:01:42.000Z</published>
-    <updated>2016-07-07T01:01:42.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>如何在苹果电脑中安装双系统 mac + win10</p><a id="more"></a><h2 id="前言">前言</h2><p>苹果电脑当然还是苹果系统最适合，优势最明显的是省电，当然也有美观、系统流畅等其他优点。但是也有很多劣势，比如 mac 系统学习成本比较大，很多软件不兼容。所以在硬盘空间的允许下装双系统应该是再合适不过的啦。</p><p>博主就是因为老爸不习惯 macOS ，而博主又特别喜欢 macOS 的界面，所以权衡利弊借助 bootcamp 装了双系统。</p><p>其实想在苹果电脑上运行 mac 还可以用虚拟机，这里推荐 <code>parlldesktop</code> 虚拟机，不过需要花钱，也有破解版。</p><h2 id="准备工作">准备工作</h2><p>win10 镜像， USB 2.0 。</p><h2 id="开始制作">开始制作</h2><p>首先需要 win10 镜像，推荐 <a href>MSN I tell you</a>，镜像都是原版无添加。</p><p>然后需要一个 USB 2.0 的U盘。。<strong>注意，最好！！一定！！是 2.0 的U盘</strong> 因为博主试过好多 3.0 的U盘都不成功，后来看有人建议用 2.0 的U盘试试，果然成功了！！博主用的是 Kingston 的 2.0 U盘。</p><p>然后需要用 bootcamp 制作 win10 的启动U盘。</p><p>实用工具 -&gt; bootcamp助理 -&gt; 继续 -&gt; 打好三个对勾，然后会自动将镜像拷贝到U盘，并下载一些必要的驱动。之后会自动重启，安装方法和 Windows 就没有什么区别了。</p><p>安装好 Windows 会发现没有无线网驱动，分辨率也不是很适配。这时候就需要打开C盘，会有一个 bootcamp 的文件夹，里头有 setup 的驱动程序，安装完成后就发现无线网卡出现了，分辨率也适配到了最佳水准。</p><hr><p>2018.10 update</p><p>新版 BootCamp(启动转换助理) 不再需要使用 U 盘，系统会自动将硬盘的一部分分区作为系统盘，并在之后的使用中删去这个分区，使用更加方便</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;如何在苹果电脑中安装双系统 mac + win10&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="瞎折腾" scheme="https://xungejiang.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/"/>
-    
-    
-      <category term="mac" scheme="https://xungejiang.com/tags/mac/"/>
     
   </entry>
   
