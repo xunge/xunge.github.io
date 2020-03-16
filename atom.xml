@@ -990,29 +990,6 @@
   </entry>
   
   <entry>
-    <title>macOS 如何显示隐藏文件</title>
-    <link href="https://xungejiang.com//2016/07/18/mac-show-hidden-files/"/>
-    <id>https://xungejiang.com//2016/07/18/mac-show-hidden-files/</id>
-    <published>2016-07-18T01:01:42.000Z</published>
-    <updated>2016-07-18T01:01:42.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>mac 为了系统安全会将一些文件夹隐藏，避免用户误删除造成的系统崩溃，但是在安装配置文件时经常需要到隐藏目录下操作，所以这里介绍两种方法，将隐藏的文件显示出来。</p><a id="more"></a><h2 id="第一种方法-命令行">第一种方法 命令行</h2><p>命令方式最简单，键入如下两行命令你就可以实现对文件的现实和隐藏功能了。</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">显示：defaults write com.apple.finder AppleShowAllFiles -bool true</span><br><span class="line">隐藏：defaults write com.apple.finder AppleShowAllFiles -bool false</span><br></pre></td></tr></table></figure><p>然后 <strong>重启 Finder</strong> !!!!很重要!!!!楼主就是试了好多次最后发现栽在这上面了</p><p>方法如图</p><p><img class="lazyload"  data-src="https://img.xungejiang.com/static/images/16-7-18/005.jpg"></p><p><img class="lazyload"  data-src="https://img.xungejiang.com/static/images/16-7-18/002.jpg"></p><h2 id="第二种方法-finder-中设置">第二种方法 Finder 中设置</h2><p>在 Finder 中进入任意文件夹，按快捷键<code>Command + F</code> 调出搜索窗口，点击&quot;种类&quot;选项卡，在下面找到&quot;其他&quot;，如图所示</p><p><img class="lazyload"  data-src="https://img.xungejiang.com/static/images/16-7-18/003.jpg"></p><p>在弹出的窗口里 找到&quot;文件可见性&quot; 选项(可通过搜索快速查找)，勾选后面的方框,点击&quot;好&quot;保存设置。</p><p><img class="lazyload"  data-src="https://img.xungejiang.com/static/images/16-7-18/004.jpg"></p><p>当然！！仍然需要重启 Finder ！！方法同上。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;mac 为了系统安全会将一些文件夹隐藏，避免用户误删除造成的系统崩溃，但是在安装配置文件时经常需要到隐藏目录下操作，所以这里介绍两种方法，将隐藏的文件显示出来。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="瞎折腾" scheme="https://xungejiang.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/"/>
-    
-    
-      <category term="mac" scheme="https://xungejiang.com/tags/mac/"/>
-    
-  </entry>
-  
-  <entry>
     <title>macOS 如何安装 tomcat</title>
     <link href="https://xungejiang.com//2016/07/18/mac-install-tomcat/"/>
     <id>https://xungejiang.com//2016/07/18/mac-install-tomcat/</id>
@@ -1035,6 +1012,29 @@
       <category term="mac" scheme="https://xungejiang.com/tags/mac/"/>
     
       <category term="tomcat" scheme="https://xungejiang.com/tags/tomcat/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>macOS 如何显示隐藏文件</title>
+    <link href="https://xungejiang.com//2016/07/18/mac-show-hidden-files/"/>
+    <id>https://xungejiang.com//2016/07/18/mac-show-hidden-files/</id>
+    <published>2016-07-18T01:01:42.000Z</published>
+    <updated>2016-07-18T01:01:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>mac 为了系统安全会将一些文件夹隐藏，避免用户误删除造成的系统崩溃，但是在安装配置文件时经常需要到隐藏目录下操作，所以这里介绍两种方法，将隐藏的文件显示出来。</p><a id="more"></a><h2 id="第一种方法-命令行">第一种方法 命令行</h2><p>命令方式最简单，键入如下两行命令你就可以实现对文件的现实和隐藏功能了。</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">显示：defaults write com.apple.finder AppleShowAllFiles -bool true</span><br><span class="line">隐藏：defaults write com.apple.finder AppleShowAllFiles -bool false</span><br></pre></td></tr></table></figure><p>然后 <strong>重启 Finder</strong> !!!!很重要!!!!楼主就是试了好多次最后发现栽在这上面了</p><p>方法如图</p><p><img class="lazyload"  data-src="https://img.xungejiang.com/static/images/16-7-18/005.jpg"></p><p><img class="lazyload"  data-src="https://img.xungejiang.com/static/images/16-7-18/002.jpg"></p><h2 id="第二种方法-finder-中设置">第二种方法 Finder 中设置</h2><p>在 Finder 中进入任意文件夹，按快捷键<code>Command + F</code> 调出搜索窗口，点击&quot;种类&quot;选项卡，在下面找到&quot;其他&quot;，如图所示</p><p><img class="lazyload"  data-src="https://img.xungejiang.com/static/images/16-7-18/003.jpg"></p><p>在弹出的窗口里 找到&quot;文件可见性&quot; 选项(可通过搜索快速查找)，勾选后面的方框,点击&quot;好&quot;保存设置。</p><p><img class="lazyload"  data-src="https://img.xungejiang.com/static/images/16-7-18/004.jpg"></p><p>当然！！仍然需要重启 Finder ！！方法同上。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;mac 为了系统安全会将一些文件夹隐藏，避免用户误删除造成的系统崩溃，但是在安装配置文件时经常需要到隐藏目录下操作，所以这里介绍两种方法，将隐藏的文件显示出来。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="瞎折腾" scheme="https://xungejiang.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/"/>
+    
+    
+      <category term="mac" scheme="https://xungejiang.com/tags/mac/"/>
     
   </entry>
   
@@ -1085,29 +1085,6 @@
   </entry>
   
   <entry>
-    <title>github 的介绍以及基本配置</title>
-    <link href="https://xungejiang.com//2016/07/07/github-intro/"/>
-    <id>https://xungejiang.com//2016/07/07/github-intro/</id>
-    <published>2016-07-07T01:01:42.000Z</published>
-    <updated>2016-07-07T01:01:42.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>git介绍以及github的基本配置</p><a id="more"></a><h2 id="配置-git-环境">配置 Git 环境</h2><p><code>Linux</code> 和 <code>MAC</code> 环境下是自带 <code>GIT</code> 的，如果使用 <code>Windows</code> 的话有如下几个解决方案。</p><ul><li><a href="https://git-scm.com/download" target="_blank" rel="noopener">GIT 官网</a>下载</li><li><a href="http://cmder.net/" target="_blank" rel="noopener">Cmder</a>，选择 <code>Download full</code>，不仅自带 <code>GIT</code> ，而且是替代 <code>Windows</code> 自带很丑的 <code>cmd</code> 的很好选择。</li><li><a href="https://pan.baidu.com/s/1slD88nN" target="_blank" rel="noopener">GitHub 离线版</a>，GitHub 出品。</li></ul><p>建议大家使用命令行操作，方便快捷容易理解。</p><h2 id="配置-git-用户名和邮箱">配置 Git 用户名和邮箱</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git config --global user.name &quot;&#123;username&#125;&quot;     //用户名替换&#123;username&#125;</span><br><span class="line">$ git config --global user.email &quot;&#123;email&#125;&quot;    //邮箱替换&#123;email&#125;</span><br></pre></td></tr></table></figure><h2 id="配置-ssh">配置 SSH</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C&quot;&#123;email&#125;&quot;    //邮箱替换&#123;email&#125;</span><br></pre></td></tr></table></figure><p>一路回车到命令完成，win 系统默认在文件夹 <code>C:\Users\{你的用户名}\.ssh</code> ，该文件夹有 <code>id_rsa</code>（私钥） 和 <code>id_rsa.pub</code>（公钥） 两个文件。</p><p>将id_rsa.pub内容复制到自己的 Github 主页的 Settings -&gt; SSH keys，添加完毕即可。</p><p>可以输入以下命令，来测试是否能够正确链接到 github</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure><p>若返回命令如下</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Hi ***! You&apos;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure><p>则说明连接成功。</p><h2 id="创建新的-git-仓库">创建新的 GIT 仓库</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">::GIT 仓库初始化</span><br><span class="line">git init</span><br><span class="line"></span><br><span class="line">::添加 github 仓库 SSH 链接</span><br><span class="line">git remote add origin &#123;SSH url&#125;</span><br><span class="line"></span><br><span class="line">::将所有项目添加进仓库</span><br><span class="line">git add .</span><br><span class="line"></span><br><span class="line">::提交所有变化文件(还没有上传)</span><br><span class="line">git commit -m &quot;first commit&quot;</span><br><span class="line"></span><br><span class="line">::上传文件</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure><h2 id="windows避免每次push都输入密码">windows避免每次push都输入密码</h2><p>如果你每次push的时候都需要输入github的用户名和密码，就会感到非常的麻烦。原因是我们push的地址使用的是https，把它改成ssh就好啦，因为我们之前已经在github上添加ssh秘钥了。这里介绍一下这个方法。</p><p>首先在git bash 输入 <code>$ git remote -v</code> 查看当前推送方法</p><p>若如下</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">origin https://github.com/someaccount/someproject.git (fetch)</span><br><span class="line">origin https://github.com/someaccount/someproject.git (push)</span><br></pre></td></tr></table></figure><p>则修改</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git remote set-url origin git@github.com:someaccount/someproject.git</span><br></pre></td></tr></table></figure><p>其中将https改为ssh的方式，这样就可以不用输入密码进行push了。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;git介绍以及github的基本配置&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="瞎折腾" scheme="https://xungejiang.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/"/>
-    
-    
-      <category term="github" scheme="https://xungejiang.com/tags/github/"/>
-    
-  </entry>
-  
-  <entry>
     <title>在 macOS 中使用 BootCamp 安装 Windows10</title>
     <link href="https://xungejiang.com//2016/07/07/mac-bootcamp-win10/"/>
     <id>https://xungejiang.com//2016/07/07/mac-bootcamp-win10/</id>
@@ -1152,6 +1129,29 @@
       <category term="sublime" scheme="https://xungejiang.com/tags/sublime/"/>
     
       <category term="C++" scheme="https://xungejiang.com/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>github 的介绍以及基本配置</title>
+    <link href="https://xungejiang.com//2016/07/07/github-intro/"/>
+    <id>https://xungejiang.com//2016/07/07/github-intro/</id>
+    <published>2016-07-07T01:01:42.000Z</published>
+    <updated>2016-07-07T01:01:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>git介绍以及github的基本配置</p><a id="more"></a><h2 id="配置-git-环境">配置 Git 环境</h2><p><code>Linux</code> 和 <code>MAC</code> 环境下是自带 <code>GIT</code> 的，如果使用 <code>Windows</code> 的话有如下几个解决方案。</p><ul><li><a href="https://git-scm.com/download" target="_blank" rel="noopener">GIT 官网</a>下载</li><li><a href="http://cmder.net/" target="_blank" rel="noopener">Cmder</a>，选择 <code>Download full</code>，不仅自带 <code>GIT</code> ，而且是替代 <code>Windows</code> 自带很丑的 <code>cmd</code> 的很好选择。</li><li><a href="https://pan.baidu.com/s/1slD88nN" target="_blank" rel="noopener">GitHub 离线版</a>，GitHub 出品。</li></ul><p>建议大家使用命令行操作，方便快捷容易理解。</p><h2 id="配置-git-用户名和邮箱">配置 Git 用户名和邮箱</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git config --global user.name &quot;&#123;username&#125;&quot;     //用户名替换&#123;username&#125;</span><br><span class="line">$ git config --global user.email &quot;&#123;email&#125;&quot;    //邮箱替换&#123;email&#125;</span><br></pre></td></tr></table></figure><h2 id="配置-ssh">配置 SSH</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C&quot;&#123;email&#125;&quot;    //邮箱替换&#123;email&#125;</span><br></pre></td></tr></table></figure><p>一路回车到命令完成，win 系统默认在文件夹 <code>C:\Users\{你的用户名}\.ssh</code> ，该文件夹有 <code>id_rsa</code>（私钥） 和 <code>id_rsa.pub</code>（公钥） 两个文件。</p><p>将id_rsa.pub内容复制到自己的 Github 主页的 Settings -&gt; SSH keys，添加完毕即可。</p><p>可以输入以下命令，来测试是否能够正确链接到 github</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure><p>若返回命令如下</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Hi ***! You&apos;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure><p>则说明连接成功。</p><h2 id="创建新的-git-仓库">创建新的 GIT 仓库</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">::GIT 仓库初始化</span><br><span class="line">git init</span><br><span class="line"></span><br><span class="line">::添加 github 仓库 SSH 链接</span><br><span class="line">git remote add origin &#123;SSH url&#125;</span><br><span class="line"></span><br><span class="line">::将所有项目添加进仓库</span><br><span class="line">git add .</span><br><span class="line"></span><br><span class="line">::提交所有变化文件(还没有上传)</span><br><span class="line">git commit -m &quot;first commit&quot;</span><br><span class="line"></span><br><span class="line">::上传文件</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure><h2 id="windows避免每次push都输入密码">windows避免每次push都输入密码</h2><p>如果你每次push的时候都需要输入github的用户名和密码，就会感到非常的麻烦。原因是我们push的地址使用的是https，把它改成ssh就好啦，因为我们之前已经在github上添加ssh秘钥了。这里介绍一下这个方法。</p><p>首先在git bash 输入 <code>$ git remote -v</code> 查看当前推送方法</p><p>若如下</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">origin https://github.com/someaccount/someproject.git (fetch)</span><br><span class="line">origin https://github.com/someaccount/someproject.git (push)</span><br></pre></td></tr></table></figure><p>则修改</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git remote set-url origin git@github.com:someaccount/someproject.git</span><br></pre></td></tr></table></figure><p>其中将https改为ssh的方式，这样就可以不用输入密码进行push了。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;git介绍以及github的基本配置&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="瞎折腾" scheme="https://xungejiang.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/"/>
+    
+    
+      <category term="github" scheme="https://xungejiang.com/tags/github/"/>
     
   </entry>
   
