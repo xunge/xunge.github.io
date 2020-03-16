@@ -122,13 +122,13 @@
     </div>
   
   <div class="post-content">
-    <p>参考资料 <a href="http://www.goodnas.net/forum.php?mod=viewthread&amp;tid=24" target="_blank" rel="noopener">http://www.goodnas.net/forum.php?mod=viewthread&amp;tid=24</a></p>
+    <p>参考资料 <a href="http://www.goodnas.net/forum.php?mod=viewthread&amp;tid=24" class="uri" target="_blank" rel="noopener">http://www.goodnas.net/forum.php?mod=viewthread&amp;tid=24</a></p>
 <p>本文主要讲述群晖的 SHR 、raid1 、raid0 、raid1 、raid5 之间的区别。</p>
 <a id="more"></a>
 <h2 id="shr">SHR</h2>
 <p>SHR 是 <strong>Synology Hybrid RAID</strong> 的缩写；当NAS里面只有一颗硬盘的时候，磁盘阵列的模式为 basic ，无数据保护。当再添加为一个硬盘的时候磁盘阵列的模式自动转换成类似 raid1 模式，空间大小不变，但是多了个数据保护。当再加入一个硬盘的时候会自动转换成类似 raid5 模式（前提是你的NAS可以放3个及以上的硬盘），容量为 N-1 个硬盘的总容量，假如 3 个 3Ｔ 的硬盘，此时的SHR空间总容量为 <code>(3 - 1) * 3T</code> 为 <code>6T</code> 的空间，后期可以慢慢加硬盘数据也不影响的。</p>
 <p><strong>SHR 优点</strong>：在于方便不熟悉磁盘阵列的玩家，傻瓜简单式的帮你组好磁盘阵列，而且还能合理利用容量大小不一的硬盘，减少浪费，raid 是按照最小的硬盘算，而 SHR 则可以合理利用减少浪费，智能 raid 推荐使用~</p>
-<p>附计算网址：<a href="https://www.synology.cn/zh-cn/support/RAID_calculator" target="_blank" rel="noopener">https://www.synology.cn/zh-cn/support/RAID_calculator</a>。</p>
+<p>附计算网址：<a href="https://www.synology.cn/zh-cn/support/RAID_calculator" class="uri" target="_blank" rel="noopener">https://www.synology.cn/zh-cn/support/RAID_calculator</a>。</p>
 <h2 id="basic">basic</h2>
 <p>basic 是基本模式，一个硬盘一个独立的空间。</p>
 <h2 id="raid0">raid0</h2>
@@ -373,7 +373,7 @@
       <p class="copyright">
         <!-- XUNGE&#39;s Blog &copy; 2016-2017 -->
         <span>
-          训哥 &copy; 2016 - 2019</span>
+          训哥 &copy; 2016 - 2020</span>
         <span>
           
           <a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">黑ICP备18006891号</a>
