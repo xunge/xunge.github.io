@@ -214,7 +214,6 @@
 <thead>
 <tr class="header">
 <th>显示器名称</th>
-<th>图片</th>
 <th>京东最低价</th>
 <th>画中画</th>
 <th>Delta E</th>
@@ -226,7 +225,6 @@
 <tbody>
 <tr class="odd">
 <td>创维 28U1</td>
-<td><img class="lazyload" data-src="https://img.xungejiang.com/static/images/20-05-31/53575c0c15330987.jpg" alt="53575c0c15330987" style="zoom:25%;"></td>
 <td>1399</td>
 <td>不支持<br>可向客服申请驱动</td>
 <td>&lt;3</td>
@@ -236,7 +234,6 @@
 </tr>
 <tr class="even">
 <td>联想 S28u</td>
-<td><img class="lazyload" data-src="https://img.xungejiang.com/static/images/20-05-31/4ed2ce3460103c68.jpg" alt="4ed2ce3460103c68" style="zoom:25%;"></td>
 <td>2499</td>
 <td>不支持</td>
 <td>?</td>
@@ -246,7 +243,6 @@
 </tr>
 <tr class="odd">
 <td>三星 U28R550</td>
-<td><img class="lazyload" data-src="https://img.xungejiang.com/static/images/20-05-31/f5860ff8664035fd.jpg" alt="f5860ff8664035fd" style="zoom:25%;"></td>
 <td>1999</td>
 <td>支持</td>
 <td>?</td>
@@ -256,7 +252,6 @@
 </tr>
 <tr class="even">
 <td>宏碁 VG280K</td>
-<td><img class="lazyload" data-src="https://img.xungejiang.com/static/images/20-05-31/a5454c5e64de240f.jpg" alt="a5454c5e64de240f" style="zoom:25%;"></td>
 <td>1999</td>
 <td>不支持</td>
 <td>?</td>
@@ -266,7 +261,6 @@
 </tr>
 <tr class="odd">
 <td>飞利浦 288E2E</td>
-<td><img class="lazyload" data-src="https://img.xungejiang.com/static/images/20-05-31/e970a2612a303e11.jpg" alt="e970a2612a303e11" style="zoom:25%;"></td>
 <td>1799</td>
 <td>支持</td>
 <td>&lt;2</td>
@@ -276,7 +270,6 @@
 </tr>
 <tr class="even">
 <td>华硕 VG289Q</td>
-<td><img class="lazyload" data-src="https://img.xungejiang.com/static/images/20-06-06/ad7e6e6ae392830c.jpg" alt="ad7e6e6ae392830c" style="zoom:25%;"></td>
 <td>1999</td>
 <td>不支持</td>
 <td>？</td>
@@ -567,5 +560,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
