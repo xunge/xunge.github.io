@@ -255,7 +255,7 @@ optgroup {
 main {
   display: block;
   margin: 0 auto;
-  max-width: 960px;
+  max-width: 700px;
   width: 95%;
   min-height: calc(100vh - 162px);
 }
@@ -272,6 +272,7 @@ img {
   margin: 0 auto;
   max-height: 500px;
   max-width: 70%;
+  box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
 }
 code {
   padding: 0.1em 0.5em;
