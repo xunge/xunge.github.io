@@ -162,7 +162,7 @@
 <tr class="even">
 <td>[abc]</td>
 <td>能够匹配字母a,b或c</td>
-<td>(“<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>d.”, “ad9”) – true</td>
+<td>(“<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>d.”, “ad9”) – true</td>
 <td>(“[ab]x”, “cx”) – false</td>
 </tr>
 <tr class="odd">
@@ -194,40 +194,9 @@
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td>任意数字，等同于[0-9]</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td>任意非数字，等同于[^0-9]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td>任意空白字符，等同于[0B]</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td>任意非空白字符，等同于[^\s]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td>任意英文字符，等同于[a-zA-Z_0-9]</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td>任意非英文字符，等同于[^\w]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td>单词边界</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td>非单词边界</td>
-</tr>
 </tbody>
 </table>
+<p>任意数字，等同于[0-9] |任意非数字，等同于[^0-9] |任意空白字符，等同于[0B |任意非空白字符，等同于[^\s] |任意英文字符，等同于[a-zA-Z_0-9] |任意非英文字符，等同于[^\w] 单词边界 |非单词边界</p>
 <p>有两种方法可以在正则表达式中像一般字符一样使用元字符。</p>
 <ol type="1">
 <li>在元字符前添加反斜杠()</li>
@@ -268,11 +237,11 @@
 </tr>
 </tbody>
 </table>
-<p>原文链接： <a href="http://www.journaldev.com/634/regular-expression-in-java-regex-example" target="_blank" rel="noopener">journaldev</a> 翻译： ImportNew.com - ImportNew读者 译文链接： <a href="http://www.importnew.com/6810.html" class="uri" target="_blank" rel="noopener">http://www.importnew.com/6810.html</a> [ 转载请保留原文出处、译者和译文链接。]</p>
-<section class="footnotes">
+<p>原文链接： <a href="http://www.journaldev.com/634/regular-expression-in-java-regex-example" target="_blank" rel="noopener">journaldev</a> 翻译： ImportNew.com - ImportNew读者 译文链接： <a href="http://www.importnew.com/6810.html" target="_blank" rel="noopener">http://www.importnew.com/6810.html</a> [ 转载请保留原文出处、译者和译文链接。]</p>
+<section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>abc<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn1" role="doc-endnote"><p>abc<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -550,20 +519,5 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

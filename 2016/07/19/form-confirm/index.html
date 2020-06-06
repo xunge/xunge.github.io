@@ -142,7 +142,7 @@
 <p><code>&lt;span&gt;</code> 标签被用来组合文档中的行内元素。这里主要用来显示错误信息。</p>
 <h2 id="javascript-实现">JavaScript 实现</h2>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkName</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> u = <span class="built_in">document</span>.getElementById(<span class="string">"username"</span>);</span><br><span class="line">    <span class="keyword">var</span> info1 = <span class="built_in">document</span>.getElementById(<span class="string">"info1"</span>);</span><br><span class="line">    <span class="keyword">var</span> yes = <span class="built_in">document</span>.getElementById(<span class="string">"yes"</span>);</span><br><span class="line">    <span class="keyword">if</span> (u.value == <span class="string">""</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        info1.innerHTML = <span class="string">"&lt;font color = 'red'&gt;✘请输入用户名！&lt;/font&gt;"</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(u.value.length &lt; <span class="number">6</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        info1.innerHTML = <span class="string">"&lt;font color = 'red'&gt;✘用户名长度不能少于6个字符！&lt;/font&gt;"</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> r = <span class="regexp">/^[a-zA-Z][a-zA-Z0-9_]&#123;5,29&#125;$/</span>;</span><br><span class="line">    <span class="keyword">if</span> (!r.test(u.value))</span><br><span class="line">    &#123;</span><br><span class="line">        info1.innerHTML = <span class="string">"&lt;font color = 'red'&gt;✘用户名只能由字母，数字，下划线组成，须以字母开头&lt;/font&gt;"</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    yes.innerHTML = <span class="string">"&lt;font color='green'&gt;✔&lt;/font&gt;"</span>;</span><br><span class="line">    info1.innerHTML = <span class="string">""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>由代码可以很容易理解 JavaScript 语法需要先用 <code>document.getElementById(&quot;&quot;)</code> 获取输入框，然后用 <code>.value</code> 得到输入框的内容。</p>
+<p>由代码可以很容易理解 JavaScript 语法需要先用 <code>document.getElementById("")</code> 获取输入框，然后用 <code>.value</code> 得到输入框的内容。</p>
 <p>错误分三种情况：</p>
 <p>1.如果输入为空，则错误信息为“请输入用户名！” 2.如果输入少于6个字符，则错误信息为“用户名长度不能少于6个字符！” 3.如果输入不满足由 <code>由字母，数字，下划线组成，须以字母开头</code> 这个条件，则错误信息为 <code>用户名只能由字母，数字，下划线组成，须以字母开头</code></p>
 <p>三种错误方式分别如图所示</p>
@@ -432,20 +432,5 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

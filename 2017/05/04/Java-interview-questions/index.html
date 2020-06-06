@@ -131,7 +131,7 @@
 <p>JDK: Java开发工具包,包含了JRE、编译器和其它工具（如：JavaDOc、Java调试器)</p>
 <p>JRE: Java运行环境,包含Java虚拟机和Java程序所需的核心类库。</p>
 <p>如果只是想跑Java程序，那么只需安装JRE，如果要写Java程序并且运行，那就需要JDK了。</p>
-<h2 id="static关键字是什么意思java中是否可以覆盖一个private或者是static的方法">3.&quot;static&quot;关键字是什么意思？Java中是否可以覆盖一个private或者是static的方法？</h2>
+<h2 id="static关键字是什么意思java中是否可以覆盖一个private或者是static的方法">3."static"关键字是什么意思？Java中是否可以覆盖一个private或者是static的方法？</h2>
 <p>如果一个类的变量或者方法前面有static修饰，那么表明这个方法或者变量属于这个类，也就是说可以在不创建对象的情况下直接使用</p>
 <p>当父类的方法被private修饰时，表明该方法为父类私有，对其他任何类都是不可见的，因此如果子类定了一个与父类一样的方法，这对于子类来说相当于是一个新的私有方法，且如果要进行向上转型，然后去调用该“覆盖方法”，会产生编译错误。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">fun</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword">extends</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">fun</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Parent c = <span class="keyword">new</span> Child();</span><br><span class="line">        c.fun(); <span class="comment">//编译出错</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -222,7 +222,7 @@
 </ul>
 <p>当一个对象不可达 GC Root 时，这个对象并不会立马被回收，而是出于一个死缓的阶段，若要被真正的回收需要经历两次标记。</p>
 <p>如果对象在可达性分析中没有与 GC Root 的引用链，那么此时就会被第一次标记并且进行一次筛选，筛选的条件是是否有必要执行 finalize() 方法。当对象没有覆盖 finalize() 方法或者已被虚拟机调用过，那么就认为是没必要的。</p>
-<p>如果该对象有必要执行 finalize() 方法，那么这个对象将会放在一个称为 F-Queue 的对队列中，虚拟机会触发一个 Finalize() 线程去执行，此线程是低优先级的，并且虚拟机不会承诺一直等待它运行完，这是因为如果 finalize() 执行缓慢或者发生了死锁，那么就会造成 F-Queue 队列一直等待，造成了内存回收系统的崩溃。 GC 对处于 F-Queue 中的对象进行第二次被标记，这时，该对象将被移除&quot;即将回收&quot;集合，等待回收。</p>
+<p>如果该对象有必要执行 finalize() 方法，那么这个对象将会放在一个称为 F-Queue 的对队列中，虚拟机会触发一个 Finalize() 线程去执行，此线程是低优先级的，并且虚拟机不会承诺一直等待它运行完，这是因为如果 finalize() 执行缓慢或者发生了死锁，那么就会造成 F-Queue 队列一直等待，造成了内存回收系统的崩溃。 GC 对处于 F-Queue 中的对象进行第二次被标记，这时，该对象将被移除"即将回收"集合，等待回收。</p>
 <h2 id="java中垃圾收集的方法有哪些">15.java中垃圾收集的方法有哪些?</h2>
 <h3 id="标记-清除">(1) 标记-清除:</h3>
 <p>这是垃圾收集算法中最基础的，根据名字就可以知道，它的思想就是标记哪些要被回收的对象，然后统一回收。这种方法很简单，但是会有两个主要问题：</p>
@@ -639,20 +639,5 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

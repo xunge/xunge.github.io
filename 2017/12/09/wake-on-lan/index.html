@@ -147,7 +147,7 @@
 <p>服务名随便填，协议：TCP/UDP，<code>外部端口组</code> 和 <code>内部端口组</code> 一致即可，<code>内部 IP 地址</code>映射到家里电脑的 IP。</p>
 <p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/17-12-9/008.png"></p>
 <p>这样，你就可以使用 WOL 软件发送一个数据包唤醒家里的电脑了。</p>
-<p>有一个网站就可以使用 <a href="https://www.depicus.com/wake-on-lan/woli" class="uri" target="_blank" rel="noopener">https://www.depicus.com/wake-on-lan/woli</a>。</p>
+<p>有一个网站就可以使用 <a href="https://www.depicus.com/wake-on-lan/woli" target="_blank" rel="noopener">https://www.depicus.com/wake-on-lan/woli</a>。</p>
 <p>该网站还提供了 windows, mac OS, Android, iOS 等不同平台的应用，有需要的可以自行下载。</p>
 <p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/17-12-9/006.png"></p>
 <p>mac 地址可以在控制台输入 <code>ipconfig /all</code> 获取；</p>
@@ -429,20 +429,5 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

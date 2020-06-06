@@ -130,10 +130,10 @@
 <h2 id="配置-群晖">配置 群晖</h2>
 <p><code>DS216play</code> 是双硬盘位，不支持热插拔硬盘位。个人认为双盘位在家庭中使用足够了，8T (4T * 2) 的硬盘也够使好长时间了。</p>
 <p>把两个硬盘装好后，拧上螺丝，插上电源和网线(连路由器或交换机的 LAN 口)，按下电源键就可以开机啦~</p>
-<p>在连接网络的电脑浏览器输入网址 <a href="http://find.synology.com" class="uri" target="_blank" rel="noopener">http://find.synology.com</a> 进行初次配置，设置群晖账号密码等。</p>
+<p>在连接网络的电脑浏览器输入网址 <a href="http://find.synology.com" target="_blank" rel="noopener">http://find.synology.com</a> 进行初次配置，设置群晖账号密码等。</p>
 <p>之后会提示你安装推荐插件，先点取消，因为我们还要更改一下 RAID 格式。</p>
 <h2 id="选择-raid-类型">选择 RAID 类型</h2>
-<p>详细的 <code>shr</code> <code>basic</code> <code>raid0</code> <code>raid1</code> <code>raid5</code> <code>raid6</code> 类型介绍参照下面的链接 <a href="http://xungejiang.com/2017/08/03/shr-raid015/" class="uri">http://xungejiang.com/2017/08/03/shr-raid015/</a></p>
+<p>详细的 <code>shr</code> <code>basic</code> <code>raid0</code> <code>raid1</code> <code>raid5</code> <code>raid6</code> 类型介绍参照下面的链接 <a href="http://xungejiang.com/2017/08/03/shr-raid015/">http://xungejiang.com/2017/08/03/shr-raid015/</a></p>
 <p>安装完系统后默认为 <code>shr</code> 格式，双盘位时为 raid1 模式，多了数据备份功能，但是容量只有一半，也就是说 2 块 4T 的硬盘只有 4T 的容量。由于是家庭使用，没有太重要的文件，所以没必要进行数据备份，需要把 <code>shr</code> 模式改为 <code>basic</code> 模式，这样可用容量才是 8T。</p>
 <p>具体方法如下。</p>
 <p>如果 NAS 里已经有一些重要的资料不想拿另一个硬盘备份，可以参照这篇博客 <a href="http://support-cn.synology.me/wordpress/?p=589" target="_blank" rel="noopener">如何将raid1（SHR）降级为basic</a>。</p>
@@ -428,20 +428,5 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

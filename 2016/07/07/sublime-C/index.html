@@ -128,7 +128,7 @@
 <p>虽然 Sublime 自带一个C语言的编译功能，但却无法使用，需要一定的配置才可以运行。</p>
 <h2 id="安装mingw">安装MinGW</h2>
 <p>要想编译C语言首先要有编译器，Windows平台主要是 <code>gcc</code> 和 <code>g++</code>，是通过安装 MinGW 实现的。</p>
-<p>MinGW 的官网是 <a href="http://www.mingw.org/" class="uri" target="_blank" rel="noopener">http://www.mingw.org/</a> ，但是从官网安装很麻烦，在线安装经常龟速容易失败。</p>
+<p>MinGW 的官网是 <a href="http://www.mingw.org/" target="_blank" rel="noopener">http://www.mingw.org/</a> ，但是从官网安装很麻烦，在线安装经常龟速容易失败。</p>
 <p>博主推荐的方法是借助 <a href="http://www.codeblocks.org/downloads/binaries" target="_blank" rel="noopener">codeblocks</a>，选择带有MinGW的版本安装(100M以上)。</p>
 <p>博主也提供一个 <a href="https://pan.baidu.com/s/1o80CoYm" target="_blank" rel="noopener">codeblocks-16.01mingw-setup</a> 的百度云下载，感觉codeblocks官网还是下载慢。</p>
 <p>安装后把MinGW文件夹复制出来放到C盘根目录就可以了。</p>
@@ -427,20 +427,5 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

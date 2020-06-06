@@ -118,7 +118,7 @@
   
     <div class="toc-article">
         <strong class="toc-title">文章目录</strong>
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置"><span class="post-toc-text">配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#显卡选择"><span class="post-toc-text">显卡选择</span></a></li></ol></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置"><span class="post-toc-text">配置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#显卡选择"><span class="post-toc-text">显卡选择</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#cpu与主板选择"><span class="post-toc-text">CPU与主板选择</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#cpu-散热器选择"><span class="post-toc-text">CPU 散热器选择</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#电源选择"><span class="post-toc-text">电源选择</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#散热问题"><span class="post-toc-text">散热问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-text">总结</span></a></li></ol>
     </div>
   
   <div class="post-content">
@@ -214,8 +214,18 @@
 <p>博主是2019年10月选择的配置，目前最具有性价比的显卡依然是 RTX2080Ti，图灵架构可以在混合精度运算时大幅度提升性能，缺点是显存较小，只有 11 GB</p>
 <p>GPU 在确定是 RTX2080Ti 后就非常好选择了。注意多卡服务器<strong>必须</strong>是单风扇的<strong>涡轮</strong>版显卡，因为涡轮散热空气从头进入，热气从尾排出，多张卡互不影响。但是多风扇轴式散热是从下方吸入空气，侧面排出，如果是多卡排出的热气又被上卡吸进去，导致上卡温度爆炸，降频严重。下图可以理解涡轮风扇的风道。</p>
 <figure>
-<img class="lazyload" data-src="https://img.xungejiang.com/static/images/19-11-07/gpu-turbo.jpg" alt="gpu_turbo"><figcaption>gpu_turbo</figcaption>
+<img class="lazyload" data-src="https://img.xungejiang.com/static/images/19-11-07/gpu-turbo.jpg" alt><figcaption>gpu_turbo</figcaption>
 </figure>
+<h2 id="cpu与主板选择">CPU与主板选择</h2>
+<p>CPU与主板的选择无非就是Intel和AMD的选择，每家又分为民用级和服务器级，这里我选择的是Intel的民用级i9-9820X。AMD的线程撕裂者性价比更高，但可能坑多一些。服务器级的CPU以及主板一般需要经销商采购，区别主要是支持ECC的内存更稳定，京东自营一般不卖，所以没有考虑。</p>
+<h2 id="cpu-散热器选择">CPU 散热器选择</h2>
+<p>CPU散热器这里选择的是美商海盗船 H150i PRO 360一体水冷。一开始选择的是猫头鹰的风冷，但是由于个头太大，装上后散热块会和显卡背面金属触点接触（显卡没有背板），怕引起短路等问题，最终更换成一体水冷。</p>
+<h2 id="电源选择">电源选择</h2>
+<p>由于显卡满载就需要至少1000W的功率，再加上CPU内存硬盘，1600W按道理是足够了，为了稳妥选择了振华的2000W电源。需要注意的是这块电源的插头是10A的空调插头，需要买个转接的插线板。</p>
+<h2 id="散热问题">散热问题</h2>
+<p>服务器已经稳定运行了半年多，散热问题还是有必要提一下。虽然机箱装满了4个机箱风扇以及3个一体水冷的风扇，显卡也是机器学习专供的涡轮版可以及时将热气排到机箱外，但是由于机箱放置在只开着一扇窗户的小机房里，导致机房温度骤升（机箱的铁板烫的不敢用手摸）。最终在窗户上加上排气扇解决。四块显卡满载情况下，最下面的显卡温度控制最好，在76度左右，剩下的三块显卡均达到82度，可能碰到了功耗墙。</p>
+<h2 id="总结">总结</h2>
+<p>本次装机除显卡为天猫旗舰店购买外，其余均在京东自营购买。如果下次还有机会重组一套配置的话，显卡的显存会尽可能换大一些的，CPU会尝试使用AMD，可能的话选择水冷（风险和维护成本有点高）。</p>
 
   </div>
 </article>
@@ -491,20 +501,5 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

@@ -118,7 +118,7 @@
   
     <div class="toc-article">
         <strong class="toc-title">文章目录</strong>
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-lxdzfs-及-bridge-utils"><span class="post-toc-text">安装 lxd、zfs 及 bridge-utils</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#lxd-初始化"><span class="post-toc-text">LXD 初始化</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#新建容器"><span class="post-toc-text">新建容器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置网络环境"><span class="post-toc-text">配置网络环境</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改容器的用户名密码"><span class="post-toc-text">修改容器的用户名密码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#容器中安装-ssh-服务"><span class="post-toc-text">容器中安装 ssh 服务</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装显卡驱动"><span class="post-toc-text">安装显卡驱动</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#宿主机安装-lxdui-管理容器"><span class="post-toc-text">宿主机安装 lxdui 管理容器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#容器快照管理"><span class="post-toc-text">容器快照管理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#容器和宿主机间复制文件"><span class="post-toc-text">容器和宿主机间复制文件：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#共享文件夹"><span class="post-toc-text">共享文件夹：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#cuda-与-cudnn"><span class="post-toc-text">CUDA 与 cuDNN</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装远程桌面-2019.08.11-更新"><span class="post-toc-text">安装远程桌面 (2019.08.11 更新)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-xrdp"><span class="post-toc-text">1. 安装 xRDP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装桌面环境"><span class="post-toc-text">2. 安装桌面环境</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在-lxd-lxc-中使用-docker-容器-2019.09.01-更新"><span class="post-toc-text">在 LXD / LXC 中使用 Docker 容器 (2019.09.01 更新)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#runtimeerror-cuda-runtime-error-30-2019.10.10-更新"><span class="post-toc-text">RuntimeError: cuda runtime error (30) (2019.10.10 更新)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-text">总结</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-lxdzfs-及-bridge-utils"><span class="post-toc-text">安装 lxd、zfs 及 bridge-utils</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#lxd-初始化"><span class="post-toc-text">LXD 初始化</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#新建容器"><span class="post-toc-text">新建容器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置网络环境"><span class="post-toc-text">配置网络环境</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改容器的用户名密码"><span class="post-toc-text">修改容器的用户名密码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#容器中安装-ssh-服务"><span class="post-toc-text">容器中安装 ssh 服务</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装显卡驱动"><span class="post-toc-text">安装显卡驱动</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#宿主机安装-lxdui-管理容器"><span class="post-toc-text">宿主机安装 lxdui 管理容器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#容器快照管理"><span class="post-toc-text">容器快照管理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#容器和宿主机间复制文件"><span class="post-toc-text">容器和宿主机间复制文件：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#共享文件夹"><span class="post-toc-text">共享文件夹：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#cuda-与-cudnn"><span class="post-toc-text">CUDA 与 cuDNN</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装远程桌面-2019.08.11-更新"><span class="post-toc-text">安装远程桌面 (2019.08.11 更新)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-xrdp"><span class="post-toc-text">1. 安装 xRDP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装桌面环境"><span class="post-toc-text">2. 安装桌面环境</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在-lxd-lxc-中使用-docker-容器-2019.09.01-更新"><span class="post-toc-text">在 LXD / LXC 中使用 Docker 容器 (2019.09.01 更新)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#runtimeerror-cuda-runtime-error-30-2019.10.10-更新"><span class="post-toc-text">RuntimeError: cuda runtime error (30) (2019.10.10 更新)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#宿主机重启后找不到显卡驱动2020.6.2-更新"><span class="post-toc-text">宿主机重启后找不到显卡驱动(2020.6.2 更新)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#容器内-torch.cuda.is_available-是-false-2020.6.2-更新"><span class="post-toc-text">容器内 torch.cuda.is_available() 是 false (2020.6.2 更新)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-text">总结</span></a></li></ol>
     </div>
   
   <div class="post-content">
@@ -143,14 +143,14 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Would you like to use LXD clustering? (yes/no) [default=no]:</span><br><span class="line">Do you want to configure a new storage pool? (yes/no) [default=yes]:</span><br><span class="line">Name of the new storage pool [default=default]: lxd</span><br><span class="line">Name of the storage backend to use (btrfs, ceph, dir, lvm, zfs) [default=zfs]:</span><br><span class="line">Create a new ZFS pool? (yes/no) [default=yes]:</span><br><span class="line">Would you like to use an existing block device? (yes/no) [default=no]:</span><br><span class="line">Size in GB of the new loop device (1GB minimum) [default=100GB]: 800</span><br><span class="line">Would you like to connect to a MAAS server? (yes/no) [default=no]:</span><br><span class="line">Would you like to create a new local network bridge? (yes/no) [default=yes]: no</span><br><span class="line">Would you like to configure LXD to use an existing bridge or host interface? (yes/no) [default=no]: yes</span><br><span class="line">Name of the existing bridge or host interface: br0</span><br><span class="line">Would you like LXD to be available over the network? (yes/no) [default=no]:</span><br><span class="line">Would you like stale cached images to be updated automatically? (yes/no) [default=yes]</span><br><span class="line">Would you like a YAML &quot;lxd init&quot; preseed to be printed? (yes/no) [default=no]:</span><br></pre></td></tr></table></figure>
 <h2 id="新建容器">新建容器</h2>
 <p>如果网速允许可以尝试：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lxc launch ubuntu:xenial yourContainerName</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo lxc launch ubuntu:xenial yourContainerName</span><br></pre></td></tr></table></figure>
 <p>如果网速不行可以添加清华大学的镜像：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lxc remote add tuna-images https://mirrors.tuna.tsinghua.edu.cn/lxc-images/ --protocol=simplestreams –public</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo lxc remote add tuna-images https://mirrors.tuna.tsinghua.edu.cn/lxc-images/ --protocol=simplestreams –public</span><br></pre></td></tr></table></figure>
 <p>使用如下命令查看清华镜像的所有系统：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lxc image list tuna-images:</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo lxc image list tuna-images:</span><br></pre></td></tr></table></figure>
 <p>选择容器系统并记录第二列的 FINGERPRINT，如 ubuntu/18.04 的FINGERPRINT为 <code>0023c4e9dc6e</code></p>
 <p>然后使用如下命令创建新容器：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lxc launch tuna-images:0023c4e9dc6e yourContainerName</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo lxc launch tuna-images:0023c4e9dc6e yourContainerName</span><br></pre></td></tr></table></figure>
 <h2 id="配置网络环境">配置网络环境</h2>
 <p>在实验室的其他电脑访问服务器中的 LXD 容器有两种方法。</p>
 <ol type="1">
@@ -176,11 +176,11 @@
 <p>但是这个方法安装的驱动往往不是最新的，可以去 <a href="https://www.nvidia.com/Download/index.aspx?lang=cn" target="_blank" rel="noopener">NVIDIA 官网</a> 下载最新驱动并安装。具体方法参考 <a href="https://blog.csdn.net/CosmosHua/article/details/76644029" target="_blank" rel="noopener">Ubuntu 16.04安装NVIDIA驱动</a></p>
 <p>使用 nvidia-smi 查看驱动版本，并在官网下载对应的驱动，以便于在容器中安装和宿主机相同版本的NVIDIA驱动。</p>
 <p>为容器添加所有GPU：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lxc config device add &lt;container&gt; gpu gpu</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo lxc config device add &lt;container&gt; gpu gpu</span><br></pre></td></tr></table></figure>
 <p>添加指定GPU：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lxc config device add &lt;container&gt; gpu0 gpu id=0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo lxc config device add &lt;container&gt; gpu0 gpu id=0</span><br></pre></td></tr></table></figure>
 <p>在容器中安装显卡驱动：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo sh /NVIDIA-Linux-x86_64-xxx.xx.run --no-kernel-module</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo sh ./NVIDIA-Linux-x86_64-xxx.xx.run --no-kernel-module</span><br></pre></td></tr></table></figure>
 <p>因为在容器中显卡驱动不需要安装内核文件，所以后面加上 <code>--no-kernel-module</code>。</p>
 <p>在容器中安装好显卡驱动重启后输入 <code>nvidia-smi</code> 检查驱动是否安装成功</p>
 <h2 id="宿主机安装-lxdui-管理容器">宿主机安装 lxdui 管理容器</h2>
@@ -189,22 +189,22 @@
 <h2 id="容器快照管理">容器快照管理</h2>
 <p>以上所有对容器的操作基本完成，现在需要建立快照，以备将来需要恢复快照，或者可以从快照新建一个容器，这样可以避免上面的重复劳动。</p>
 <p>创建快照：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lxc snapshot &lt;container&gt; &lt;snapshot name&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo lxc snapshot &lt;container&gt; &lt;snapshot name&gt;</span><br></pre></td></tr></table></figure>
 <p>恢复快照：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lxc restore &lt;container&gt; &lt;snapshot name&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo lxc restore &lt;container&gt; &lt;snapshot name&gt;</span><br></pre></td></tr></table></figure>
 <p>从快照新建一个容器 (新旧容器 MAC 地址不同)：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lxc copy &lt;source container&gt;/&lt;snapshot name&gt; &lt;destination container&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo lxc copy &lt;source container&gt;/&lt;snapshot name&gt; &lt;destination container&gt;</span><br></pre></td></tr></table></figure>
 <p>这也是比较好的创建容器的方法。如果直接 clone 容器的话，MAC 地址等关键信息也会同样被复制。</p>
 <h2 id="容器和宿主机间复制文件">容器和宿主机间复制文件：</h2>
 <p>在宿主机输入以下命令</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lxc file push &lt;source path&gt; &lt;container&gt;/&lt;path&gt; # 表示从容器中复制文件到宿主机</span><br><span class="line">lxc file pull &lt;container&gt;/&lt;path&gt; &lt;target path&gt; # 表示将宿主机的文件复制到容器</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo lxc file push &lt;source path&gt; &lt;container&gt;/&lt;path&gt; # 表示从容器中复制文件到宿主机</span><br><span class="line">sudo lxc file pull &lt;container&gt;/&lt;path&gt; &lt;target path&gt; # 表示将宿主机的文件复制到容器</span><br></pre></td></tr></table></figure>
 <p>复制文件夹需要在最后加 <code>-r</code></p>
 <h2 id="共享文件夹">共享文件夹：</h2>
 <p>创建共享文件夹：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lxc config set &lt;container&gt; security.privileged true</span><br><span class="line">lxc config device add &lt;container&gt; &lt;device-name&gt; disk path=/home/xxx/share source=/home/xxx/share</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo lxc config set &lt;container&gt; security.privileged true</span><br><span class="line">sudo lxc config device add &lt;container&gt; &lt;device-name&gt; disk path=/home/xxx/share source=/home/xxx/share</span><br></pre></td></tr></table></figure>
 <p>其中 <code>path</code> 为容器路径，<code>source</code> 为宿主机路径。<code>device-name</code> 随意取名字即可。</p>
 <p>移除共享文件夹：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lxc config device remove &lt;container&gt; &lt;device-name&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo lxc config device remove &lt;container&gt; &lt;device-name&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="cuda-与-cudnn">CUDA 与 cuDNN</h2>
 <p>CUDA 与 cuDNN 的安装建议使用 Anaconda 安装，因为使用 Anaconda 安装 TensorFlow 或 PyTorch 都会自带 CUDA 与 cuDNN，并且据说有一定的优化。具体命令为：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">conda create -n tf_gpu1.9 tensorflow-gpu=1.9</span><br><span class="line">conda create -n pytorch pytorch=0.4</span><br></pre></td></tr></table></figure>
@@ -228,7 +228,7 @@
 <p>在 LXD 环境中依然可以使用 Docker，但是需要更改一些配置，否则在 pull 镜像时会有 <code>permission denied</code> 错误，如下：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">OCI runtime create failed: container_linux.go:345: starting container process caused &quot;process_linux.go:430: container init caused \&quot;rootfs_linux.go:58: mounting \\\&quot;proc\\\&quot; to rootfs \\\&quot;/var/lib/docker/vfs/dir/c5cedb213621362913c6d950eec507ba91e04f2a933cd6d309f1c74a92c346ec\\\&quot; at \\\&quot;/proc\\\&quot; caused \\\&quot;permission denied\\\&quot;\&quot;&quot;: unknown</span><br></pre></td></tr></table></figure>
 <p>我们只需要在宿主机对容器进行以下配置即可：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lxc config set &lt;container&gt; security.nesting true</span><br><span class="line">lxc config set &lt;container&gt; security.privileged true</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo lxc config set &lt;container&gt; security.nesting true</span><br><span class="line">sudo lxc config set &lt;container&gt; security.privileged true</span><br></pre></td></tr></table></figure>
 <h2 id="runtimeerror-cuda-runtime-error-30-2019.10.10-更新">RuntimeError: cuda runtime error (30) (2019.10.10 更新)</h2>
 <p>最近实验室新配的一台四路 RTX2080Ti 服务器遇到了一些奇怪的问题，就是容器环境配好后重启宿主机，再使用容器里的环境时会找不到 CUDA，报下面的错误：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">RuntimeError: cuda runtime error (30) : unknown error at /tmp/pip-req-build-58y_cjjl/aten/src/THC/THCGeneral.cpp:50</span><br></pre></td></tr></table></figure>
@@ -239,6 +239,19 @@
 <li>重启所有容器。</li>
 </ol>
 <p>这样容器里的 CUDA 就可以找到了。这可能是 LXC 的配置问题，如果有人遇到相同问题有更好的解决方案希望可以告知，万分感谢~</p>
+<h2 id="宿主机重启后找不到显卡驱动2020.6.2-更新">宿主机重启后找不到显卡驱动(2020.6.2 更新)</h2>
+<p>重启宿主机后，显卡驱动掉了，所有用到显卡的容器都无法启动，输入<code>nvidia-smi</code>报错：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NVIDIA-SMI has failed because it couldn&apos;t communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running</span><br></pre></td></tr></table></figure>
+<p>原因是系统更新了内核，导致安装显卡驱动时的内核与现有内核不一致，解决办法参考<a href="https://www.jianshu.com/p/3cedce05a481" target="_blank" rel="noopener">此解决办法</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get install dkms # DKMS，Dynamic Kernel Module Support，可以帮我们维护内核外的这些驱动程序，在内核版本变动之后可以自动重新生成新的模块。</span><br><span class="line">sudo dkms install -m nvidia -v 430.50</span><br></pre></td></tr></table></figure>
+<p>DKMS全称是Dynamic Kernel Module Support，它可以帮我们维护内核外的这些驱动程序，在内核版本变动之后可以自动重新生成新的模块。</p>
+<p>430.50是安装驱动的版本，可进入/usr/src查看nvidia-430.50的文件夹获取版本号</p>
+<p>重启后输入nvidia-smi就应该正常输出了。如果还是不好使，可以重启后重新运行上述命令再重启。</p>
+<h2 id="容器内-torch.cuda.is_available-是-false-2020.6.2-更新">容器内 torch.cuda.is_available() 是 false (2020.6.2 更新)</h2>
+<p>宿主机重启后，容器的pytorch只能使用CPU，无法使用GPU，体现为在pytorch环境下输入下述命令返回<code>false</code>，但是宿主机输入下述命令为<code>true</code>：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python -c &apos;import torch; print(torch.cuda.is_available())&apos;</span><br></pre></td></tr></table></figure>
+<p>检查容器的显卡驱动和cuda等都是正常的。原因是重启后之前的容器参数失效，重新输入下述命令即可：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo lxc config set yanyihan security.privileged true</span><br></pre></td></tr></table></figure>
 <h2 id="总结">总结</h2>
 <p>至此，多人使用的 GPU 服务器就搭建完成了，当需要新建容器时，只需要完成以下几步：</p>
 <ol type="1">
@@ -524,20 +537,5 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
