@@ -65,19 +65,19 @@ Would you like a YAML "lxd init" preseed to be printed? (yes/no) [default=no]:
 如果网速允许可以尝试：
 
 ```
-lxc launch ubuntu:xenial yourContainerName
+sudo lxc launch ubuntu:xenial yourContainerName
 ```
 
 如果网速不行可以添加清华大学的镜像：
 
 ```
-lxc remote add tuna-images https://mirrors.tuna.tsinghua.edu.cn/lxc-images/ --protocol=simplestreams –public
+sudo lxc remote add tuna-images https://mirrors.tuna.tsinghua.edu.cn/lxc-images/ --protocol=simplestreams –public
 ```
 
 使用如下命令查看清华镜像的所有系统：
 
 ```
-lxc image list tuna-images:
+sudo lxc image list tuna-images:
 ```
 
 选择容器系统并记录第二列的 FINGERPRINT，如 ubuntu/18.04 的FINGERPRINT为 `0023c4e9dc6e`
@@ -85,7 +85,7 @@ lxc image list tuna-images:
 然后使用如下命令创建新容器：
 
 ```
-lxc launch tuna-images:0023c4e9dc6e yourContainerName
+sudo lxc launch tuna-images:0023c4e9dc6e yourContainerName
 ```
 
 ## 配置网络环境
@@ -145,19 +145,19 @@ sudo ubuntu-drivers autoinstall
 为容器添加所有GPU：
 
 ```
-lxc config device add <container> gpu gpu
+sudo lxc config device add <container> gpu gpu
 ```
 
 添加指定GPU：
 
 ```
-lxc config device add <container> gpu0 gpu id=0
+sudo lxc config device add <container> gpu0 gpu id=0
 ```
 
 在容器中安装显卡驱动：
 
 ```
-sudo sh /NVIDIA-Linux-x86_64-xxx.xx.run --no-kernel-module
+sudo sh ./NVIDIA-Linux-x86_64-xxx.xx.run --no-kernel-module
 ```
 
 因为在容器中显卡驱动不需要安装内核文件，所以后面加上 `--no-kernel-module`。
@@ -177,19 +177,19 @@ sudo sh /NVIDIA-Linux-x86_64-xxx.xx.run --no-kernel-module
 创建快照：
 
 ```
-lxc snapshot <container> <snapshot name>
+sudo lxc snapshot <container> <snapshot name>
 ```
 
 恢复快照：
 
 ```
-lxc restore <container> <snapshot name>
+sudo lxc restore <container> <snapshot name>
 ```
 
 从快照新建一个容器 (新旧容器 MAC 地址不同)：
 
 ```
-lxc copy <source container>/<snapshot name> <destination container>
+sudo lxc copy <source container>/<snapshot name> <destination container>
 ```
 
 这也是比较好的创建容器的方法。如果直接 clone 容器的话，MAC 地址等关键信息也会同样被复制。
@@ -199,8 +199,8 @@ lxc copy <source container>/<snapshot name> <destination container>
 在宿主机输入以下命令
 
 ```
-lxc file push <source path> <container>/<path> # 表示从容器中复制文件到宿主机
-lxc file pull <container>/<path> <target path> # 表示将宿主机的文件复制到容器
+sudo lxc file push <source path> <container>/<path> # 表示从容器中复制文件到宿主机
+sudo lxc file pull <container>/<path> <target path> # 表示将宿主机的文件复制到容器
 ```
 
 复制文件夹需要在最后加 `-r`
@@ -210,8 +210,8 @@ lxc file pull <container>/<path> <target path> # 表示将宿主机的文件复�
 创建共享文件夹：
 
 ```
-lxc config set <container> security.privileged true
-lxc config device add <container> <device-name> disk path=/home/xxx/share source=/home/xxx/share
+sudo lxc config set <container> security.privileged true
+sudo lxc config device add <container> <device-name> disk path=/home/xxx/share source=/home/xxx/share
 ```
 
 其中 `path` 为容器路径，`source` 为宿主机路径。`device-name` 随意取名字即可。
@@ -219,7 +219,7 @@ lxc config device add <container> <device-name> disk path=/home/xxx/share source
 移除共享文件夹：
 
 ```
-lxc config device remove <container> <device-name>
+sudo lxc config device remove <container> <device-name>
 ```
 
 ## CUDA 与 cuDNN
@@ -273,8 +273,8 @@ OCI runtime create failed: container_linux.go:345: starting container process ca
 我们只需要在宿主机对容器进行以下配置即可：
 
 ```
-lxc config set <container> security.nesting true
-lxc config set <container> security.privileged true
+sudo lxc config set <container> security.nesting true
+sudo lxc config set <container> security.privileged true
 ```
 
 ## RuntimeError: cuda runtime error (30) (2019.10.10 更新)
@@ -293,6 +293,41 @@ RuntimeError: cuda runtime error (30) : unknown error at /tmp/pip-req-build-58y_
 2. 重启所有容器。
 
 这样容器里的 CUDA 就可以找到了。这可能是 LXC 的配置问题，如果有人遇到相同问题有更好的解决方案希望可以告知，万分感谢~
+
+## 宿主机重启后找不到显卡驱动(2020.6.2 更新)
+
+重启宿主机后，显卡驱动掉了，所有用到显卡的容器都无法启动，输入`nvidia-smi`报错：
+
+```
+NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running
+```
+
+原因是系统更新了内核，导致安装显卡驱动时的内核与现有内核不一致，解决办法参考[此解决办法 ](https://www.jianshu.com/p/3cedce05a481)
+
+```
+sudo apt-get install dkms # DKMS，Dynamic Kernel Module Support，可以帮我们维护内核外的这些驱动程序，在内核版本变动之后可以自动重新生成新的模块。
+sudo dkms install -m nvidia -v 430.50
+```
+
+DKMS全称是Dynamic Kernel Module Support，它可以帮我们维护内核外的这些驱动程序，在内核版本变动之后可以自动重新生成新的模块。
+
+430.50是安装驱动的版本，可进入/usr/src查看nvidia-430.50的文件夹获取版本号
+
+重启后输入nvidia-smi就应该正常输出了。如果还是不好使，可以重启后重新运行上述命令再重启。
+
+## 容器内 torch.cuda.is_available() 是 false (2020.6.2 更新)
+
+宿主机重启后，容器的pytorch只能使用CPU，无法使用GPU，体现为在pytorch环境下输入下述命令返回`false`，但是宿主机输入下述命令为`true`：
+
+```
+python -c 'import torch; print(torch.cuda.is_available())'
+```
+
+检查容器的显卡驱动和cuda等都是正常的。原因是重启后之前的容器参数失效，重新输入下述命令即可：
+
+```
+sudo lxc config set yanyihan security.privileged true
+```
 
 ## 总结
 
