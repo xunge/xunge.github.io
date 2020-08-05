@@ -23,7 +23,7 @@
 
 
 
-  <link rel="canonical" href="https://xungejiang.com/2017/08/03/shr-raid015/">
+  <link rel="canonical" href="https://xungejiang.com/archives/2020/06/">
 
 <!-- <link rel="stylesheet" href="/css/style.css"> -->
 
@@ -38,7 +38,7 @@
   })();
   </script>
   
-<title> 群晖 synology 的 SHR 、raid1 、raid0 、raid1 、raid5 的区别 | XUNGE&#39;s Blog</title>
+<title> 归档: 2020/6 | XUNGE&#39;s Blog</title>
 
 
 </head>
@@ -112,222 +112,27 @@
     </div>
   </header>
   <main class="main">
-  <article class="post-detail">
-  <div class="post-title">
-    <h1 class="title">群晖 synology 的 SHR 、raid1 、raid0 、raid1 、raid5 的区别</h1>
+  <section class="archives">
+  <div class="archive-page-counter">共计 50 篇日志</div>
+  <div class="archive">
+    
+    
+      
+      
+        <h2 class="archive-year date">2020</h2>
+        
+      
+      <div class="archive-item">
+        <a class="archive-title" href="/2020/06/06/BERT/">PyTorch 的 BERT 微调教程</a>
+        <span class="archive-time date">06-06</span>
+      </div>
+      
   </div>
-   <div class="post-meta">
-    <span class="date">2017-08-03</span>
-    
-      <span>|<span>
-      <a class="article-tag-link" href="/tags/NAS/">NAS</a>
-    
-    
-      <span>|<span>
-      <a class="article-tag-link" href="/categories/知识点/">知识点</a>
-    
-  </span></span></span></span></div>
-  
-    <div class="toc-article">
-        <strong class="toc-title">文章目录</strong>
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#shr"><span class="post-toc-text">SHR</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#basic"><span class="post-toc-text">basic</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#raid0"><span class="post-toc-text">raid0</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#raid1"><span class="post-toc-text">raid1</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#raid5"><span class="post-toc-text">raid5</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#raid6"><span class="post-toc-text">raid6</span></a></li></ol>
-    </div>
-  
-  <div class="post-content">
-    <p>参考资料 <a href="http://www.goodnas.net/forum.php?mod=viewthread&amp;tid=24" class="uri" target="_blank" rel="noopener">http://www.goodnas.net/forum.php?mod=viewthread&amp;tid=24</a></p>
-<p>本文主要讲述群晖的 SHR 、raid1 、raid0 、raid1 、raid5 之间的区别。</p>
-<a id="more"></a>
-<h2 id="shr">SHR</h2>
-<p>SHR 是 <strong>Synology Hybrid RAID</strong> 的缩写；当NAS里面只有一颗硬盘的时候，磁盘阵列的模式为 basic ，无数据保护。当再添加为一个硬盘的时候磁盘阵列的模式自动转换成类似 raid1 模式，空间大小不变，但是多了个数据保护。当再加入一个硬盘的时候会自动转换成类似 raid5 模式（前提是你的NAS可以放3个及以上的硬盘），容量为 N-1 个硬盘的总容量，假如 3 个 3Ｔ 的硬盘，此时的SHR空间总容量为 <code>(3 - 1) * 3T</code> 为 <code>6T</code> 的空间，后期可以慢慢加硬盘数据也不影响的。</p>
-<p><strong>SHR 优点</strong>：在于方便不熟悉磁盘阵列的玩家，傻瓜简单式的帮你组好磁盘阵列，而且还能合理利用容量大小不一的硬盘，减少浪费，raid 是按照最小的硬盘算，而 SHR 则可以合理利用减少浪费，智能 raid 推荐使用~</p>
-<p>附计算网址：<a href="https://www.synology.cn/zh-cn/support/RAID_calculator" class="uri" target="_blank" rel="noopener">https://www.synology.cn/zh-cn/support/RAID_calculator</a>。</p>
-<h2 id="basic">basic</h2>
-<p>basic 是基本模式，一个硬盘一个独立的空间。</p>
-<h2 id="raid0">raid0</h2>
-<p>raid0：无数据保护，空间最大化利用，当在NAS中运行的时候就和JBOD属性差不多，就不再多介绍，raid0是将多个磁盘合并成一个大的磁盘，不具有冗余，并行 <code>I / O</code>，速度最快。它是将多个磁盘并列起来，成为一个大磁盘。</p>
-<p><strong>raid0 优点</strong>：传输速度快且空间最大化利用，传输速度理论数值是一般raid的2倍，实际速度为1.6倍。</p>
-<p><strong>raid0 缺点</strong>：没有冗余，数据存入都是以拆分打散的方式放到不同的硬盘，所以说当一块硬盘坏掉的时候所以的数据都会丢失！慎用~</p>
-<h2 id="raid1">raid1</h2>
-<p>raid1 是镜像备份，实际容量为总空间的一半，N/2，如果有2块3T的硬盘，总容量为（3+3）/2。</p>
-<p><strong>raid1 优点</strong>：有数据保护，让硬盘坏掉一个时，数据还在，硬盘还可以正常读取。</p>
-<p><strong>rard1 缺点</strong>：空间折一半，放放重要数据资料，照片，放电影就不划算啦！</p>
-<h2 id="raid5">raid5</h2>
-<p>raid5 是一种既考虑到数据保护又考虑到硬盘运作成本的解决方案，raid5不对数据进行存储，而是把奇偶校检信息存储到不同的磁盘上。损坏后，用奇偶校检信息和对应的数据去恢复损坏的数据，实际空间为 N-1 ，上面有介绍，假如有3块3T的硬盘，实际空间为 <code>( 3 - 1 ) * 3T</code> 为 <code>6T</code> ，说直白点：就是假如4个硬盘，3个放数据，1个备份，值得强调的一点就是4个硬盘不分主次，可以任意坏一块硬盘。</p>
-<p><strong>raid5 优点</strong>：数据安全和成本兼顾，是4盘位NAS玩家的首选。</p>
-<p><strong>raid5 缺点</strong>：只有一个硬容错，当硬盘坏掉一个是要及时更换。</p>
-<h2 id="raid6">raid6</h2>
-<p>raid6 和 riad5 原理差不多，riad5 是 <code>N - 1</code> 可以任意坏一个硬盘，raid6 则是可以任意坏 2 个硬盘，<code>N - 2</code> 的模式，适合盘位很多的玩家。</p>
-<p>还有 raid2、raid3、raid4、raid6、raid7、raid50、raid53，NAS不支持，感兴趣的朋友可自行百度。</p>
-
-  </div>
-</article>
-
-<a class="top" id="top" href="javascript:;"></a>
-
-
-<script>
-  window.onscroll = function () {
-    if (document.body.scrollTop > window.innerHeight) {
-      document.getElementById('top').classList.add('toggle')
-    } else {
-      document.getElementById('top').classList.remove('toggle')
-    }
-  }
-
-  function scrollTo (element, to, duration) {
-    if (duration <= 0) return
-    var difference = to - element.scrollTop
-    var perTick = -25 + difference / duration * 10
-    // console.log(to, element.scrollTop, difference, duration, perTick)
-
-    setTimeout(function () {
-      element.scrollTop = element.scrollTop + perTick
-      if (element.scrollTop <= to) return
-      scrollTo(element, to, duration)
-    }, 10)
-  }
-
-  document.getElementById('top').addEventListener("click", function () {
-    scrollTo(document.body, 0, Math.ceil(document.body.scrollTop / 10))
-  }, false)
-</script>
-
+</section>
 
 
   <div id="disqus_thread"></div>
   
-  
-    <script type="text/javascript">
-      /*
-        disqusLoader.js v1.0
-        A JavaScript plugin for lazy-loading Disqus comments widget.
-        -
-        By Osvaldas Valutis, www.osvaldas.info
-        Available for use under the MIT License
-      */
-
-      ;(function (window, document, index) {
-        'use strict'
-      
-        var extendObj = function (defaults, options) {
-            var prop, extended = {}
-            for (prop in defaults) {
-              if (Object.prototype.hasOwnProperty.call(defaults, prop)) extended[prop] = defaults[prop]
-            }
-            for (prop in options) {
-              if (Object.prototype.hasOwnProperty.call(options, prop)) extended[prop] = options[prop]
-            }
-            return extended
-          },
-          getOffset = function (el) {
-            var rect = el.getBoundingClientRect()
-            return {
-              top: rect.top + document.body.scrollTop,
-              left: rect.left + document.body.scrollLeft
-            }
-          },
-          loadScript = function (url, callback) {
-            var script = document.createElement('script')
-            script.src = url
-            script.async = true
-            script.setAttribute('data-timestamp', +new Date())
-            script.addEventListener('load', function () {
-              if (typeof callback === 'function') callback()
-            })
-            script.addEventListener('error', function () {
-              console.error('connect disqus failed')
-            })
-            ;(document.head || document.body).appendChild(script)
-          },
-          throttle = function (a, b) {
-            var c, d
-            return function () {
-              var e = this,
-                f = arguments,
-                g = +new Date
-              c && g < c + a ? (clearTimeout(d), d = setTimeout(function () {
-                c = g, b.apply(e, f)
-              }, a)) : (c = g, b.apply(e, f))
-            }
-          },
-      
-          throttleTO = false,
-          laziness = false,
-          disqusConfig = false,
-          scriptUrl = false,
-      
-          scriptStatus = 'unloaded',
-          instance = false,
-      
-          init = function () {
-            if (!instance || !document.body.contains(instance) || instance.disqusLoaderStatus == 'loaded') return true
-
-            var winST = window.pageYOffset,
-              offset = getOffset(instance).top
-
-            // if the element is too far below || too far above
-            if (offset - winST > window.innerHeight * laziness || winST - offset - instance.offsetHeight - (window.innerHeight * laziness) > 0) return true
-
-            var tmp = document.getElementById('disqus_thread')
-            if (tmp) tmp.removeAttribute('id')
-            instance.setAttribute('id', 'disqus_thread')
-            instance.disqusLoaderStatus = 'loaded'
-
-            if (scriptStatus == 'loaded') {
-              DISQUS.reset({
-                reload: true,
-                config: disqusConfig
-              })
-            } else { // unloaded | loading
-              window.disqus_config = disqusConfig
-              if (scriptStatus == 'unloaded') {
-                scriptStatus = 'loading'
-                loadScript(scriptUrl, function () {
-                  scriptStatus = 'loaded'
-                })
-              }
-            }
-          }
-      
-        window.addEventListener('scroll', throttle(throttleTO, init))
-        window.addEventListener('resize', throttle(throttleTO, init))
-      
-        window.disqusLoader = function (element, options) {
-          options = extendObj({
-            laziness: 1,
-            throttle: 250,
-            scriptUrl: false,
-            disqusConfig: false,
-      
-          }, options)
-      
-          laziness = options.laziness + 1
-          throttleTO = options.throttle
-          disqusConfig = options.disqusConfig
-          scriptUrl = scriptUrl === false ? options.scriptUrl : scriptUrl // set it only once
-      
-          if (typeof element === 'string') instance = document.querySelector(element)
-          else if (typeof element.length === 'number') instance = element[0]
-          else instance = element
-      
-          instance.disqusLoaderStatus = 'unloaded'
-      
-          init()
-        }
-      
-      }(window, document, 0))
-      var options = {
-        scriptUrl: '//xungejiang.disqus.com' + '/embed.js',
-        laziness: 1,
-        throttle: 250,
-        disqusConfig: function() {
-          this.page.url         = 'https://xungejiang.com/2017/08/03/shr-raid015/'
-          this.page.identifier  = '//2017/08/03/shr-raid015/'
-          this.page.title       = '群晖 synology 的 SHR 、raid1 、raid0 、raid1 、raid5 的区别'
-        }
-      }
-      disqusLoader('#disqus_thread', options)
-    </script>
   
   </main>
   <footer class="footer">

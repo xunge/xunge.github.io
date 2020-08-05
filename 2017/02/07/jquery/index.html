@@ -140,7 +140,7 @@
 <h2 id="安装-jquery">安装 jQuery</h2>
 <p>可以通过多种方法在网页中添加 jQuery。 您可以使用以下方法：</p>
 <ul>
-<li>从 <a href="jquery.com">jquery.com</a> 下载 jQuery 库</li>
+<li>从 <a href="jquery.com" class="uri">jquery.com</a> 下载 jQuery 库</li>
 <li>从 CDN 中载入 jQuery</li>
 </ul>
 <h3 id="下载-jquery">下载 jQuery</h3>
@@ -154,7 +154,7 @@
 <h2 id="javascript-和-jquery-执行时方法的区别">JavaScript 和 jQuery 执行时方法的区别</h2>
 <p>------------|<strong>window.onload</strong>| <strong><span class="math inline">\((document).ready()** :-|:-|:- 执行时机|必须等待网页中所有的内容加载完毕后（包括图片）才能执行|网页中所有DOM结构绘制完毕后就执行，可能DOM元素关联的东西并没有加载完 编写个数|不能同时编写多个|能同时编写多个 简化写法|无| **\)</span>(document).ready(function(){});</strong> 可以简写成 <strong>$(function(){});</strong></p>
 <h2 id="选择网页元素">选择网页元素</h2>
-<p>jQuery的基本设计和主要用法，就是"选择某个网页元素，然后对其进行某种操作"。这是它区别于其他函数库的根本特点。</p>
+<p>jQuery的基本设计和主要用法，就是&quot;选择某个网页元素，然后对其进行某种操作&quot;。这是它区别于其他函数库的根本特点。</p>
 <p>使用jQuery的第一步，往往就是将一个选择表达式，放进构造函数jQuery()（简写为<em>$</em>），然后得到被选中的元素。</p>
 <p>选择表达式可以是CSS选择器：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">$(<span class="built_in">document</span>)<span class="comment">//选择整个文档对象</span></span><br><span class="line">$(<span class="string">'#myId'</span>)<span class="comment">//选择ID为myId的网页元素</span></span><br><span class="line">$(<span class="string">'div.myClass'</span>)<span class="comment">//选择class为myClass的div元素</span></span><br><span class="line">$(<span class="string">'input[name=first]'</span>)<span class="comment">//选择name属性等于first的input元素</span></span><br></pre></td></tr></table></figure>
@@ -172,8 +172,8 @@
 <p>分解开来，就是下面这样：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">$(<span class="string">'div'</span>)         <span class="comment">//找到div元素</span></span><br><span class="line">.find(<span class="string">'h3'</span>)      <span class="comment">//选择其中的h3元素</span></span><br><span class="line">.eq(<span class="number">2</span>)           <span class="comment">//选择第3个h3元素</span></span><br><span class="line">.html(<span class="string">'Hello'</span>);  <span class="comment">//将它的内容改为Hello</span></span><br></pre></td></tr></table></figure>
 <p>这是jQuery最令人称道、最方便的特点。它的原理在于每一步的jQuery操作，返回的都是一个jQuery对象，所以不同操作可以连在一起。</p>
-<p>jQuery还提供了.end()方法，使得结果集可以后退一步,回到最近的一个"破坏性"操作之前。</p>
-<p>如果之前没有破坏性操作，则返回一个空集。所谓的"破坏性"就是指任何改变所匹配的jQuery元素的操作。</p>
+<p>jQuery还提供了.end()方法，使得结果集可以后退一步,回到最近的一个&quot;破坏性&quot;操作之前。</p>
+<p>如果之前没有破坏性操作，则返回一个空集。所谓的&quot;破坏性&quot;就是指任何改变所匹配的jQuery元素的操作。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">$(<span class="string">'div'</span>)</span><br><span class="line">.find(<span class="string">'h3'</span>)</span><br><span class="line">.eq(<span class="number">2</span>)</span><br><span class="line">.html(<span class="string">'Hello'</span>)</span><br><span class="line">.end()<span class="comment">//退回到选中所有的h3元素的那一步</span></span><br><span class="line">.eq(<span class="number">0</span>)<span class="comment">//选中第一个h3元素</span></span><br><span class="line">.html(<span class="string">'World'</span>); <span class="comment">//将它的内容改为World</span></span><br></pre></td></tr></table></figure>
 <p>示例</p>
 <p>描述：选取所有的 p 元素，查找并选取 span 子元素，然后再回过来选取 p 元素</p>
@@ -207,7 +207,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;I would like to say: &lt;/p&gt;&lt;b&gt;Hello&lt;/b&gt;</span><br></pre></td></tr></table></figure>
 <h3 id="insertafter">(2) .insertAfter()：</h3>
 <p>描述:</p>
-<p>把所有段落插入到一个元素之后。与 <code>$("#foo").after("p")</code> 相同</p>
+<p>把所有段落插入到一个元素之后。与 <code>$(&quot;#foo&quot;).after(&quot;p&quot;)</code> 相同</p>
 <p>HTML 代码:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;I would like to say: &lt;/p&gt;&lt;div id=&quot;foo&quot;&gt;Hello&lt;/div&gt;</span><br></pre></td></tr></table></figure>
 <p>jQuery 代码:</p>
