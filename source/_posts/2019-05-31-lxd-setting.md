@@ -138,7 +138,7 @@ sudo apt-get install openssh-server
 sudo ubuntu-drivers autoinstall
 ```
 
-但是这个方法安装的驱动往往不是最新的，可以去 [NVIDIA 官网](https://www.nvidia.com/Download/index.aspx?lang=cn) 下载最新驱动并安装。具体方法参考 [Ubuntu 16.04安装NVIDIA驱动](https://blog.csdn.net/CosmosHua/article/details/76644029)
+但是这个方法安装的驱动往往不是最新的，可以去 [NVIDIA 官网](https://www.nvidia.com/Download/index.aspx?lang=cn) 下载最新驱动并安装。具体方法参考 [Ubuntu 16.04安装NVIDIA驱动](https://blog.csdn.net/CosmosHua/article/details/76644029) 和 [超详细! Ubuntu 18.04 安装 NVIDIA 显卡驱动](https://xungejiang.com/2019/10/08/ubuntu-gpu-driver/)
 
 使用 nvidia-smi 查看驱动版本，并在官网下载对应的驱动，以便于在容器中安装和宿主机相同版本的NVIDIA驱动。
 
@@ -279,17 +279,24 @@ sudo lxc config set <container> security.privileged true
 
 ## RuntimeError: cuda runtime error (30) (2019.10.10 更新)
 
-最近实验室新配的一台四路 RTX2080Ti 服务器遇到了一些奇怪的问题，就是容器环境配好后重启宿主机，再使用容器里的环境时会找不到 CUDA，报下面的错误：
+重启宿主机后，再使用容器里的环境时会找不到 CUDA，报下面的错误：
 
 ```
 RuntimeError: cuda runtime error (30) : unknown error at /tmp/pip-req-build-58y_cjjl/aten/src/THC/THCGeneral.cpp:50
 ```
+
+或者 `torch.cuda.is_available()` 是 false
 
 网上其他人报这个错误可能是因为 CUDA 没有安装，但我使用的是 Anaconda 自动安装的 CUDA 和 cuDNN，容器和宿主机都可以运行 `nvidia-smi` 命令查看显卡驱动版本，并且在重启前是没有错误的，为什么重启后就报错了呢？为此我甚至重装系统，但这个问题依然存在。。。
 
 目前临时的解决办法是：
 
 1. 重启宿主机后，需要使用宿主机的 Python 环境运行一次使用 CUDA 的程序；
+
+   例如，如果是pytorch环境，可以运行下面的代码：
+
+   `python -c 'import torch; print(torch.cuda.is_available())'`
+
 2. 重启所有容器。
 
 这样容器里的 CUDA 就可以找到了。这可能是 LXC 的配置问题，如果有人遇到相同问题有更好的解决方案希望可以告知，万分感谢~
@@ -302,7 +309,7 @@ RuntimeError: cuda runtime error (30) : unknown error at /tmp/pip-req-build-58y_
 NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running
 ```
 
-原因是系统更新了内核，导致安装显卡驱动时的内核与现有内核不一致，解决办法参考[此解决办法 ](https://www.jianshu.com/p/3cedce05a481)
+原因可能是宿主机运行了`sudo apt upgrade`命令并更新了系统内核，导致安装显卡驱动时的内核与现有内核版本不一致，解决办法参考[此解决办法 ](https://www.jianshu.com/p/3cedce05a481)
 
 ```
 sudo apt-get install dkms # DKMS，Dynamic Kernel Module Support，可以帮我们维护内核外的这些驱动程序，在内核版本变动之后可以自动重新生成新的模块。
@@ -315,19 +322,60 @@ DKMS全称是Dynamic Kernel Module Support，它可以帮我们维护内核外�
 
 重启后输入nvidia-smi就应该正常输出了。如果还是不好使，可以重启后重新运行上述命令再重启。
 
-## 容器内 torch.cuda.is_available() 是 false (2020.6.2 更新)
+如果仍不好使，说明该内核下无法编译显卡驱动，解决方法是内核降级为原来版本，具体方法参考[如何降级/切换 Ubuntu 系统 Linux 内核启动版本](https://zhengdao.github.io/2018/10/09/switch-ubuntu-linux-kernel/)
 
-宿主机重启后，容器的pytorch只能使用CPU，无法使用GPU，体现为在pytorch环境下输入下述命令返回`false`，但是宿主机输入下述命令为`true`：
-
-```
-python -c 'import torch; print(torch.cuda.is_available())'
-```
-
-检查容器的显卡驱动和cuda等都是正常的。原因是重启后之前的容器参数失效，重新输入下述命令即可：
+1. 查看系统可用内核
 
 ```
-sudo lxc config set yanyihan security.privileged true
+grep menuentry /boot/grub/grub.cfg
 ```
+
+可以看到子选项：
+
+> Ubuntu, with Linux 5.3.0-62-generic
+
+2. 修改内核启动版本
+
+使用vim编辑grub文件：
+
+```
+sudo vim /etc/default/grub
+```
+
+> GRUB_DEFAULT=0 // 0表示系统当前启动的内核序号
+
+修改为想要启动的内核版本对应子选项：
+
+> GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 5.3.0-62-generic"
+
+注意，`>`两侧没有空格，这个原博客有错误。
+
+3. 更新 Grub
+
+```
+sudo update-grub
+```
+
+4. 查看系统当前运行内核信息
+
+```
+uname -r(或-a)
+```
+
+## 容器硬盘ZFS扩容
+
+LXD 初始化的时候会对 ZFS 进行空间分配，但是随着时间的推移仍有扩容的需求。当容器变得很卡的时候，有可能就是 ZFS 分配的空间已满。
+
+输入下面的命令可以对 ZFS 进行扩容，以扩容512GB为例：
+
+```
+sudo truncate -s +512G /var/snap/lxd/common/lxd/disks/lxd.img
+sudo zpool set autoexpand=on lxd
+sudo zpool online -e lxd /var/snap/lxd/common/lxd/disks/lxd.img
+sudo zpool set autoexpand=off lxd
+```
+
+其中，lxd.img 为初始化时定义的容器名称，不知道容器名称的可以通过下述命令查看 `sudo ls /var/snap/lxd/common/lxd/disks/`
 
 ## 总结
 

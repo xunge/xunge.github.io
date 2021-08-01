@@ -99,7 +99,7 @@ deploy:
     repo:
         github: git@github.com:xunge/xunge.github.io.git
         # coding: git@git.coding.net:xunge/xunge.github.io.git
-        aliyun: root@120.78.162.146:/www/blog.git
+        # aliyun: root@120.78.162.146:/www/blog.git
 
 prism_plugin:
     mode: "preprocess" # realtime/preprocess
