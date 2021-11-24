@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link href="/css/style.css?v=0.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, plain">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://img.xungejiang.com/static/images/favicon.png">
+
+
+
+  <link rel="canonical" href="https://xungejiang.com/2019/07/13/activation-function/">
+
+<!-- <link rel="stylesheet" href="/css/style.css"> -->
+
+
+  <script type="text/javascript">
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?f4f3f11203a4e9709a1a1869afa69da5";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<title> 激活函数总结 (Sigmoid, ReLU, Swish, Maxout) | XUNGE&#39;s Blog</title>
+
+
+</head>
+<body class="typo borderbox" lang="zh-Hans" itemtype="http://schema.org/WebPage" itemscope>
+  <header class="header">
+    <div class="header-wrap">
+      <a class="nav-toggle" id="nav-trigger" href="javascript:;">
+        <span></span>
+        <span></span>
+        <span></span>
+      </a>
+      <div class="site-meta">
+        
+        <div class="site-info">
+          <div class="site-info-wrap">
+            
+              <a class="site-title" href="/">XUNGE&#39;s Blog</a>
+            
+            
+          </div>
+        </div>
+      </div>
+      <nav class="menu">
+        <div class="menu-wrap">
+          <div class="menu-info">
+            
+              <img class="site-avatar" src="//img.xungejiang.com/static/images/avatar1.jpg">
+            
+            
+              <a class="site-title" href="/">XUNGE&#39;s Blog</a>
+            
+            
+              <span class="site-description">瞎折腾，知识点，经验值</span>
+            
+          </div>
+          <ul class="menu-items">
+            
+              <li class="menu-item">
+                <a class="menu-item-link" href="/">
+                  <span class="menu-item-text">首页</span>
+                </a>
+              </li>
+            
+              <li class="menu-item">
+                <a class="menu-item-link" href="/archives/">
+                  <span class="menu-item-text">归档</span>
+                </a>
+              </li>
+            
+              <li class="menu-item">
+                <a class="menu-item-link" href="/categories/">
+                  <span class="menu-item-text">分类</span>
+                </a>
+              </li>
+            
+              <li class="menu-item">
+                <a class="menu-item-link" href="/tags/">
+                  <span class="menu-item-text">标签</span>
+                </a>
+              </li>
+            
+              <li class="menu-item">
+                <a class="menu-item-link" href="/about/">
+                  <span class="menu-item-text">关于</span>
+                </a>
+              </li>
+            
+          </ul>
+        <div>
+      </div></div></nav>
+    </div>
+  </header>
+  <main class="main">
+  <article class="post-detail">
+  <div class="post-title">
+    <h1 class="title">激活函数总结 (Sigmoid, ReLU, Swish, Maxout)</h1>
+  </div>
+   <div class="post-meta">
+    <span class="date">2019-07-13</span>
+    
+      <span>|<span>
+      <a class="article-tag-link" href="/tags/激活函数/">激活函数</a>
+    
+    
+      <span>|<span>
+      <a class="article-tag-link" href="/categories/知识点/">知识点</a>
+    
+  </span></span></span></span></div>
+  
+    <div class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#sigmoid-型激活函数"><span class="post-toc-text">1. Sigmoid 型激活函数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#logistic-函数"><span class="post-toc-text">1.1 Logistic 函数</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#tanh-函数"><span class="post-toc-text">1.2 Tanh 函数</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#relu-函数"><span class="post-toc-text">2. ReLU 函数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#leaky-relu"><span class="post-toc-text">2.1 Leaky ReLU</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#prelu"><span class="post-toc-text">2.2 PReLU</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#erelu"><span class="post-toc-text">2.3 EReLU</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#softplus"><span class="post-toc-text">2.4 Softplus</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-text">参考</span></a></li></ol>
+    </div>
+  
+  <div class="post-content">
+    <p>神经网络中使用激活函数来加入非线性因素，提高模型的表达能力。</p>
+<a id="more"></a>
+<p>激活函数需要具备以下几点<strong>性质</strong>:</p>
+<ol type="1">
+<li>连续并可导 (允许少数点上不可导) 的非线性函数。可导的激活函数可以直接利用数值优化的方法来学习网络参数。</li>
+<li>激活函数及其导函数要尽可能的简单，有利于提高网络计算效率。</li>
+<li>激活函数的导函数的值域要在一个合适的区间内，不能太大也不能太小，否则会影响训练的效率和稳定性。</li>
+</ol>
+<h2 id="sigmoid-型激活函数">1. Sigmoid 型激活函数</h2>
+<p>Sigmoid 型函数是指一类 S 型曲线函数，为两端饱和函数。常用的 Sigmoid 型函数有 Logistic 函数和 Tanh 函数。</p>
+<h3 id="logistic-函数">1.1 Logistic 函数</h3>
+<p><strong>公式定义如下：</strong></p>
+<p><span class="math display">\[
+\sigma(x)=\frac{1}{1+\exp (-x)}
+\]</span></p>
+<p><strong>特点：</strong></p>
+<ol type="1">
+<li>当输入值在 0 附近时，函数近似为线性函数；当输入值靠近两端时，对输入进行抑制。</li>
+<li>输入越小，越接近于 0；输入越大，越接近于 1。</li>
+<li>其输出直接可以看作是概率分布，使得神经网络可以更好地和统计学习模型进行结合。</li>
+<li>其可以看作是一个<code>软性门</code> (Soft Gate)，用来控制其它神经元输出信息的数量。</li>
+</ol>
+<h3 id="tanh-函数">1.2 Tanh 函数</h3>
+<p><strong>公式定义如下：</strong></p>
+<p><span class="math display">\[
+\tanh (x)=\frac{\exp (x)-\exp (-x)}{\exp (x)+\exp (-x)}
+\]</span></p>
+<p>Tanh 函数也可以看作是放大并平移的 Logistic 函数，其值域是 (−1, 1)。</p>
+<p><span class="math display">\[
+\tanh (x)=2 \sigma(2 x)-1
+\]</span></p>
+<p>Sigmoid 两个函数对比如下图所示。如图可知，Tanh 函数的输出是 <code>零中心化的</code> (Zero-Centered)，而 Logistic 函数的输出恒大于 0。非零中心化的输出会使得其后一层的神经元的输入发生 <code>偏置偏移</code> (Bias Shift)，并进一步使得梯度下降的收敛速度变慢。</p>
+<p><img class="lazyload" data-src="https://img.xungejiang.com/static/images/19-07-13/sigmoid.jpg"></p>
+<h2 id="relu-函数">2. ReLU 函数</h2>
+<p><strong>线性整流函数</strong> (Rectified Linear Unit, ReLU)，又称<strong>修正线性单元</strong>，通常指代以斜坡函数及其变种为代表的非线性函数。是目前深层神经网络中经常使用的激活函数。公式定义为：</p>
+<p><span class="math display">\[
+\begin{aligned} \operatorname{ReLU}(x) &amp;=\left\{\begin{array}{ll}{x} &amp; {x \geq 0} \\ {0} &amp; {x&lt;0}\end{array}\right.\\ &amp;=\max (0, x) \end{aligned}
+\]</span></p>
+<p><strong>优点：</strong></p>
+<ol type="1">
+<li>采用ReLU的神经元只需要进行加、乘和比较的操作，计算上更加高效。</li>
+<li>Sigmoid型激活函数会导致一个非稀疏的神经网络，而 ReLU 却具有很好的稀疏性，大约 50% 的神经元会处于激活状态。</li>
+<li>相比于 Sigmoid 型函数的两端饱和，ReLU 函数为左饱和函数，且在 <span class="math inline">\(x &gt; 0\)</span> 时导数为 1，在一定程度上缓解了神经网络的梯度消失问题，加速梯度下降的收敛速度。</li>
+</ol>
+<p><strong>缺点：</strong></p>
+<ol type="1">
+<li>ReLU 函数的输出是非零中心化的，给后一层的神经网络引入偏置偏移，会影响梯度下降的效率。</li>
+<li>ReLU 神经元在训练时比较容易“死亡”。在训练时，如果参数在一次不恰当的更新后，第一个隐藏层中的某个 ReLU 神经元在所有的训练数据上都不能被激活，那么这个神经元自身参数的梯度永远都会是 0，在以后的训练过程中永远不能被激活。</li>
+</ol>
+<p>为了避免上述情况，有几种 ReLU 的变种也会被广泛使用。</p>
+<h3 id="leaky-relu">2.1 Leaky ReLU</h3>
+<p><strong>带泄露的ReLU</strong> (Leaky ReLU) 在输入 <span class="math inline">\(x &lt; 0\)</span> 时，保持一个很小的梯度 <span class="math inline">\(\gamma\)</span>。这样当神经元非激活时也能有一个非零的梯度可以更新参数，避免永远不能被激活。带泄露的ReLU的定义如下:</p>
+<p><span class="math display">\[
+\begin{aligned} \text { LeakyReLU(x)} &amp;=\left\{\begin{array}{ll}{x} &amp; { x&gt;0} \\ {\gamma x} &amp; { x \leq 0}\end{array}\right.\\ &amp;=\max (0, x)+\gamma \min (0, x) \end{aligned}
+\]</span></p>
+<p>其中 <span class="math inline">\(\gamma\)</span> 是一个很小的常数，比如 0.01。当 <span class="math inline">\(\gamma &lt; 1\)</span> 时，带泄露的 ReLU 也可以写为</p>
+<p><span class="math display">\[
+\text { Leaky ReLU }(x)=\max (x, \gamma x)
+\]</span></p>
+<p>相当于是一个比较简单的 maxout 单元。</p>
+<h3 id="prelu">2.2 PReLU</h3>
+<p><strong>带参数的 ReLU</strong> (Parametric ReLU, PReLU) 引入一个可学习的参数，不同神经元可以有不同的参数。对于第 <span class="math inline">\(i\)</span> 个神经元，其 PReLU 的定义为：</p>
+<p><span class="math display">\[
+\begin{aligned} \operatorname{PReLU}_{i}(x) &amp;=\left\{\begin{array}{ll}{x} &amp; { x&gt;0} \\ {\gamma_{i} x} &amp; { x \leq 0}\end{array}\right.\\ &amp;=\max (0, x)+\gamma_{i} \min (0, x) \end{aligned}
+\]</span></p>
+<p>其中 <span class="math inline">\(\gamma_{i}\)</span> 为 <span class="math inline">\(x \leq 0\)</span> 时函数的斜率。因此，PReLU 是非饱和函数。如果 <span class="math inline">\(\gamma_{i}=0\)</span>，那么 PReLU 就退化为 ReLU。如果 <span class="math inline">\(\gamma_{i}\)</span> 为一个很小的常数，则 PReLU 可以看作带泄露的 ReLU。PReLU 可以允许不同神经元具有不同的参数，也可以一组神经元共享一个参数。</p>
+<h3 id="erelu">2.3 EReLU</h3>
+<p><strong>指数线性单元</strong> (Exponential Linear Unit, ELU)是一个近似的零中心化的非线性函数，其定义为：</p>
+<p><span class="math display">\[
+\begin{aligned} \operatorname{ELU}(x) &amp;=\left\{\begin{array}{ll}{x} &amp; { x&gt;0} \\ {\gamma(\exp (x)-1)} &amp; { x \leq 0}\end{array}\right.\\ &amp;=\max (0, x)+\min (0, \gamma(\exp (x)-1)) \end{aligned}
+\]</span></p>
+<p>其中 <span class="math inline">\(\gamma \geq 0\)</span> 是一个超参数，决定 <span class="math inline">\(x \leq 0\)</span> 时的饱和曲线，并调整输出均值在 0 附近。</p>
+<h3 id="softplus">2.4 Softplus</h3>
+<p><strong>Softplus 函数</strong>可以看作是 rectifier 函数的平滑版本，其定义为：</p>
+<p><span class="math display">\[
+\operatorname{Softplus}(x)=\log (1+\exp (x))
+\]</span></p>
+<p>Softplus 函数其导数刚好是 Logistic 函数。Softplus 函数虽然也有具有单侧抑制、宽兴奋边界的特性，却没有稀疏激活性。</p>
+<p>下图给出了 ReLU、Leaky ReLU、ELU 以及 Softplus 函数的示例：</p>
+<p><img class="lazyload" data-src="http://img.xungejiang.com/static/images/19-07-13/relu.jpg"></p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://www.cnblogs.com/makefile/p/activation-function.html" target="_blank" rel="noopener">激活函数(ReLU, Swish, Maxout)</a></li>
+<li><a href="https://nndl.github.io/" target="_blank" rel="noopener">神经网络与深度学习</a></li>
+</ul>
+
+  </div>
+</article>
+
+<a class="top" id="top" href="javascript:;"></a>
+
+
+<script>
+  window.onscroll = function () {
+    if (document.body.scrollTop > window.innerHeight) {
+      document.getElementById('top').classList.add('toggle')
+    } else {
+      document.getElementById('top').classList.remove('toggle')
+    }
+  }
+
+  function scrollTo (element, to, duration) {
+    if (duration <= 0) return
+    var difference = to - element.scrollTop
+    var perTick = -25 + difference / duration * 10
+    // console.log(to, element.scrollTop, difference, duration, perTick)
+
+    setTimeout(function () {
+      element.scrollTop = element.scrollTop + perTick
+      if (element.scrollTop <= to) return
+      scrollTo(element, to, duration)
+    }, 10)
+  }
+
+  document.getElementById('top').addEventListener("click", function () {
+    scrollTo(document.body, 0, Math.ceil(document.body.scrollTop / 10))
+  }, false)
+</script>
+
+
+
+  <div id="disqus_thread"></div>
+  
+  
+    <script type="text/javascript">
+      /*
+        disqusLoader.js v1.0
+        A JavaScript plugin for lazy-loading Disqus comments widget.
+        -
+        By Osvaldas Valutis, www.osvaldas.info
+        Available for use under the MIT License
+      */
+
+      ;(function (window, document, index) {
+        'use strict'
+      
+        var extendObj = function (defaults, options) {
+            var prop, extended = {}
+            for (prop in defaults) {
+              if (Object.prototype.hasOwnProperty.call(defaults, prop)) extended[prop] = defaults[prop]
+            }
+            for (prop in options) {
+              if (Object.prototype.hasOwnProperty.call(options, prop)) extended[prop] = options[prop]
+            }
+            return extended
+          },
+          getOffset = function (el) {
+            var rect = el.getBoundingClientRect()
+            return {
+              top: rect.top + document.body.scrollTop,
+              left: rect.left + document.body.scrollLeft
+            }
+          },
+          loadScript = function (url, callback) {
+            var script = document.createElement('script')
+            script.src = url
+            script.async = true
+            script.setAttribute('data-timestamp', +new Date())
+            script.addEventListener('load', function () {
+              if (typeof callback === 'function') callback()
+            })
+            script.addEventListener('error', function () {
+              console.error('connect disqus failed')
+            })
+            ;(document.head || document.body).appendChild(script)
+          },
+          throttle = function (a, b) {
+            var c, d
+            return function () {
+              var e = this,
+                f = arguments,
+                g = +new Date
+              c && g < c + a ? (clearTimeout(d), d = setTimeout(function () {
+                c = g, b.apply(e, f)
+              }, a)) : (c = g, b.apply(e, f))
+            }
+          },
+      
+          throttleTO = false,
+          laziness = false,
+          disqusConfig = false,
+          scriptUrl = false,
+      
+          scriptStatus = 'unloaded',
+          instance = false,
+      
+          init = function () {
+            if (!instance || !document.body.contains(instance) || instance.disqusLoaderStatus == 'loaded') return true
+
+            var winST = window.pageYOffset,
+              offset = getOffset(instance).top
+
+            // if the element is too far below || too far above
+            if (offset - winST > window.innerHeight * laziness || winST - offset - instance.offsetHeight - (window.innerHeight * laziness) > 0) return true
+
+            var tmp = document.getElementById('disqus_thread')
+            if (tmp) tmp.removeAttribute('id')
+            instance.setAttribute('id', 'disqus_thread')
+            instance.disqusLoaderStatus = 'loaded'
+
+            if (scriptStatus == 'loaded') {
+              DISQUS.reset({
+                reload: true,
+                config: disqusConfig
+              })
+            } else { // unloaded | loading
+              window.disqus_config = disqusConfig
+              if (scriptStatus == 'unloaded') {
+                scriptStatus = 'loading'
+                loadScript(scriptUrl, function () {
+                  scriptStatus = 'loaded'
+                })
+              }
+            }
+          }
+      
+        window.addEventListener('scroll', throttle(throttleTO, init))
+        window.addEventListener('resize', throttle(throttleTO, init))
+      
+        window.disqusLoader = function (element, options) {
+          options = extendObj({
+            laziness: 1,
+            throttle: 250,
+            scriptUrl: false,
+            disqusConfig: false,
+      
+          }, options)
+      
+          laziness = options.laziness + 1
+          throttleTO = options.throttle
+          disqusConfig = options.disqusConfig
+          scriptUrl = scriptUrl === false ? options.scriptUrl : scriptUrl // set it only once
+      
+          if (typeof element === 'string') instance = document.querySelector(element)
+          else if (typeof element.length === 'number') instance = element[0]
+          else instance = element
+      
+          instance.disqusLoaderStatus = 'unloaded'
+      
+          init()
+        }
+      
+      }(window, document, 0))
+      var options = {
+        scriptUrl: '//xungejiang.disqus.com' + '/embed.js',
+        laziness: 1,
+        throttle: 250,
+        disqusConfig: function() {
+          this.page.url         = 'https://xungejiang.com/2019/07/13/activation-function/'
+          this.page.identifier  = '//2019/07/13/activation-function/'
+          this.page.title       = '激活函数总结 (Sigmoid, ReLU, Swish, Maxout)'
+        }
+      }
+      disqusLoader('#disqus_thread', options)
+    </script>
+  
+  </main>
+  <footer class="footer">
+  <div class="footer-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+        
+          <symbol id="cc" viewbox="0 0 1024 1024">
+            <path d="M505.898681 20.48c135.168-1.364992 251.220992 45.056 348.16 139.264 96.939008 94.208 146.772992 208.896 149.504 344.064 1.364992 136.532992-45.056 253.268992-139.264 350.208-94.208 96.939008-209.579008 146.772992-346.112 149.504-135.168 1.364992-251.563008-45.396992-349.184-140.288-97.620992-94.891008-147.115008-209.92-148.48-345.088-2.731008-136.532992 43.348992-253.268992 138.24-350.208 94.891008-96.939008 210.603008-146.091008 347.136-147.456 0 0 0 0 0 0m12.288 878.592c106.496-1.364992 197.291008-40.276992 272.384-116.736 75.092992-76.459008 111.956992-168.619008 110.592-276.48-1.364992-107.860992-40.619008-198.996992-117.76-273.408-77.140992-74.411008-168.96-110.932992-275.456-109.568-107.860992 1.364992-198.996992 40.276992-273.408 116.736-74.411008 76.459008-110.932992 168.619008-109.568 276.48 1.364992 107.860992 40.276992 198.996992 116.736 273.408 76.459008 74.411008 168.619008 110.932992 276.48 109.568 0 0 0 0 0 0m-126.976-305.152c27.307008 0 47.104-13.652992 59.392-40.96 0 0 57.344 30.72 57.344 30.72-13.652992 24.576-30.72 42.324992-51.2 53.248-21.844992 13.652992-45.739008 20.48-71.68 20.48-42.324992 0-76.459008-12.971008-102.4-38.912-25.940992-24.576-38.912-60.075008-38.912-106.496 0-46.420992 12.971008-82.603008 38.912-108.544 25.940992-25.940992 58.708992-38.912 98.304-38.912 58.708992 0 101.035008 22.528 126.976 67.584 0 0-63.488 32.768-63.488 32.768-6.827008-13.652992-15.019008-23.211008-24.576-28.672-9.556992-5.460992-19.115008-8.192-28.672-8.192-40.96 0-61.44 27.988992-61.44 83.968 0 25.940992 4.779008 45.739008 14.336 59.392 12.288 15.019008 27.988992 22.528 47.104 22.528 0 0 0 0 0 0m272.384 0c28.672 0 47.787008-13.652992 57.344-40.96 0 0 59.392 30.72 59.392 30.72-12.288 21.844992-29.355008 39.595008-51.2 53.248-21.844992 13.652992-45.739008 20.48-71.68 20.48-43.691008 0-77.824-12.971008-102.4-38.912-25.940992-24.576-38.912-60.075008-38.912-106.496 0-43.691008 12.971008-79.872 38.912-108.544 25.940992-25.940992 59.392-38.912 100.352-38.912 57.344 0 98.304 22.528 122.88 67.584 0 0-61.44 32.768-61.44 32.768-6.827008-13.652992-15.019008-23.211008-24.576-28.672-9.556992-5.460992-19.115008-8.192-28.672-8.192-42.324992 0-63.488 27.988992-63.488 83.968 0 24.576 5.460992 44.372992 16.384 59.392 10.923008 15.019008 26.624 22.528 47.104 22.528 0 0 0 0 0 0" p-id="7650" fill="#ffffff"/>
+          </symbol>
+        
+        
+          <symbol id="GitHub" viewbox="0 0 1024 1024">
+            <path d="M530.01791-7.557299C672.947218-4.362634 790.76646 44.643525 885.072968 139.46118 979.315583 234.342728 1028.002276 354.462128 1031.133048 496.752503 1029.599609 610.546467 996.566773 708.558787 933.759661 795.453672 870.888656 882.412451 789.233021 940.874819 687.13153 977.230106 674.544551 978.827438 665.088342 977.230106 660.424132 972.502002 655.696028 966.176565 652.565256 959.851129 652.565256 953.525692L654.098695 814.429982C654.098695 790.725568 650.967924 771.749259 643.109048 755.967614 636.847505 740.122076 628.988629 729.068536 619.532421 721.20966 677.675322 718.014995 729.55668 699.038685 776.646041 664.280731 822.201963 631.056216 847.375922 566.268412 850.506694 471.450757 850.506694 444.551679 845.77859 419.249933 836.322382 397.142851 826.930067 374.971877 814.343087 354.462128 798.625336 337.083151 801.820001 330.757715 806.484211 314.97607 808.081544 291.207763 811.212315 267.503349 806.484211 237.473499 793.897232 202.715545 793.897232 201.118213 782.907584 201.118213 760.92829 204.248984 738.948995 207.443649 704.382721 224.822626 655.696028 254.852476 614.86821 243.798936 573.976499 237.473499 530.01791 237.473499 486.059321 237.473499 445.16761 243.798936 404.339793 254.852476 357.186538 223.225294 321.086825 207.443649 299.10753 204.248984 277.064343 201.118213 266.074695 201.118213 266.074695 202.715545 253.551609 237.473499 248.823505 267.503349 251.954276 291.207763 255.085048 314.97607 258.21582 330.757715 261.410484 337.083151 245.692733 354.462128 231.508421 373.438438 223.649545 397.142851 214.25723 419.249933 209.529126 444.551679 209.529126 472.984196 212.659898 567.865744 236.236525 631.056216 281.792447 665.878064 327.348368 700.636018 379.229726 719.612327 437.308734 722.743099 429.449859 729.068536 423.188316 736.991305 418.460211 748.044845 412.198668 759.098386 409.067897 773.346591 405.937125 789.128236 388.622041 798.648337 366.642747 801.779109 336.804576 800.24567 306.966406 798.648337 281.792447 781.26936 259.813152 746.447513 248.823505 729.068536 237.833857 716.417663 223.649545 708.558787 209.529126 700.636018 197.00604 695.907914 181.288289 694.310581 168.701309 692.713249 160.842433 694.310581 157.711662 700.636018 154.58089 705.364122 160.842433 713.286891 176.560184 724.340431 192.277936 735.393972 204.801022 746.447513 212.659898 759.098386 220.518774 771.749259 226.84421 785.997464 233.105753 798.648337 240.964629 819.158086 258.21582 836.600956 286.520551 850.785269 313.227949 865.033474 352.522328 866.630807 402.74246 857.110705L404.339793 950.39492C404.339793 958.317689 401.209021 964.643126 396.480917 969.37123 391.752813 975.696667 382.360498 977.230106 369.773518 974.099334 267.672028 939.34138 185.952499 877.684347 123.145387 792.322901 60.274382 706.961454 28.902772 607.351802 27.30544 495.155171 30.436212 351.267463 79.122905 232.745395 173.429413 137.927741 267.672028 43.046193 387.024709-5.959967 528.420578-9.090738L530.01791-7.557299Z" p-id="2568" fill="#ffffff"/>
+          </symbol>
+        
+        
+        
+          <symbol id="rss" viewbox="0 0 1024 1024">
+            <path d="M329.142857 768q0 45.714286-32 77.714286t-77.714286 32-77.714285-32-32-77.714286 32-77.714286 77.714285-32 77.714286 32 32 77.714286z m292.571429 70.285714q1.142857 16-9.714286 27.428572-10.285714 12-26.857143 12H508q-14.285714 0-24.571429-9.428572t-11.428571-23.714285q-12.571429-130.857143-105.428571-223.714286T142.857143 515.428571q-14.285714-1.142857-23.714286-11.428571T109.714286 479.428571V402.285714q0-16.571429 12-26.857143 9.714286-9.714286 24.571428-9.714285h2.857143q91.428571 7.428571 174.857143 46T472 515.428571q65.142857 64.571429 103.714286 148t46 174.857143z m292.571428 1.142857q1.142857 15.428571-10.285714 26.857143-10.285714 11.428571-26.285714 11.428572h-81.714286q-14.857143 0-25.428571-10T759.428571 843.428571q-6.857143-122.857143-57.714285-233.428571t-132.285715-192-192-132.285714T144 227.428571q-14.285714-0.571429-24.285714-11.142857T109.714286 191.428571V109.714286q0-16 11.428571-26.285715 10.285714-10.285714 25.142857-10.285714h1.714286q149.714286 7.428571 286.571429 68.571429T677.714286 309.714286q106.857143 106.285714 168 243.142857t68.571428 286.571428z" fill="#ffffff" p-id="6818"/>
+          </symbol>
+        
+        
+        
+      </svg>
+    <div class="footer-wrap-inner">
+      
+        
+          <a class="symbol" href="//github.com/xunge" target="_blank" rel="noopener noreferrer">
+            <svg class="icon">
+              <use xlink:href="#GitHub"/>
+            </svg>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+      
+        <a class="symbol" href="https://creativecommons.org/licenses/by-nc-nd/4.0" target="_blank" rel="noopener noreferrer">
+          <svg class="icon">
+            <use xlink:href="#cc"/>
+          </svg>
+        </a>
+      
+      
+        <a class="symbol" href="/atom.xml" target="_blank" rel="noopener noreferrer">
+          <svg class="icon">
+            <use xlink:href="#rss"/>
+          </svg>
+        </a>
+      
+      <p class="copyright">
+        <!-- XUNGE&#39;s Blog &copy; 2016-2017 -->
+        <span>
+          训哥 &copy; 2016 - 2021</span>
+        <span>
+          
+          <a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">黑ICP备18006891号</a>
+          
+        </span>
+      </p>
+      <p class="info">
+          Power by <a href="http://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a> &#124; Theme with <a href="https://github.com/snovey/hexo-theme-vanilla" target="_blank" rel="noopener noreferrer">vanilla</a> &#124; Hosted on <a href="//github.com" target="_blank" rel="noopener noreferrer">GitHub</a>, <a href="//coding.net" target="_blank" rel="noopener noreferrer">Coding</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /*! lazysizes - v4.0.0-rc3 */
+!function(a,b){var c=b(a,a.document);a.lazySizes=c,"object"==typeof module&&module.exports&&(module.exports=c)}(window,function(a,b){"use strict";if(b.getElementsByClassName){var c,d,e=b.documentElement,f=a.Date,g=a.HTMLPictureElement,h="addEventListener",i="getAttribute",j=a[h],k=a.setTimeout,l=a.requestAnimationFrame||k,m=a.requestIdleCallback,n=/^picture$/i,o=["load","error","lazyincluded","_lazyloaded"],p={},q=Array.prototype.forEach,r=function(a,b){return p[b]||(p[b]=new RegExp("(\\s|^)"+b+"(\\s|$)")),p[b].test(a[i]("class")||"")&&p[b]},s=function(a,b){r(a,b)||a.setAttribute("class",(a[i]("class")||"").trim()+" "+b)},t=function(a,b){var c;(c=r(a,b))&&a.setAttribute("class",(a[i]("class")||"").replace(c," "))},u=function(a,b,c){var d=c?h:"removeEventListener";c&&u(a,b),o.forEach(function(c){a[d](c,b)})},v=function(a,d,e,f,g){var h=b.createEvent("CustomEvent");return e||(e={}),e.instance=c,h.initCustomEvent(d,!f,!g,e),a.dispatchEvent(h),h},w=function(b,c){var e;!g&&(e=a.picturefill||d.pf)?e({reevaluate:!0,elements:[b]}):c&&c.src&&(b.src=c.src)},x=function(a,b){return(getComputedStyle(a,null)||{})[b]},y=function(a,b,c){for(c=c||a.offsetWidth;c<d.minSize&&b&&!a._lazysizesWidth;)c=b.offsetWidth,b=b.parentNode;return c},z=function(){var a,c,d=[],e=[],f=d,g=function(){var b=f;for(f=d.length?e:d,a=!0,c=!1;b.length;)b.shift()();a=!1},h=function(d,e){a&&!e?d.apply(this,arguments):(f.push(d),c||(c=!0,(b.hidden?k:l)(g)))};return h._lsFlush=g,h}(),A=function(a,b){return b?function(){z(a)}:function(){var b=this,c=arguments;z(function(){a.apply(b,c)})}},B=function(a){var b,c=0,d=125,e=666,g=e,h=function(){b=!1,c=f.now(),a()},i=m?function(){m(h,{timeout:g}),g!==e&&(g=e)}:A(function(){k(h)},!0);return function(a){var e;(a=a===!0)&&(g=44),b||(b=!0,e=d-(f.now()-c),0>e&&(e=0),a||9>e&&m?i():k(i,e))}},C=function(a){var b,c,d=99,e=function(){b=null,a()},g=function(){var a=f.now()-c;d>a?k(g,d-a):(m||e)(e)};return function(){c=f.now(),b||(b=k(g,d))}},D=function(){var g,l,m,o,p,y,D,F,G,H,I,J,K,L,M=/^img$/i,N=/^iframe$/i,O="onscroll"in a&&!/glebot/.test(navigator.userAgent),P=0,Q=0,R=0,S=-1,T=function(a){R--,a&&a.target&&u(a.target,T),(!a||0>R||!a.target)&&(R=0)},U=function(a,c){var d,f=a,g="hidden"==x(b.body,"visibility")||"hidden"!=x(a,"visibility");for(F-=c,I+=c,G-=c,H+=c;g&&(f=f.offsetParent)&&f!=b.body&&f!=e;)g=(x(f,"opacity")||1)>0,g&&"visible"!=x(f,"overflow")&&(d=f.getBoundingClientRect(),g=H>d.left&&G<d.right&&I>d.top-1&&F<d.bottom+1);return g},V=function(){var a,f,h,j,k,m,n,p,q,r=c.elements;if((o=d.loadMode)&&8>R&&(a=r.length)){f=0,S++,null==K&&("expand"in d||(d.expand=e.clientHeight>500&&e.clientWidth>500?500:370),J=d.expand,K=J*d.expFactor),K>Q&&1>R&&S>2&&o>2&&!b.hidden?(Q=K,S=0):Q=o>1&&S>1&&6>R?J:P;for(;a>f;f++)if(r[f]&&!r[f]._lazyRace)if(O)if((p=r[f][i]("data-expand"))&&(m=1*p)||(m=Q),q!==m&&(y=innerWidth+m*L,D=innerHeight+m,n=-1*m,q=m),h=r[f].getBoundingClientRect(),(I=h.bottom)>=n&&(F=h.top)<=D&&(H=h.right)>=n*L&&(G=h.left)<=y&&(I||H||G||F)&&(d.loadHidden||"hidden"!=x(r[f],"visibility"))&&(l&&3>R&&!p&&(3>o||4>S)||U(r[f],m))){if(ba(r[f]),k=!0,R>9)break}else!k&&l&&!j&&4>R&&4>S&&o>2&&(g[0]||d.preloadAfterLoad)&&(g[0]||!p&&(I||H||G||F||"auto"!=r[f][i](d.sizesAttr)))&&(j=g[0]||r[f]);else ba(r[f]);j&&!k&&ba(j)}},W=B(V),X=function(a){s(a.target,d.loadedClass),t(a.target,d.loadingClass),u(a.target,Z),v(a.target,"lazyloaded")},Y=A(X),Z=function(a){Y({target:a.target})},$=function(a,b){try{a.contentWindow.location.replace(b)}catch(c){a.src=b}},_=function(a){var b,c=a[i](d.srcsetAttr);(b=d.customMedia[a[i]("data-media")||a[i]("media")])&&a.setAttribute("media",b),c&&a.setAttribute("srcset",c)},aa=A(function(a,b,c,e,f){var g,h,j,l,o,p;(o=v(a,"lazybeforeunveil",b)).defaultPrevented||(e&&(c?s(a,d.autosizesClass):a.setAttribute("sizes",e)),h=a[i](d.srcsetAttr),g=a[i](d.srcAttr),f&&(j=a.parentNode,l=j&&n.test(j.nodeName||"")),p=b.firesLoad||"src"in a&&(h||g||l),o={target:a},p&&(u(a,T,!0),clearTimeout(m),m=k(T,2500),s(a,d.loadingClass),u(a,Z,!0)),l&&q.call(j.getElementsByTagName("source"),_),h?a.setAttribute("srcset",h):g&&!l&&(N.test(a.nodeName)?$(a,g):a.src=g),f&&(h||l)&&w(a,{src:g})),a._lazyRace&&delete a._lazyRace,t(a,d.lazyClass),z(function(){(!p||a.complete&&a.naturalWidth>1)&&(p?T(o):R--,X(o))},!0)}),ba=function(a){var b,c=M.test(a.nodeName),e=c&&(a[i](d.sizesAttr)||a[i]("sizes")),f="auto"==e;(!f&&l||!c||!a[i]("src")&&!a.srcset||a.complete||r(a,d.errorClass))&&(b=v(a,"lazyunveilread").detail,f&&E.updateElem(a,!0,a.offsetWidth),a._lazyRace=!0,R++,aa(a,b,f,e,c))},ca=function(){if(!l){if(f.now()-p<999)return void k(ca,999);var a=C(function(){d.loadMode=3,W()});l=!0,d.loadMode=3,W(),j("scroll",function(){3==d.loadMode&&(d.loadMode=2),a()},!0)}};return{_:function(){p=f.now(),c.elements=b.getElementsByClassName(d.lazyClass),g=b.getElementsByClassName(d.lazyClass+" "+d.preloadClass),L=d.hFac,j("scroll",W,!0),j("resize",W,!0),a.MutationObserver?new MutationObserver(W).observe(e,{childList:!0,subtree:!0,attributes:!0}):(e[h]("DOMNodeInserted",W,!0),e[h]("DOMAttrModified",W,!0),setInterval(W,999)),j("hashchange",W,!0),["focus","mouseover","click","load","transitionend","animationend","webkitAnimationEnd"].forEach(function(a){b[h](a,W,!0)}),/d$|^c/.test(b.readyState)?ca():(j("load",ca),b[h]("DOMContentLoaded",W),k(ca,2e4)),c.elements.length?(V(),z._lsFlush()):W()},checkElems:W,unveil:ba}}(),E=function(){var a,c=A(function(a,b,c,d){var e,f,g;if(a._lazysizesWidth=d,d+="px",a.setAttribute("sizes",d),n.test(b.nodeName||""))for(e=b.getElementsByTagName("source"),f=0,g=e.length;g>f;f++)e[f].setAttribute("sizes",d);c.detail.dataAttr||w(a,c.detail)}),e=function(a,b,d){var e,f=a.parentNode;f&&(d=y(a,f,d),e=v(a,"lazybeforesizes",{width:d,dataAttr:!!b}),e.defaultPrevented||(d=e.detail.width,d&&d!==a._lazysizesWidth&&c(a,f,e,d)))},f=function(){var b,c=a.length;if(c)for(b=0;c>b;b++)e(a[b])},g=C(f);return{_:function(){a=b.getElementsByClassName(d.autosizesClass),j("resize",g)},checkElems:g,updateElem:e}}(),F=function(){F.i||(F.i=!0,E._(),D._())};return function(){var b,c={lazyClass:"lazyload",loadedClass:"lazyloaded",loadingClass:"lazyloading",preloadClass:"lazypreload",errorClass:"lazyerror",autosizesClass:"lazyautosizes",srcAttr:"data-src",srcsetAttr:"data-srcset",sizesAttr:"data-sizes",minSize:40,customMedia:{},init:!0,expFactor:1.5,hFac:.8,loadMode:2,loadHidden:!0};d=a.lazySizesConfig||a.lazysizesConfig||{};for(b in c)b in d||(d[b]=c[b]);a.lazySizesConfig=d,k(function(){d.init&&F()})}(),c={cfg:d,autoSizer:E,loader:D,init:F,uP:w,aC:s,rC:t,hC:r,fire:v,gW:y,rAF:z}}});
+</script>
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      function toggleClassMenu() {
+        myMenu.classList.add("menu--animatable")
+        if(!myMenu.classList.contains("menu--visible")) {
+          myMenu.classList.add("menu--visible")
+        } else {
+          myMenu.classList.remove('menu--visible')
+        }
+        if(!oppMenu.classList.contains("toggle-animate")) {
+          oppMenu.classList.add("toggle-animate")
+        } else {
+          oppMenu.classList.remove("toggle-animate")
+        }
+      }
+  
+      function OnTransitionEnd() {
+        myMenu.classList.remove("menu--animatable")
+        // oppMenu.classList.remove("toggle-animate")
+      }
+  
+      var myMenu = document.querySelector(".menu")
+      var oppMenu = document.querySelector("#nav-trigger")
+      myMenu.addEventListener("transitionend", OnTransitionEnd, false)
+      oppMenu.addEventListener("click", toggleClassMenu, false)
+      myMenu.addEventListener("click", toggleClassMenu, false)
+    })
+  </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
