@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link href="/css/style.css?v=0.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, plain">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://img.xungejiang.com/static/images/favicon.png">
+
+
+
+  <link rel="canonical" href="https://xungejiang.com/2017/04/01/computer-network/">
+
+<!-- <link rel="stylesheet" href="/css/style.css"> -->
+
+
+  <script type="text/javascript">
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?f4f3f11203a4e9709a1a1869afa69da5";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<title> 计算机网络面试常考点--参照 谢希仁(第6版) | XUNGE&#39;s Blog</title>
+
+
+</head>
+<body class="typo borderbox" lang="zh-Hans" itemtype="http://schema.org/WebPage" itemscope>
+  <header class="header">
+    <div class="header-wrap">
+      <a class="nav-toggle" id="nav-trigger" href="javascript:;">
+        <span></span>
+        <span></span>
+        <span></span>
+      </a>
+      <div class="site-meta">
+        
+        <div class="site-info">
+          <div class="site-info-wrap">
+            
+              <a class="site-title" href="/">XUNGE&#39;s Blog</a>
+            
+            
+          </div>
+        </div>
+      </div>
+      <nav class="menu">
+        <div class="menu-wrap">
+          <div class="menu-info">
+            
+              <img class="site-avatar" src="//img.xungejiang.com/static/images/avatar1.jpg">
+            
+            
+              <a class="site-title" href="/">XUNGE&#39;s Blog</a>
+            
+            
+              <span class="site-description">瞎折腾，知识点，经验值</span>
+            
+          </div>
+          <ul class="menu-items">
+            
+              <li class="menu-item">
+                <a class="menu-item-link" href="/">
+                  <span class="menu-item-text">首页</span>
+                </a>
+              </li>
+            
+              <li class="menu-item">
+                <a class="menu-item-link" href="/archives/">
+                  <span class="menu-item-text">归档</span>
+                </a>
+              </li>
+            
+              <li class="menu-item">
+                <a class="menu-item-link" href="/categories/">
+                  <span class="menu-item-text">分类</span>
+                </a>
+              </li>
+            
+              <li class="menu-item">
+                <a class="menu-item-link" href="/tags/">
+                  <span class="menu-item-text">标签</span>
+                </a>
+              </li>
+            
+              <li class="menu-item">
+                <a class="menu-item-link" href="/about/">
+                  <span class="menu-item-text">关于</span>
+                </a>
+              </li>
+            
+          </ul>
+        <div>
+      </div></div></nav>
+    </div>
+  </header>
+  <main class="main">
+  <article class="post-detail">
+  <div class="post-title">
+    <h1 class="title">计算机网络面试常考点--参照 谢希仁(第6版)</h1>
+  </div>
+   <div class="post-meta">
+    <span class="date">2017-04-01</span>
+    
+      <span>|<span>
+      <a class="article-tag-link" href="/tags/计算机网络/">计算机网络</a>
+    
+    
+      <span>|<span>
+      <a class="article-tag-link" href="/categories/知识点/">知识点</a>
+    
+  </span></span></span></span></div>
+  
+    <div class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ositcpip五层协议的体系结构以及各层协议"><span class="post-toc-text">OSI，TCP/IP，五层协议的体系结构，以及各层协议</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ip地址的分类"><span class="post-toc-text">IP地址的分类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#arp是地址解析协议简单语言解释一下工作原理"><span class="post-toc-text">ARP是地址解析协议，简单语言解释一下工作原理。</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#各种协议"><span class="post-toc-text">各种协议</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#描述rarp"><span class="post-toc-text">描述：RARP</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#tcp三次握手和四次挥手的全过程"><span class="post-toc-text">TCP三次握手和四次挥手的全过程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在浏览器中输入-www.baidu.com-后执行的全部过程"><span class="post-toc-text">在浏览器中输入 www.baidu.com 后执行的全部过程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#tcp和udp的区别"><span class="post-toc-text">TCP和UDP的区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#tcp对应的协议和udp对应的协议"><span class="post-toc-text">TCP对应的协议和UDP对应的协议</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#dns域名系统简单描述其工作原理"><span class="post-toc-text">DNS域名系统，简单描述其工作原理。</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#面向连接和非面向连接的服务的特点是什么"><span class="post-toc-text">面向连接和非面向连接的服务的特点是什么？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#tcp的三次握手过程为什么会采用三次握手若采用二次握手可以吗"><span class="post-toc-text">TCP的三次握手过程？为什么会采用三次握手，若采用二次握手可以吗？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#端口及对应的服务"><span class="post-toc-text">端口及对应的服务</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#了解交换机路由器网关的概念并知道各自的用途"><span class="post-toc-text">了解交换机、路由器、网关的概念，并知道各自的用途</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#子网掩码及网络划分"><span class="post-toc-text">子网掩码及网络划分</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#什么是子网掩码"><span class="post-toc-text">什么是子网掩码？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#子网掩码的计算"><span class="post-toc-text">子网掩码的计算：</span></a></li></ol></li></ol>
+    </div>
+  
+  <div class="post-content">
+    <p>本篇计算机网络面试常考点，参照《计算机网络（第6版） 谢希仁》教材，希望对大家有所帮助。</p>
+<a id="more"></a>
+<p><img class="lazyload" data-src="http://7xvx4s.com2.z0.glb.qiniucdn.com/17-04-13-001.png?imageView2/2/w/400"></p>
+<p>这是我总结的两个知识点，对于期末复习的小伙伴很有帮助。</p>
+<p><a href="http://pan.baidu.com/s/1bpeTlJx" target="_blank" rel="noopener">知识点1</a></p>
+<p><a href="http://pan.baidu.com/s/1eRQ9VcI" target="_blank" rel="noopener">知识点2</a></p>
+<p>下文主要写的是在笔试或面试中常问的知识点</p>
+<h2 id="ositcpip五层协议的体系结构以及各层协议">OSI，TCP/IP，五层协议的体系结构，以及各层协议</h2>
+<p><strong>OSI分层（7层）</strong>：物理层、数据链路层、网络层、传输层、会话层、表示层、应用层。</p>
+<p><strong>TCP/IP分层（4层）</strong>：网络接口层、网际层、运输层、应用层。</p>
+<p><strong>五层协议（5层）</strong>：物理层、数据链路层、网络层、运输层、应用层。</p>
+<p><img class="lazyload" data-src="http://images.cnitblog.com/i/512940/201406/190956475362659.jpg"></p>
+<p><strong>每一层的协议如下</strong>：</p>
+<ul>
+<li>物理层：RJ45、CLOCK、IEEE802.3 （中继器，集线器，网关）</li>
+<li>数据链路：PPP、FR、HDLC、VLAN、MAC （网桥，交换机）</li>
+<li>网络层：IP、ICMP、ARP、RARP、OSPF、IPX、RIP、IGRP、 （路由器）</li>
+<li>传输层：TCP、UDP、SPX</li>
+<li>会话层：NFS、SQL、NETBIOS、RPC</li>
+<li>表示层：JPEG、MPEG、ASII</li>
+<li>应用层：FTP、DNS、Telnet、SMTP、HTTP、WWW、NFS</li>
+</ul>
+<p><img class="lazyload" data-src="http://hi.csdn.net/attachment/201201/5/0_1325744597WM32.gif"></p>
+<p><strong>每一层的作用如下</strong>：</p>
+<p><strong>物理层：</strong>通过媒介传输比特,确定机械及电气规范（比特Bit）</p>
+<p><strong>数据链路层</strong>：将比特组装成帧和点到点的传递（帧Frame）</p>
+<p><strong>网络层</strong>：负责数据包从源到宿的传递和网际互连（包Packet）</p>
+<p><strong>传输层</strong>：提供端到端的可靠报文传递和错误恢复（段Segment）</p>
+<p><strong>会话层</strong>：建立、管理和终止会话（会话协议数据单元SPDU）</p>
+<p><strong>表示层</strong>：对数据进行翻译、加密和压缩（表示协议数据单元PPDU）</p>
+<p><strong>应用层</strong>：允许访问OSI环境的手段（应用协议数据单元APDU）</p>
+<p><img class="lazyload" data-src="http://up.2cto.com/2013/0731/20130731095736383.png"></p>
+<h2 id="ip地址的分类">IP地址的分类</h2>
+<table>
+<thead>
+<tr class="header">
+<th>类别</th>
+<th>最大网络数</th>
+<th>IP地址范围</th>
+<th>最大主机数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>126（2^7-2)</td>
+<td>0.0.0.0-127.255.255.255</td>
+<td>16777214</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>16384(2^14)</td>
+<td>128.0.0.0-191.255.255.255</td>
+<td>65534</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>2097152(2^21)</td>
+<td>192.0.0.0-223.255.255.255</td>
+<td>254</td>
+</tr>
+</tbody>
+</table>
+<p>A类地址：以0开头；</p>
+<p>B类地址：以10开头；</p>
+<p>C类地址：以110开头；</p>
+<p>10.0.0.0~10.255.255.255， 172.16.0.0~172.31.255.255， 192.168.0.0~192.168.255.255。（Internet上保留地址用于内部）</p>
+<p><strong>IP地址与子网掩码相与得到主机号</strong></p>
+<h2 id="arp是地址解析协议简单语言解释一下工作原理">ARP是地址解析协议，简单语言解释一下工作原理。</h2>
+<ol type="1">
+<li><p>首先，每个主机都会在自己的ARP缓冲区中建立一个 ARP 列表，以表示 IP 地址和 MAC 地址之间的对应关系。</p></li>
+<li><p>当源主机要发送数据时，首先检查 ARP 列表中是否有对应 IP 地址的目的主机的 MAC 地址，如果有，则直接发送数据，如果没有，就向本网段的所有主机发送 ARP 数据包，该数据包包括的内容有：<strong>源主机IP地址，源主机 MAC 地址，目的主机的 IP 地址</strong>。</p></li>
+<li><p>当本网络的所有主机收到该 ARP 数据包时，首先检查数据包中的 IP 地址是否是自己的 IP 地址，如果不是，则忽略该数据包，如果是，则首先从数据包中取出源主机的 IP 和 MAC 地址写入到 ARP 列表中，如果已经存在，则覆盖，然后将自己的 MAC 地址写入 ARP 响应包中，告诉源主机自己是它想要找的 MAC 地址。</p></li>
+<li><p>源主机收到ARP响应包后。将目的主机的 IP 和 MAC 地址写入 ARP 列表，并利用此信息发送数据。如果源主机一直没有收到 ARP 响应数据包，表示 ARP 查询失败。</p></li>
+</ol>
+<p>广播发送 ARP 请求，单播发送 ARP 响应。</p>
+<h2 id="各种协议">各种协议</h2>
+<p><strong>ICMP协议：</strong> 因特网控制报文协议。它是 TCP/IP 协议族的一个子协议，用于在 IP 主机、路由器之间传递控制消息。</p>
+<p><strong>TFTP协议：</strong> 是 TCP/IP 协议族中的一个用来在客户机与服务器之间进行简单文件传输的协议，提供不复杂、开销不大的文件传输服务。</p>
+<p><strong>HTTP协议：</strong> 超文本传输协议，是一个属于应用层的面向对象的协议，由于其简捷、快速的方式，适用于分布式超媒体信息系统。</p>
+<p><strong>DHCP协议：</strong> 动态主机配置协议，是一种让系统得以连接到网络上，并获取所需要的配置参数手段。</p>
+<p><strong>NAT协议：</strong> 网络地址转换属接入广域网(WAN)技术，是一种将私有（保留）地址转化为合法IP地址的转换技术，</p>
+<p><strong>DHCP协议：</strong> 一个局域网的网络协议，使用 UDP 协议工作，用途：给内部网络或网络服务供应商自动分配 IP 地址，给用户或者内部网络管理员作为对所有计算机作中央管理的手段。</p>
+<h2 id="描述rarp">描述：RARP</h2>
+<p>RARP是逆地址解析协议，作用是完成硬件地址到IP地址的映射，主要用于无盘工作站，因为给无盘工作站配置的IP地址不能保存。</p>
+<p>工作流程：在网络中配置一台RARP服务器，里面保存着 IP 地址和 MAC 地址的映射关系，当无盘工作站启动后，就封装一个 RARP 数据包，里面有其 MAC 地址，然后广播到网络上去，当服务器收到请求包后，就查找对应的 MAC 地址的 IP 地址装入响应报文中发回给请求者。</p>
+<p>因为需要广播请求报文，因此 RARP 只能用于具有广播能力的网络。</p>
+<h2 id="tcp三次握手和四次挥手的全过程">TCP三次握手和四次挥手的全过程</h2>
+<p><strong>三次握手：</strong></p>
+<p>第一次握手：客户端发送 syn 包 (syn=x) 到服务器，并进入 SYN_SEND 状态，等待服务器确认；</p>
+<p>第二次握手：服务器收到 syn 包，必须确认客户的 SYN （ack=x+1） ，同时自己也发送一个 SYN 包 （syn=y） ，即 SYN+ACK 包，此时服务器进入 SYN_RECV 状态；</p>
+<p>第三次握手：客户端收到服务器的 SYN＋ACK 包，向服务器发送确认包 ACK (ack=y+1) ，此包发送完毕，客户端和服务器进入 ESTABLISHED 状态，完成三次握手。</p>
+<p>握手过程中传送的包里不包含数据，三次握手完毕后，客户端与服务器才正式开始传送数据。理想状态下，TCP连接一旦建立，在通信双方中的任何一方主动关闭连接之前，TCP 连接都将被一直保持下去。</p>
+<p><strong>四次握手</strong></p>
+<p>与建立连接的 <strong>三次握手</strong> 类似，断开一个 TCP 连接则需要 四次握手 。</p>
+<p>第一次挥手：主动关闭方发送一个 FIN ，用来关闭主动方到被动关闭方的数据传送，也就是主动关闭方告诉被动关闭方：我已经不 会再给你发数据了(当然，在 fin 包之前发送出去的数据，如果没有收到对应的 ack 确认报文，主动关闭方依然会重发这些数据)，但是，此时主动关闭方还可以接受数据。</p>
+<p>第二次挥手：被动关闭方收到 FIN 包后，发送一个 ACK 给对方，确认序号为收到序号 +1 （与 SYN 相同，一个 FIN 占用一个序号）。</p>
+<p>第三次挥手：被动关闭方发送一个 FIN ，用来关闭被动关闭方到主动关闭方的数据传送，也就是告诉主动关闭方，我的数据也发送完了，不会再给你发数据了。</p>
+<p>第四次挥手：主动关闭方收到 FIN 后，发送一个 ACK 给被动关闭方，确认序号为收到序号 +1，至此，完成四次挥手。</p>
+<p><img class="lazyload" data-src="http://images0.cnblogs.com/blog2015/621032/201508/092017231747399.jpg"></p>
+<h2 id="在浏览器中输入-www.baidu.com-后执行的全部过程">在浏览器中输入 www.baidu.com 后执行的全部过程</h2>
+<ol type="1">
+<li><p>客户端浏览器通过 DNS 解析到 www.baidu.com 的IP地址 220.181.27.48 ，通过这个IP地址找到客户端到服务器的路径。客户端浏览器发起一个 HTTP 会话到 220.161.27.48 ，然后通过TCP进行封装数据包，输入到网络层。</p></li>
+<li><p>在客户端的传输层，把 HTTP 会话请求分成报文段，添加源和目的端口，如服务器使用 80 端口监听客户端的请求，客户端由系统随机选择一个端口如 5000 ，与服务器进行交换，服务器把相应的请求返回给客户端的 5000 端口。然后使用IP层的IP地址查找目的端。</p></li>
+<li><p>客户端的网络层不用关系应用层或者传输层的东西，主要做的是通过查找路由表确定如何到达服务器，期间可能经过多个路由器，这些都是由路由器来完成的工作，我不作过多的描述，无非就是通过查找路由表决定通过那个路径到达服务器。</p></li>
+<li><p>客户端的链路层，包通过链路层发送到路由器，通过邻居协议查找给定 IP 地址的 MAC 地址，然后发送 ARP 请求查找目的地址，如果得到回应后就可以使用 ARP 的请求应答交换的IP数据包现在就可以传输了，然后发送 IP 数据包到达服务器的地址。</p></li>
+</ol>
+<h2 id="tcp和udp的区别">TCP和UDP的区别</h2>
+<table>
+<thead>
+<tr class="header">
+<th>--</th>
+<th>TCP</th>
+<th>UDP</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>连接性</td>
+<td>面向连接</td>
+<td>无连接</td>
+</tr>
+<tr class="even">
+<td>可靠性</td>
+<td>可靠</td>
+<td>不可靠</td>
+</tr>
+<tr class="odd">
+<td>报文</td>
+<td>面向字节流</td>
+<td>面向报文</td>
+</tr>
+<tr class="even">
+<td>应用场合</td>
+<td>传输大量的数据</td>
+<td>少量数据</td>
+</tr>
+<tr class="odd">
+<td>速度</td>
+<td>慢</td>
+<td>快</td>
+</tr>
+<tr class="even">
+<td>流量控制</td>
+<td>有</td>
+<td>无</td>
+</tr>
+<tr class="odd">
+<td>拥塞控制</td>
+<td>有</td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tcp对应的协议和udp对应的协议">TCP对应的协议和UDP对应的协议</h2>
+<p><strong>TCP对应的协议：</strong></p>
+<p>（1） <strong>FTP</strong>：定义了文件传输协议，使用 <strong>21</strong> 端口。</p>
+<p>（2） <strong>Telnet</strong>：一种用于远程登陆的端口，使用 <strong>23</strong> 端口，用户可以以自己的身份远程连接到计算机上，可提供基于 DOS 模式下的通信服务。</p>
+<p>（3） <strong>SMTP</strong>：邮件传送协议，用于发送邮件。服务器开放的是 <strong>25</strong> 端口。</p>
+<p>（4） <strong>POP3</strong>：它是和SMTP对应， POP3 用于接收邮件。POP3协议所用的是 <strong>110</strong> 端口。</p>
+<p>（5）<strong>HTTP</strong>：是从Web服务器传输超文本到本地浏览器的传送协议，使用 <strong>80</strong> 端口。</p>
+<p><strong>UDP对应的协议：</strong></p>
+<p>（1） <strong>DNS</strong>：用于域名解析服务，将域名地址转换为IP地址。 DNS 用的是 <strong>53</strong> 端口。</p>
+<p>（2） <strong>SNMP</strong>：简单网络管理协议，使用 <strong>161</strong> 端口，是用来管理网络设备的。由于网络设备很多，无连接的服务就体现出其优势。</p>
+<p>（3） <strong>TFTP</strong> (Trival File Transfer Protocal)，简单文件传输协议，该协议在熟知端口 <strong>69</strong> 上使用UDP服务。</p>
+<h2 id="dns域名系统简单描述其工作原理">DNS域名系统，简单描述其工作原理。</h2>
+<p>当DNS客户机需要在程序中使用名称时，它会查询DNS服务器来解析该名称。客户机发送的每条查询信息包括三条信息，包括：指定的DNS域名，指定的查询类型，DNS域名的指定类别。基于 UDP 服务，端口 53 。 该应用一般不直接为用户使用，而是为其他应用服务，如 HTTP， SMTP 等在其中需要完成主机名到IP地址的转换。</p>
+<h2 id="面向连接和非面向连接的服务的特点是什么">面向连接和非面向连接的服务的特点是什么？</h2>
+<p>面向连接的服务，通信双方在进行通信之前，要先在双方建立起一个完整的可以彼此沟通的通道，在通信过程中，整个连接的情况一直可以被实时地监控和管理。</p>
+<p>非面向连接的服务，不需要预先建立一个联络两个通信节点的连接，需要通信的时候，发送节点就可以往网络上发送信息，让信息自主地在网络上去传，一般在传输的过程中不再加以监控。</p>
+<h2 id="tcp的三次握手过程为什么会采用三次握手若采用二次握手可以吗">TCP的三次握手过程？为什么会采用三次握手，若采用二次握手可以吗？</h2>
+<p>答：建立连接的过程是利用客户服务器模式，假设主机A为客户端，主机B为服务器端。</p>
+<p>（1）TCP的三次握手过程：主机 A 向 B 发送连接请求；主机 B 对收到的主机 A 的报文段进行确认；主机 A 再次对主机 B 的确认进行确认。</p>
+<p>（2）采用三次握手是为了防止失效的连接请求报文段突然又传送到主机 B ，因而产生错误。 失效的连接请求报文段是指：主机 A 发出的连接请求没有收到主机 B 的确认，于是经过一段时间后，主机 A 又重新向主机 B 发送连接请求，且建立成功，顺序完成数据传输。考虑这样一种特殊情况，主机 A 第一次发送的连接请求并没有丢失，而是因为网络节点导致延迟达到主机 B ，主机B以为是主机 A 又发起的新连接，于是主机 B 同意连接，并向主机 A 发回确认，但是此时主机 A 根本不会理会，主机 B 就一直在等待主机 A 发送数据，导致主机 B 的资源浪费。</p>
+<p>（3）采用两次握手不行，原因就是上面说的实效的连接请求的特殊情况。</p>
+<h2 id="端口及对应的服务">端口及对应的服务</h2>
+<table>
+<thead>
+<tr class="header">
+<th>服务</th>
+<th>端口号</th>
+<th>服务</th>
+<th>端口号</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FTP</td>
+<td>21</td>
+<td>SSH</td>
+<td>22</td>
+</tr>
+<tr class="even">
+<td>telnet</td>
+<td>23</td>
+<td>SMTP</td>
+<td>25</td>
+</tr>
+<tr class="odd">
+<td>Domain(域名服务器)</td>
+<td>53</td>
+<td>HTTP</td>
+<td>80</td>
+</tr>
+<tr class="even">
+<td>POP3</td>
+<td>110</td>
+<td>NTP（网络时间协议）</td>
+<td>123</td>
+</tr>
+<tr class="odd">
+<td>MySQL数据库服务</td>
+<td>3306</td>
+<td>Shell或 cmd</td>
+<td>514</td>
+</tr>
+<tr class="even">
+<td>POP-2</td>
+<td>109</td>
+<td>SQL Server</td>
+<td>1433</td>
+</tr>
+</tbody>
+</table>
+<h2 id="了解交换机路由器网关的概念并知道各自的用途">了解交换机、路由器、网关的概念，并知道各自的用途</h2>
+<p>1）交换机</p>
+<p>在计算机网络系统中，交换机是针对共享工作模式的弱点而推出的。交换机拥有一条高带宽的背部总线和内部交换矩阵。交换机的所有的端口都挂接在这条背 部总线上，当控制电路收到数据包以后，处理端口会查找内存中的地址对照表以确定目的 MAC （网卡的硬件地址）的 NIC （网卡）挂接在哪个端口上，通过内部 交换矩阵迅速将数据包传送到目的端口。目的 MAC 若不存在，交换机才广播到所有的端口，接收端口回应后交换机会“学习”新的地址，并把它添加入内部地址表中。</p>
+<p>交换机工作于 OSI 参考模型的第二层，即数据链路层。交换机内部的CPU会在每个端口成功连接时，通过 ARP 协议学习它的 MAC 地址，保存成一张 ARP 表。在今后的通讯中，发往该 MAC 地址的数据包将仅送往其对应的端口，而不是所有的端口。因此，交换机可用于划分数据链路层广播，即冲突域；但它不能划分网络层广播，即广播域。</p>
+<p>交换机被广泛应用于二层网络交换，俗称 二层交换机 。</p>
+<p>交换机的种类有：二层交换机、三层交换机、四层交换机、七层交换机分别工作在OSI七层模型中的第二层、第三层、第四层盒第七层，并因此而得名。</p>
+<p>2）路由器</p>
+<p><strong>路由器</strong>（<strong>Router</strong>）是一种计算机网络设备，提供了路由与转送两种重要机制，可以决定数据包从来源端到目的端所经过 的路由路径（host到host之间的传输路径），这个过程称为路由；将路由器输入端的数据包移送至适当的路由器输出端(在路由器内部进行)，这称为转 送。路由工作在OSI模型的第三层 即网络层，例如网际协议。</p>
+<p><strong>路由器的一个作用是连通不同的网络，另一个作用是选择信息传送的线路。</strong> 路由器与交换器的差别，路由器是属于OSI第三层的产品，交换器是OSI第二层的产品(这里特指二层交换机)。</p>
+<p>3）网关</p>
+<p><strong>网关</strong> （Gateway）， <strong>网关</strong> 顾名思义就是连接两个网络的设备，区别于路由器（由于历史的原因，许多有关TCP/IP 的文献曾经把网络层使用的路由器（Router）称为网关，在今天很多局域网采用都是路由来接入网络，因此现在通常指的网关就是路由器的IP），经常在家 庭中或者小型企业网络中使用，用于连接局域网和Internet。 网关也经常指把一种协议转成另一种协议的设备，比如语音网关。</p>
+<p>在传统TCP/IP术语中，网络设备只分成两种，一种为网关（gateway），另一种为主机（host）。网关能在网络间转递数据包，但主机不能转送数据包。在主机（又称终端系统，end system）中，数据包需经过 TCP/IP 四层协议处理，但是在网关（又称中介系 统，intermediate system）只需要到达网际层（Internet layer），决定路径之后就可以转送。在当时，网关 （gateway）与路由器（router）还没有区别。</p>
+<p>在现代网络术语中，网关（gateway）与路由器（router）的定义不同。网关（gateway）能在不同协议间移动数据，而路由器（router）是在不同网络间移动数据，相当于传统所说的IP网关（IP gateway）。</p>
+<p><strong>网关</strong> 是连接两个网络的设备，对于语音网关来说，他可以连接 PSTN 网络和以太网，这就相当于 VOIP ，把不同电话中的模拟信号通过网关而转换成数字信号，而且加入协议再去传输。在到了接收端的时候再通过 <strong>网关</strong> 还原成模拟的电话信号，最后才能在电话机上听到。</p>
+<p>对于以太网中的 <strong>网关</strong> 只能转发三层以上数据包，这一点和路由是一样的。而不同的是 <strong>网关</strong> 中并没有路由表，他只能按照预先设定的不同网段来进行转发。网关最重要的一点就是端口映射，子网内用户在外网看来只是外网的IP地址对应着不同的端口，这样看来就会保护子网内的用户。</p>
+<h2 id="子网掩码及网络划分">子网掩码及网络划分</h2>
+<p>随着互连网应用的不断扩大，原先的 IPv4 的弊端也逐渐暴露出来，即网络号占位太多，而主机号位太少，所以其能提供的主机地址也越来越稀缺，目前除了使用 NAT 在企业内部利用保留地址自行分配以外，通常都对一个高类别的IP地址进行再划分，以形成多个子网，提供给不同规模的用户群使用。</p>
+<p>这里主要是为了在网络分段情况下有效地利用 IP 地址，通过对主机号的高位部分取作为子网号，从通常的网络位界限中扩展或压缩子网掩码，用来创建某类地址的更多子网。但创建更多的子网时，在每个子网上的可用主机地址数目会比原先减少。</p>
+<h3 id="什么是子网掩码">什么是子网掩码？</h3>
+<p>子网掩码是标志两个IP地址是否同属于一个子网的，也是32位二进制地址，其每一个为1代表该位是网络位，为0代表主机位。它和IP地址一样也是使用点式十进制来表示的。如果两个 IP 地址在子网掩码的按位与的计算下所得结果相同，即表明它们共属于同一子网中。</p>
+<p>在计算子网掩码时，我们要注意 IP 地址中的保留地址，即“0”地址和广播地址，它们是指主机地址或网络地址全为“0”或“1”时的IP地址，它们代表着本网络地址和广播地址，一般是不能被计算在内的。</p>
+<h3 id="子网掩码的计算">子网掩码的计算：</h3>
+<p>对于无须再划分成子网的IP地址来说，其子网掩码非常简单，即按照其定义即可写出：如某B类IP地址为 10.12.3.0 ，无须再分割子网，则该IP地址的子网掩码 255.255.0.0 。如果它是一个C类地址，则其子网掩码为 255.255.255.0 。其它类推，不再详述。下面我们关键要介绍的是一个 IP 地址，还需要将其高位主机位再作为划分出的子网网络号，剩下的是每个子网的主机号，这时该如何进行每个子网的掩码计算。</p>
+<p>下面总结一下有关子网掩码和网络划分常见的面试考题：</p>
+<p><strong>1）利用子网数来计算</strong></p>
+<p>在求子网掩码之前必须先搞清楚要划分的子网数目，以及每个子网内的所需主机数目。</p>
+<ol type="1">
+<li>将子网数目转化为二进制来表示;</li>
+</ol>
+<p>如欲将 B 类 IP 地址 168.195.0.0 划分成27个子网：27 = 11011；</p>
+<ol start="2" type="1">
+<li>取得该二进制的位数，为 N ；</li>
+</ol>
+<p>该二进制为五位数，N = 5</p>
+<ol start="3" type="1">
+<li>取得该 IP 地址的类子网掩码，将其主机地址部分的的前 N 位，置 1 ，即得出该IP地址划分子网的子网掩码。</li>
+</ol>
+<p>将 B 类地址的子网掩码 255.255.0.0 的主机地址前 5 位，置 1，得到 255.255.248.0</p>
+<p><strong>2）利用主机数来计算</strong></p>
+<p>如欲将 B 类IP地址 168.195.0.0 划分成若干子网，每个子网内有主机 700 台：</p>
+<ol type="1">
+<li>将主机数目转化为二进制来表示；</li>
+</ol>
+<p>700 = 1010111100；</p>
+<ol start="2" type="1">
+<li>如果主机数小于或等于 254（注意去掉保留的两个 IP 地址），则取得该主机的二进制位数，为 N，这里肯定 N &lt; 8。如果大于 254，则 N &gt; 8 ，这就是说主机地址将占据不止 8 位；</li>
+</ol>
+<p>该二进制为十位数，N=10；</p>
+<ol start="3" type="1">
+<li>使用 255.255.255.255 来将该类IP地址的主机地址位数全部置 1 ，然后从后向前的将 N 位全部置为 0，即为子网掩码值。</li>
+</ol>
+<p>将该B类地址的子网掩码255.255.0.0的主机地址全部置1，得到255.255.255.255，然后再从后向前将后 10位置0,即为： 11111111.11111111.11111100.00000000 ，即 255.255.252.0 。这就是该欲划分成主机为 700 台的 B 类 IP 地址 168.195.0.0 的子网掩码。</p>
+<p><strong>3）还有一种题型，要你根据每个网络的主机数量进行子网地址的规划和计算子网掩码。这也可按上述原则进行计算。</strong></p>
+<p>比如一个子网有10台主机，那么对于这个子网需要的IP地址是：</p>
+<p>10 ＋ 1 ＋ 1 ＋ 1 ＝ 13</p>
+<p>注意：加的第一个 1 是指这个网络连接时所需的网关地址，接着的两个 1 分别是指 <strong>网络地址</strong> 和 <strong>广播地址</strong> 。</p>
+<p>因为 13 小于 16 （ 16 等于 2 的 4 次方），所以主机位为 4 位。而 256 － 16 ＝ 240，所以该子网掩码为 255.255.255.240 。</p>
+<p>如果一个子网有 14 台主机，不少人常犯的错误是：依然分配具有 16 个地址空间的子网，而忘记了给网关分配地址。这样就错误了，因为 14 ＋ 1 ＋ 1 ＋ 1 ＝ 17，17 大于 16，所以我们只能分配具有 32 个地址（32 等于 2 的 5 次方）空间的子网。这时子网掩码为： 255.255.255.224。</p>
+
+  </div>
+</article>
+
+<a class="top" id="top" href="javascript:;"></a>
+
+
+<script>
+  window.onscroll = function () {
+    if (document.body.scrollTop > window.innerHeight) {
+      document.getElementById('top').classList.add('toggle')
+    } else {
+      document.getElementById('top').classList.remove('toggle')
+    }
+  }
+
+  function scrollTo (element, to, duration) {
+    if (duration <= 0) return
+    var difference = to - element.scrollTop
+    var perTick = -25 + difference / duration * 10
+    // console.log(to, element.scrollTop, difference, duration, perTick)
+
+    setTimeout(function () {
+      element.scrollTop = element.scrollTop + perTick
+      if (element.scrollTop <= to) return
+      scrollTo(element, to, duration)
+    }, 10)
+  }
+
+  document.getElementById('top').addEventListener("click", function () {
+    scrollTo(document.body, 0, Math.ceil(document.body.scrollTop / 10))
+  }, false)
+</script>
+
+
+
+  <div id="disqus_thread"></div>
+  
+  
+    <script type="text/javascript">
+      /*
+        disqusLoader.js v1.0
+        A JavaScript plugin for lazy-loading Disqus comments widget.
+        -
+        By Osvaldas Valutis, www.osvaldas.info
+        Available for use under the MIT License
+      */
+
+      ;(function (window, document, index) {
+        'use strict'
+      
+        var extendObj = function (defaults, options) {
+            var prop, extended = {}
+            for (prop in defaults) {
+              if (Object.prototype.hasOwnProperty.call(defaults, prop)) extended[prop] = defaults[prop]
+            }
+            for (prop in options) {
+              if (Object.prototype.hasOwnProperty.call(options, prop)) extended[prop] = options[prop]
+            }
+            return extended
+          },
+          getOffset = function (el) {
+            var rect = el.getBoundingClientRect()
+            return {
+              top: rect.top + document.body.scrollTop,
+              left: rect.left + document.body.scrollLeft
+            }
+          },
+          loadScript = function (url, callback) {
+            var script = document.createElement('script')
+            script.src = url
+            script.async = true
+            script.setAttribute('data-timestamp', +new Date())
+            script.addEventListener('load', function () {
+              if (typeof callback === 'function') callback()
+            })
+            script.addEventListener('error', function () {
+              console.error('connect disqus failed')
+            })
+            ;(document.head || document.body).appendChild(script)
+          },
+          throttle = function (a, b) {
+            var c, d
+            return function () {
+              var e = this,
+                f = arguments,
+                g = +new Date
+              c && g < c + a ? (clearTimeout(d), d = setTimeout(function () {
+                c = g, b.apply(e, f)
+              }, a)) : (c = g, b.apply(e, f))
+            }
+          },
+      
+          throttleTO = false,
+          laziness = false,
+          disqusConfig = false,
+          scriptUrl = false,
+      
+          scriptStatus = 'unloaded',
+          instance = false,
+      
+          init = function () {
+            if (!instance || !document.body.contains(instance) || instance.disqusLoaderStatus == 'loaded') return true
+
+            var winST = window.pageYOffset,
+              offset = getOffset(instance).top
+
+            // if the element is too far below || too far above
+            if (offset - winST > window.innerHeight * laziness || winST - offset - instance.offsetHeight - (window.innerHeight * laziness) > 0) return true
+
+            var tmp = document.getElementById('disqus_thread')
+            if (tmp) tmp.removeAttribute('id')
+            instance.setAttribute('id', 'disqus_thread')
+            instance.disqusLoaderStatus = 'loaded'
+
+            if (scriptStatus == 'loaded') {
+              DISQUS.reset({
+                reload: true,
+                config: disqusConfig
+              })
+            } else { // unloaded | loading
+              window.disqus_config = disqusConfig
+              if (scriptStatus == 'unloaded') {
+                scriptStatus = 'loading'
+                loadScript(scriptUrl, function () {
+                  scriptStatus = 'loaded'
+                })
+              }
+            }
+          }
+      
+        window.addEventListener('scroll', throttle(throttleTO, init))
+        window.addEventListener('resize', throttle(throttleTO, init))
+      
+        window.disqusLoader = function (element, options) {
+          options = extendObj({
+            laziness: 1,
+            throttle: 250,
+            scriptUrl: false,
+            disqusConfig: false,
+      
+          }, options)
+      
+          laziness = options.laziness + 1
+          throttleTO = options.throttle
+          disqusConfig = options.disqusConfig
+          scriptUrl = scriptUrl === false ? options.scriptUrl : scriptUrl // set it only once
+      
+          if (typeof element === 'string') instance = document.querySelector(element)
+          else if (typeof element.length === 'number') instance = element[0]
+          else instance = element
+      
+          instance.disqusLoaderStatus = 'unloaded'
+      
+          init()
+        }
+      
+      }(window, document, 0))
+      var options = {
+        scriptUrl: '//xungejiang.disqus.com' + '/embed.js',
+        laziness: 1,
+        throttle: 250,
+        disqusConfig: function() {
+          this.page.url         = 'https://xungejiang.com/2017/04/01/computer-network/'
+          this.page.identifier  = '//2017/04/01/computer-network/'
+          this.page.title       = '计算机网络面试常考点--参照 谢希仁(第6版)'
+        }
+      }
+      disqusLoader('#disqus_thread', options)
+    </script>
+  
+  </main>
+  <footer class="footer">
+  <div class="footer-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+        
+          <symbol id="cc" viewbox="0 0 1024 1024">
+            <path d="M505.898681 20.48c135.168-1.364992 251.220992 45.056 348.16 139.264 96.939008 94.208 146.772992 208.896 149.504 344.064 1.364992 136.532992-45.056 253.268992-139.264 350.208-94.208 96.939008-209.579008 146.772992-346.112 149.504-135.168 1.364992-251.563008-45.396992-349.184-140.288-97.620992-94.891008-147.115008-209.92-148.48-345.088-2.731008-136.532992 43.348992-253.268992 138.24-350.208 94.891008-96.939008 210.603008-146.091008 347.136-147.456 0 0 0 0 0 0m12.288 878.592c106.496-1.364992 197.291008-40.276992 272.384-116.736 75.092992-76.459008 111.956992-168.619008 110.592-276.48-1.364992-107.860992-40.619008-198.996992-117.76-273.408-77.140992-74.411008-168.96-110.932992-275.456-109.568-107.860992 1.364992-198.996992 40.276992-273.408 116.736-74.411008 76.459008-110.932992 168.619008-109.568 276.48 1.364992 107.860992 40.276992 198.996992 116.736 273.408 76.459008 74.411008 168.619008 110.932992 276.48 109.568 0 0 0 0 0 0m-126.976-305.152c27.307008 0 47.104-13.652992 59.392-40.96 0 0 57.344 30.72 57.344 30.72-13.652992 24.576-30.72 42.324992-51.2 53.248-21.844992 13.652992-45.739008 20.48-71.68 20.48-42.324992 0-76.459008-12.971008-102.4-38.912-25.940992-24.576-38.912-60.075008-38.912-106.496 0-46.420992 12.971008-82.603008 38.912-108.544 25.940992-25.940992 58.708992-38.912 98.304-38.912 58.708992 0 101.035008 22.528 126.976 67.584 0 0-63.488 32.768-63.488 32.768-6.827008-13.652992-15.019008-23.211008-24.576-28.672-9.556992-5.460992-19.115008-8.192-28.672-8.192-40.96 0-61.44 27.988992-61.44 83.968 0 25.940992 4.779008 45.739008 14.336 59.392 12.288 15.019008 27.988992 22.528 47.104 22.528 0 0 0 0 0 0m272.384 0c28.672 0 47.787008-13.652992 57.344-40.96 0 0 59.392 30.72 59.392 30.72-12.288 21.844992-29.355008 39.595008-51.2 53.248-21.844992 13.652992-45.739008 20.48-71.68 20.48-43.691008 0-77.824-12.971008-102.4-38.912-25.940992-24.576-38.912-60.075008-38.912-106.496 0-43.691008 12.971008-79.872 38.912-108.544 25.940992-25.940992 59.392-38.912 100.352-38.912 57.344 0 98.304 22.528 122.88 67.584 0 0-61.44 32.768-61.44 32.768-6.827008-13.652992-15.019008-23.211008-24.576-28.672-9.556992-5.460992-19.115008-8.192-28.672-8.192-42.324992 0-63.488 27.988992-63.488 83.968 0 24.576 5.460992 44.372992 16.384 59.392 10.923008 15.019008 26.624 22.528 47.104 22.528 0 0 0 0 0 0" p-id="7650" fill="#ffffff"/>
+          </symbol>
+        
+        
+          <symbol id="GitHub" viewbox="0 0 1024 1024">
+            <path d="M530.01791-7.557299C672.947218-4.362634 790.76646 44.643525 885.072968 139.46118 979.315583 234.342728 1028.002276 354.462128 1031.133048 496.752503 1029.599609 610.546467 996.566773 708.558787 933.759661 795.453672 870.888656 882.412451 789.233021 940.874819 687.13153 977.230106 674.544551 978.827438 665.088342 977.230106 660.424132 972.502002 655.696028 966.176565 652.565256 959.851129 652.565256 953.525692L654.098695 814.429982C654.098695 790.725568 650.967924 771.749259 643.109048 755.967614 636.847505 740.122076 628.988629 729.068536 619.532421 721.20966 677.675322 718.014995 729.55668 699.038685 776.646041 664.280731 822.201963 631.056216 847.375922 566.268412 850.506694 471.450757 850.506694 444.551679 845.77859 419.249933 836.322382 397.142851 826.930067 374.971877 814.343087 354.462128 798.625336 337.083151 801.820001 330.757715 806.484211 314.97607 808.081544 291.207763 811.212315 267.503349 806.484211 237.473499 793.897232 202.715545 793.897232 201.118213 782.907584 201.118213 760.92829 204.248984 738.948995 207.443649 704.382721 224.822626 655.696028 254.852476 614.86821 243.798936 573.976499 237.473499 530.01791 237.473499 486.059321 237.473499 445.16761 243.798936 404.339793 254.852476 357.186538 223.225294 321.086825 207.443649 299.10753 204.248984 277.064343 201.118213 266.074695 201.118213 266.074695 202.715545 253.551609 237.473499 248.823505 267.503349 251.954276 291.207763 255.085048 314.97607 258.21582 330.757715 261.410484 337.083151 245.692733 354.462128 231.508421 373.438438 223.649545 397.142851 214.25723 419.249933 209.529126 444.551679 209.529126 472.984196 212.659898 567.865744 236.236525 631.056216 281.792447 665.878064 327.348368 700.636018 379.229726 719.612327 437.308734 722.743099 429.449859 729.068536 423.188316 736.991305 418.460211 748.044845 412.198668 759.098386 409.067897 773.346591 405.937125 789.128236 388.622041 798.648337 366.642747 801.779109 336.804576 800.24567 306.966406 798.648337 281.792447 781.26936 259.813152 746.447513 248.823505 729.068536 237.833857 716.417663 223.649545 708.558787 209.529126 700.636018 197.00604 695.907914 181.288289 694.310581 168.701309 692.713249 160.842433 694.310581 157.711662 700.636018 154.58089 705.364122 160.842433 713.286891 176.560184 724.340431 192.277936 735.393972 204.801022 746.447513 212.659898 759.098386 220.518774 771.749259 226.84421 785.997464 233.105753 798.648337 240.964629 819.158086 258.21582 836.600956 286.520551 850.785269 313.227949 865.033474 352.522328 866.630807 402.74246 857.110705L404.339793 950.39492C404.339793 958.317689 401.209021 964.643126 396.480917 969.37123 391.752813 975.696667 382.360498 977.230106 369.773518 974.099334 267.672028 939.34138 185.952499 877.684347 123.145387 792.322901 60.274382 706.961454 28.902772 607.351802 27.30544 495.155171 30.436212 351.267463 79.122905 232.745395 173.429413 137.927741 267.672028 43.046193 387.024709-5.959967 528.420578-9.090738L530.01791-7.557299Z" p-id="2568" fill="#ffffff"/>
+          </symbol>
+        
+        
+        
+          <symbol id="rss" viewbox="0 0 1024 1024">
+            <path d="M329.142857 768q0 45.714286-32 77.714286t-77.714286 32-77.714285-32-32-77.714286 32-77.714286 77.714285-32 77.714286 32 32 77.714286z m292.571429 70.285714q1.142857 16-9.714286 27.428572-10.285714 12-26.857143 12H508q-14.285714 0-24.571429-9.428572t-11.428571-23.714285q-12.571429-130.857143-105.428571-223.714286T142.857143 515.428571q-14.285714-1.142857-23.714286-11.428571T109.714286 479.428571V402.285714q0-16.571429 12-26.857143 9.714286-9.714286 24.571428-9.714285h2.857143q91.428571 7.428571 174.857143 46T472 515.428571q65.142857 64.571429 103.714286 148t46 174.857143z m292.571428 1.142857q1.142857 15.428571-10.285714 26.857143-10.285714 11.428571-26.285714 11.428572h-81.714286q-14.857143 0-25.428571-10T759.428571 843.428571q-6.857143-122.857143-57.714285-233.428571t-132.285715-192-192-132.285714T144 227.428571q-14.285714-0.571429-24.285714-11.142857T109.714286 191.428571V109.714286q0-16 11.428571-26.285715 10.285714-10.285714 25.142857-10.285714h1.714286q149.714286 7.428571 286.571429 68.571429T677.714286 309.714286q106.857143 106.285714 168 243.142857t68.571428 286.571428z" fill="#ffffff" p-id="6818"/>
+          </symbol>
+        
+        
+        
+      </svg>
+    <div class="footer-wrap-inner">
+      
+        
+          <a class="symbol" href="//github.com/xunge" target="_blank" rel="noopener noreferrer">
+            <svg class="icon">
+              <use xlink:href="#GitHub"/>
+            </svg>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+      
+        <a class="symbol" href="https://creativecommons.org/licenses/by-nc-nd/4.0" target="_blank" rel="noopener noreferrer">
+          <svg class="icon">
+            <use xlink:href="#cc"/>
+          </svg>
+        </a>
+      
+      
+        <a class="symbol" href="/atom.xml" target="_blank" rel="noopener noreferrer">
+          <svg class="icon">
+            <use xlink:href="#rss"/>
+          </svg>
+        </a>
+      
+      <p class="copyright">
+        <!-- XUNGE&#39;s Blog &copy; 2016-2017 -->
+        <span>
+          训哥 &copy; 2016 - 2022</span>
+        <span>
+          
+          <a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">黑ICP备18006891号</a>
+          
+        </span>
+      </p>
+      <p class="info">
+          Power by <a href="http://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a> &#124; Theme with <a href="https://github.com/snovey/hexo-theme-vanilla" target="_blank" rel="noopener noreferrer">vanilla</a> &#124; Hosted on <a href="//github.com" target="_blank" rel="noopener noreferrer">GitHub</a>, <a href="//coding.net" target="_blank" rel="noopener noreferrer">Coding</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /*! lazysizes - v4.0.0-rc3 */
+!function(a,b){var c=b(a,a.document);a.lazySizes=c,"object"==typeof module&&module.exports&&(module.exports=c)}(window,function(a,b){"use strict";if(b.getElementsByClassName){var c,d,e=b.documentElement,f=a.Date,g=a.HTMLPictureElement,h="addEventListener",i="getAttribute",j=a[h],k=a.setTimeout,l=a.requestAnimationFrame||k,m=a.requestIdleCallback,n=/^picture$/i,o=["load","error","lazyincluded","_lazyloaded"],p={},q=Array.prototype.forEach,r=function(a,b){return p[b]||(p[b]=new RegExp("(\\s|^)"+b+"(\\s|$)")),p[b].test(a[i]("class")||"")&&p[b]},s=function(a,b){r(a,b)||a.setAttribute("class",(a[i]("class")||"").trim()+" "+b)},t=function(a,b){var c;(c=r(a,b))&&a.setAttribute("class",(a[i]("class")||"").replace(c," "))},u=function(a,b,c){var d=c?h:"removeEventListener";c&&u(a,b),o.forEach(function(c){a[d](c,b)})},v=function(a,d,e,f,g){var h=b.createEvent("CustomEvent");return e||(e={}),e.instance=c,h.initCustomEvent(d,!f,!g,e),a.dispatchEvent(h),h},w=function(b,c){var e;!g&&(e=a.picturefill||d.pf)?e({reevaluate:!0,elements:[b]}):c&&c.src&&(b.src=c.src)},x=function(a,b){return(getComputedStyle(a,null)||{})[b]},y=function(a,b,c){for(c=c||a.offsetWidth;c<d.minSize&&b&&!a._lazysizesWidth;)c=b.offsetWidth,b=b.parentNode;return c},z=function(){var a,c,d=[],e=[],f=d,g=function(){var b=f;for(f=d.length?e:d,a=!0,c=!1;b.length;)b.shift()();a=!1},h=function(d,e){a&&!e?d.apply(this,arguments):(f.push(d),c||(c=!0,(b.hidden?k:l)(g)))};return h._lsFlush=g,h}(),A=function(a,b){return b?function(){z(a)}:function(){var b=this,c=arguments;z(function(){a.apply(b,c)})}},B=function(a){var b,c=0,d=125,e=666,g=e,h=function(){b=!1,c=f.now(),a()},i=m?function(){m(h,{timeout:g}),g!==e&&(g=e)}:A(function(){k(h)},!0);return function(a){var e;(a=a===!0)&&(g=44),b||(b=!0,e=d-(f.now()-c),0>e&&(e=0),a||9>e&&m?i():k(i,e))}},C=function(a){var b,c,d=99,e=function(){b=null,a()},g=function(){var a=f.now()-c;d>a?k(g,d-a):(m||e)(e)};return function(){c=f.now(),b||(b=k(g,d))}},D=function(){var g,l,m,o,p,y,D,F,G,H,I,J,K,L,M=/^img$/i,N=/^iframe$/i,O="onscroll"in a&&!/glebot/.test(navigator.userAgent),P=0,Q=0,R=0,S=-1,T=function(a){R--,a&&a.target&&u(a.target,T),(!a||0>R||!a.target)&&(R=0)},U=function(a,c){var d,f=a,g="hidden"==x(b.body,"visibility")||"hidden"!=x(a,"visibility");for(F-=c,I+=c,G-=c,H+=c;g&&(f=f.offsetParent)&&f!=b.body&&f!=e;)g=(x(f,"opacity")||1)>0,g&&"visible"!=x(f,"overflow")&&(d=f.getBoundingClientRect(),g=H>d.left&&G<d.right&&I>d.top-1&&F<d.bottom+1);return g},V=function(){var a,f,h,j,k,m,n,p,q,r=c.elements;if((o=d.loadMode)&&8>R&&(a=r.length)){f=0,S++,null==K&&("expand"in d||(d.expand=e.clientHeight>500&&e.clientWidth>500?500:370),J=d.expand,K=J*d.expFactor),K>Q&&1>R&&S>2&&o>2&&!b.hidden?(Q=K,S=0):Q=o>1&&S>1&&6>R?J:P;for(;a>f;f++)if(r[f]&&!r[f]._lazyRace)if(O)if((p=r[f][i]("data-expand"))&&(m=1*p)||(m=Q),q!==m&&(y=innerWidth+m*L,D=innerHeight+m,n=-1*m,q=m),h=r[f].getBoundingClientRect(),(I=h.bottom)>=n&&(F=h.top)<=D&&(H=h.right)>=n*L&&(G=h.left)<=y&&(I||H||G||F)&&(d.loadHidden||"hidden"!=x(r[f],"visibility"))&&(l&&3>R&&!p&&(3>o||4>S)||U(r[f],m))){if(ba(r[f]),k=!0,R>9)break}else!k&&l&&!j&&4>R&&4>S&&o>2&&(g[0]||d.preloadAfterLoad)&&(g[0]||!p&&(I||H||G||F||"auto"!=r[f][i](d.sizesAttr)))&&(j=g[0]||r[f]);else ba(r[f]);j&&!k&&ba(j)}},W=B(V),X=function(a){s(a.target,d.loadedClass),t(a.target,d.loadingClass),u(a.target,Z),v(a.target,"lazyloaded")},Y=A(X),Z=function(a){Y({target:a.target})},$=function(a,b){try{a.contentWindow.location.replace(b)}catch(c){a.src=b}},_=function(a){var b,c=a[i](d.srcsetAttr);(b=d.customMedia[a[i]("data-media")||a[i]("media")])&&a.setAttribute("media",b),c&&a.setAttribute("srcset",c)},aa=A(function(a,b,c,e,f){var g,h,j,l,o,p;(o=v(a,"lazybeforeunveil",b)).defaultPrevented||(e&&(c?s(a,d.autosizesClass):a.setAttribute("sizes",e)),h=a[i](d.srcsetAttr),g=a[i](d.srcAttr),f&&(j=a.parentNode,l=j&&n.test(j.nodeName||"")),p=b.firesLoad||"src"in a&&(h||g||l),o={target:a},p&&(u(a,T,!0),clearTimeout(m),m=k(T,2500),s(a,d.loadingClass),u(a,Z,!0)),l&&q.call(j.getElementsByTagName("source"),_),h?a.setAttribute("srcset",h):g&&!l&&(N.test(a.nodeName)?$(a,g):a.src=g),f&&(h||l)&&w(a,{src:g})),a._lazyRace&&delete a._lazyRace,t(a,d.lazyClass),z(function(){(!p||a.complete&&a.naturalWidth>1)&&(p?T(o):R--,X(o))},!0)}),ba=function(a){var b,c=M.test(a.nodeName),e=c&&(a[i](d.sizesAttr)||a[i]("sizes")),f="auto"==e;(!f&&l||!c||!a[i]("src")&&!a.srcset||a.complete||r(a,d.errorClass))&&(b=v(a,"lazyunveilread").detail,f&&E.updateElem(a,!0,a.offsetWidth),a._lazyRace=!0,R++,aa(a,b,f,e,c))},ca=function(){if(!l){if(f.now()-p<999)return void k(ca,999);var a=C(function(){d.loadMode=3,W()});l=!0,d.loadMode=3,W(),j("scroll",function(){3==d.loadMode&&(d.loadMode=2),a()},!0)}};return{_:function(){p=f.now(),c.elements=b.getElementsByClassName(d.lazyClass),g=b.getElementsByClassName(d.lazyClass+" "+d.preloadClass),L=d.hFac,j("scroll",W,!0),j("resize",W,!0),a.MutationObserver?new MutationObserver(W).observe(e,{childList:!0,subtree:!0,attributes:!0}):(e[h]("DOMNodeInserted",W,!0),e[h]("DOMAttrModified",W,!0),setInterval(W,999)),j("hashchange",W,!0),["focus","mouseover","click","load","transitionend","animationend","webkitAnimationEnd"].forEach(function(a){b[h](a,W,!0)}),/d$|^c/.test(b.readyState)?ca():(j("load",ca),b[h]("DOMContentLoaded",W),k(ca,2e4)),c.elements.length?(V(),z._lsFlush()):W()},checkElems:W,unveil:ba}}(),E=function(){var a,c=A(function(a,b,c,d){var e,f,g;if(a._lazysizesWidth=d,d+="px",a.setAttribute("sizes",d),n.test(b.nodeName||""))for(e=b.getElementsByTagName("source"),f=0,g=e.length;g>f;f++)e[f].setAttribute("sizes",d);c.detail.dataAttr||w(a,c.detail)}),e=function(a,b,d){var e,f=a.parentNode;f&&(d=y(a,f,d),e=v(a,"lazybeforesizes",{width:d,dataAttr:!!b}),e.defaultPrevented||(d=e.detail.width,d&&d!==a._lazysizesWidth&&c(a,f,e,d)))},f=function(){var b,c=a.length;if(c)for(b=0;c>b;b++)e(a[b])},g=C(f);return{_:function(){a=b.getElementsByClassName(d.autosizesClass),j("resize",g)},checkElems:g,updateElem:e}}(),F=function(){F.i||(F.i=!0,E._(),D._())};return function(){var b,c={lazyClass:"lazyload",loadedClass:"lazyloaded",loadingClass:"lazyloading",preloadClass:"lazypreload",errorClass:"lazyerror",autosizesClass:"lazyautosizes",srcAttr:"data-src",srcsetAttr:"data-srcset",sizesAttr:"data-sizes",minSize:40,customMedia:{},init:!0,expFactor:1.5,hFac:.8,loadMode:2,loadHidden:!0};d=a.lazySizesConfig||a.lazysizesConfig||{};for(b in c)b in d||(d[b]=c[b]);a.lazySizesConfig=d,k(function(){d.init&&F()})}(),c={cfg:d,autoSizer:E,loader:D,init:F,uP:w,aC:s,rC:t,hC:r,fire:v,gW:y,rAF:z}}});
+</script>
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      function toggleClassMenu() {
+        myMenu.classList.add("menu--animatable")
+        if(!myMenu.classList.contains("menu--visible")) {
+          myMenu.classList.add("menu--visible")
+        } else {
+          myMenu.classList.remove('menu--visible')
+        }
+        if(!oppMenu.classList.contains("toggle-animate")) {
+          oppMenu.classList.add("toggle-animate")
+        } else {
+          oppMenu.classList.remove("toggle-animate")
+        }
+      }
+  
+      function OnTransitionEnd() {
+        myMenu.classList.remove("menu--animatable")
+        // oppMenu.classList.remove("toggle-animate")
+      }
+  
+      var myMenu = document.querySelector(".menu")
+      var oppMenu = document.querySelector("#nav-trigger")
+      myMenu.addEventListener("transitionend", OnTransitionEnd, false)
+      oppMenu.addEventListener("click", toggleClassMenu, false)
+      myMenu.addEventListener("click", toggleClassMenu, false)
+    })
+  </script>
+</body>
+</html>
