@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link href="/css/style.css?v=0.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, plain">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://img.xungejiang.com/static/images/favicon.png">
+
+
+
+  <link rel="canonical" href="https://xungejiang.com/2017/11/29/translate-blog2/">
+
+<!-- <link rel="stylesheet" href="/css/style.css"> -->
+
+
+  <script type="text/javascript">
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?f4f3f11203a4e9709a1a1869afa69da5";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<title> 【翻译】 Is attacking machine learning easier than defending it? | XUNGE&#39;s Blog</title>
+
+
+</head>
+<body class="typo borderbox" lang="zh-Hans" itemtype="http://schema.org/WebPage" itemscope>
+  <header class="header">
+    <div class="header-wrap">
+      <a class="nav-toggle" id="nav-trigger" href="javascript:;">
+        <span></span>
+        <span></span>
+        <span></span>
+      </a>
+      <div class="site-meta">
+        
+        <div class="site-info">
+          <div class="site-info-wrap">
+            
+              <a class="site-title" href="/">XUNGE&#39;s Blog</a>
+            
+            
+          </div>
+        </div>
+      </div>
+      <nav class="menu">
+        <div class="menu-wrap">
+          <div class="menu-info">
+            
+              <img class="site-avatar" src="//img.xungejiang.com/static/images/avatar1.jpg">
+            
+            
+              <a class="site-title" href="/">XUNGE&#39;s Blog</a>
+            
+            
+              <span class="site-description">瞎折腾，知识点，经验值</span>
+            
+          </div>
+          <ul class="menu-items">
+            
+              <li class="menu-item">
+                <a class="menu-item-link" href="/">
+                  <span class="menu-item-text">首页</span>
+                </a>
+              </li>
+            
+              <li class="menu-item">
+                <a class="menu-item-link" href="/archives/">
+                  <span class="menu-item-text">归档</span>
+                </a>
+              </li>
+            
+              <li class="menu-item">
+                <a class="menu-item-link" href="/categories/">
+                  <span class="menu-item-text">分类</span>
+                </a>
+              </li>
+            
+              <li class="menu-item">
+                <a class="menu-item-link" href="/tags/">
+                  <span class="menu-item-text">标签</span>
+                </a>
+              </li>
+            
+              <li class="menu-item">
+                <a class="menu-item-link" href="/about/">
+                  <span class="menu-item-text">关于</span>
+                </a>
+              </li>
+            
+          </ul>
+        <div>
+      </div></div></nav>
+    </div>
+  </header>
+  <main class="main">
+  <article class="post-detail">
+  <div class="post-title">
+    <h1 class="title">【翻译】 Is attacking machine learning easier than defending it?</h1>
+  </div>
+   <div class="post-meta">
+    <span class="date">2017-11-29</span>
+    
+      <span>|<span>
+      <a class="article-tag-link" href="/tags/cleverhans/">cleverhans</a>, <a class="article-tag-link" href="/tags/translate/">translate</a>
+    
+    
+      <span>|<span>
+      <a class="article-tag-link" href="/categories/论文向/">论文向</a>
+    
+  </span></span></span></span></div>
+  
+    <div class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#我们如何使ml模型面对对抗性样本时更加强壮-how-have-we-tried-to-make-ml-models-more-robust-to-adversarial-examples"><span class="post-toc-text">我们如何使ML模型面对对抗性样本时更加强壮？ (How have we tried to make ML models more robust to adversarial examples?)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一个失败的防御梯度掩蔽-a-failed-defense-gradient-masking"><span class="post-toc-text">一个失败的防御：“梯度掩蔽” (A failed defense: “gradient masking”)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#打地鼠游戏-playing-a-game-of-whack-a-mole"><span class="post-toc-text">打“地鼠”游戏 (Playing a game of “whack-a-mole”)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为什么很难防御对抗性样本-why-is-it-hard-to-defend-against-adversarial-examples"><span class="post-toc-text">为什么很难防御对抗性样本？ (Why is it hard to defend against adversarial examples?)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#其他攻击和防御方法-other-attack-and-defense-scenarios"><span class="post-toc-text">其他攻击和防御方法 (Other attack and defense scenarios)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-text">总结</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#references"><span class="post-toc-text">References</span></a></li></ol>
+    </div>
+  
+  <div class="post-content">
+    <p>原文：<a href="http://www.cleverhans.io/security/privacy/ml/2017/02/15/why-attacking-machine-learning-is-easier-than-defending-it.html" target="_blank" rel="noopener">Is attacking machine learning easier than defending it?</a></p>
+<p>译文：<a href="http://xungejiang.com/2017/11/29/translate-blog2/">攻击机器学习比防御更容易吗?</a></p>
+<p>原文写作日期：2017年3月15日 译文写作日期：2017年11月29日</p>
+<p>本文为<a href="http://www.cleverhans.io/" target="_blank" rel="noopener">cleverhans-blog</a>的第二篇博客，作者为 Ian Goodfellow 和 Nicolas Papernot，主要讲解 <strong>对抗性训练</strong> 和 <strong>防御性蒸馏</strong> 两种防御方法之间的优势与不足。</p>
+<p>xunge 是一名初学者，论文翻译中用到了 Google，并自己逐句检查过，但还是会有显得晦涩的地方，如有语法/专业名词翻译错误，还请见谅，并欢迎及时指出。</p>
+<p>转载请注明出处！</p>
+<a id="more"></a>
+<p>在我们的<a href="http://www.cleverhans.io/security/privacy/ml/2016/12/15/breaking-things-is-easy.html" target="_blank" rel="noopener">第一篇文章</a>中，我们提出了几种攻击者可以打破当前机器学习系统的方式，比如通过毒化学习算法使用的数据[BNL12]，或者制作对抗性样本迫使模型做出错误的预测[SZS13]。在本文中，我们将以对抗性样本为例说明为什么攻击机器学习似乎比防御更容易。换句话说，我们将详细介绍为什么我们还没有完全有效的防御对抗性样本的一些原因，并推测我们是否能够进行防御。</p>
+<p>对抗性样本是机器学习模型的输入，它是由攻击者设计，用来欺骗模型产生不正确的输出。例如，我们给一个熊猫图片添加一个经过计算的小扰动，使图像被认为是一个高可信度的长臂猿[GSS14]：</p>
+<p><img class="lazyload" data-src="http://cleverhans.io/assets/adversarial-example.png"></p>
+<p>到目前为止，设计出这种欺骗模型的方法要比设计出不能欺骗模型的方法容易得多。</p>
+<h2 id="我们如何使ml模型面对对抗性样本时更加强壮-how-have-we-tried-to-make-ml-models-more-robust-to-adversarial-examples">我们如何使ML模型面对对抗性样本时更加强壮？ (How have we tried to make ML models more robust to adversarial examples?)</h2>
+<p>我们先介绍下两种防御方法：对抗性训练和防御性蒸馏。防御者如何试图使机器学习模型更加强壮并减轻对抗性样本的攻击效果。</p>
+<p>对抗性训练旨在训练时主动产生对抗性样本，在测试时提取对抗性样本来改进模型的泛化。这个想法是由Szegedy等人首次提出的[SZS13]，但由于产生对抗性样本的成本太高而不实用。 Goodfellow等人展示了如何利用快速梯度符号方法低成本地产生对抗性样本，并且使得在训练过程中高计算效率地产生大批对抗性样本 [GSS14]。然后该模型被训练成将相同的标签分配给相对于原始样本的对抗性样本。例如：我们拍摄一张猫的照片，并对其进行扰动以欺骗模型，使其认为它是秃鹫，然后告诉模型这张照片仍然是一只猫。对抗训练的一个开源实现可以在<a href="https://github.com/openai/cleverhans" target="_blank" rel="noopener">cleverhans</a> 库中找到，其使用方法在下面的 <a href="https://github.com/openai/cleverhans/blob/master/tutorials/mnist_tutorial_tf.md" target="_blank" rel="noopener">教程</a> 中有说明。</p>
+<p>防御性蒸馏平滑模型的决策表面在对抗方向被攻击者利用。蒸馏是一种训练过程，其中一个模型被训练以预测由先前训练的另一个模型输出的概率。蒸馏最初由Hinton等人提出。在[HVD15]中，其目标是用一个小模型来模拟一个大型的、计算成本很高的模型。防御性蒸馏有一个不同的目标，即简单地使最终模型的反应更加平滑，所以即使两个模型的大小相同也能起作用。训练一个模型来预测另一个具有相同架构的模型输出看起来是违反直觉的。它的工作原理是，第一个模型是用“硬”标签（图像100％概率是狗而不是猫）训练，然后第二个模型用“软”标签（图像95％概率是狗而不是猫）训练。第二个蒸馏模型对于诸如快速梯度符号法[PM16]或基于雅可比行列式显著图法[PMW16]的攻击更为鲁棒。这两种攻击的实现也分别在<a href="https://github.com/openai/cleverhans/blob/master/tutorials/mnist_tutorial_tf.md" target="_blank" rel="noopener">这里</a> 和<a href="https://github.com/openai/cleverhans/blob/master/tutorials/mnist_tutorial_jsma.md" target="_blank" rel="noopener">这里</a>的<a href="https://github.com/openai/cleverhans" target="_blank" rel="noopener">cleverhans</a> 上提供。(已经404 。。2333)</p>
+<h2 id="一个失败的防御梯度掩蔽-a-failed-defense-gradient-masking">一个失败的防御：“梯度掩蔽” (A failed defense: “gradient masking”)</h2>
+<p>大多数对抗性样本构建技术使用模型的梯度来进行攻击。换句话说，一张飞机的照片，他们测试在图像空间中往哪个方向移动使得图片识别为“猫”的概率增加，然后他们往那个方向进行移动（换句话说，扰乱了输入）。这样新修改后的图像被误认为是猫。</p>
+<p>但是，如果没有梯度，如果对图像进行微小的修改不会导致模型的输出发生变化呢？这似乎提供了一些防御，因为攻击者不知道怎样去“推”图像。</p>
+<p>我们可以很容易想到一些非常微不足道的方法来摆脱梯度。例如，大多数图像分类模型可以以两种模式运行：一种模式是输出最可能类别的标识，另一种模式是输出概率。如果模型的输出是“99.9％的飞机，0.1％的猫”，那么输入的一个微小的变化会给输出带来一个微小的变化，梯度告诉我们哪些变化会增加“猫”类的概率。如果我们在输出模式只是“飞机”的模式下运行模型，那么对输入的一个微小的变化根本不会改变输出，而梯度不会告诉我们任何事情。让我们做一个思考实验，如何通过以“最有可能的类”模式而不是“概率模式”运行它来防御对抗性样本。攻击者再也不能找到分类为猫的扰乱输入，所以我们可能会有一些防御。不幸的是，之前被归类为猫的图片现在仍被归类为猫。如果攻击者可以猜测哪些点是对抗性样本，这些点将仍然会被错误的分类。我们并没有使模型更加鲁棒，我们只是给了攻击者更少的线索来找出模型防御的漏洞。更不幸的是，事实证明攻击者有一个非常好的策略来猜测防御漏洞的位置。攻击者可以训练他们自己的模型，一个具有梯度的光滑模型，为他们的模型制作对抗性样本，然后将这些对抗性样本用于我们的非光滑模型。很多时候，我们的模型也会错误地分类这些样本。最后，我们的思想实验表明，隐藏梯度并没有达到我们的目的。</p>
+<p>因此，我们称之为有缺陷的防御策略梯度掩蔽，这个术语在[PMG16]中有介绍。执行梯度掩蔽的防御策略通常导致在特定方向和训练点的邻域中模型变得非常平滑，这使得攻击者难以找到攻击方向的梯度去扰乱输入。然而，攻击者可以训练一个替代模型：一个模仿防御模型的副本，通过观察防御模型分配给攻击者输入的标签。[PMG16]中介绍了执行这种模型提取攻击的过程。然后攻击者可以使用替代模型的梯度来找到被防御模型错误分类的对抗性样本。在下面的图中，我们再现[PMS16]中对梯度掩蔽的讨论，我们用一维ML问题来说明这种攻击策略。对于高维问题，梯度掩蔽现象会加剧，但难以描述。</p>
+<p><img class="lazyload" data-src="http://cleverhans.io/assets/gradient-masking.png"></p>
+<p>令人惊讶的是，我们发现对抗性训练和防御性蒸馏都意外地表现出一种梯度掩蔽。如果我们将对抗性样本从一个模型转移到另一个模型，并且用这些防御之一进行训练，即使对第二个模型的直接攻击会失败，攻击通常也会成功[PMG16]。这表明两种训练方法都能使模型变平滑和消除梯度，而不是确保对多个点进行正确地分类。</p>
+<h2 id="打地鼠游戏-playing-a-game-of-whack-a-mole">打“地鼠”游戏 (Playing a game of “whack-a-mole”)</h2>
+<p>在“隐藏梯度”的游戏中，我们看到梯度掩蔽并不是很好的防御。它防御使用梯度的攻击者，但是如果攻击者知道我们正在使用这种防御，那么他们只需要切换到移植攻击。在安全术语中，这意味着梯度掩蔽不是一种自适应防御。</p>
+<p>迄今为止提出的大多数针对对抗性样本的防御措施根本不起作用，但是有效的那些并不是自适应的。这意味着就像他们在玩一个打地鼠游戏一样：他们关闭了一些漏洞，但是让其他人打开。</p>
+<p>对抗训练需要选择算法来产生对抗性样本。通常情况下，这个模型被训练成可以抵抗在一个步骤中产生的低成本对抗性样本，例如快速梯度符号方法一样。经过训练能抵制这些低成本对抗性样本，这个模型通常能成功地抵制同类低成本的新对抗性样本。如果我们使用高成本的、迭代的对抗性样本，就像[SZS13]中的那些例子，那么模型通常就会被愚弄。</p>
+<p>保证适应性是具有挑战性的。灵感可以从差异隐私的框架中得到，它提供了随机算法不会暴露个人用户隐私的正式保证。这一保证不会对攻击者的知识或能力做出假设，因此能够面对未来由攻击者设计的假想攻击。</p>
+<h2 id="为什么很难防御对抗性样本-why-is-it-hard-to-defend-against-adversarial-examples">为什么很难防御对抗性样本？ (Why is it hard to defend against adversarial examples?)</h2>
+<p>对抗性样本很难防御，因为很难构建对抗性样本制定过程的理论模型。对抗性样本是许多ML模型（包括神经网络）的非线性和非凸的优化问题的解决方案。由于我们没有很好的理论工具去描述这些复杂的优化问题的解决方案，所以很难做出任何一种防御理论来排除一系列对抗性样本。</p>
+<p>从另一个角度来看，对抗性样本很难防御，因为它们需要机器学习模型来为每一个可能的输入生成好的输出。大多数情况下，机器学习模型工作得很好，但只能处理遇到所有可能输入中的很少一部分。</p>
+<p>由于可能的输入的量非常巨大，设计出真正自适应的防御是非常困难的。</p>
+<h2 id="其他攻击和防御方法-other-attack-and-defense-scenarios">其他攻击和防御方法 (Other attack and defense scenarios)</h2>
+<p>其他几种对机器学习的攻击也是难以防御。在本文中，我们专注于试图混淆机器学习模型测试过程的输入。但是其他类型的攻击是可能的，例如基于暗中修改训练数据的攻击，使得模型学习攻击者希望它进行的行为。</p>
+<p>对抗性机器学习的一个亮点是差分隐私，我们实际上有理论上的观点，即某些训练算法可以防止攻击者从训练好的模型中恢复关于训练集的敏感信息。</p>
+<p>将机器学习与攻击和防御都可能的其他场景进行比较是有趣的。</p>
+<p>在密码学中，防御者似乎有优势。给定一系列合理的假设，例如加密算法的正确实现，防御者可以可靠地发送攻击者无法解密的消息。</p>
+<p>在物理冲突中，攻击者似乎有优势。建造核弹比建造一个能够承受核爆的城市要容易得多。热力学的第二定律似乎意味着，如果防御要求将熵维持在某个阈值以下，那么即使没有明确的攻击者有意引起这种熵的增加，防御者也必然随着时间熵增加而最终失去。</p>
+<p>监督学习的“没有免费午餐定理”[W96]指出，在所有可能的数据集进行平均，没有任何机器学习算法在测试时间的新点上比其他算法更好。乍一看，这似乎表明，所有的算法都同样容易受到对抗性样本。然而，“没有免费午餐定理”只适用于我们对问题结构不作假设的情况。当我们研究对抗性样本时，我们假设输入的小扰动不应该改变输出类别，所以一般形式的“没有免费午餐定理”并不适用。</p>
+<p>正式揭露攻击者的鲁棒性和对清洁数据的模型表现之间的矛盾关系仍然是一个活跃的研究问题。在[PMS16]中，针对机器学习的对抗性样本的第一个“没有免费午餐定理”表明，在从有限的数据中学习时存在这样的矛盾。结果表明，防御者可以通过转向更丰富的假设类别来阻挠对抗性样本。然而，这种矛盾关系是由于没有合适的数据和学习算法来学习高保真模型所面临的挑战。</p>
+<h2 id="总结">总结</h2>
+<p>对抗性样本的研究是令人兴奋的，因为许多最重要的问题在理论和应用方面都是开放的。在理论上，还没有人知道防御对抗性样本是否是一个理论上没有希望的努力（如试图找到一个通用的机器学习算法），或者是否存在一个最优策略会使防御者更有利。（如在密码学和差分隐私）。在应用方面，还没有人设计出真正强大的防御算法，可以抵抗各种对抗性样本的攻击算法。我们希望我们的读者能够得到启发，解决其中的一些问题。</p>
+<h2 id="references">References</h2>
+<p>[BNL12] Biggio, B., Nelson, B., &amp; Laskov, P. (2012). Poisoning attacks against support vector machines. arXiv preprint arXiv:1206.6389.</p>
+<p>[GSS14] Goodfellow, I. J., Shlens, J., &amp; Szegedy, C. (2014). Explaining and harnessing adversarial examples. arXiv preprint arXiv:1412.6572.</p>
+<p>[HVD15] Hinton, Geoffrey, Oriol Vinyals, and Jeff Dean. “Distilling the knowledge in a neural network.” arXiv preprint arXiv:1503.02531 (2015).</p>
+<p>[PM16] Papernot, N., &amp; McDaniel, P. (2016). On the effectiveness of defensive distillation. arXiv preprint arXiv:1607.05113.</p>
+<p>[PMG16] Papernot, N., McDaniel, P., Goodfellow, I., Jha, S., Berkay Celik, Z., &amp; Swami, A. (2016). Practical Black-Box Attacks against Deep Learning Systems using Adversarial Examples. arXiv preprint arXiv:1602.02697.</p>
+<p>[PMS16] Papernot, N., McDaniel, P., Sinha, A., &amp; Wellman, M. (2016). Towards the Science of Security and Privacy in Machine Learning. arXiv preprint arXiv:1611.03814.</p>
+<p>[PMW16] Papernot, N., McDaniel, P., Wu, X., Jha, S., &amp; Swami, A. (2016, May). Distillation as a defense to adversarial perturbations against deep neural networks. In the 2016 IEEE Symposium on Security and Privacy (pp. 582-597).</p>
+<p>[SZS13] Szegedy, C., Zaremba, W., Sutskever, I., Bruna, J., Erhan, D., Goodfellow, I., &amp; Fergus, R. (2013). Intriguing properties of neural networks. arXiv preprint arXiv:1312.6199.</p>
+<p>[W96] Wolpert, David H. (1996). The lack of a priori distinction between learning algorithms. Neural Computation</p>
+
+  </div>
+</article>
+
+<a class="top" id="top" href="javascript:;"></a>
+
+
+<script>
+  window.onscroll = function () {
+    if (document.body.scrollTop > window.innerHeight) {
+      document.getElementById('top').classList.add('toggle')
+    } else {
+      document.getElementById('top').classList.remove('toggle')
+    }
+  }
+
+  function scrollTo (element, to, duration) {
+    if (duration <= 0) return
+    var difference = to - element.scrollTop
+    var perTick = -25 + difference / duration * 10
+    // console.log(to, element.scrollTop, difference, duration, perTick)
+
+    setTimeout(function () {
+      element.scrollTop = element.scrollTop + perTick
+      if (element.scrollTop <= to) return
+      scrollTo(element, to, duration)
+    }, 10)
+  }
+
+  document.getElementById('top').addEventListener("click", function () {
+    scrollTo(document.body, 0, Math.ceil(document.body.scrollTop / 10))
+  }, false)
+</script>
+
+
+
+  <div id="disqus_thread"></div>
+  
+  
+    <script type="text/javascript">
+      /*
+        disqusLoader.js v1.0
+        A JavaScript plugin for lazy-loading Disqus comments widget.
+        -
+        By Osvaldas Valutis, www.osvaldas.info
+        Available for use under the MIT License
+      */
+
+      ;(function (window, document, index) {
+        'use strict'
+      
+        var extendObj = function (defaults, options) {
+            var prop, extended = {}
+            for (prop in defaults) {
+              if (Object.prototype.hasOwnProperty.call(defaults, prop)) extended[prop] = defaults[prop]
+            }
+            for (prop in options) {
+              if (Object.prototype.hasOwnProperty.call(options, prop)) extended[prop] = options[prop]
+            }
+            return extended
+          },
+          getOffset = function (el) {
+            var rect = el.getBoundingClientRect()
+            return {
+              top: rect.top + document.body.scrollTop,
+              left: rect.left + document.body.scrollLeft
+            }
+          },
+          loadScript = function (url, callback) {
+            var script = document.createElement('script')
+            script.src = url
+            script.async = true
+            script.setAttribute('data-timestamp', +new Date())
+            script.addEventListener('load', function () {
+              if (typeof callback === 'function') callback()
+            })
+            script.addEventListener('error', function () {
+              console.error('connect disqus failed')
+            })
+            ;(document.head || document.body).appendChild(script)
+          },
+          throttle = function (a, b) {
+            var c, d
+            return function () {
+              var e = this,
+                f = arguments,
+                g = +new Date
+              c && g < c + a ? (clearTimeout(d), d = setTimeout(function () {
+                c = g, b.apply(e, f)
+              }, a)) : (c = g, b.apply(e, f))
+            }
+          },
+      
+          throttleTO = false,
+          laziness = false,
+          disqusConfig = false,
+          scriptUrl = false,
+      
+          scriptStatus = 'unloaded',
+          instance = false,
+      
+          init = function () {
+            if (!instance || !document.body.contains(instance) || instance.disqusLoaderStatus == 'loaded') return true
+
+            var winST = window.pageYOffset,
+              offset = getOffset(instance).top
+
+            // if the element is too far below || too far above
+            if (offset - winST > window.innerHeight * laziness || winST - offset - instance.offsetHeight - (window.innerHeight * laziness) > 0) return true
+
+            var tmp = document.getElementById('disqus_thread')
+            if (tmp) tmp.removeAttribute('id')
+            instance.setAttribute('id', 'disqus_thread')
+            instance.disqusLoaderStatus = 'loaded'
+
+            if (scriptStatus == 'loaded') {
+              DISQUS.reset({
+                reload: true,
+                config: disqusConfig
+              })
+            } else { // unloaded | loading
+              window.disqus_config = disqusConfig
+              if (scriptStatus == 'unloaded') {
+                scriptStatus = 'loading'
+                loadScript(scriptUrl, function () {
+                  scriptStatus = 'loaded'
+                })
+              }
+            }
+          }
+      
+        window.addEventListener('scroll', throttle(throttleTO, init))
+        window.addEventListener('resize', throttle(throttleTO, init))
+      
+        window.disqusLoader = function (element, options) {
+          options = extendObj({
+            laziness: 1,
+            throttle: 250,
+            scriptUrl: false,
+            disqusConfig: false,
+      
+          }, options)
+      
+          laziness = options.laziness + 1
+          throttleTO = options.throttle
+          disqusConfig = options.disqusConfig
+          scriptUrl = scriptUrl === false ? options.scriptUrl : scriptUrl // set it only once
+      
+          if (typeof element === 'string') instance = document.querySelector(element)
+          else if (typeof element.length === 'number') instance = element[0]
+          else instance = element
+      
+          instance.disqusLoaderStatus = 'unloaded'
+      
+          init()
+        }
+      
+      }(window, document, 0))
+      var options = {
+        scriptUrl: '//xungejiang.disqus.com' + '/embed.js',
+        laziness: 1,
+        throttle: 250,
+        disqusConfig: function() {
+          this.page.url         = 'https://xungejiang.com/2017/11/29/translate-blog2/'
+          this.page.identifier  = '//2017/11/29/translate-blog2/'
+          this.page.title       = '【翻译】 Is attacking machine learning easier than defending it?'
+        }
+      }
+      disqusLoader('#disqus_thread', options)
+    </script>
+  
+  </main>
+  <footer class="footer">
+  <div class="footer-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+        
+          <symbol id="cc" viewbox="0 0 1024 1024">
+            <path d="M505.898681 20.48c135.168-1.364992 251.220992 45.056 348.16 139.264 96.939008 94.208 146.772992 208.896 149.504 344.064 1.364992 136.532992-45.056 253.268992-139.264 350.208-94.208 96.939008-209.579008 146.772992-346.112 149.504-135.168 1.364992-251.563008-45.396992-349.184-140.288-97.620992-94.891008-147.115008-209.92-148.48-345.088-2.731008-136.532992 43.348992-253.268992 138.24-350.208 94.891008-96.939008 210.603008-146.091008 347.136-147.456 0 0 0 0 0 0m12.288 878.592c106.496-1.364992 197.291008-40.276992 272.384-116.736 75.092992-76.459008 111.956992-168.619008 110.592-276.48-1.364992-107.860992-40.619008-198.996992-117.76-273.408-77.140992-74.411008-168.96-110.932992-275.456-109.568-107.860992 1.364992-198.996992 40.276992-273.408 116.736-74.411008 76.459008-110.932992 168.619008-109.568 276.48 1.364992 107.860992 40.276992 198.996992 116.736 273.408 76.459008 74.411008 168.619008 110.932992 276.48 109.568 0 0 0 0 0 0m-126.976-305.152c27.307008 0 47.104-13.652992 59.392-40.96 0 0 57.344 30.72 57.344 30.72-13.652992 24.576-30.72 42.324992-51.2 53.248-21.844992 13.652992-45.739008 20.48-71.68 20.48-42.324992 0-76.459008-12.971008-102.4-38.912-25.940992-24.576-38.912-60.075008-38.912-106.496 0-46.420992 12.971008-82.603008 38.912-108.544 25.940992-25.940992 58.708992-38.912 98.304-38.912 58.708992 0 101.035008 22.528 126.976 67.584 0 0-63.488 32.768-63.488 32.768-6.827008-13.652992-15.019008-23.211008-24.576-28.672-9.556992-5.460992-19.115008-8.192-28.672-8.192-40.96 0-61.44 27.988992-61.44 83.968 0 25.940992 4.779008 45.739008 14.336 59.392 12.288 15.019008 27.988992 22.528 47.104 22.528 0 0 0 0 0 0m272.384 0c28.672 0 47.787008-13.652992 57.344-40.96 0 0 59.392 30.72 59.392 30.72-12.288 21.844992-29.355008 39.595008-51.2 53.248-21.844992 13.652992-45.739008 20.48-71.68 20.48-43.691008 0-77.824-12.971008-102.4-38.912-25.940992-24.576-38.912-60.075008-38.912-106.496 0-43.691008 12.971008-79.872 38.912-108.544 25.940992-25.940992 59.392-38.912 100.352-38.912 57.344 0 98.304 22.528 122.88 67.584 0 0-61.44 32.768-61.44 32.768-6.827008-13.652992-15.019008-23.211008-24.576-28.672-9.556992-5.460992-19.115008-8.192-28.672-8.192-42.324992 0-63.488 27.988992-63.488 83.968 0 24.576 5.460992 44.372992 16.384 59.392 10.923008 15.019008 26.624 22.528 47.104 22.528 0 0 0 0 0 0" p-id="7650" fill="#ffffff"/>
+          </symbol>
+        
+        
+          <symbol id="GitHub" viewbox="0 0 1024 1024">
+            <path d="M530.01791-7.557299C672.947218-4.362634 790.76646 44.643525 885.072968 139.46118 979.315583 234.342728 1028.002276 354.462128 1031.133048 496.752503 1029.599609 610.546467 996.566773 708.558787 933.759661 795.453672 870.888656 882.412451 789.233021 940.874819 687.13153 977.230106 674.544551 978.827438 665.088342 977.230106 660.424132 972.502002 655.696028 966.176565 652.565256 959.851129 652.565256 953.525692L654.098695 814.429982C654.098695 790.725568 650.967924 771.749259 643.109048 755.967614 636.847505 740.122076 628.988629 729.068536 619.532421 721.20966 677.675322 718.014995 729.55668 699.038685 776.646041 664.280731 822.201963 631.056216 847.375922 566.268412 850.506694 471.450757 850.506694 444.551679 845.77859 419.249933 836.322382 397.142851 826.930067 374.971877 814.343087 354.462128 798.625336 337.083151 801.820001 330.757715 806.484211 314.97607 808.081544 291.207763 811.212315 267.503349 806.484211 237.473499 793.897232 202.715545 793.897232 201.118213 782.907584 201.118213 760.92829 204.248984 738.948995 207.443649 704.382721 224.822626 655.696028 254.852476 614.86821 243.798936 573.976499 237.473499 530.01791 237.473499 486.059321 237.473499 445.16761 243.798936 404.339793 254.852476 357.186538 223.225294 321.086825 207.443649 299.10753 204.248984 277.064343 201.118213 266.074695 201.118213 266.074695 202.715545 253.551609 237.473499 248.823505 267.503349 251.954276 291.207763 255.085048 314.97607 258.21582 330.757715 261.410484 337.083151 245.692733 354.462128 231.508421 373.438438 223.649545 397.142851 214.25723 419.249933 209.529126 444.551679 209.529126 472.984196 212.659898 567.865744 236.236525 631.056216 281.792447 665.878064 327.348368 700.636018 379.229726 719.612327 437.308734 722.743099 429.449859 729.068536 423.188316 736.991305 418.460211 748.044845 412.198668 759.098386 409.067897 773.346591 405.937125 789.128236 388.622041 798.648337 366.642747 801.779109 336.804576 800.24567 306.966406 798.648337 281.792447 781.26936 259.813152 746.447513 248.823505 729.068536 237.833857 716.417663 223.649545 708.558787 209.529126 700.636018 197.00604 695.907914 181.288289 694.310581 168.701309 692.713249 160.842433 694.310581 157.711662 700.636018 154.58089 705.364122 160.842433 713.286891 176.560184 724.340431 192.277936 735.393972 204.801022 746.447513 212.659898 759.098386 220.518774 771.749259 226.84421 785.997464 233.105753 798.648337 240.964629 819.158086 258.21582 836.600956 286.520551 850.785269 313.227949 865.033474 352.522328 866.630807 402.74246 857.110705L404.339793 950.39492C404.339793 958.317689 401.209021 964.643126 396.480917 969.37123 391.752813 975.696667 382.360498 977.230106 369.773518 974.099334 267.672028 939.34138 185.952499 877.684347 123.145387 792.322901 60.274382 706.961454 28.902772 607.351802 27.30544 495.155171 30.436212 351.267463 79.122905 232.745395 173.429413 137.927741 267.672028 43.046193 387.024709-5.959967 528.420578-9.090738L530.01791-7.557299Z" p-id="2568" fill="#ffffff"/>
+          </symbol>
+        
+        
+        
+          <symbol id="rss" viewbox="0 0 1024 1024">
+            <path d="M329.142857 768q0 45.714286-32 77.714286t-77.714286 32-77.714285-32-32-77.714286 32-77.714286 77.714285-32 77.714286 32 32 77.714286z m292.571429 70.285714q1.142857 16-9.714286 27.428572-10.285714 12-26.857143 12H508q-14.285714 0-24.571429-9.428572t-11.428571-23.714285q-12.571429-130.857143-105.428571-223.714286T142.857143 515.428571q-14.285714-1.142857-23.714286-11.428571T109.714286 479.428571V402.285714q0-16.571429 12-26.857143 9.714286-9.714286 24.571428-9.714285h2.857143q91.428571 7.428571 174.857143 46T472 515.428571q65.142857 64.571429 103.714286 148t46 174.857143z m292.571428 1.142857q1.142857 15.428571-10.285714 26.857143-10.285714 11.428571-26.285714 11.428572h-81.714286q-14.857143 0-25.428571-10T759.428571 843.428571q-6.857143-122.857143-57.714285-233.428571t-132.285715-192-192-132.285714T144 227.428571q-14.285714-0.571429-24.285714-11.142857T109.714286 191.428571V109.714286q0-16 11.428571-26.285715 10.285714-10.285714 25.142857-10.285714h1.714286q149.714286 7.428571 286.571429 68.571429T677.714286 309.714286q106.857143 106.285714 168 243.142857t68.571428 286.571428z" fill="#ffffff" p-id="6818"/>
+          </symbol>
+        
+        
+        
+      </svg>
+    <div class="footer-wrap-inner">
+      
+        
+          <a class="symbol" href="//github.com/xunge" target="_blank" rel="noopener noreferrer">
+            <svg class="icon">
+              <use xlink:href="#GitHub"/>
+            </svg>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+      
+        <a class="symbol" href="https://creativecommons.org/licenses/by-nc-nd/4.0" target="_blank" rel="noopener noreferrer">
+          <svg class="icon">
+            <use xlink:href="#cc"/>
+          </svg>
+        </a>
+      
+      
+        <a class="symbol" href="/atom.xml" target="_blank" rel="noopener noreferrer">
+          <svg class="icon">
+            <use xlink:href="#rss"/>
+          </svg>
+        </a>
+      
+      <p class="copyright">
+        <!-- XUNGE&#39;s Blog &copy; 2016-2017 -->
+        <span>
+          训哥 &copy; 2016 - 2022</span>
+        <span>
+          
+          <a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">黑ICP备18006891号</a>
+          
+        </span>
+      </p>
+      <p class="info">
+          Power by <a href="http://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a> &#124; Theme with <a href="https://github.com/snovey/hexo-theme-vanilla" target="_blank" rel="noopener noreferrer">vanilla</a> &#124; Hosted on <a href="//github.com" target="_blank" rel="noopener noreferrer">GitHub</a>, <a href="//coding.net" target="_blank" rel="noopener noreferrer">Coding</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /*! lazysizes - v4.0.0-rc3 */
+!function(a,b){var c=b(a,a.document);a.lazySizes=c,"object"==typeof module&&module.exports&&(module.exports=c)}(window,function(a,b){"use strict";if(b.getElementsByClassName){var c,d,e=b.documentElement,f=a.Date,g=a.HTMLPictureElement,h="addEventListener",i="getAttribute",j=a[h],k=a.setTimeout,l=a.requestAnimationFrame||k,m=a.requestIdleCallback,n=/^picture$/i,o=["load","error","lazyincluded","_lazyloaded"],p={},q=Array.prototype.forEach,r=function(a,b){return p[b]||(p[b]=new RegExp("(\\s|^)"+b+"(\\s|$)")),p[b].test(a[i]("class")||"")&&p[b]},s=function(a,b){r(a,b)||a.setAttribute("class",(a[i]("class")||"").trim()+" "+b)},t=function(a,b){var c;(c=r(a,b))&&a.setAttribute("class",(a[i]("class")||"").replace(c," "))},u=function(a,b,c){var d=c?h:"removeEventListener";c&&u(a,b),o.forEach(function(c){a[d](c,b)})},v=function(a,d,e,f,g){var h=b.createEvent("CustomEvent");return e||(e={}),e.instance=c,h.initCustomEvent(d,!f,!g,e),a.dispatchEvent(h),h},w=function(b,c){var e;!g&&(e=a.picturefill||d.pf)?e({reevaluate:!0,elements:[b]}):c&&c.src&&(b.src=c.src)},x=function(a,b){return(getComputedStyle(a,null)||{})[b]},y=function(a,b,c){for(c=c||a.offsetWidth;c<d.minSize&&b&&!a._lazysizesWidth;)c=b.offsetWidth,b=b.parentNode;return c},z=function(){var a,c,d=[],e=[],f=d,g=function(){var b=f;for(f=d.length?e:d,a=!0,c=!1;b.length;)b.shift()();a=!1},h=function(d,e){a&&!e?d.apply(this,arguments):(f.push(d),c||(c=!0,(b.hidden?k:l)(g)))};return h._lsFlush=g,h}(),A=function(a,b){return b?function(){z(a)}:function(){var b=this,c=arguments;z(function(){a.apply(b,c)})}},B=function(a){var b,c=0,d=125,e=666,g=e,h=function(){b=!1,c=f.now(),a()},i=m?function(){m(h,{timeout:g}),g!==e&&(g=e)}:A(function(){k(h)},!0);return function(a){var e;(a=a===!0)&&(g=44),b||(b=!0,e=d-(f.now()-c),0>e&&(e=0),a||9>e&&m?i():k(i,e))}},C=function(a){var b,c,d=99,e=function(){b=null,a()},g=function(){var a=f.now()-c;d>a?k(g,d-a):(m||e)(e)};return function(){c=f.now(),b||(b=k(g,d))}},D=function(){var g,l,m,o,p,y,D,F,G,H,I,J,K,L,M=/^img$/i,N=/^iframe$/i,O="onscroll"in a&&!/glebot/.test(navigator.userAgent),P=0,Q=0,R=0,S=-1,T=function(a){R--,a&&a.target&&u(a.target,T),(!a||0>R||!a.target)&&(R=0)},U=function(a,c){var d,f=a,g="hidden"==x(b.body,"visibility")||"hidden"!=x(a,"visibility");for(F-=c,I+=c,G-=c,H+=c;g&&(f=f.offsetParent)&&f!=b.body&&f!=e;)g=(x(f,"opacity")||1)>0,g&&"visible"!=x(f,"overflow")&&(d=f.getBoundingClientRect(),g=H>d.left&&G<d.right&&I>d.top-1&&F<d.bottom+1);return g},V=function(){var a,f,h,j,k,m,n,p,q,r=c.elements;if((o=d.loadMode)&&8>R&&(a=r.length)){f=0,S++,null==K&&("expand"in d||(d.expand=e.clientHeight>500&&e.clientWidth>500?500:370),J=d.expand,K=J*d.expFactor),K>Q&&1>R&&S>2&&o>2&&!b.hidden?(Q=K,S=0):Q=o>1&&S>1&&6>R?J:P;for(;a>f;f++)if(r[f]&&!r[f]._lazyRace)if(O)if((p=r[f][i]("data-expand"))&&(m=1*p)||(m=Q),q!==m&&(y=innerWidth+m*L,D=innerHeight+m,n=-1*m,q=m),h=r[f].getBoundingClientRect(),(I=h.bottom)>=n&&(F=h.top)<=D&&(H=h.right)>=n*L&&(G=h.left)<=y&&(I||H||G||F)&&(d.loadHidden||"hidden"!=x(r[f],"visibility"))&&(l&&3>R&&!p&&(3>o||4>S)||U(r[f],m))){if(ba(r[f]),k=!0,R>9)break}else!k&&l&&!j&&4>R&&4>S&&o>2&&(g[0]||d.preloadAfterLoad)&&(g[0]||!p&&(I||H||G||F||"auto"!=r[f][i](d.sizesAttr)))&&(j=g[0]||r[f]);else ba(r[f]);j&&!k&&ba(j)}},W=B(V),X=function(a){s(a.target,d.loadedClass),t(a.target,d.loadingClass),u(a.target,Z),v(a.target,"lazyloaded")},Y=A(X),Z=function(a){Y({target:a.target})},$=function(a,b){try{a.contentWindow.location.replace(b)}catch(c){a.src=b}},_=function(a){var b,c=a[i](d.srcsetAttr);(b=d.customMedia[a[i]("data-media")||a[i]("media")])&&a.setAttribute("media",b),c&&a.setAttribute("srcset",c)},aa=A(function(a,b,c,e,f){var g,h,j,l,o,p;(o=v(a,"lazybeforeunveil",b)).defaultPrevented||(e&&(c?s(a,d.autosizesClass):a.setAttribute("sizes",e)),h=a[i](d.srcsetAttr),g=a[i](d.srcAttr),f&&(j=a.parentNode,l=j&&n.test(j.nodeName||"")),p=b.firesLoad||"src"in a&&(h||g||l),o={target:a},p&&(u(a,T,!0),clearTimeout(m),m=k(T,2500),s(a,d.loadingClass),u(a,Z,!0)),l&&q.call(j.getElementsByTagName("source"),_),h?a.setAttribute("srcset",h):g&&!l&&(N.test(a.nodeName)?$(a,g):a.src=g),f&&(h||l)&&w(a,{src:g})),a._lazyRace&&delete a._lazyRace,t(a,d.lazyClass),z(function(){(!p||a.complete&&a.naturalWidth>1)&&(p?T(o):R--,X(o))},!0)}),ba=function(a){var b,c=M.test(a.nodeName),e=c&&(a[i](d.sizesAttr)||a[i]("sizes")),f="auto"==e;(!f&&l||!c||!a[i]("src")&&!a.srcset||a.complete||r(a,d.errorClass))&&(b=v(a,"lazyunveilread").detail,f&&E.updateElem(a,!0,a.offsetWidth),a._lazyRace=!0,R++,aa(a,b,f,e,c))},ca=function(){if(!l){if(f.now()-p<999)return void k(ca,999);var a=C(function(){d.loadMode=3,W()});l=!0,d.loadMode=3,W(),j("scroll",function(){3==d.loadMode&&(d.loadMode=2),a()},!0)}};return{_:function(){p=f.now(),c.elements=b.getElementsByClassName(d.lazyClass),g=b.getElementsByClassName(d.lazyClass+" "+d.preloadClass),L=d.hFac,j("scroll",W,!0),j("resize",W,!0),a.MutationObserver?new MutationObserver(W).observe(e,{childList:!0,subtree:!0,attributes:!0}):(e[h]("DOMNodeInserted",W,!0),e[h]("DOMAttrModified",W,!0),setInterval(W,999)),j("hashchange",W,!0),["focus","mouseover","click","load","transitionend","animationend","webkitAnimationEnd"].forEach(function(a){b[h](a,W,!0)}),/d$|^c/.test(b.readyState)?ca():(j("load",ca),b[h]("DOMContentLoaded",W),k(ca,2e4)),c.elements.length?(V(),z._lsFlush()):W()},checkElems:W,unveil:ba}}(),E=function(){var a,c=A(function(a,b,c,d){var e,f,g;if(a._lazysizesWidth=d,d+="px",a.setAttribute("sizes",d),n.test(b.nodeName||""))for(e=b.getElementsByTagName("source"),f=0,g=e.length;g>f;f++)e[f].setAttribute("sizes",d);c.detail.dataAttr||w(a,c.detail)}),e=function(a,b,d){var e,f=a.parentNode;f&&(d=y(a,f,d),e=v(a,"lazybeforesizes",{width:d,dataAttr:!!b}),e.defaultPrevented||(d=e.detail.width,d&&d!==a._lazysizesWidth&&c(a,f,e,d)))},f=function(){var b,c=a.length;if(c)for(b=0;c>b;b++)e(a[b])},g=C(f);return{_:function(){a=b.getElementsByClassName(d.autosizesClass),j("resize",g)},checkElems:g,updateElem:e}}(),F=function(){F.i||(F.i=!0,E._(),D._())};return function(){var b,c={lazyClass:"lazyload",loadedClass:"lazyloaded",loadingClass:"lazyloading",preloadClass:"lazypreload",errorClass:"lazyerror",autosizesClass:"lazyautosizes",srcAttr:"data-src",srcsetAttr:"data-srcset",sizesAttr:"data-sizes",minSize:40,customMedia:{},init:!0,expFactor:1.5,hFac:.8,loadMode:2,loadHidden:!0};d=a.lazySizesConfig||a.lazysizesConfig||{};for(b in c)b in d||(d[b]=c[b]);a.lazySizesConfig=d,k(function(){d.init&&F()})}(),c={cfg:d,autoSizer:E,loader:D,init:F,uP:w,aC:s,rC:t,hC:r,fire:v,gW:y,rAF:z}}});
+</script>
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      function toggleClassMenu() {
+        myMenu.classList.add("menu--animatable")
+        if(!myMenu.classList.contains("menu--visible")) {
+          myMenu.classList.add("menu--visible")
+        } else {
+          myMenu.classList.remove('menu--visible')
+        }
+        if(!oppMenu.classList.contains("toggle-animate")) {
+          oppMenu.classList.add("toggle-animate")
+        } else {
+          oppMenu.classList.remove("toggle-animate")
+        }
+      }
+  
+      function OnTransitionEnd() {
+        myMenu.classList.remove("menu--animatable")
+        // oppMenu.classList.remove("toggle-animate")
+      }
+  
+      var myMenu = document.querySelector(".menu")
+      var oppMenu = document.querySelector("#nav-trigger")
+      myMenu.addEventListener("transitionend", OnTransitionEnd, false)
+      oppMenu.addEventListener("click", toggleClassMenu, false)
+      myMenu.addEventListener("click", toggleClassMenu, false)
+    })
+  </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

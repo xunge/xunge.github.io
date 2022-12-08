@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link href="/css/style.css?v=0.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, plain">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://img.xungejiang.com/static/images/favicon.png">
+
+
+
+  <link rel="canonical" href="https://xungejiang.com/2020/06/06/BERT/">
+
+<!-- <link rel="stylesheet" href="/css/style.css"> -->
+
+
+  <script type="text/javascript">
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?f4f3f11203a4e9709a1a1869afa69da5";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<title> PyTorch 的 BERT 微调教程 | XUNGE&#39;s Blog</title>
+
+
+</head>
+<body class="typo borderbox" lang="zh-Hans" itemtype="http://schema.org/WebPage" itemscope>
+  <header class="header">
+    <div class="header-wrap">
+      <a class="nav-toggle" id="nav-trigger" href="javascript:;">
+        <span></span>
+        <span></span>
+        <span></span>
+      </a>
+      <div class="site-meta">
+        
+        <div class="site-info">
+          <div class="site-info-wrap">
+            
+              <a class="site-title" href="/">XUNGE&#39;s Blog</a>
+            
+            
+          </div>
+        </div>
+      </div>
+      <nav class="menu">
+        <div class="menu-wrap">
+          <div class="menu-info">
+            
+              <img class="site-avatar" src="//img.xungejiang.com/static/images/avatar1.jpg">
+            
+            
+              <a class="site-title" href="/">XUNGE&#39;s Blog</a>
+            
+            
+              <span class="site-description">瞎折腾，知识点，经验值</span>
+            
+          </div>
+          <ul class="menu-items">
+            
+              <li class="menu-item">
+                <a class="menu-item-link" href="/">
+                  <span class="menu-item-text">首页</span>
+                </a>
+              </li>
+            
+              <li class="menu-item">
+                <a class="menu-item-link" href="/archives/">
+                  <span class="menu-item-text">归档</span>
+                </a>
+              </li>
+            
+              <li class="menu-item">
+                <a class="menu-item-link" href="/categories/">
+                  <span class="menu-item-text">分类</span>
+                </a>
+              </li>
+            
+              <li class="menu-item">
+                <a class="menu-item-link" href="/tags/">
+                  <span class="menu-item-text">标签</span>
+                </a>
+              </li>
+            
+              <li class="menu-item">
+                <a class="menu-item-link" href="/about/">
+                  <span class="menu-item-text">关于</span>
+                </a>
+              </li>
+            
+          </ul>
+        <div>
+      </div></div></nav>
+    </div>
+  </header>
+  <main class="main">
+  <article class="post-detail">
+  <div class="post-title">
+    <h1 class="title">PyTorch 的 BERT 微调教程</h1>
+  </div>
+   <div class="post-meta">
+    <span class="date">2020-06-06</span>
+    
+      <span>|<span>
+      <a class="article-tag-link" href="/tags/NLP/">NLP</a>
+    
+    
+      <span>|<span>
+      <a class="article-tag-link" href="/categories/知识点/">知识点</a>
+    
+  </span></span></span></span></div>
+  
+    <div class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#介绍"><span class="post-toc-text">介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#历史"><span class="post-toc-text">历史</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#什么是-bert"><span class="post-toc-text">什么是 BERT?</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#微调的优势"><span class="post-toc-text">微调的优势</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#nlp的转变"><span class="post-toc-text">NLP的转变</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#设置"><span class="post-toc-text">1. 设置</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#检查-gpu"><span class="post-toc-text">1.1. 检查 GPU</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-huggingface-库"><span class="post-toc-text">1.2. 安装 HuggingFace 库</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#加载-cola-数据集"><span class="post-toc-text">2. 加载 CoLA 数据集</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载和解压"><span class="post-toc-text">2.1. 下载和解压</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解析"><span class="post-toc-text">2.2. 解析</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#tokenization-input-格式化"><span class="post-toc-text">3. Tokenization &amp; Input 格式化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bert-tokenizer"><span class="post-toc-text">3.1. BERT Tokenizer</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#需要的格式化"><span class="post-toc-text">3.2. 需要的格式化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#特殊-tokens"><span class="post-toc-text">特殊 Tokens</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#句子长度-注意力遮盖"><span class="post-toc-text">句子长度 &amp; 注意力遮盖</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#tokenize-数据集"><span class="post-toc-text">3.3. Tokenize 数据集</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#训练-验证切分"><span class="post-toc-text">3.4. 训练 &amp; 验证切分</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#训练我们的分类模型"><span class="post-toc-text">4. 训练我们的分类模型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bertforsequenceclassification"><span class="post-toc-text">4.1. BertForSequenceClassification</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#优化器-学习率调度器"><span class="post-toc-text">4.2. 优化器 &amp; 学习率调度器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#训练循环"><span class="post-toc-text">4.3. 训练循环</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#测试集的性能"><span class="post-toc-text">5. 测试集的性能</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#数据准备"><span class="post-toc-text">5.1. 数据准备</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试集上进行评估"><span class="post-toc-text">5.2. 测试集上进行评估</span></a></li></ol><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#结论"><span class="post-toc-text">结论</span></a></li>
+    </div>
+  
+  <div class="post-content">
+    <p>本文为博客 <a href="https://mccormickml.com/2019/07/22/BERT-fine-tuning/" target="_blank" rel="noopener">BERT Fine-Tuning Tutorial with PyTorch</a> 的翻译</p>
+<a id="more"></a>
+<p>在本教程中，我将向你展示如何使用 BERT 与 huggingface PyTorch 库来快速高效地微调模型，以获得接近句子分类的最先进性能。更广泛地讲，我将描述转移学习在NLP中的实际应用，以最小的努力在一系列NLP任务上创建高性能模型。</p>
+<h1 id="介绍">介绍</h1>
+<h2 id="历史">历史</h2>
+<p>2018年是NLP的突破性一年。转移学习，特别是像Allen AI的ELMO、OpenAI的Open-GPT和谷歌的BERT这样的模型，让研究人员用最小的特定任务微调粉碎了多个基准，并为NLP社区的其他成员提供了预训练的模型，这些模型可以轻松地（用更少的数据和更少的计算时间）进行微调和实施，以产生最先进的结果。遗憾的是，对于许多刚开始接触NLP的人，甚至对于一些有经验的实践者来说，这些强大模型的理论和实际应用仍然没有得到很好的理解。</p>
+<h2 id="什么是-bert">什么是 BERT?</h2>
+<p>BERT（Bidirectional Encoder Representations from Transformers）于2018年底发布，我们将在本教程中使用该模型，为读者更好地理解和实践指导在NLP中使用转移学习模型。BERT是一种预训练语言表征的方法，它被用来创建模型，然后NLP实践者可以免费下载并使用这些模型。你可以使用这些模型从你的文本数据中提取高质量的语言特征，也可以用你自己的数据在特定的任务（分类、实体识别、问题回答等）上对这些模型进行微调，以产生最先进的预测。</p>
+<p>这篇文章将解释如何修改和微调BERT，以创建一个强大的NLP模型，快速给你提供最先进的结果。</p>
+<h2 id="微调的优势">微调的优势</h2>
+<p>在本教程中，我们将使用BERT来训练一个文本分类器。具体来说，我们将把预先训练好的 BERT 模型，在最后添加一层未经训练的神经元，并为我们的分类任务训练新模型。为什么要这样做，而不是训练一个很适合你需要的特定深度学习模型（CNN、BiLSTM等）？</p>
+<ol type="1">
+<li><p><strong>更快的发展</strong></p>
+<ul>
+<li>首先，预先训练的BERT模型权重已经编码了很多关于我们语言的信息。因此，训练我们的微调模型所需要的时间要少得多--就好像我们已经广泛地训练了我们网络的底层，只需要在使用它们的输出作为分类任务的特征时轻轻地调整它们。事实上，作者建议在特定的NLP任务上对BERT进行微调只需要2-4个纪元的训练（相比之下，从头开始训练原始的BERT模型或LSTM需要数百个GPU小时！）。</li>
+</ul></li>
+<li><p><strong>更少的数据</strong></p>
+<ul>
+<li>此外，也许同样重要的是，由于预先训练的权重，这种方法允许我们在一个比从头开始建立的模型所需的更小的数据集上微调我们的任务。从零开始建立的NLP模型的一个主要缺点是，我们通常需要一个大得令人望而却步的数据集来训练我们的网络以达到合理的精度，这意味着必须将大量的时间和精力投入到数据集的创建中。通过对BERT的微调，我们现在能够摆脱在更小的训练数据量上训练一个模型达到良好的性能。</li>
+</ul></li>
+<li><p><strong>更好的结果</strong></p>
+<ul>
+<li>最后，这种简单的微调程序（通常是在BERT的基础上增加一个全连接的层，并进行几个纪元的训练）被证明可以通过最小的任务特定调整来实现最先进的结果，适用于各种各样的任务：分类、语言推理、语义相似性、问题回答等。与其实施在特定任务上表现出良好效果的定制和有时模糊的架构，不如简单地对BERT进行微调，这被证明是一个更好的（或至少相等的）替代方案。</li>
+</ul></li>
+</ol>
+<h3 id="nlp的转变">NLP的转变</h3>
+<p>这种向转移学习的转变与几年前计算机视觉领域发生的相同转变并行。为计算机视觉任务创建一个好的深度学习网络可能需要数百万个参数，而且训练成本非常高。研究人员发现，深度网络可以学习分层的特征表示（在最低层有简单的特征，如边缘，在较高层有逐渐复杂的特征）。与其每次从头开始训练一个新的网络，不如将训练好的网络的低层泛化图像特征复制并转移到另一个有不同任务的网络中使用。很快，下载一个预先训练好的深度网络，并迅速对其进行重新训练以适应新的任务，或者在上面添加额外的层，这比从头开始训练网络的昂贵过程要好得多。对于许多人来说，2018年引入的深度预训练语言模型（ELMO、BERT、ULMFIT、Open-GPT等）标志着NLP中向转移学习的转变，就像计算机视觉看到的那样。</p>
+<p>让我们开始吧！</p>
+<h1 id="设置">1. 设置</h1>
+<h2 id="检查-gpu">1.1. 检查 GPU</h2>
+<p>为了让 torch 使用 GPU，我们需要识别并指定 GPU 作为设备。稍后，在我们的训练循环中，我们将把数据加载到设备上。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="comment"># If there's a GPU available...</span></span><br><span class="line"><span class="keyword">if</span> torch.cuda.is_available():    </span><br><span class="line"></span><br><span class="line">    <span class="comment"># Tell PyTorch to use the GPU.    </span></span><br><span class="line">    device = torch.device(<span class="string">"cuda"</span>)</span><br><span class="line">    </span><br><span class="line">    print(<span class="string">'There are %d GPU(s) available.'</span> % torch.cuda.device_count())</span><br><span class="line">    </span><br><span class="line">    print(<span class="string">'We will use the GPU:'</span>, torch.cuda.get_device_name(<span class="number">0</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># If not...</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'No GPU available, using the CPU instead.'</span>)</span><br><span class="line">    device = torch.device(<span class="string">"cpu"</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="安装-huggingface-库">1.2. 安装 HuggingFace 库</h2>
+<p>接下来，让我们安装 HuggingFace 的<a href="https://github.com/huggingface/transformers" target="_blank" rel="noopener">transformers</a>包，它将为我们提供一个与BERT一起工作的pytorch接口。（这个库包含了其他预训练语言模型的接口，如OpenAI的GPT和GPT-2）。我们选择了pytorch接口，因为它在高级API（它很容易使用，但不能深入了解事情的工作原理）和tensorflow代码（它包含了很多细节，但经常让我们偏离了关于tensorflow的课程，而这里的目的是BERT！）之间取得了很好的平衡。</p>
+<p>目前，Hugging Face库似乎是最被广泛接受的、最强大的与BERT合作的pytorch接口。除了支持各种不同的预先训练好的变换模型外，该库还包含了这些模型的预构建修改，适合你的特定任务。例如，在本教程中，我们将使用<code>BertForSequenceClassification</code>。</p>
+<p>该库还包括用于标记分类、问题回答、下句预测等的特定任务类。使用这些预建的类可以简化为您的目的修改BERT的过程。</p>
+<p>本笔记本中的代码其实是 HuggingFace 的<a href="https://github.com/huggingface/transformers/blob/e6cff60b4cbc1158fbd6e4a1c3afda8dc224f566/examples/run_glue.py" target="_blank" rel="noopener">run_glue.py</a>示例脚本的简化版。</p>
+<p><code>run_glue.py</code>是一个很有用的工具，它允许你选择你想运行的GLUE基准任务，以及你想使用的预训练模型（你可以看到可能的模型列表<a href="https://github.com/huggingface/transformers/blob/e6cff60b4cbc1158fbd6e4a1c3afda8dc224f566/examples/run_glue.py#L69" target="_blank" rel="noopener">这里</a>）。它还支持使用CPU、单个GPU或多个GPU。如果你想进一步提高速度，它甚至支持使用16位精度。</p>
+<p>不幸的是，所有这些可配置性都是以<em>可读性</em>为代价的。在这篇Notebook中，我们已经大大简化了代码，并添加了大量的注释，以使其清楚地了解发生了什么。</p>
+<h1 id="加载-cola-数据集">2. 加载 CoLA 数据集</h1>
+<p>我们将使用<a href="https://nyu-mll.github.io/CoLA/" target="_blank" rel="noopener">The Corpus of Linguistic Acceptability (CoLA)</a>数据集进行单句分类。它是一组被标记为语法正确或不正确的句子。它于2018年5月首次发布，是 "GLUE Benchmark "中包含的测试之一，BERT等模型都在此基础上进行比赛。</p>
+<h2 id="下载和解压">2.1. 下载和解压</h2>
+<p>该数据集托管在GitHub上的这个repo中：https://nyu-mll.github.io/CoLA/，<a href="https://nyu-mll.github.io/CoLA/cola_public_1.1.zip" target="_blank" rel="noopener">下载链接</a></p>
+<h2 id="解析">2.2. 解析</h2>
+<p>我们可以从文件名中看到，"tokenized" 和 "raw"版本的数据都是可用的。</p>
+<p>我们不能使用预标记版本，因为为了应用预训练的BERT，我们<em>必须</em>使用模型提供的标记器。这是因为：（1）模型有一个特定的、固定的词汇，（2）BERT tokenizer有一种特殊的方式来处理词汇外的词汇。</p>
+<p>我们将使用pandas来解析"域内"训练集，并查看其一些属性和数据点。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load the dataset into a pandas dataframe.</span></span><br><span class="line">df = pd.read_csv(<span class="string">"./cola_public/raw/in_domain_train.tsv"</span>, delimiter=<span class="string">'\t'</span>, header=<span class="literal">None</span>, names=[<span class="string">'sentence_source'</span>, <span class="string">'label'</span>, <span class="string">'label_notes'</span>, <span class="string">'sentence'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Report the number of sentences.</span></span><br><span class="line">print(<span class="string">'Number of training sentences: &#123;:,&#125;\n'</span>.format(df.shape[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Display 10 random rows from the data.</span></span><br><span class="line">df.sample(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p>我们实际关心的两个属性是"句子"和它的"标签"，这个标签被称为"可接受性判断"（0=不可接受，1=可接受）。</p>
+<p>下面是五个被标注为语法上不可接受的句子。请注意，这个任务比情感分析之类的工作要难得多!</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">print(df.loc[df.label == <span class="number">0</span>].sample(<span class="number">5</span>)[[<span class="string">'sentence'</span>, <span class="string">'label'</span>]])</span><br></pre></td></tr></table></figure>
+<p>让我们将训练集的句子和标签提取为 numpy ndarrays。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Get the lists of sentences and their labels.</span></span><br><span class="line">sentences = df.sentence.values</span><br><span class="line">labels = df.label.values</span><br></pre></td></tr></table></figure>
+<h1 id="tokenization-input-格式化">3. Tokenization &amp; Input 格式化</h1>
+<p>在本节中，我们将把我们的数据集转换为BERT可以训练的格式。</p>
+<h2 id="bert-tokenizer">3.1. BERT Tokenizer</h2>
+<p>为了将我们的文本输入到 BERT，必须将其分割成 tokens，然后这些 tokens 必须被映射到 tokenizer 词汇表中的索引。</p>
+<p>Tokenization 必须由 BERT 中包含的 Tokenizer 来执行--下面的单元格将为我们下载。我们将在这里使用 "uncases "版本。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> BertTokenizer</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load the BERT tokenizer.</span></span><br><span class="line">print(<span class="string">'Loading BERT tokenizer...'</span>)</span><br><span class="line">tokenizer = BertTokenizer.from_pretrained(<span class="string">'bert-base-uncased'</span>, do_lower_case=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>让我们把tokenizer应用到一个句子上，看看输出。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Print the original sentence.</span></span><br><span class="line">print(<span class="string">'Original: '</span>, sentences[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Print the sentence split into tokens.</span></span><br><span class="line">print(<span class="string">'Tokenized: '</span>, tokenizer.tokenize(sentences[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Print the sentence mapped to token ids.</span></span><br><span class="line">print(<span class="string">'Token IDs: '</span>, tokenizer.convert_tokens_to_ids(tokenizer.tokenize(sentences[<span class="number">0</span>])))</span><br></pre></td></tr></table></figure>
+<p>当我们实际转换所有的句子时，我们将使用<code>tokenize.encode</code>函数来处理这两个步骤，而不是分别调用<code>tokenize</code>和<code>convert_tokens_to_ids</code>。</p>
+<p>不过，在我们这样做之前，我们需要先谈谈BERT的一些格式化要求。</p>
+<h2 id="需要的格式化">3.2. 需要的格式化</h2>
+<p>上面的代码遗漏了一些必要的格式化步骤，我们将在这里看看。</p>
+<ul>
+<li>补充说明：我觉得BERT的输入格式似乎 "过于规范"了......。我们被要求提供一些信息，这些信息看起来是多余的，或者说它们可以很容易地从数据中推断出来，而不需要我们明确地提供。但事实就是如此，我想一旦我对BERT的内部结构有了更深入的了解，它就会变得更有意义。</li>
+</ul>
+<p>我们需要做的是 1. 在每个句子的开头和结尾添加特殊的标记。 2. 将所有句子的长度固定为一个固定的长度。 3. 用"注意力遮盖"明确区分真正的 token 和填充 token。</p>
+<h3 id="特殊-tokens">特殊 Tokens</h3>
+<p><strong><code>[SEP]</code></strong></p>
+<p>在每个句子的末尾，我们需要附加特殊的"[SEP]"令牌。</p>
+<p>这个标记是双句子任务的产物，即给BERT两个独立的句子，并要求它确定一些事情（例如，句子A中的问题的答案能否在句子B中找到？</p>
+<p>我还不确定为什么当我们只有单句输入的时候，还需要 token，但它确实需要!</p>
+<p><strong><code>[CLS]</code></strong></p>
+<p>对于分类任务，我们必须在每个句子的开头加上特殊的"[CLS]"标记。</p>
+<p>这个标记具有特殊的意义。BERT 由12个 Transformer 层组成。每个 Transformer 都会接收一个标记嵌入的列表，并在输出中产生相同数量的嵌入（当然是改变了特征值！）。</p>
+<figure>
+<img class="lazyload" data-src="http://www.mccormickml.com/assets/BERT/CLS_token_500x606.png" alt="Illustration of CLS token purpose"><figcaption aria-hidden="true">Illustration of CLS token purpose</figcaption>
+</figure>
+<p>在最后一个(第12个) Transformer 的输出端，<em>分类器只使用第一个嵌入(对应[CLS]标记)</em>。</p>
+<blockquote>
+<p>"The first token of every sequence is always a special classification token (<code>[CLS]</code>). The final hidden state corresponding to this token is used as the aggregate sequence representation for classification tasks." (摘自<a href="https://arxiv.org/pdf/1810.04805.pdf" target="_blank" rel="noopener">BERT论文</a>)</p>
+</blockquote>
+<p>你可能会想到在最终的嵌入上尝试一些池化策略，但这并不是必须的。因为 BERT 被训练成只使用这个[CLS]标记进行分类，我们知道模型已经被激励将分类步骤所需的一切编码到那个单一的 768 值嵌入向量中。它已经为我们完成了池化工作!</p>
+<h3 id="句子长度-注意力遮盖">句子长度 &amp; 注意力遮盖</h3>
+<p>我们数据集中的句子显然有不同的长度，那么BERT是如何处理的呢？</p>
+<p>BERT有两个约束条件。 1. 所有的句子必须被填充或截断成一个固定的长度。 2. 最大的句子长度是512个tokens。</p>
+<p>填充是通过一个特殊的"[PAD]"令牌来完成的，它在BERT词汇表中的索引0。下面的插图演示了填充到8个令牌的 "MAX_LEN"。</p>
+<p><img class="lazyload" data-src="http://www.mccormickml.com/assets/BERT/padding_and_mask.png" width="600"></p>
+<p>"注意力遮盖"只是一个1和0的数组，表示哪些标记是padding，哪些不是（看起来有点多余，不是吗！）。这个掩码告诉BERT中的"自我关注"机制不要将这些pad标记纳入它对句子的解释中。</p>
+<p>不过，最大长度确实会影响训练和评估速度。</p>
+<p>例如，用特斯拉K80。</p>
+<p><code>MAX_LEN = 128 --&gt; 训练一个 epoch 需要 5:28</code></p>
+<p><code>MAX_LEN = 64 --&gt; 训练一个 epoch 需要 2:57</code>。</p>
+<h2 id="tokenize-数据集">3.3. Tokenize 数据集</h2>
+<p>transformers库提供了一个有用的 "encode" 函数，它将为我们处理大部分的解析和数据准备步骤。</p>
+<p>在我们准备好对文本进行编码之前，我们需要决定一个<strong>最大句子长度</strong>来进行填充/截断。</p>
+<p>下面的单元格将对数据集进行一次标记化处理，以测量最大句子长度。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">max_len = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># For every sentence...</span></span><br><span class="line"><span class="keyword">for</span> sent <span class="keyword">in</span> sentences:</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Tokenize the text and add `[CLS]` and `[SEP]` tokens.</span></span><br><span class="line">    input_ids = tokenizer.encode(sent, add_special_tokens=<span class="literal">True</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Update the maximum sentence length.</span></span><br><span class="line">    max_len = max(max_len, len(input_ids))</span><br><span class="line"></span><br><span class="line">print(<span class="string">'Max sentence length: '</span>, max_len)</span><br></pre></td></tr></table></figure>
+<p>为了防止有一些较长的测试句子，我将最大长度设置为64。</p>
+<p>现在我们准备好执行真正的 tokenization 了。</p>
+<p><code>tokenizer.encode_plus</code>函数为我们结合了多个步骤。</p>
+<ol type="1">
+<li>将句子分割成token。</li>
+<li>添加特殊的<code>[CLS]</code>和<code>[SEP]</code>标记。</li>
+<li>将这些标记映射到它们的ID上。</li>
+<li>把所有的句子都垫上或截断成相同的长度。</li>
+<li>创建注意力遮盖，明确区分真实 token 和<code>[PAD]</code>token。</li>
+</ol>
+<p>前四项功能在<code>tokenizer.encode</code>中，但我使用<code>tokenizer.encode_plus</code>来获得第五项（注意力遮盖）。文档在<a href="https://huggingface.co/transformers/main_classes/tokenizer.html?highlight=encode_plus#transformers.PreTrainedTokenizer.encode_plus" target="_blank" rel="noopener">这里</a>.</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Tokenize all of the sentences and map the tokens to thier word IDs.</span></span><br><span class="line">input_ids = []</span><br><span class="line">attention_masks = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># For every sentence...</span></span><br><span class="line"><span class="keyword">for</span> sent <span class="keyword">in</span> sentences:</span><br><span class="line">    <span class="comment"># `encode_plus` will:</span></span><br><span class="line">    <span class="comment">#   (1) Tokenize the sentence.</span></span><br><span class="line">    <span class="comment">#   (2) Prepend the `[CLS]` token to the start.</span></span><br><span class="line">    <span class="comment">#   (3) Append the `[SEP]` token to the end.</span></span><br><span class="line">    <span class="comment">#   (4) Map tokens to their IDs.</span></span><br><span class="line">    <span class="comment">#   (5) Pad or truncate the sentence to `max_length`</span></span><br><span class="line">    <span class="comment">#   (6) Create attention masks for [PAD] tokens.</span></span><br><span class="line">    encoded_dict = tokenizer.encode_plus(</span><br><span class="line">                        sent,                      <span class="comment"># Sentence to encode.</span></span><br><span class="line">                        add_special_tokens = <span class="literal">True</span>, <span class="comment"># Add '[CLS]' and '[SEP]'</span></span><br><span class="line">                        max_length = <span class="number">64</span>,           <span class="comment"># Pad &amp; truncate all sentences.</span></span><br><span class="line">                        pad_to_max_length = <span class="literal">True</span>,</span><br><span class="line">                        return_attention_mask = <span class="literal">True</span>,   <span class="comment"># Construct attn. masks.</span></span><br><span class="line">                        return_tensors = <span class="string">'pt'</span>,     <span class="comment"># Return pytorch tensors.</span></span><br><span class="line">                   )</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Add the encoded sentence to the list.    </span></span><br><span class="line">    input_ids.append(encoded_dict[<span class="string">'input_ids'</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># And its attention mask (simply differentiates padding from non-padding).</span></span><br><span class="line">    attention_masks.append(encoded_dict[<span class="string">'attention_mask'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Convert the lists into tensors.</span></span><br><span class="line">input_ids = torch.cat(input_ids, dim=<span class="number">0</span>)</span><br><span class="line">attention_masks = torch.cat(attention_masks, dim=<span class="number">0</span>)</span><br><span class="line">labels = torch.tensor(labels)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Print sentence 0, now as a list of IDs.</span></span><br><span class="line">print(<span class="string">'Original: '</span>, sentences[<span class="number">0</span>])</span><br><span class="line">print(<span class="string">'Token IDs:'</span>, input_ids[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+<h2 id="训练-验证切分">3.4. 训练 &amp; 验证切分</h2>
+<p>把我们的训练集分成 90% 用于训练，10% 用于验证。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> TensorDataset, random_split</span><br><span class="line"></span><br><span class="line"><span class="comment"># Combine the training inputs into a TensorDataset.</span></span><br><span class="line">dataset = TensorDataset(input_ids, attention_masks, labels)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a 90-10 train-validation split.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Calculate the number of samples to include in each set.</span></span><br><span class="line">train_size = int(<span class="number">0.9</span> * len(dataset))</span><br><span class="line">val_size = len(dataset) - train_size</span><br><span class="line"></span><br><span class="line"><span class="comment"># Divide the dataset by randomly selecting samples.</span></span><br><span class="line">train_dataset, val_dataset = random_split(dataset, [train_size, val_size])</span><br><span class="line"></span><br><span class="line">print(<span class="string">'&#123;:&gt;5,&#125; training samples'</span>.format(train_size))</span><br><span class="line">print(<span class="string">'&#123;:&gt;5,&#125; validation samples'</span>.format(val_size))</span><br></pre></td></tr></table></figure>
+<p>我们还将使用 torch DataLoader 类为我们的数据集创建一个迭代器。这有助于在训练过程中节省内存，因为与for循环不同，有了迭代器，整个数据集不需要加载到内存中。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader, RandomSampler, SequentialSampler</span><br><span class="line"></span><br><span class="line"><span class="comment"># The DataLoader needs to know our batch size for training, so we specify it </span></span><br><span class="line"><span class="comment"># here. For fine-tuning BERT on a specific task, the authors recommend a batch </span></span><br><span class="line"><span class="comment"># size of 16 or 32.</span></span><br><span class="line">batch_size = <span class="number">32</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create the DataLoaders for our training and validation sets.</span></span><br><span class="line"><span class="comment"># We'll take training samples in random order. </span></span><br><span class="line">train_dataloader = DataLoader(</span><br><span class="line">            train_dataset,  <span class="comment"># The training samples.</span></span><br><span class="line">            sampler = RandomSampler(train_dataset), <span class="comment"># Select batches randomly</span></span><br><span class="line">            batch_size = batch_size <span class="comment"># Trains with this batch size.</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line"><span class="comment"># For validation the order doesn't matter, so we'll just read them sequentially.</span></span><br><span class="line">validation_dataloader = DataLoader(</span><br><span class="line">            val_dataset, <span class="comment"># The validation samples.</span></span><br><span class="line">            sampler = SequentialSampler(val_dataset), <span class="comment"># Pull out batches sequentially.</span></span><br><span class="line">            batch_size = batch_size <span class="comment"># Evaluate with this batch size.</span></span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+<h1 id="训练我们的分类模型">4. 训练我们的分类模型</h1>
+<p>现在我们的输入数据已经被正确格式化了，是时候微调一下BERT模型了。</p>
+<h2 id="bertforsequenceclassification">4.1. BertForSequenceClassification</h2>
+<p>对于这个任务，我们首先要修改预先训练好的 BERT 模型，给出分类的输出，然后我们要在我们的数据集上继续训练模型，直到整个模型，端到端都很适合我们的任务。</p>
+<p>值得庆幸的是，huggingface pytorch的实现中包含了一套针对各种NLP任务设计的接口。虽然这些接口都是建立在训练好的 BERT 模型之上，但每个接口都有不同的顶层和输出类型，以适应其特定的 NLP 任务。</p>
+<p>以下是目前提供的类列表，供微调。</p>
+<ul>
+<li>BertModel</li>
+<li>BertForPreTraining</li>
+<li>BertForMaskedLM</li>
+<li>BertForNextSentencePrediction(下句预测)</li>
+<li><strong>BertForSequenceClassification</strong> - 我们将使用的那个。</li>
+<li>BertForTokenClassification</li>
+<li>BertForQuestionAnswering</li>
+</ul>
+<p>这些文档可以在<a href="https://huggingface.co/transformers/v2.2.0/model_doc/bert.html" target="_blank" rel="noopener">这里</a>下找到。</p>
+<p>我们将使用<a href="https://huggingface.co/transformers/v2.2.0/model_doc/bert.html#bertforsequenceclassification" target="_blank" rel="noopener">BertForSequenceClassification</a>。这是普通的BERT模型，上面增加了一个用于分类的单线性层，我们将使用它作为句子分类器。当我们输入数据时，整个预先训练好的BERT模型和额外的未经训练的分类层会根据我们的特定任务进行训练。</p>
+<p>OK，让我们加载 BERT 吧! 有几个不同的预训练 BERT 模型可供选择。"bert-base-uncased "指的是只有小写字母（"uncased"）的版本，是两者中较小的版本（"base "vs "large"）。</p>
+<p><code>from_pretrained</code>的文档可以在<a href="https://huggingface.co/transformers/v2.2.0/main_classes/model.html#transformers.PreTrainedModel.from_pretrained" target="_blank" rel="noopener">这里</a>找到，附加参数定义在<a href="https://huggingface.co/transformers/v2.2.0/main_classes/configuration.html#transformers.PretrainedConfig" target="_blank" rel="noopener">这里</a>。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> BertForSequenceClassification, AdamW, BertConfig</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load BertForSequenceClassification, the pretrained BERT model with a single </span></span><br><span class="line"><span class="comment"># linear classification layer on top. </span></span><br><span class="line">model = BertForSequenceClassification.from_pretrained(</span><br><span class="line">    <span class="string">"bert-base-uncased"</span>, <span class="comment"># Use the 12-layer BERT model, with an uncased vocab.</span></span><br><span class="line">    num_labels = <span class="number">2</span>, <span class="comment"># The number of output labels--2 for binary classification.</span></span><br><span class="line">                    <span class="comment"># You can increase this for multi-class tasks.   </span></span><br><span class="line">    output_attentions = <span class="literal">False</span>, <span class="comment"># Whether the model returns attentions weights.</span></span><br><span class="line">    output_hidden_states = <span class="literal">False</span>, <span class="comment"># Whether the model returns all hidden-states.</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Tell pytorch to run this model on the GPU.</span></span><br><span class="line">model.cuda()</span><br></pre></td></tr></table></figure>
+<p>为了好奇，我们可以在这里按名称浏览所有模型的参数。</p>
+<p>在下面的单元格中，我打印出了权重的名称和尺寸，分别为。</p>
+<ol type="1">
+<li>嵌入层。</li>
+<li>十二个变压器中的第一个。</li>
+<li>输出层。</li>
+</ol>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Get all of the model's parameters as a list of tuples.</span></span><br><span class="line">params = list(model.named_parameters())</span><br><span class="line"></span><br><span class="line">print(<span class="string">'The BERT model has &#123;:&#125; different named parameters.\n'</span>.format(len(params)))</span><br><span class="line"></span><br><span class="line">print(<span class="string">'==== Embedding Layer ====\n'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> params[<span class="number">0</span>:<span class="number">5</span>]:</span><br><span class="line">    print(<span class="string">"&#123;:&lt;55&#125; &#123;:&gt;12&#125;"</span>.format(p[<span class="number">0</span>], str(tuple(p[<span class="number">1</span>].size()))))</span><br><span class="line"></span><br><span class="line">print(<span class="string">'\n==== First Transformer ====\n'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> params[<span class="number">5</span>:<span class="number">21</span>]:</span><br><span class="line">    print(<span class="string">"&#123;:&lt;55&#125; &#123;:&gt;12&#125;"</span>.format(p[<span class="number">0</span>], str(tuple(p[<span class="number">1</span>].size()))))</span><br><span class="line"></span><br><span class="line">print(<span class="string">'\n==== Output Layer ====\n'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> params[<span class="number">-4</span>:]:</span><br><span class="line">    print(<span class="string">"&#123;:&lt;55&#125; &#123;:&gt;12&#125;"</span>.format(p[<span class="number">0</span>], str(tuple(p[<span class="number">1</span>].size()))))</span><br></pre></td></tr></table></figure>
+<h2 id="优化器-学习率调度器">4.2. 优化器 &amp; 学习率调度器</h2>
+<p>现在我们已经加载了我们的模型，我们需要从存储的模型中抓取训练超参数。</p>
+<p>为了微调的目的，作者建议从以下数值中选择（来自<a href="https://arxiv.org/pdf/1810.04805.pdf" target="_blank" rel="noopener">BERT论文</a>的附录A.3）。</p>
+<blockquote>
+<ul>
+<li><strong>batch大小：</strong> 16，32。</li>
+<li><strong>学习率(Adam)：</strong> 5e-5、3e-5、2e-5。</li>
+<li><strong>epoch数：</strong> 2、3、4。</li>
+</ul>
+</blockquote>
+<p>我们选择的是： * batch大小：32（在创建DataLoaders时设置）。 * 学习率：2e-5 * Epochs: 4 (我们将看到这可能是太多了...)</p>
+<p>epsilon 参数<code>eps = 1e-8</code>是 "一个非常小的数字，以防止在实现中出现任何除以零的情况" (来自<a href="https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/" target="_blank" rel="noopener">这里</a>)。</p>
+<p>你可以在<code>run_glue.py</code><a href="https://github.com/huggingface/transformers/blob/5bfcd0485ece086ebcbed2d008813037968a9e58/examples/run_glue.py#L109" target="_blank" rel="noopener">这里</a>中找到AdamW优化器的创建。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># <span class="doctag">Note:</span> AdamW is a class from the huggingface library (as opposed to pytorch) </span></span><br><span class="line"><span class="comment"># I believe the 'W' stands for 'Weight Decay fix"</span></span><br><span class="line">optimizer = AdamW(model.parameters(),</span><br><span class="line">                  lr = <span class="number">2e-5</span>, <span class="comment"># args.learning_rate - default is 5e-5, our notebook had 2e-5</span></span><br><span class="line">                  eps = <span class="number">1e-8</span> <span class="comment"># args.adam_epsilon  - default is 1e-8.</span></span><br><span class="line">                )</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> get_linear_schedule_with_warmup</span><br><span class="line"></span><br><span class="line"><span class="comment"># Number of training epochs. The BERT authors recommend between 2 and 4. </span></span><br><span class="line"><span class="comment"># We chose to run for 4, but we'll see later that this may be over-fitting the</span></span><br><span class="line"><span class="comment"># training data.</span></span><br><span class="line">epochs = <span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Total number of training steps is [number of batches] x [number of epochs]. </span></span><br><span class="line"><span class="comment"># (Note that this is not the same as the number of training samples).</span></span><br><span class="line">total_steps = len(train_dataloader) * epochs</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create the learning rate scheduler.</span></span><br><span class="line">scheduler = get_linear_schedule_with_warmup(optimizer, </span><br><span class="line">                                            num_warmup_steps = <span class="number">0</span>, <span class="comment"># Default value in run_glue.py</span></span><br><span class="line">                                            num_training_steps = total_steps)</span><br></pre></td></tr></table></figure>
+<h2 id="训练循环">4.3. 训练循环</h2>
+<p>下面是我们的训练循环。有很多事情要做，但从根本上讲，我们的循环中的每一个过程都有一个训练阶段和一个验证阶段。</p>
+<blockquote>
+<p>*感谢<a href="https://ca.linkedin.com/in/stasbekman" target="_blank" rel="noopener">Stas Bekman</a>贡献了使用验证损失来检测过度拟合的见解和代码！</p>
+</blockquote>
+<p><strong>训练：</strong> - 解开我们的数据输入和标签 - 将数据加载到GPU上进行加速 - 清空上一次计算的梯度。 - 在pytorch中，默认情况下梯度会累积（对RNNs等有用），除非你明确地清除它们。 - 正向传递（通过网络输入数据）。 - 后传(反向传播) - 用optimizer.step()告诉网络更新参数。 - 跟踪监测进展的变量</p>
+<p><strong>验证：</strong> - 解开我们的数据输入和标签 - 将数据加载到GPU上进行加速 - 正向传递(通过网络输入数据) - 计算我们的验证数据的损失，并跟踪监测进度的变量。</p>
+<p>Pytorch 向我们隐藏了所有的详细计算，但我们已经对代码进行了注释，以指出上述步骤中的每一行都在进行。</p>
+<blockquote>
+<p><em>PyTorch也有一些<a href="https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html#sphx-glr-beginner-blitz-cifar10-tutorial-py" target="_blank" rel="noopener">初学者教程</a>，你可能也会觉得很有帮助</em>。</p>
+</blockquote>
+<p>定义一个用于计算精度的辅助函数。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># Function to calculate the accuracy of our predictions vs labels</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">flat_accuracy</span><span class="params">(preds, labels)</span>:</span></span><br><span class="line">    pred_flat = np.argmax(preds, axis=<span class="number">1</span>).flatten()</span><br><span class="line">    labels_flat = labels.flatten()</span><br><span class="line">    <span class="keyword">return</span> np.sum(pred_flat == labels_flat) / len(labels_flat)</span><br></pre></td></tr></table></figure>
+<p>用于格式化 "hh:mm:ss" 的经过时间的辅助函数。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">format_time</span><span class="params">(elapsed)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    Takes a time in seconds and returns a string hh:mm:ss</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="comment"># Round to the nearest second.</span></span><br><span class="line">    elapsed_rounded = int(round((elapsed)))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Format as hh:mm:ss</span></span><br><span class="line">    <span class="keyword">return</span> str(datetime.timedelta(seconds=elapsed_rounded))</span><br></pre></td></tr></table></figure>
+<p>我们准备开始训练了!</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="comment"># This training code is based on the `run_glue.py` script here:</span></span><br><span class="line"><span class="comment"># https://github.com/huggingface/transformers/blob/5bfcd0485ece086ebcbed2d008813037968a9e58/examples/run_glue.py#L128</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set the seed value all over the place to make this reproducible.</span></span><br><span class="line">seed_val = <span class="number">42</span></span><br><span class="line"></span><br><span class="line">random.seed(seed_val)</span><br><span class="line">np.random.seed(seed_val)</span><br><span class="line">torch.manual_seed(seed_val)</span><br><span class="line">torch.cuda.manual_seed_all(seed_val)</span><br><span class="line"></span><br><span class="line"><span class="comment"># We'll store a number of quantities such as training and validation loss, </span></span><br><span class="line"><span class="comment"># validation accuracy, and timings.</span></span><br><span class="line">training_stats = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># Measure the total training time for the whole run.</span></span><br><span class="line">total_t0 = time.time()</span><br><span class="line"></span><br><span class="line"><span class="comment"># For each epoch...</span></span><br><span class="line"><span class="keyword">for</span> epoch_i <span class="keyword">in</span> range(<span class="number">0</span>, epochs):</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># ========================================</span></span><br><span class="line">    <span class="comment">#               Training</span></span><br><span class="line">    <span class="comment"># ========================================</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Perform one full pass over the training set.</span></span><br><span class="line">    </span><br><span class="line">    print(<span class="string">""</span>)</span><br><span class="line">    print(<span class="string">'======== Epoch &#123;:&#125; / &#123;:&#125; ========'</span>.format(epoch_i + <span class="number">1</span>, epochs))</span><br><span class="line">    print(<span class="string">'Training...'</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Measure how long the training epoch takes.</span></span><br><span class="line">    t0 = time.time()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Reset the total loss for this epoch.</span></span><br><span class="line">    total_train_loss = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Put the model into training mode. Don't be mislead--the call to </span></span><br><span class="line">    <span class="comment"># `train` just changes the *mode*, it doesn't *perform* the training.</span></span><br><span class="line">    <span class="comment"># `dropout` and `batchnorm` layers behave differently during training</span></span><br><span class="line">    <span class="comment"># vs. test (source: https://stackoverflow.com/questions/51433378/what-does-model-train-do-in-pytorch)</span></span><br><span class="line">    model.train()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># For each batch of training data...</span></span><br><span class="line">    <span class="keyword">for</span> step, batch <span class="keyword">in</span> enumerate(train_dataloader):</span><br><span class="line">    </span><br><span class="line">        <span class="comment"># Progress update every 40 batches.</span></span><br><span class="line">        <span class="keyword">if</span> step % <span class="number">40</span> == <span class="number">0</span> <span class="keyword">and</span> <span class="keyword">not</span> step == <span class="number">0</span>:</span><br><span class="line">            <span class="comment"># Calculate elapsed time in minutes.</span></span><br><span class="line">            elapsed = format_time(time.time() - t0)</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># Report progress.</span></span><br><span class="line">            print(<span class="string">'  Batch &#123;:&gt;5,&#125;  of  &#123;:&gt;5,&#125;.    Elapsed: &#123;:&#125;.'</span>.format(step, len(train_dataloader), elapsed))</span><br><span class="line">    </span><br><span class="line">        <span class="comment"># Unpack this training batch from our dataloader. </span></span><br><span class="line">        <span class="comment">#</span></span><br><span class="line">        <span class="comment"># As we unpack the batch, we'll also copy each tensor to the GPU using the </span></span><br><span class="line">        <span class="comment"># `to` method.</span></span><br><span class="line">        <span class="comment">#</span></span><br><span class="line">        <span class="comment"># `batch` contains three pytorch tensors:</span></span><br><span class="line">        <span class="comment">#   [0]: input ids </span></span><br><span class="line">        <span class="comment">#   [1]: attention masks</span></span><br><span class="line">        <span class="comment">#   [2]: labels </span></span><br><span class="line">        b_input_ids = batch[<span class="number">0</span>].to(device)</span><br><span class="line">        b_input_mask = batch[<span class="number">1</span>].to(device)</span><br><span class="line">        b_labels = batch[<span class="number">2</span>].to(device)</span><br><span class="line">    </span><br><span class="line">        <span class="comment"># Always clear any previously calculated gradients before performing a</span></span><br><span class="line">        <span class="comment"># backward pass. PyTorch doesn't do this automatically because </span></span><br><span class="line">        <span class="comment"># accumulating the gradients is "convenient while training RNNs". </span></span><br><span class="line">        <span class="comment"># (source: https://stackoverflow.com/questions/48001598/why-do-we-need-to-call-zero-grad-in-pytorch)</span></span><br><span class="line">        model.zero_grad()        </span><br><span class="line">    </span><br><span class="line">        <span class="comment"># Perform a forward pass (evaluate the model on this training batch).</span></span><br><span class="line">        <span class="comment"># The documentation for this `model` function is here: </span></span><br><span class="line">        <span class="comment"># https://huggingface.co/transformers/v2.2.0/model_doc/bert.html#transformers.BertForSequenceClassification</span></span><br><span class="line">        <span class="comment"># It returns different numbers of parameters depending on what arguments</span></span><br><span class="line">        <span class="comment"># arge given and what flags are set. For our useage here, it returns</span></span><br><span class="line">        <span class="comment"># the loss (because we provided labels) and the "logits"--the model</span></span><br><span class="line">        <span class="comment"># outputs prior to activation.</span></span><br><span class="line">        loss, logits = model(b_input_ids, </span><br><span class="line">                             token_type_ids=<span class="literal">None</span>, </span><br><span class="line">                             attention_mask=b_input_mask, </span><br><span class="line">                             labels=b_labels)</span><br><span class="line">    </span><br><span class="line">        <span class="comment"># Accumulate the training loss over all of the batches so that we can</span></span><br><span class="line">        <span class="comment"># calculate the average loss at the end. `loss` is a Tensor containing a</span></span><br><span class="line">        <span class="comment"># single value; the `.item()` function just returns the Python value </span></span><br><span class="line">        <span class="comment"># from the tensor.</span></span><br><span class="line">        total_train_loss += loss.item()</span><br><span class="line">    </span><br><span class="line">        <span class="comment"># Perform a backward pass to calculate the gradients.</span></span><br><span class="line">        loss.backward()</span><br><span class="line">    </span><br><span class="line">        <span class="comment"># Clip the norm of the gradients to 1.0.</span></span><br><span class="line">        <span class="comment"># This is to help prevent the "exploding gradients" problem.</span></span><br><span class="line">        torch.nn.utils.clip_grad_norm_(model.parameters(), <span class="number">1.0</span>)</span><br><span class="line">    </span><br><span class="line">        <span class="comment"># Update parameters and take a step using the computed gradient.</span></span><br><span class="line">        <span class="comment"># The optimizer dictates the "update rule"--how the parameters are</span></span><br><span class="line">        <span class="comment"># modified based on their gradients, the learning rate, etc.</span></span><br><span class="line">        optimizer.step()</span><br><span class="line">    </span><br><span class="line">        <span class="comment"># Update the learning rate.</span></span><br><span class="line">        scheduler.step()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Calculate the average loss over all of the batches.</span></span><br><span class="line">    avg_train_loss = total_train_loss / len(train_dataloader)            </span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Measure how long this epoch took.</span></span><br><span class="line">    training_time = format_time(time.time() - t0)</span><br><span class="line">    </span><br><span class="line">    print(<span class="string">""</span>)</span><br><span class="line">    print(<span class="string">"  Average training loss: &#123;0:.2f&#125;"</span>.format(avg_train_loss))</span><br><span class="line">    print(<span class="string">"  Training epcoh took: &#123;:&#125;"</span>.format(training_time))</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># ========================================</span></span><br><span class="line">    <span class="comment">#               Validation</span></span><br><span class="line">    <span class="comment"># ========================================</span></span><br><span class="line">    <span class="comment"># After the completion of each training epoch, measure our performance on</span></span><br><span class="line">    <span class="comment"># our validation set.</span></span><br><span class="line">    </span><br><span class="line">    print(<span class="string">""</span>)</span><br><span class="line">    print(<span class="string">"Running Validation..."</span>)</span><br><span class="line">    </span><br><span class="line">    t0 = time.time()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Put the model in evaluation mode--the dropout layers behave differently</span></span><br><span class="line">    <span class="comment"># during evaluation.</span></span><br><span class="line">    model.eval()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Tracking variables </span></span><br><span class="line">    total_eval_accuracy = <span class="number">0</span></span><br><span class="line">    total_eval_loss = <span class="number">0</span></span><br><span class="line">    nb_eval_steps = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Evaluate data for one epoch</span></span><br><span class="line">    <span class="keyword">for</span> batch <span class="keyword">in</span> validation_dataloader:</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Unpack this training batch from our dataloader. </span></span><br><span class="line">        <span class="comment">#</span></span><br><span class="line">        <span class="comment"># As we unpack the batch, we'll also copy each tensor to the GPU using </span></span><br><span class="line">        <span class="comment"># the `to` method.</span></span><br><span class="line">        <span class="comment">#</span></span><br><span class="line">        <span class="comment"># `batch` contains three pytorch tensors:</span></span><br><span class="line">        <span class="comment">#   [0]: input ids </span></span><br><span class="line">        <span class="comment">#   [1]: attention masks</span></span><br><span class="line">        <span class="comment">#   [2]: labels </span></span><br><span class="line">        b_input_ids = batch[<span class="number">0</span>].to(device)</span><br><span class="line">        b_input_mask = batch[<span class="number">1</span>].to(device)</span><br><span class="line">        b_labels = batch[<span class="number">2</span>].to(device)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Tell pytorch not to bother with constructing the compute graph during</span></span><br><span class="line">        <span class="comment"># the forward pass, since this is only needed for backprop (training).</span></span><br><span class="line">        <span class="keyword">with</span> torch.no_grad():        </span><br><span class="line">    </span><br><span class="line">            <span class="comment"># Forward pass, calculate logit predictions.</span></span><br><span class="line">            <span class="comment"># token_type_ids is the same as the "segment ids", which </span></span><br><span class="line">            <span class="comment"># differentiates sentence 1 and 2 in 2-sentence tasks.</span></span><br><span class="line">            <span class="comment"># The documentation for this `model` function is here: </span></span><br><span class="line">            <span class="comment"># https://huggingface.co/transformers/v2.2.0/model_doc/bert.html#transformers.BertForSequenceClassification</span></span><br><span class="line">            <span class="comment"># Get the "logits" output by the model. The "logits" are the output</span></span><br><span class="line">            <span class="comment"># values prior to applying an activation function like the softmax.</span></span><br><span class="line">            (loss, logits) = model(b_input_ids, </span><br><span class="line">                                   token_type_ids=<span class="literal">None</span>, </span><br><span class="line">                                   attention_mask=b_input_mask,</span><br><span class="line">                                   labels=b_labels)</span><br><span class="line">            </span><br><span class="line">        <span class="comment"># Accumulate the validation loss.</span></span><br><span class="line">        total_eval_loss += loss.item()</span><br><span class="line">    </span><br><span class="line">        <span class="comment"># Move logits and labels to CPU</span></span><br><span class="line">        logits = logits.detach().cpu().numpy()</span><br><span class="line">        label_ids = b_labels.to(<span class="string">'cpu'</span>).numpy()</span><br><span class="line">    </span><br><span class="line">        <span class="comment"># Calculate the accuracy for this batch of test sentences, and</span></span><br><span class="line">        <span class="comment"># accumulate it over all batches.</span></span><br><span class="line">        total_eval_accuracy += flat_accuracy(logits, label_ids)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Report the final accuracy for this validation run.</span></span><br><span class="line">    avg_val_accuracy = total_eval_accuracy / len(validation_dataloader)</span><br><span class="line">    print(<span class="string">"  Accuracy: &#123;0:.2f&#125;"</span>.format(avg_val_accuracy))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Calculate the average loss over all of the batches.</span></span><br><span class="line">    avg_val_loss = total_eval_loss / len(validation_dataloader)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Measure how long the validation run took.</span></span><br><span class="line">    validation_time = format_time(time.time() - t0)</span><br><span class="line">    </span><br><span class="line">    print(<span class="string">"  Validation Loss: &#123;0:.2f&#125;"</span>.format(avg_val_loss))</span><br><span class="line">    print(<span class="string">"  Validation took: &#123;:&#125;"</span>.format(validation_time))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Record all statistics from this epoch.</span></span><br><span class="line">    training_stats.append(</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">'epoch'</span>: epoch_i + <span class="number">1</span>,</span><br><span class="line">            <span class="string">'Training Loss'</span>: avg_train_loss,</span><br><span class="line">            <span class="string">'Valid. Loss'</span>: avg_val_loss,</span><br><span class="line">            <span class="string">'Valid. Accur.'</span>: avg_val_accuracy,</span><br><span class="line">            <span class="string">'Training Time'</span>: training_time,</span><br><span class="line">            <span class="string">'Validation Time'</span>: validation_time</span><br><span class="line">        &#125;</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">print(<span class="string">""</span>)</span><br><span class="line">print(<span class="string">"Training complete!"</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"Total training took &#123;:&#125; (h:mm:ss)"</span>.format(format_time(time.time()-total_t0)))</span><br></pre></td></tr></table></figure>
+<p>我们来看看训练过程的总结。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Display floats with two decimal places.</span></span><br><span class="line">pd.set_option(<span class="string">'precision'</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a DataFrame from our training statistics.</span></span><br><span class="line">df_stats = pd.DataFrame(data=training_stats)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Use the 'epoch' as the row index.</span></span><br><span class="line">df_stats = df_stats.set_index(<span class="string">'epoch'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># A hack to force the column headers to wrap.</span></span><br><span class="line"><span class="comment">#df = df.style.set_table_styles([dict(selector="th",props=[('max-width', '70px')])])</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Display the table.</span></span><br><span class="line">print(df_stats)</span><br></pre></td></tr></table></figure>
+<p>请注意，虽然训练损失随着时间的推移在下降，但验证损失却在增加！这说明我们的模型训练时间过长，对训练数据的拟合过度。</p>
+<p>作为参考，我们使用的是7695个训练样本和856个验证样本）。</p>
+<p>验证损失是一个比准确率更精确的衡量标准，因为对于准确率，我们并不关心准确的输出值，而只是关心它落在阈值的哪一边。</p>
+<p>如果我们预测的答案是正确的，但置信度较低，那么验证损失会抓住这一点，而准确性则不会。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Commented out IPython magic to ensure Python compatibility.</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="comment"># % matplotlib inline</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line"><span class="comment"># Use plot styling from seaborn.</span></span><br><span class="line">sns.set(style=<span class="string">'darkgrid'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Increase the plot size and font size.</span></span><br><span class="line">sns.set(font_scale=<span class="number">1.5</span>)</span><br><span class="line">plt.rcParams[<span class="string">"figure.figsize"</span>] = (<span class="number">12</span>,<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plot the learning curve.</span></span><br><span class="line">plt.plot(df_stats[<span class="string">'Training Loss'</span>], <span class="string">'b-o'</span>, label=<span class="string">"Training"</span>)</span><br><span class="line">plt.plot(df_stats[<span class="string">'Valid. Loss'</span>], <span class="string">'g-o'</span>, label=<span class="string">"Validation"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Label the plot.</span></span><br><span class="line">plt.title(<span class="string">"Training &amp; Validation Loss"</span>)</span><br><span class="line">plt.xlabel(<span class="string">"Epoch"</span>)</span><br><span class="line">plt.ylabel(<span class="string">"Loss"</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.xticks([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h1 id="测试集的性能">5. 测试集的性能</h1>
+<p>现在，我们将加载保持数据集，并准备输入，就像我们对训练集所做的那样。然后我们将使用<a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.matthews_corrcoef.html" target="_blank" rel="noopener">Matthew's correlation coefficient</a>来评估预测，因为这是广大NLP社区用来评估CoLA性能的度量。通过这个指标，+1是最好的分数，-1是最差的分数。通过这种方式，我们可以看到我们在这个特定任务上与最先进模型的表现。</p>
+<h3 id="数据准备">5.1. 数据准备</h3>
+<p>我们需要应用所有与训练数据相同的步骤来准备我们的测试数据集。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Load the dataset into a pandas dataframe.</span></span><br><span class="line">df = pd.read_csv(<span class="string">"./cola_public/raw/out_of_domain_dev.tsv"</span>, delimiter=<span class="string">'\t'</span>, header=<span class="literal">None</span>, names=[<span class="string">'sentence_source'</span>, <span class="string">'label'</span>, <span class="string">'label_notes'</span>, <span class="string">'sentence'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Report the number of sentences.</span></span><br><span class="line">print(<span class="string">'Number of test sentences: &#123;:,&#125;\n'</span>.format(df.shape[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create sentence and label lists</span></span><br><span class="line">sentences = df.sentence.values</span><br><span class="line">labels = df.label.values</span><br><span class="line"></span><br><span class="line"><span class="comment"># Tokenize all of the sentences and map the tokens to thier word IDs.</span></span><br><span class="line">input_ids = []</span><br><span class="line">attention_masks = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># For every sentence...</span></span><br><span class="line"><span class="keyword">for</span> sent <span class="keyword">in</span> sentences:</span><br><span class="line">    <span class="comment"># `encode_plus` will:</span></span><br><span class="line">    <span class="comment">#   (1) Tokenize the sentence.</span></span><br><span class="line">    <span class="comment">#   (2) Prepend the `[CLS]` token to the start.</span></span><br><span class="line">    <span class="comment">#   (3) Append the `[SEP]` token to the end.</span></span><br><span class="line">    <span class="comment">#   (4) Map tokens to their IDs.</span></span><br><span class="line">    <span class="comment">#   (5) Pad or truncate the sentence to `max_length`</span></span><br><span class="line">    <span class="comment">#   (6) Create attention masks for [PAD] tokens.</span></span><br><span class="line">    encoded_dict = tokenizer.encode_plus(</span><br><span class="line">                        sent,                      <span class="comment"># Sentence to encode.</span></span><br><span class="line">                        add_special_tokens = <span class="literal">True</span>, <span class="comment"># Add '[CLS]' and '[SEP]'</span></span><br><span class="line">                        max_length = <span class="number">64</span>,           <span class="comment"># Pad &amp; truncate all sentences.</span></span><br><span class="line">                        pad_to_max_length = <span class="literal">True</span>,</span><br><span class="line">                        return_attention_mask = <span class="literal">True</span>,   <span class="comment"># Construct attn. masks.</span></span><br><span class="line">                        return_tensors = <span class="string">'pt'</span>,     <span class="comment"># Return pytorch tensors.</span></span><br><span class="line">                   )</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Add the encoded sentence to the list.    </span></span><br><span class="line">    input_ids.append(encoded_dict[<span class="string">'input_ids'</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># And its attention mask (simply differentiates padding from non-padding).</span></span><br><span class="line">    attention_masks.append(encoded_dict[<span class="string">'attention_mask'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Convert the lists into tensors.</span></span><br><span class="line">input_ids = torch.cat(input_ids, dim=<span class="number">0</span>)</span><br><span class="line">attention_masks = torch.cat(attention_masks, dim=<span class="number">0</span>)</span><br><span class="line">labels = torch.tensor(labels)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set the batch size.  </span></span><br><span class="line">batch_size = <span class="number">32</span>  </span><br><span class="line"></span><br><span class="line"><span class="comment"># Create the DataLoader.</span></span><br><span class="line">prediction_data = TensorDataset(input_ids, attention_masks, labels)</span><br><span class="line">prediction_sampler = SequentialSampler(prediction_data)</span><br><span class="line">prediction_dataloader = DataLoader(prediction_data, sampler=prediction_sampler, batch_size=batch_size)</span><br></pre></td></tr></table></figure>
+<h2 id="测试集上进行评估">5.2. 测试集上进行评估</h2>
+<p>准备好了测试集，我们就可以应用我们的微调模型对测试集产生预测。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Prediction on test set</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">'Predicting labels for &#123;:,&#125; test sentences...'</span>.format(len(input_ids)))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Put model in evaluation mode</span></span><br><span class="line">model.eval()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Tracking variables </span></span><br><span class="line">predictions , true_labels = [], []</span><br><span class="line"></span><br><span class="line"><span class="comment"># Predict </span></span><br><span class="line"><span class="keyword">for</span> batch <span class="keyword">in</span> prediction_dataloader:</span><br><span class="line">  <span class="comment"># Add batch to GPU</span></span><br><span class="line">  batch = tuple(t.to(device) <span class="keyword">for</span> t <span class="keyword">in</span> batch)</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Unpack the inputs from our dataloader</span></span><br><span class="line">  b_input_ids, b_input_mask, b_labels = batch</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Telling the model not to compute or store gradients, saving memory and </span></span><br><span class="line">  <span class="comment"># speeding up prediction</span></span><br><span class="line">  <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">      <span class="comment"># Forward pass, calculate logit predictions</span></span><br><span class="line">      outputs = model(b_input_ids, token_type_ids=<span class="literal">None</span>, </span><br><span class="line">                      attention_mask=b_input_mask)</span><br><span class="line"></span><br><span class="line">  logits = outputs[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Move logits and labels to CPU</span></span><br><span class="line">  logits = logits.detach().cpu().numpy()</span><br><span class="line">  label_ids = b_labels.to(<span class="string">'cpu'</span>).numpy()</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Store predictions and true labels</span></span><br><span class="line">  predictions.append(logits)</span><br><span class="line">  true_labels.append(label_ids)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'DONE.'</span>)</span><br></pre></td></tr></table></figure>
+<p>使用"<a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.matthews_corrcoef.html" target="_blank" rel="noopener">Matthews correlation coefficient</a>"来衡量CoLA基准的准确性。(MCC)。</p>
+<p>我们在这里用MCC是因为班级不平衡。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">print(<span class="string">'Positive samples: %d of %d (%.2f%%)'</span> % (df.label.sum(), len(df.label), (df.label.sum() / len(df.label) * <span class="number">100.0</span>)))</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> matthews_corrcoef</span><br><span class="line"></span><br><span class="line">matthews_set = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># Evaluate each test batch using Matthew's correlation coefficient</span></span><br><span class="line">print(<span class="string">'Calculating Matthews Corr. Coef. for each batch...'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># For each input batch...</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(true_labels)):</span><br><span class="line">    <span class="comment"># The predictions for this batch are a 2-column ndarray (one column for "0" </span></span><br><span class="line">    <span class="comment"># and one column for "1"). Pick the label with the highest value and turn this</span></span><br><span class="line">    <span class="comment"># in to a list of 0s and 1s.</span></span><br><span class="line">    pred_labels_i = np.argmax(predictions[i], axis=<span class="number">1</span>).flatten()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Calculate and store the coef for this batch.  </span></span><br><span class="line">    matthews = matthews_corrcoef(true_labels[i], pred_labels_i)                </span><br><span class="line">    matthews_set.append(matthews)</span><br></pre></td></tr></table></figure>
+<p>最后的分数将基于整个测试集，但我们来看看各个 batch 的分数，以了解各 batch 之间指标的差异性。</p>
+<p>每个批次都有 32 个句子，除了最后一个 batch 只有 (516 % 32)=4 个测试句子。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create a barplot showing the MCC score for each batch of test samples.</span></span><br><span class="line">ax = sns.barplot(x=list(range(len(matthews_set))), y=matthews_set, ci=<span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line">plt.title(<span class="string">'MCC Score per Batch'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'MCC Score (-1 to +1)'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Batch #'</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>现在我们将综合所有批次的结果，计算出我们最终的MCC分数。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Combine the results across all batches. </span></span><br><span class="line">flat_predictions = np.concatenate(predictions, axis=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># For each sample, pick the label (0 or 1) with the higher score.</span></span><br><span class="line">flat_predictions = np.argmax(flat_predictions, axis=<span class="number">1</span>).flatten()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Combine the correct labels for each batch into a single list.</span></span><br><span class="line">flat_true_labels = np.concatenate(true_labels, axis=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Calculate the MCC</span></span><br><span class="line">mcc = matthews_corrcoef(flat_true_labels, flat_predictions)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'Total MCC: %.3f'</span> % mcc)</span><br></pre></td></tr></table></figure>
+<p>酷! 在大约半小时内，在不做任何超参数调整（调整学习率、epochs、批次大小、ADAM属性等）的情况下，我们能够得到一个不错的分数。</p>
+<blockquote>
+<p>*注意：为了最大限度地提高分数，我们应该删除 "验证集"（我们用它来帮助确定要训练多少个epochs），并对整个训练集进行训练。</p>
+</blockquote>
+<p>库中记录了这个基准的预期精度<a href="https://huggingface.co/transformers/examples.html#glue" target="_blank" rel="noopener">这里</a>为<code>49.23</code>。</p>
+<p>你也可以看看官方的排行榜<a href="https://gluebenchmark.com/leaderboard/submission/zlssuBTm5XRs0aSKbFYGVIVdvbj1/-LhijX9VVmvJcvzKymxy" target="_blank" rel="noopener">这里</a>。</p>
+<p>请注意，(由于数据集规模较小?)运行之间的准确率可能会有很大差异。</p>
+<h1 id="结论">结论</h1>
+<p>本篇文章演示了利用预先训练好的 BERT 模型，无论你对哪个具体的 NLP 任务感兴趣，你都可以使用 pytorch 接口以最小的努力和训练时间快速有效地创建一个高质量的模型。</p>
+
+  </div>
+</article>
+
+<a class="top" id="top" href="javascript:;"></a>
+
+
+<script>
+  window.onscroll = function () {
+    if (document.body.scrollTop > window.innerHeight) {
+      document.getElementById('top').classList.add('toggle')
+    } else {
+      document.getElementById('top').classList.remove('toggle')
+    }
+  }
+
+  function scrollTo (element, to, duration) {
+    if (duration <= 0) return
+    var difference = to - element.scrollTop
+    var perTick = -25 + difference / duration * 10
+    // console.log(to, element.scrollTop, difference, duration, perTick)
+
+    setTimeout(function () {
+      element.scrollTop = element.scrollTop + perTick
+      if (element.scrollTop <= to) return
+      scrollTo(element, to, duration)
+    }, 10)
+  }
+
+  document.getElementById('top').addEventListener("click", function () {
+    scrollTo(document.body, 0, Math.ceil(document.body.scrollTop / 10))
+  }, false)
+</script>
+
+
+
+  <div id="disqus_thread"></div>
+  
+  
+    <script type="text/javascript">
+      /*
+        disqusLoader.js v1.0
+        A JavaScript plugin for lazy-loading Disqus comments widget.
+        -
+        By Osvaldas Valutis, www.osvaldas.info
+        Available for use under the MIT License
+      */
+
+      ;(function (window, document, index) {
+        'use strict'
+      
+        var extendObj = function (defaults, options) {
+            var prop, extended = {}
+            for (prop in defaults) {
+              if (Object.prototype.hasOwnProperty.call(defaults, prop)) extended[prop] = defaults[prop]
+            }
+            for (prop in options) {
+              if (Object.prototype.hasOwnProperty.call(options, prop)) extended[prop] = options[prop]
+            }
+            return extended
+          },
+          getOffset = function (el) {
+            var rect = el.getBoundingClientRect()
+            return {
+              top: rect.top + document.body.scrollTop,
+              left: rect.left + document.body.scrollLeft
+            }
+          },
+          loadScript = function (url, callback) {
+            var script = document.createElement('script')
+            script.src = url
+            script.async = true
+            script.setAttribute('data-timestamp', +new Date())
+            script.addEventListener('load', function () {
+              if (typeof callback === 'function') callback()
+            })
+            script.addEventListener('error', function () {
+              console.error('connect disqus failed')
+            })
+            ;(document.head || document.body).appendChild(script)
+          },
+          throttle = function (a, b) {
+            var c, d
+            return function () {
+              var e = this,
+                f = arguments,
+                g = +new Date
+              c && g < c + a ? (clearTimeout(d), d = setTimeout(function () {
+                c = g, b.apply(e, f)
+              }, a)) : (c = g, b.apply(e, f))
+            }
+          },
+      
+          throttleTO = false,
+          laziness = false,
+          disqusConfig = false,
+          scriptUrl = false,
+      
+          scriptStatus = 'unloaded',
+          instance = false,
+      
+          init = function () {
+            if (!instance || !document.body.contains(instance) || instance.disqusLoaderStatus == 'loaded') return true
+
+            var winST = window.pageYOffset,
+              offset = getOffset(instance).top
+
+            // if the element is too far below || too far above
+            if (offset - winST > window.innerHeight * laziness || winST - offset - instance.offsetHeight - (window.innerHeight * laziness) > 0) return true
+
+            var tmp = document.getElementById('disqus_thread')
+            if (tmp) tmp.removeAttribute('id')
+            instance.setAttribute('id', 'disqus_thread')
+            instance.disqusLoaderStatus = 'loaded'
+
+            if (scriptStatus == 'loaded') {
+              DISQUS.reset({
+                reload: true,
+                config: disqusConfig
+              })
+            } else { // unloaded | loading
+              window.disqus_config = disqusConfig
+              if (scriptStatus == 'unloaded') {
+                scriptStatus = 'loading'
+                loadScript(scriptUrl, function () {
+                  scriptStatus = 'loaded'
+                })
+              }
+            }
+          }
+      
+        window.addEventListener('scroll', throttle(throttleTO, init))
+        window.addEventListener('resize', throttle(throttleTO, init))
+      
+        window.disqusLoader = function (element, options) {
+          options = extendObj({
+            laziness: 1,
+            throttle: 250,
+            scriptUrl: false,
+            disqusConfig: false,
+      
+          }, options)
+      
+          laziness = options.laziness + 1
+          throttleTO = options.throttle
+          disqusConfig = options.disqusConfig
+          scriptUrl = scriptUrl === false ? options.scriptUrl : scriptUrl // set it only once
+      
+          if (typeof element === 'string') instance = document.querySelector(element)
+          else if (typeof element.length === 'number') instance = element[0]
+          else instance = element
+      
+          instance.disqusLoaderStatus = 'unloaded'
+      
+          init()
+        }
+      
+      }(window, document, 0))
+      var options = {
+        scriptUrl: '//xungejiang.disqus.com' + '/embed.js',
+        laziness: 1,
+        throttle: 250,
+        disqusConfig: function() {
+          this.page.url         = 'https://xungejiang.com/2020/06/06/BERT/'
+          this.page.identifier  = '//2020/06/06/BERT/'
+          this.page.title       = 'PyTorch 的 BERT 微调教程'
+        }
+      }
+      disqusLoader('#disqus_thread', options)
+    </script>
+  
+  </main>
+  <footer class="footer">
+  <div class="footer-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+        
+          <symbol id="cc" viewbox="0 0 1024 1024">
+            <path d="M505.898681 20.48c135.168-1.364992 251.220992 45.056 348.16 139.264 96.939008 94.208 146.772992 208.896 149.504 344.064 1.364992 136.532992-45.056 253.268992-139.264 350.208-94.208 96.939008-209.579008 146.772992-346.112 149.504-135.168 1.364992-251.563008-45.396992-349.184-140.288-97.620992-94.891008-147.115008-209.92-148.48-345.088-2.731008-136.532992 43.348992-253.268992 138.24-350.208 94.891008-96.939008 210.603008-146.091008 347.136-147.456 0 0 0 0 0 0m12.288 878.592c106.496-1.364992 197.291008-40.276992 272.384-116.736 75.092992-76.459008 111.956992-168.619008 110.592-276.48-1.364992-107.860992-40.619008-198.996992-117.76-273.408-77.140992-74.411008-168.96-110.932992-275.456-109.568-107.860992 1.364992-198.996992 40.276992-273.408 116.736-74.411008 76.459008-110.932992 168.619008-109.568 276.48 1.364992 107.860992 40.276992 198.996992 116.736 273.408 76.459008 74.411008 168.619008 110.932992 276.48 109.568 0 0 0 0 0 0m-126.976-305.152c27.307008 0 47.104-13.652992 59.392-40.96 0 0 57.344 30.72 57.344 30.72-13.652992 24.576-30.72 42.324992-51.2 53.248-21.844992 13.652992-45.739008 20.48-71.68 20.48-42.324992 0-76.459008-12.971008-102.4-38.912-25.940992-24.576-38.912-60.075008-38.912-106.496 0-46.420992 12.971008-82.603008 38.912-108.544 25.940992-25.940992 58.708992-38.912 98.304-38.912 58.708992 0 101.035008 22.528 126.976 67.584 0 0-63.488 32.768-63.488 32.768-6.827008-13.652992-15.019008-23.211008-24.576-28.672-9.556992-5.460992-19.115008-8.192-28.672-8.192-40.96 0-61.44 27.988992-61.44 83.968 0 25.940992 4.779008 45.739008 14.336 59.392 12.288 15.019008 27.988992 22.528 47.104 22.528 0 0 0 0 0 0m272.384 0c28.672 0 47.787008-13.652992 57.344-40.96 0 0 59.392 30.72 59.392 30.72-12.288 21.844992-29.355008 39.595008-51.2 53.248-21.844992 13.652992-45.739008 20.48-71.68 20.48-43.691008 0-77.824-12.971008-102.4-38.912-25.940992-24.576-38.912-60.075008-38.912-106.496 0-43.691008 12.971008-79.872 38.912-108.544 25.940992-25.940992 59.392-38.912 100.352-38.912 57.344 0 98.304 22.528 122.88 67.584 0 0-61.44 32.768-61.44 32.768-6.827008-13.652992-15.019008-23.211008-24.576-28.672-9.556992-5.460992-19.115008-8.192-28.672-8.192-42.324992 0-63.488 27.988992-63.488 83.968 0 24.576 5.460992 44.372992 16.384 59.392 10.923008 15.019008 26.624 22.528 47.104 22.528 0 0 0 0 0 0" p-id="7650" fill="#ffffff"/>
+          </symbol>
+        
+        
+          <symbol id="GitHub" viewbox="0 0 1024 1024">
+            <path d="M530.01791-7.557299C672.947218-4.362634 790.76646 44.643525 885.072968 139.46118 979.315583 234.342728 1028.002276 354.462128 1031.133048 496.752503 1029.599609 610.546467 996.566773 708.558787 933.759661 795.453672 870.888656 882.412451 789.233021 940.874819 687.13153 977.230106 674.544551 978.827438 665.088342 977.230106 660.424132 972.502002 655.696028 966.176565 652.565256 959.851129 652.565256 953.525692L654.098695 814.429982C654.098695 790.725568 650.967924 771.749259 643.109048 755.967614 636.847505 740.122076 628.988629 729.068536 619.532421 721.20966 677.675322 718.014995 729.55668 699.038685 776.646041 664.280731 822.201963 631.056216 847.375922 566.268412 850.506694 471.450757 850.506694 444.551679 845.77859 419.249933 836.322382 397.142851 826.930067 374.971877 814.343087 354.462128 798.625336 337.083151 801.820001 330.757715 806.484211 314.97607 808.081544 291.207763 811.212315 267.503349 806.484211 237.473499 793.897232 202.715545 793.897232 201.118213 782.907584 201.118213 760.92829 204.248984 738.948995 207.443649 704.382721 224.822626 655.696028 254.852476 614.86821 243.798936 573.976499 237.473499 530.01791 237.473499 486.059321 237.473499 445.16761 243.798936 404.339793 254.852476 357.186538 223.225294 321.086825 207.443649 299.10753 204.248984 277.064343 201.118213 266.074695 201.118213 266.074695 202.715545 253.551609 237.473499 248.823505 267.503349 251.954276 291.207763 255.085048 314.97607 258.21582 330.757715 261.410484 337.083151 245.692733 354.462128 231.508421 373.438438 223.649545 397.142851 214.25723 419.249933 209.529126 444.551679 209.529126 472.984196 212.659898 567.865744 236.236525 631.056216 281.792447 665.878064 327.348368 700.636018 379.229726 719.612327 437.308734 722.743099 429.449859 729.068536 423.188316 736.991305 418.460211 748.044845 412.198668 759.098386 409.067897 773.346591 405.937125 789.128236 388.622041 798.648337 366.642747 801.779109 336.804576 800.24567 306.966406 798.648337 281.792447 781.26936 259.813152 746.447513 248.823505 729.068536 237.833857 716.417663 223.649545 708.558787 209.529126 700.636018 197.00604 695.907914 181.288289 694.310581 168.701309 692.713249 160.842433 694.310581 157.711662 700.636018 154.58089 705.364122 160.842433 713.286891 176.560184 724.340431 192.277936 735.393972 204.801022 746.447513 212.659898 759.098386 220.518774 771.749259 226.84421 785.997464 233.105753 798.648337 240.964629 819.158086 258.21582 836.600956 286.520551 850.785269 313.227949 865.033474 352.522328 866.630807 402.74246 857.110705L404.339793 950.39492C404.339793 958.317689 401.209021 964.643126 396.480917 969.37123 391.752813 975.696667 382.360498 977.230106 369.773518 974.099334 267.672028 939.34138 185.952499 877.684347 123.145387 792.322901 60.274382 706.961454 28.902772 607.351802 27.30544 495.155171 30.436212 351.267463 79.122905 232.745395 173.429413 137.927741 267.672028 43.046193 387.024709-5.959967 528.420578-9.090738L530.01791-7.557299Z" p-id="2568" fill="#ffffff"/>
+          </symbol>
+        
+        
+        
+          <symbol id="rss" viewbox="0 0 1024 1024">
+            <path d="M329.142857 768q0 45.714286-32 77.714286t-77.714286 32-77.714285-32-32-77.714286 32-77.714286 77.714285-32 77.714286 32 32 77.714286z m292.571429 70.285714q1.142857 16-9.714286 27.428572-10.285714 12-26.857143 12H508q-14.285714 0-24.571429-9.428572t-11.428571-23.714285q-12.571429-130.857143-105.428571-223.714286T142.857143 515.428571q-14.285714-1.142857-23.714286-11.428571T109.714286 479.428571V402.285714q0-16.571429 12-26.857143 9.714286-9.714286 24.571428-9.714285h2.857143q91.428571 7.428571 174.857143 46T472 515.428571q65.142857 64.571429 103.714286 148t46 174.857143z m292.571428 1.142857q1.142857 15.428571-10.285714 26.857143-10.285714 11.428571-26.285714 11.428572h-81.714286q-14.857143 0-25.428571-10T759.428571 843.428571q-6.857143-122.857143-57.714285-233.428571t-132.285715-192-192-132.285714T144 227.428571q-14.285714-0.571429-24.285714-11.142857T109.714286 191.428571V109.714286q0-16 11.428571-26.285715 10.285714-10.285714 25.142857-10.285714h1.714286q149.714286 7.428571 286.571429 68.571429T677.714286 309.714286q106.857143 106.285714 168 243.142857t68.571428 286.571428z" fill="#ffffff" p-id="6818"/>
+          </symbol>
+        
+        
+        
+      </svg>
+    <div class="footer-wrap-inner">
+      
+        
+          <a class="symbol" href="//github.com/xunge" target="_blank" rel="noopener noreferrer">
+            <svg class="icon">
+              <use xlink:href="#GitHub"/>
+            </svg>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+      
+        <a class="symbol" href="https://creativecommons.org/licenses/by-nc-nd/4.0" target="_blank" rel="noopener noreferrer">
+          <svg class="icon">
+            <use xlink:href="#cc"/>
+          </svg>
+        </a>
+      
+      
+        <a class="symbol" href="/atom.xml" target="_blank" rel="noopener noreferrer">
+          <svg class="icon">
+            <use xlink:href="#rss"/>
+          </svg>
+        </a>
+      
+      <p class="copyright">
+        <!-- XUNGE&#39;s Blog &copy; 2016-2017 -->
+        <span>
+          训哥 &copy; 2016 - 2022</span>
+        <span>
+          
+          <a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">黑ICP备18006891号</a>
+          
+        </span>
+      </p>
+      <p class="info">
+          Power by <a href="http://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a> &#124; Theme with <a href="https://github.com/snovey/hexo-theme-vanilla" target="_blank" rel="noopener noreferrer">vanilla</a> &#124; Hosted on <a href="//github.com" target="_blank" rel="noopener noreferrer">GitHub</a>, <a href="//coding.net" target="_blank" rel="noopener noreferrer">Coding</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /*! lazysizes - v4.0.0-rc3 */
+!function(a,b){var c=b(a,a.document);a.lazySizes=c,"object"==typeof module&&module.exports&&(module.exports=c)}(window,function(a,b){"use strict";if(b.getElementsByClassName){var c,d,e=b.documentElement,f=a.Date,g=a.HTMLPictureElement,h="addEventListener",i="getAttribute",j=a[h],k=a.setTimeout,l=a.requestAnimationFrame||k,m=a.requestIdleCallback,n=/^picture$/i,o=["load","error","lazyincluded","_lazyloaded"],p={},q=Array.prototype.forEach,r=function(a,b){return p[b]||(p[b]=new RegExp("(\\s|^)"+b+"(\\s|$)")),p[b].test(a[i]("class")||"")&&p[b]},s=function(a,b){r(a,b)||a.setAttribute("class",(a[i]("class")||"").trim()+" "+b)},t=function(a,b){var c;(c=r(a,b))&&a.setAttribute("class",(a[i]("class")||"").replace(c," "))},u=function(a,b,c){var d=c?h:"removeEventListener";c&&u(a,b),o.forEach(function(c){a[d](c,b)})},v=function(a,d,e,f,g){var h=b.createEvent("CustomEvent");return e||(e={}),e.instance=c,h.initCustomEvent(d,!f,!g,e),a.dispatchEvent(h),h},w=function(b,c){var e;!g&&(e=a.picturefill||d.pf)?e({reevaluate:!0,elements:[b]}):c&&c.src&&(b.src=c.src)},x=function(a,b){return(getComputedStyle(a,null)||{})[b]},y=function(a,b,c){for(c=c||a.offsetWidth;c<d.minSize&&b&&!a._lazysizesWidth;)c=b.offsetWidth,b=b.parentNode;return c},z=function(){var a,c,d=[],e=[],f=d,g=function(){var b=f;for(f=d.length?e:d,a=!0,c=!1;b.length;)b.shift()();a=!1},h=function(d,e){a&&!e?d.apply(this,arguments):(f.push(d),c||(c=!0,(b.hidden?k:l)(g)))};return h._lsFlush=g,h}(),A=function(a,b){return b?function(){z(a)}:function(){var b=this,c=arguments;z(function(){a.apply(b,c)})}},B=function(a){var b,c=0,d=125,e=666,g=e,h=function(){b=!1,c=f.now(),a()},i=m?function(){m(h,{timeout:g}),g!==e&&(g=e)}:A(function(){k(h)},!0);return function(a){var e;(a=a===!0)&&(g=44),b||(b=!0,e=d-(f.now()-c),0>e&&(e=0),a||9>e&&m?i():k(i,e))}},C=function(a){var b,c,d=99,e=function(){b=null,a()},g=function(){var a=f.now()-c;d>a?k(g,d-a):(m||e)(e)};return function(){c=f.now(),b||(b=k(g,d))}},D=function(){var g,l,m,o,p,y,D,F,G,H,I,J,K,L,M=/^img$/i,N=/^iframe$/i,O="onscroll"in a&&!/glebot/.test(navigator.userAgent),P=0,Q=0,R=0,S=-1,T=function(a){R--,a&&a.target&&u(a.target,T),(!a||0>R||!a.target)&&(R=0)},U=function(a,c){var d,f=a,g="hidden"==x(b.body,"visibility")||"hidden"!=x(a,"visibility");for(F-=c,I+=c,G-=c,H+=c;g&&(f=f.offsetParent)&&f!=b.body&&f!=e;)g=(x(f,"opacity")||1)>0,g&&"visible"!=x(f,"overflow")&&(d=f.getBoundingClientRect(),g=H>d.left&&G<d.right&&I>d.top-1&&F<d.bottom+1);return g},V=function(){var a,f,h,j,k,m,n,p,q,r=c.elements;if((o=d.loadMode)&&8>R&&(a=r.length)){f=0,S++,null==K&&("expand"in d||(d.expand=e.clientHeight>500&&e.clientWidth>500?500:370),J=d.expand,K=J*d.expFactor),K>Q&&1>R&&S>2&&o>2&&!b.hidden?(Q=K,S=0):Q=o>1&&S>1&&6>R?J:P;for(;a>f;f++)if(r[f]&&!r[f]._lazyRace)if(O)if((p=r[f][i]("data-expand"))&&(m=1*p)||(m=Q),q!==m&&(y=innerWidth+m*L,D=innerHeight+m,n=-1*m,q=m),h=r[f].getBoundingClientRect(),(I=h.bottom)>=n&&(F=h.top)<=D&&(H=h.right)>=n*L&&(G=h.left)<=y&&(I||H||G||F)&&(d.loadHidden||"hidden"!=x(r[f],"visibility"))&&(l&&3>R&&!p&&(3>o||4>S)||U(r[f],m))){if(ba(r[f]),k=!0,R>9)break}else!k&&l&&!j&&4>R&&4>S&&o>2&&(g[0]||d.preloadAfterLoad)&&(g[0]||!p&&(I||H||G||F||"auto"!=r[f][i](d.sizesAttr)))&&(j=g[0]||r[f]);else ba(r[f]);j&&!k&&ba(j)}},W=B(V),X=function(a){s(a.target,d.loadedClass),t(a.target,d.loadingClass),u(a.target,Z),v(a.target,"lazyloaded")},Y=A(X),Z=function(a){Y({target:a.target})},$=function(a,b){try{a.contentWindow.location.replace(b)}catch(c){a.src=b}},_=function(a){var b,c=a[i](d.srcsetAttr);(b=d.customMedia[a[i]("data-media")||a[i]("media")])&&a.setAttribute("media",b),c&&a.setAttribute("srcset",c)},aa=A(function(a,b,c,e,f){var g,h,j,l,o,p;(o=v(a,"lazybeforeunveil",b)).defaultPrevented||(e&&(c?s(a,d.autosizesClass):a.setAttribute("sizes",e)),h=a[i](d.srcsetAttr),g=a[i](d.srcAttr),f&&(j=a.parentNode,l=j&&n.test(j.nodeName||"")),p=b.firesLoad||"src"in a&&(h||g||l),o={target:a},p&&(u(a,T,!0),clearTimeout(m),m=k(T,2500),s(a,d.loadingClass),u(a,Z,!0)),l&&q.call(j.getElementsByTagName("source"),_),h?a.setAttribute("srcset",h):g&&!l&&(N.test(a.nodeName)?$(a,g):a.src=g),f&&(h||l)&&w(a,{src:g})),a._lazyRace&&delete a._lazyRace,t(a,d.lazyClass),z(function(){(!p||a.complete&&a.naturalWidth>1)&&(p?T(o):R--,X(o))},!0)}),ba=function(a){var b,c=M.test(a.nodeName),e=c&&(a[i](d.sizesAttr)||a[i]("sizes")),f="auto"==e;(!f&&l||!c||!a[i]("src")&&!a.srcset||a.complete||r(a,d.errorClass))&&(b=v(a,"lazyunveilread").detail,f&&E.updateElem(a,!0,a.offsetWidth),a._lazyRace=!0,R++,aa(a,b,f,e,c))},ca=function(){if(!l){if(f.now()-p<999)return void k(ca,999);var a=C(function(){d.loadMode=3,W()});l=!0,d.loadMode=3,W(),j("scroll",function(){3==d.loadMode&&(d.loadMode=2),a()},!0)}};return{_:function(){p=f.now(),c.elements=b.getElementsByClassName(d.lazyClass),g=b.getElementsByClassName(d.lazyClass+" "+d.preloadClass),L=d.hFac,j("scroll",W,!0),j("resize",W,!0),a.MutationObserver?new MutationObserver(W).observe(e,{childList:!0,subtree:!0,attributes:!0}):(e[h]("DOMNodeInserted",W,!0),e[h]("DOMAttrModified",W,!0),setInterval(W,999)),j("hashchange",W,!0),["focus","mouseover","click","load","transitionend","animationend","webkitAnimationEnd"].forEach(function(a){b[h](a,W,!0)}),/d$|^c/.test(b.readyState)?ca():(j("load",ca),b[h]("DOMContentLoaded",W),k(ca,2e4)),c.elements.length?(V(),z._lsFlush()):W()},checkElems:W,unveil:ba}}(),E=function(){var a,c=A(function(a,b,c,d){var e,f,g;if(a._lazysizesWidth=d,d+="px",a.setAttribute("sizes",d),n.test(b.nodeName||""))for(e=b.getElementsByTagName("source"),f=0,g=e.length;g>f;f++)e[f].setAttribute("sizes",d);c.detail.dataAttr||w(a,c.detail)}),e=function(a,b,d){var e,f=a.parentNode;f&&(d=y(a,f,d),e=v(a,"lazybeforesizes",{width:d,dataAttr:!!b}),e.defaultPrevented||(d=e.detail.width,d&&d!==a._lazysizesWidth&&c(a,f,e,d)))},f=function(){var b,c=a.length;if(c)for(b=0;c>b;b++)e(a[b])},g=C(f);return{_:function(){a=b.getElementsByClassName(d.autosizesClass),j("resize",g)},checkElems:g,updateElem:e}}(),F=function(){F.i||(F.i=!0,E._(),D._())};return function(){var b,c={lazyClass:"lazyload",loadedClass:"lazyloaded",loadingClass:"lazyloading",preloadClass:"lazypreload",errorClass:"lazyerror",autosizesClass:"lazyautosizes",srcAttr:"data-src",srcsetAttr:"data-srcset",sizesAttr:"data-sizes",minSize:40,customMedia:{},init:!0,expFactor:1.5,hFac:.8,loadMode:2,loadHidden:!0};d=a.lazySizesConfig||a.lazysizesConfig||{};for(b in c)b in d||(d[b]=c[b]);a.lazySizesConfig=d,k(function(){d.init&&F()})}(),c={cfg:d,autoSizer:E,loader:D,init:F,uP:w,aC:s,rC:t,hC:r,fire:v,gW:y,rAF:z}}});
+</script>
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      function toggleClassMenu() {
+        myMenu.classList.add("menu--animatable")
+        if(!myMenu.classList.contains("menu--visible")) {
+          myMenu.classList.add("menu--visible")
+        } else {
+          myMenu.classList.remove('menu--visible')
+        }
+        if(!oppMenu.classList.contains("toggle-animate")) {
+          oppMenu.classList.add("toggle-animate")
+        } else {
+          oppMenu.classList.remove("toggle-animate")
+        }
+      }
+  
+      function OnTransitionEnd() {
+        myMenu.classList.remove("menu--animatable")
+        // oppMenu.classList.remove("toggle-animate")
+      }
+  
+      var myMenu = document.querySelector(".menu")
+      var oppMenu = document.querySelector("#nav-trigger")
+      myMenu.addEventListener("transitionend", OnTransitionEnd, false)
+      oppMenu.addEventListener("click", toggleClassMenu, false)
+      myMenu.addEventListener("click", toggleClassMenu, false)
+    })
+  </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
