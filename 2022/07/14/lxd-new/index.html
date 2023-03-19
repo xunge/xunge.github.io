@@ -265,6 +265,11 @@
 <p>设置开机启动： <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> rc-local</span><br><span class="line">sudo systemctl start rc-local</span><br></pre></td></tr></table></figure></p>
 <p>检查是否启动成功： <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo systemctl status rc-local</span><br></pre></td></tr></table></figure></p>
 <p>至此，已经完成了所有 LXD 的配置。</p>
+<hr>
+<p>当不知道哪个容器正在占用显卡时，使用下面的命令查询：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nvidia-smi | grep -E <span class="string">'python.*[0-9]&#123;3,4&#125;MiB'</span> | awk <span class="string">'&#123;print $5&#125;'</span> | xargs -I&#123;&#125; sh -c <span class="string">'echo "PID: &#123;&#125; Cgroup: $(cat /proc/&#123;&#125;/cgroup | grep rdma | cut -d ":" -f 3)"'</span></span><br></pre></td></tr></table></figure>
+<p>从运行 <code>nvidia-smi</code> 命令结果中获取占用GPU的Python进程的PID，然后通过 <code>xargs</code> 将PID传递给 <code>sh</code> 命令，进而在shell中执行一条命令来查看进程所属的 <code>rdma</code> 类型的cgroup。</p>
+<p>具体来说，<code>awk '{print $5}'</code> 的作用是从 <code>nvidia-smi</code> 命令结果中获取占用GPU的Python进程的PID，其中 <code>$5</code> 是因为 nvidia-smi 命令结果中Python进程PID位于第5列。接着，<code>xargs -I{} sh -c</code> 将PID传递给 <code>sh</code> 命令，并在shell中执行一条命令。这条命令通过 <code>cat /proc/{}/cgroup | grep rdma | cut -d ":" -f 3</code> 获取进程所属的 <code>rdma</code> 类型的cgroup路径，并且通过 <code>echo</code> 命令输出PID和对应的cgroup路径。</p>
 
   </div>
 </article>
@@ -492,7 +497,7 @@
       <p class="copyright">
         <!-- XUNGE&#39;s Blog &copy; 2016-2017 -->
         <span>
-          训哥 &copy; 2016 - 2022</span>
+          训哥 &copy; 2016 - 2023</span>
         <span>
           
           <a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">黑ICP备18006891号</a>
