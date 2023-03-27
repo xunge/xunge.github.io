@@ -144,3 +144,68 @@ sudo bash ./NVIDIA-Linux-x86_64-418.56.run
 +-----------------------------------------------------------------------------+
 ```
 
+---
+
+20230327更新
+
+其实安装显卡驱动有更简单的方法，不用禁用 nouveau 驱动。
+
+## 安装NVIDIA显卡驱动
+```sh
+ubuntu-drivers devices
+```
+输出
+```
+== /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0 ==
+modalias : pci:v000010DEd000025A2sv00001558sd0000866Dbc03sc00i00
+vendor   : NVIDIA Corporation
+driver   : nvidia-driver-515-open - distro non-free
+driver   : nvidia-driver-515-server - distro non-free
+driver   : nvidia-driver-470-server - distro non-free
+driver   : nvidia-driver-525 - distro non-free
+driver   : nvidia-driver-470 - distro non-free
+driver   : nvidia-driver-515 - distro non-free
+driver   : nvidia-driver-525-open - distro non-free recommended
+driver   : nvidia-driver-510 - distro non-free
+driver   : nvidia-driver-525-server - distro non-free
+driver   : xserver-xorg-video-nouveau - distro free builtin
+```
+
+最好选择 `distro` 专有，`non-free` 闭源，最好是 `-server` 结尾的安装包
+
+因此我们选择 `nvidia-driver-515-server` 进行安装：
+```sh
+sudo apt install nvidia-driver-515-server
+```
+
+重启命令：
+```sh
+sudo reboot
+```
+
+安装 NVIDIA 配置功能：
+```sh
+sudo apt install nvidia-xconfig nvidia-settings nvidia-prime
+```
+
+## 挽救横光标黑屏命令
+
+如果重启后黑屏，可通过以下方法解决。
+
+ctrl + alt + f3 进入tty命令行界面后登录。
+
+查询显示管理器：
+
+```sh
+cat /etc/X11/default-display-manager
+```
+
+如果输出`/usr/sbin/gdm3`，说明显示管理器是`gdm3`，执行以下命令解决：
+
+```sh
+sudo systemctl restart gdm3
+```
+
+同理，如果是ligtdm或者sddm等，将命令中的gdm3改为对应即可。
+
+通常情况下新显卡30系列可能有适配问题会黑屏，老显卡10/20系列问题不大。
