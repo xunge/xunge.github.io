@@ -116,6 +116,27 @@
   
     <article class="post">
       <div class="post-title">
+        <h2><a class="post-title-link" href="/2019/10/10/ICT-LXD-readme/">ICT 实验室深度学习服务器使用说明</a></h2>
+      </div>
+      <div class="post-meta">
+        <span class="date">2019-10-10</span>
+        
+          <span>|<span>
+          <a class="article-tag-link" href="/tags/lxc/">lxc</a>, <a class="article-tag-link" href="/tags/lxd/">lxd</a>, <a class="article-tag-link" href="/tags/ubuntu/">ubuntu</a>
+        
+        
+          <span>|<span>
+          <a class="article-tag-link" href="/categories/经验值/">经验值</a>
+        
+      </span></span></span></span></div>
+      <div class="post-content">
+        <p>实验室新到的服务器已经配置完成。为了满足实验室所有同学的实验需求，同时最大化服务器的利用率，故为每位同学分配一个 LXD 容器，每个容器一个内网 IP。本文将详细介绍服务器的使用方式。</p>
+      </div>
+      <div class="continue"><a class="btn" href="/2019/10/10/ICT-LXD-readme/">继续阅读</a></div>
+    </article>
+  
+    <article class="post">
+      <div class="post-title">
         <h2><a class="post-title-link" href="/2019/10/08/ubuntu-gpu-driver/">超详细! Ubuntu 18.04 安装 NVIDIA 显卡驱动</a></h2>
       </div>
       <div class="post-meta">
@@ -309,28 +330,6 @@
       <div class="continue"><a class="btn" href="/2018/08/04/matplotlib-html/">继续阅读</a></div>
     </article>
   
-    <article class="post">
-      <div class="post-title">
-        <h2><a class="post-title-link" href="/2018/07/06/tensorflow-gpu-mac/">我是如何在黑苹果中编译安装 TensorFlow-GPU 1.8</a></h2>
-      </div>
-      <div class="post-meta">
-        <span class="date">2018-07-06</span>
-        
-          <span>|<span>
-          <a class="article-tag-link" href="/tags/gpu/">gpu</a>, <a class="article-tag-link" href="/tags/mac/">mac</a>, <a class="article-tag-link" href="/tags/tensorflow/">tensorflow</a>
-        
-        
-          <span>|<span>
-          <a class="article-tag-link" href="/categories/瞎折腾/">瞎折腾</a>
-        
-      </span></span></span></span></div>
-      <div class="post-content">
-        <p>之前一直使用 Ubuntu Linux 系统作为 TensorFlow 机器学习的服务器，但是相对于 macOS 来说，无论是界面美化还是应用覆盖都是远远强于 Ubuntu 的，所以计划安装一个黑苹果作为 TensorFlow 的服务器</p>
-<p>但是因为 TensorFlow 在 1.2 版本后不再支持 macOS 的 GPU 版本，只能通过编译源代码进行安装，过程较为繁杂，所以在此记录</p>
-      </div>
-      <div class="continue"><a class="btn" href="/2018/07/06/tensorflow-gpu-mac/">继续阅读</a></div>
-    </article>
-  
 </section>
 
   <nav class="page-nav">
@@ -465,20 +464,5 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

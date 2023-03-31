@@ -116,6 +116,28 @@
   
     <article class="post">
       <div class="post-title">
+        <h2><a class="post-title-link" href="/2023/03/31/zerotier-moon-ddns/">Zerotier 搭建 Moon 节点并支持动态 IP（DDNS）</a></h2>
+      </div>
+      <div class="post-meta">
+        <span class="date">2023-03-31</span>
+        
+          <span>|<span>
+          <a class="article-tag-link" href="/tags/ddns/">ddns</a>, <a class="article-tag-link" href="/tags/zerotier/">zerotier</a>
+        
+        
+          <span>|<span>
+          <a class="article-tag-link" href="/categories/知识点/">知识点</a>
+        
+      </span></span></span></span></div>
+      <div class="post-content">
+        <p>Zerotier 搭建 Moon 节点可以减少连接延迟，但是 Moon 节点只支持静态 IP，在国内大概率只有购买 VPS，但是国内 VPS 带宽很金贵，按流量付费又有些麻烦。如果家里宽带有公网 IP 的话是最好的，但是 Moon 节点又不支持动态 IP。</p>
+<p>本文通过脚本命令获取当前公网 IP，并与 moon.json 中的 IP 进行比对，如果不一致，则更改 moon.json 中的 IP，并重启服务。</p>
+      </div>
+      <div class="continue"><a class="btn" href="/2023/03/31/zerotier-moon-ddns/">继续阅读</a></div>
+    </article>
+  
+    <article class="post">
+      <div class="post-title">
         <h2><a class="post-title-link" href="/2022/07/14/lxd-new/">完整步骤！如何使用LXD构建多人使用GPU服务器</a></h2>
       </div>
       <div class="post-meta">
@@ -305,27 +327,6 @@
       <div class="continue"><a class="btn" href="/2019/10/20/imagenet-train-set/">继续阅读</a></div>
     </article>
   
-    <article class="post">
-      <div class="post-title">
-        <h2><a class="post-title-link" href="/2019/10/10/ICT-LXD-readme/">ICT 实验室深度学习服务器使用说明</a></h2>
-      </div>
-      <div class="post-meta">
-        <span class="date">2019-10-10</span>
-        
-          <span>|<span>
-          <a class="article-tag-link" href="/tags/lxc/">lxc</a>, <a class="article-tag-link" href="/tags/lxd/">lxd</a>, <a class="article-tag-link" href="/tags/ubuntu/">ubuntu</a>
-        
-        
-          <span>|<span>
-          <a class="article-tag-link" href="/categories/经验值/">经验值</a>
-        
-      </span></span></span></span></div>
-      <div class="post-content">
-        <p>实验室新到的服务器已经配置完成。为了满足实验室所有同学的实验需求，同时最大化服务器的利用率，故为每位同学分配一个 LXD 容器，每个容器一个内网 IP。本文将详细介绍服务器的使用方式。</p>
-      </div>
-      <div class="continue"><a class="btn" href="/2019/10/10/ICT-LXD-readme/">继续阅读</a></div>
-    </article>
-  
 </section>
 
   <nav class="page-nav">
@@ -451,20 +452,5 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

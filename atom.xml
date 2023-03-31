@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://xungejiang.com/"/>
-  <updated>2023-03-19T08:14:03.171Z</updated>
+  <updated>2023-03-31T13:18:17.090Z</updated>
   <id>https://xungejiang.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Zerotier 搭建 Moon 节点并支持动态 IP（DDNS）</title>
+    <link href="https://xungejiang.com//2023/03/31/zerotier-moon-ddns/"/>
+    <id>https://xungejiang.com//2023/03/31/zerotier-moon-ddns/</id>
+    <published>2023-03-31T13:02:42.000Z</published>
+    <updated>2023-03-31T13:18:17.090Z</updated>
+    
+    <content type="html"><![CDATA[<p>Zerotier 搭建 Moon 节点可以减少连接延迟，但是 Moon 节点只支持静态 IP，在国内大概率只有购买 VPS，但是国内 VPS 带宽很金贵，按流量付费又有些麻烦。如果家里宽带有公网 IP 的话是最好的，但是 Moon 节点又不支持动态 IP。</p><p>本文通过脚本命令获取当前公网 IP，并与 moon.json 中的 IP 进行比对，如果不一致，则更改 moon.json 中的 IP，并重启服务。</p><a id="more"></a><p>本文是在 openwrt 里安装的 Zerotier，<code>luci-app-zerotier</code> 插件自带的 Zerotier 服务。地址为 <code>/etc/config/zero</code>。</p><h2 id="搭建-moon-节点">搭建 moon 节点</h2><h3 id="生成-moon.json">生成 moon.json</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/config/zero</span><br><span class="line">zerotier-idtool initmoon identity.public &gt; moon.json</span><br></pre></td></tr></table></figure><p>修改刚刚生成的配置文件 <code>moon.json</code> 中的 <code>stableEndpoints</code>：</p><figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line"> <span class="attr">"id"</span>: <span class="string">"xxxxx"</span>,</span><br><span class="line"> <span class="attr">"objtype"</span>: <span class="string">"world"</span>,</span><br><span class="line"> <span class="attr">"roots"</span>: [</span><br><span class="line">  &#123;</span><br><span class="line">   <span class="attr">"identity"</span>: <span class="string">"xxxx:0:eeee"</span>,</span><br><span class="line">   <span class="attr">"stableEndpoints"</span>: [<span class="string">"10.10.0.0/9993"</span>]</span><br><span class="line">  &#125;</span><br><span class="line"> ],</span><br><span class="line"> <span class="attr">"signingKey"</span>: <span class="string">"asdfasdfasdf"</span>,</span><br><span class="line"> <span class="attr">"signingKey_SECRET"</span>: <span class="string">"asdfasdfasdfasd"</span>,</span><br><span class="line"> <span class="attr">"updatesMustBeSignedBy"</span>: <span class="string">"asdfasdfasdf"</span>,</span><br><span class="line"> <span class="attr">"worldType"</span>: <span class="string">"moon"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>此处的 <code>10.10.0.0</code> 就是公网 IP。</p><h3 id="生成签名文件">生成签名文件</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">zerotier-idtool genmoon moon.json</span><br></pre></td></tr></table></figure><p>执行之后会生产一个 <code>000000xxxx.moon</code> 的文件</p><p>新建 <code>moons.d</code> 文件夹，将生成的 <code>.moon</code> 文件移动到 <code>moons.d</code> 文件夹中，并重启 Zerotier 服务</p><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mkdir moons.d</span><br><span class="line">mv *.moon moons.d/</span><br><span class="line">/etc/init.d/zerotier restart</span><br></pre></td></tr></table></figure><h2 id="自动更新-moon-节点-ip">自动更新 Moon 节点 IP</h2><p>将以下脚本放到 <code>/etc/config/zero/update_moon.sh</code> 中</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># Set the path to the moon.json file</span></span><br><span class="line">MOON_JSON_PATH=/etc/config/zero/moon.json</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get the current public IP address</span></span><br><span class="line">CURRENT_IP=$(curl -4s https://checkip.amazonaws.com)</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Current IP address is: <span class="variable">$CURRENT_IP</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Get the IP address in the moon.json file</span></span><br><span class="line">MOON_IP=$(jq -r <span class="string">'.roots[0].stableEndpoints[0] | split("/")[0]'</span> <span class="variable">$MOON_JSON_PATH</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Moon IP address is: <span class="variable">$MOON_IP</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Check if the IP address has changed</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$CURRENT_IP</span>"</span> != <span class="string">"<span class="variable">$MOON_IP</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"IP is different."</span></span><br><span class="line">  <span class="comment"># Update the IP address in moon.json</span></span><br><span class="line">  sed -i <span class="string">'s/[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+/'</span><span class="string">"<span class="variable">$CURRENT_IP</span>"</span><span class="string">'/g'</span> moon.json</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Generate the sign file</span></span><br><span class="line">  zerotier-idtool genmoon moon.json</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Delete exsist sign file</span></span><br><span class="line">  rm -f moons.d/*.moon</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Move exsist sign file</span></span><br><span class="line">  mv *.moon moons.d/</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Restart the zerotier service to apply the changes</span></span><br><span class="line">  /etc/init.d/zerotier restart</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"Zerotier service restart."</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"IP is same."</span></span><br></pre></td></tr></table></figure><p>使用crontab来定时执行脚本，输入以下命令来编辑当前用户的crontab文件： <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure></p><p>然后在打开的编辑器中添加一行如下的内容，表示每天凌晨2点执行update_moon.sh脚本：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0 2 * * * /etc/config/zero/update_moon.sh</span><br></pre></td></tr></table></figure><p>保存并退出编辑器。这会将指定的命令添加到用户的crontab中，使其每天凌晨2点自动执行。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Zerotier 搭建 Moon 节点可以减少连接延迟，但是 Moon 节点只支持静态 IP，在国内大概率只有购买 VPS，但是国内 VPS 带宽很金贵，按流量付费又有些麻烦。如果家里宽带有公网 IP 的话是最好的，但是 Moon 节点又不支持动态 IP。&lt;/p&gt;
+&lt;p&gt;本文通过脚本命令获取当前公网 IP，并与 moon.json 中的 IP 进行比对，如果不一致，则更改 moon.json 中的 IP，并重启服务。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="知识点" scheme="https://xungejiang.com/categories/%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
+    
+    
+      <category term="zerotier" scheme="https://xungejiang.com/tags/zerotier/"/>
+    
+      <category term="ddns" scheme="https://xungejiang.com/tags/ddns/"/>
+    
+  </entry>
   
   <entry>
     <title>完整步骤！如何使用LXD构建多人使用GPU服务器</title>
@@ -1236,6 +1262,29 @@
   </entry>
   
   <entry>
+    <title>在 macOS 中使用 BootCamp 安装 Windows10</title>
+    <link href="https://xungejiang.com//2016/07/07/mac-bootcamp-win10/"/>
+    <id>https://xungejiang.com//2016/07/07/mac-bootcamp-win10/</id>
+    <published>2016-07-07T01:01:42.000Z</published>
+    <updated>2016-07-07T01:01:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>如何在苹果电脑中安装双系统 mac + win10</p><a id="more"></a><h2 id="前言">前言</h2><p>苹果电脑当然还是苹果系统最适合，优势最明显的是省电，当然也有美观、系统流畅等其他优点。但是也有很多劣势，比如 mac 系统学习成本比较大，很多软件不兼容。所以在硬盘空间的允许下装双系统应该是再合适不过的啦。</p><p>博主就是因为老爸不习惯 macOS ，而博主又特别喜欢 macOS 的界面，所以权衡利弊借助 bootcamp 装了双系统。</p><p>其实想在苹果电脑上运行 mac 还可以用虚拟机，这里推荐 <code>parlldesktop</code> 虚拟机，不过需要花钱，也有破解版。</p><h2 id="准备工作">准备工作</h2><p>win10 镜像， USB 2.0 。</p><h2 id="开始制作">开始制作</h2><p>首先需要 win10 镜像，推荐 <a href>MSN I tell you</a>，镜像都是原版无添加。</p><p>然后需要一个 USB 2.0 的U盘。。<strong>注意，最好！！一定！！是 2.0 的U盘</strong> 因为博主试过好多 3.0 的U盘都不成功，后来看有人建议用 2.0 的U盘试试，果然成功了！！博主用的是 Kingston 的 2.0 U盘。</p><p>然后需要用 bootcamp 制作 win10 的启动U盘。</p><p>实用工具 -&gt; bootcamp助理 -&gt; 继续 -&gt; 打好三个对勾，然后会自动将镜像拷贝到U盘，并下载一些必要的驱动。之后会自动重启，安装方法和 Windows 就没有什么区别了。</p><p>安装好 Windows 会发现没有无线网驱动，分辨率也不是很适配。这时候就需要打开C盘，会有一个 bootcamp 的文件夹，里头有 setup 的驱动程序，安装完成后就发现无线网卡出现了，分辨率也适配到了最佳水准。</p><hr><p>2018.10 update</p><p>新版 BootCamp(启动转换助理) 不再需要使用 U 盘，系统会自动将硬盘的一部分分区作为系统盘，并在之后的使用中删去这个分区，使用更加方便</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;如何在苹果电脑中安装双系统 mac + win10&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="瞎折腾" scheme="https://xungejiang.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/"/>
+    
+    
+      <category term="mac" scheme="https://xungejiang.com/tags/mac/"/>
+    
+  </entry>
+  
+  <entry>
     <title>github 的介绍以及基本配置</title>
     <link href="https://xungejiang.com//2016/07/07/github-intro/"/>
     <id>https://xungejiang.com//2016/07/07/github-intro/</id>
@@ -1280,29 +1329,6 @@
       <category term="sublime" scheme="https://xungejiang.com/tags/sublime/"/>
     
       <category term="C++" scheme="https://xungejiang.com/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在 macOS 中使用 BootCamp 安装 Windows10</title>
-    <link href="https://xungejiang.com//2016/07/07/mac-bootcamp-win10/"/>
-    <id>https://xungejiang.com//2016/07/07/mac-bootcamp-win10/</id>
-    <published>2016-07-07T01:01:42.000Z</published>
-    <updated>2016-07-07T01:01:42.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>如何在苹果电脑中安装双系统 mac + win10</p><a id="more"></a><h2 id="前言">前言</h2><p>苹果电脑当然还是苹果系统最适合，优势最明显的是省电，当然也有美观、系统流畅等其他优点。但是也有很多劣势，比如 mac 系统学习成本比较大，很多软件不兼容。所以在硬盘空间的允许下装双系统应该是再合适不过的啦。</p><p>博主就是因为老爸不习惯 macOS ，而博主又特别喜欢 macOS 的界面，所以权衡利弊借助 bootcamp 装了双系统。</p><p>其实想在苹果电脑上运行 mac 还可以用虚拟机，这里推荐 <code>parlldesktop</code> 虚拟机，不过需要花钱，也有破解版。</p><h2 id="准备工作">准备工作</h2><p>win10 镜像， USB 2.0 。</p><h2 id="开始制作">开始制作</h2><p>首先需要 win10 镜像，推荐 <a href>MSN I tell you</a>，镜像都是原版无添加。</p><p>然后需要一个 USB 2.0 的U盘。。<strong>注意，最好！！一定！！是 2.0 的U盘</strong> 因为博主试过好多 3.0 的U盘都不成功，后来看有人建议用 2.0 的U盘试试，果然成功了！！博主用的是 Kingston 的 2.0 U盘。</p><p>然后需要用 bootcamp 制作 win10 的启动U盘。</p><p>实用工具 -&gt; bootcamp助理 -&gt; 继续 -&gt; 打好三个对勾，然后会自动将镜像拷贝到U盘，并下载一些必要的驱动。之后会自动重启，安装方法和 Windows 就没有什么区别了。</p><p>安装好 Windows 会发现没有无线网驱动，分辨率也不是很适配。这时候就需要打开C盘，会有一个 bootcamp 的文件夹，里头有 setup 的驱动程序，安装完成后就发现无线网卡出现了，分辨率也适配到了最佳水准。</p><hr><p>2018.10 update</p><p>新版 BootCamp(启动转换助理) 不再需要使用 U 盘，系统会自动将硬盘的一部分分区作为系统盘，并在之后的使用中删去这个分区，使用更加方便</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;如何在苹果电脑中安装双系统 mac + win10&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="瞎折腾" scheme="https://xungejiang.com/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/"/>
-    
-    
-      <category term="mac" scheme="https://xungejiang.com/tags/mac/"/>
     
   </entry>
   
