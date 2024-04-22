@@ -116,7 +116,7 @@
   
     <article class="post">
       <div class="post-title">
-        <h2><a class="post-title-link" href="/2024/04/22/lxd-error/">LXD报错：Error LXD unix socket not accessible Get &#34;http://unix.socket/1.0&#34; EOF</a></h2>
+        <h2><a class="post-title-link" href="/2024/04/22/lxd-error/">LXD报错：Error LXD unix socket not accessible Get &quot;http://unix.socket/1.0&quot; EOF</a></h2>
       </div>
       <div class="post-meta">
         <span class="date">2024-04-22</span>
@@ -130,7 +130,7 @@
         
       </span></span></span></span></div>
       <div class="post-content">
-        
+        <p>最近重启了下服务器，结果LXD的容器全部无法启动，差点没给我整崩溃了。。。</p>
       </div>
       <div class="continue"><a class="btn" href="/2024/04/22/lxd-error/">继续阅读</a></div>
     </article>
@@ -452,5 +452,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

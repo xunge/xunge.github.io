@@ -123,7 +123,7 @@
         
       
       <div class="archive-item">
-        <a class="archive-title" href="/2024/04/22/lxd-error/">LXD报错：Error LXD unix socket not accessible Get &#34;http://unix.socket/1.0&#34; EOF</a>
+        <a class="archive-title" href="/2024/04/22/lxd-error/">LXD报错：Error LXD unix socket not accessible Get &quot;http://unix.socket/1.0&quot; EOF</a>
         <span class="archive-time date">04-22</span>
       </div>
       
@@ -331,5 +331,20 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
