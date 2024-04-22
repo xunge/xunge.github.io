@@ -116,6 +116,27 @@
   
     <article class="post">
       <div class="post-title">
+        <h2><a class="post-title-link" href="/2019/10/20/imagenet-train-set/">ImageNet 训练集特殊图像集合</a></h2>
+      </div>
+      <div class="post-meta">
+        <span class="date">2019-10-20</span>
+        
+          <span>|<span>
+          <a class="article-tag-link" href="/tags/imagenet/">imagenet</a>, <a class="article-tag-link" href="/tags/pytorch/">pytorch</a>
+        
+        
+          <span>|<span>
+          <a class="article-tag-link" href="/categories/经验值/">经验值</a>
+        
+      </span></span></span></span></div>
+      <div class="post-content">
+        <p>最近运行一个 PyTorch 工程的代码，在读取数据集时没有用官方的 Dataloader，而是自己写了一个读取数据集的函数。在读取 ImageNet 2012 数据集时遇到了一些错误，在此记录一下。</p>
+      </div>
+      <div class="continue"><a class="btn" href="/2019/10/20/imagenet-train-set/">继续阅读</a></div>
+    </article>
+  
+    <article class="post">
+      <div class="post-title">
         <h2><a class="post-title-link" href="/2019/10/10/ICT-LXD-readme/">ICT 实验室深度学习服务器使用说明</a></h2>
       </div>
       <div class="post-meta">
@@ -308,28 +329,6 @@
       <div class="continue"><a class="btn" href="/2018/11/18/mac-change-ssd-760p/">继续阅读</a></div>
     </article>
   
-    <article class="post">
-      <div class="post-title">
-        <h2><a class="post-title-link" href="/2018/08/04/matplotlib-html/">如何将 Matplotlib 图像展示在 web 页面上</a></h2>
-      </div>
-      <div class="post-meta">
-        <span class="date">2018-08-04</span>
-        
-          <span>|<span>
-          <a class="article-tag-link" href="/tags/Django/">Django</a>, <a class="article-tag-link" href="/tags/Matplotlib/">Matplotlib</a>, <a class="article-tag-link" href="/tags/python/">python</a>
-        
-        
-          <span>|<span>
-          <a class="article-tag-link" href="/categories/经验值/">经验值</a>
-        
-      </span></span></span></span></div>
-      <div class="post-content">
-        <p>我们知道 Matplotlib 是一个非常强大的 Python 画图工具，其不仅可以画条形图、饼状图等统计图，也可以画以像素构成的图像。MATLAB 能画的图像，Matplotlib 通过 Python 语言也能画。</p>
-<p>做项目的时候遇到一个需求，就是如何将网页后端生成的 Matplotlib 图像展示在前端页面上。尝试使用了如下几种方法，在此记录一下。</p>
-      </div>
-      <div class="continue"><a class="btn" href="/2018/08/04/matplotlib-html/">继续阅读</a></div>
-    </article>
-  
 </section>
 
   <nav class="page-nav">
@@ -464,20 +463,5 @@
       myMenu.addEventListener("click", toggleClassMenu, false)
     })
   </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
